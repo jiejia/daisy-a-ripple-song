@@ -1,0 +1,17 @@
+{
+  "name": "a-ripple-song/theme",
+  "description": "Composer support for the a-ripple-song WordPress theme",
+  "license": "GPL-3.0-or-later",
+  "type": "wordpress-theme",
+  "require": {
+    "php": "^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ARippleSong\\": "App/"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}

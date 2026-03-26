@@ -1,0 +1,12 @@
+{
+  "name": "a-ripple-song",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^8.0.2"
+  }
+}

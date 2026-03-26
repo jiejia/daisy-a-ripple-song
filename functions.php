@@ -19,5 +19,5 @@ if (! file_exists($autoload)) {
 require_once $autoload;
 
 add_action('wp_enqueue_scripts', static function (): void {
-    (new ARippleSong\Vite())->enqueueAssets();
+    (new App\Vite())->enqueueAssets();
 });

@@ -1,5 +1,5 @@
 <?php
-namespace ARippleSong;
+namespace App;
 
 /**
  * Handles Vite asset integration for both development and production environments.

@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: all;
+}
+
+@source "../../*.php";
+@source "../../App/**/*.php";
+@source "../js/**/*.js";
+
+
+html {
+    scrollbar-gutter: stable;
+}
+
+/* 全局移除所有链接的下划线 */
+a {
+    text-decoration: none;
+}
+
+/* Alpine.js x-cloak: 在 Alpine 初始化前隐藏元素，防止闪烁 */
+[x-cloak] {
+    display: none !important;
+}
+
+
+/* 当显示 WordPress 管理工具栏时的调整 */
+body.admin-bar #swup-header {
+    top: 32px;
+}
+
+body.admin-bar .sticky.top-\[70px\] {
+    top: 102px;
+}
+
+@media screen and (max-width: 782px) {
+    body.admin-bar #swup-header {
+        top: 46px;
+    }
+
+    body.admin-bar .sticky.top-\[70px\] {
+        top: 116px;
+    }
+}
+
+.layout {
+    @apply grid lg:grid-cols-[220px_1fr_300px] md:grid-cols-[1fr_300px] grid-cols-[1fr] gap-4 mt-[55px] items-start relative;
+}

@@ -21,3 +21,5 @@ require_once $autoload;
 add_action('wp_enqueue_scripts', static function (): void {
     (new App\Vite())->enqueueAssets();
 });
+
+require_once __DIR__ . '/app/Setup.php';

@@ -1,4 +1,36 @@
-<?php get_header(); ?>
+<?php
+get_header();
+
+/**
+ * Store translated labels used by the home page widgets.
+ *
+ * @var array<string, string> $index_labels
+ */
+$index_labels = [
+    'previous_slide' => __('Previous slide', 'a-ripple-song'),
+    'next_slide'     => __('Next slide', 'a-ripple-song'),
+    'go_to_slide'    => __('Go to slide %d', 'a-ripple-song'),
+    'podcast'        => __('Podcast', 'a-ripple-song'),
+    'see_all'        => __('See all', 'a-ripple-song'),
+    'recent'         => __('Recent', 'a-ripple-song'),
+    'popular'        => __('Popular', 'a-ripple-song'),
+    'random'         => __('Random', 'a-ripple-song'),
+    'play'           => __('Play', 'a-ripple-song'),
+    'pause'          => __('Pause', 'a-ripple-song'),
+    'blog'           => __('Blog', 'a-ripple-song'),
+    'no_blog_posts'  => __('No blog posts yet', 'a-ripple-song'),
+];
+
+/**
+ * Store the Alpine expression used for play and pause button titles.
+ *
+ * @var string $player_title_expression
+ */
+$player_title_expression = '$store.player.currentEpisode && $store.player.currentEpisode.id === episode.id && $store.player.isPlaying ? '
+    . wp_json_encode($index_labels['pause'])
+    . ' : '
+    . wp_json_encode($index_labels['play']);
+?>
 
 <div class="layout">
     <?php get_template_part('resources/views/sections/leftbar'); ?>
@@ -28,12 +60,12 @@
                             </div>
 
 
-                            <button type="button" class="banner-prev absolute top-1/2 left-2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors backdrop-blur-sm" data-carousel-prev="banner-carousel-banner_carousel_widget-7" aria-label="Previous slide">
+                            <button type="button" class="banner-prev absolute top-1/2 left-2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors backdrop-blur-sm" data-carousel-prev="banner-carousel-banner_carousel_widget-7" aria-label="<?php echo esc_attr($index_labels['previous_slide']); ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="m15 18-6-6 6-6"></path>
                                 </svg>
                             </button>
-                            <button type="button" class="banner-next absolute top-1/2 right-2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors backdrop-blur-sm" data-carousel-next="banner-carousel-banner_carousel_widget-7" aria-label="Next slide">
+                            <button type="button" class="banner-next absolute top-1/2 right-2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors backdrop-blur-sm" data-carousel-next="banner-carousel-banner_carousel_widget-7" aria-label="<?php echo esc_attr($index_labels['next_slide']); ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="m9 18 6-6-6-6"></path>
                                 </svg>
@@ -41,11 +73,11 @@
 
 
                             <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-10">
-                                <button type="button" class="banner-dot w-2.5 h-2.5 rounded-full transition-all duration-300 shadow-sm bg-white/50 hover:bg-white/80" data-carousel="banner-carousel-banner_carousel_widget-7" data-index="0" aria-label="Go to slide 1">
+                                <button type="button" class="banner-dot w-2.5 h-2.5 rounded-full transition-all duration-300 shadow-sm bg-white/50 hover:bg-white/80" data-carousel="banner-carousel-banner_carousel_widget-7" data-index="0" aria-label="<?php echo esc_attr(sprintf($index_labels['go_to_slide'], 1)); ?>">
                                 </button>
-                                <button type="button" class="banner-dot w-2.5 h-2.5 rounded-full transition-all duration-300 shadow-sm bg-white scale-125" data-carousel="banner-carousel-banner_carousel_widget-7" data-index="1" aria-label="Go to slide 2">
+                                <button type="button" class="banner-dot w-2.5 h-2.5 rounded-full transition-all duration-300 shadow-sm bg-white scale-125" data-carousel="banner-carousel-banner_carousel_widget-7" data-index="1" aria-label="<?php echo esc_attr(sprintf($index_labels['go_to_slide'], 2)); ?>">
                                 </button>
-                                <button type="button" class="banner-dot w-2.5 h-2.5 rounded-full transition-all duration-300 shadow-sm bg-white/50 hover:bg-white/80" data-carousel="banner-carousel-banner_carousel_widget-7" data-index="2" aria-label="Go to slide 3">
+                                <button type="button" class="banner-dot w-2.5 h-2.5 rounded-full transition-all duration-300 shadow-sm bg-white/50 hover:bg-white/80" data-carousel="banner-carousel-banner_carousel_widget-7" data-index="2" aria-label="<?php echo esc_attr(sprintf($index_labels['go_to_slide'], 3)); ?>">
                                 </button>
                             </div>
 
@@ -298,23 +330,23 @@
                  podcastData: {&quot;recent&quot;:[{&quot;post_id&quot;:227,&quot;audio_file&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020313\/Andor_s_Emmy_Wins_Political_Conclusion.m4a&quot;,&quot;episode_data&quot;:{&quot;id&quot;:227,&quot;audioUrl&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020313\/Andor_s_Emmy_Wins_Political_Conclusion.m4a&quot;,&quot;title&quot;:&quot;Andor’s Emmy Wins Political Conclusion&quot;,&quot;description&quot;:&quot;Welcome to our comprehensive deep dive into the explosive and emotionally resonant conclusion of Andor. In this episode, we are unpacking the critically acclaimed second season that has firmly established itself as a masterpiece of modern science fiction. Showrunner Tony Gilroy has defied expectations once again, crafting a sophisticated political thriller that bridges the four-year … Continued&quot;,&quot;publishDate&quot;:1769231269,&quot;featuredImage&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020316\/MV5BNGI2MTJjMjUtMTJhOC00YTY2LTg1NjUtMTdmMjg4YTk2YjM5XkEyXkFqcGc@._V1_.jpg&quot;,&quot;link&quot;:&quot;https:\/\/podcast.aripplesong.me\/episodes\/andors-emmy-wins-political-conclusion\/&quot;},&quot;title&quot;:&quot;Andor’s Emmy Wins Political Conclusion&quot;},{&quot;post_id&quot;:224,&quot;audio_file&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020310\/France_New_Cast_No_White_Lotus_Theme.m4a&quot;,&quot;episode_data&quot;:{&quot;id&quot;:224,&quot;audioUrl&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020310\/France_New_Cast_No_White_Lotus_Theme.m4a&quot;,&quot;title&quot;:&quot;France New Cast No White Lotus Theme&quot;,&quot;description&quot;:&quot;Welcome to your essential audio companion for HBO\u2019s cultural phenomenon, The White Lotus. Created by the singular mind of Mike White, this biting social satire peels back the glossy veneer of luxury travel to expose the rotting core of privilege, wealth, and human dysfunction. In each episode, we check into a new resort to dissect … Continued&quot;,&quot;publishDate&quot;:1769231167,&quot;featuredImage&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020312\/MV5BN2MyZGJjNzYtMjA0OS00ODYxLWIzYjgtNDliZmMwOGVhMDM5XkEyXkFqcGc@._V1_.jpg&quot;,&quot;link&quot;:&quot;https:\/\/podcast.aripplesong.me\/episodes\/france-new-cast-no-white-lotus-theme\/&quot;},&quot;title&quot;:&quot;France New Cast No White Lotus Theme&quot;},{&quot;post_id&quot;:221,&quot;audio_file&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020306\/Gi-hun_Dies_Cate_Blanchett_Recruits.m4a&quot;,&quot;episode_data&quot;:{&quot;id&quot;:221,&quot;audioUrl&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020306\/Gi-hun_Dies_Cate_Blanchett_Recruits.m4a&quot;,&quot;title&quot;:&quot;Gi-hun Dies Cate Blanchett Recruits&quot;,&quot;description&quot;:&quot;Welcome back, players. Today, we are stepping into the arena for one final, devastating time to break down the explosive conclusion of Netflix\u2019s global phenomenon, Squid Game Season 3. Released in June 2025, this final chapter brings Seong Gi-hun\u2019s saga to a heartbreaking close, shifting from a tale of rebellion to a brutal lesson in … Continued&quot;,&quot;publishDate&quot;:1769231086,&quot;featuredImage&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020308\/MV5BYTU3ZDVhNmMtMDVlNC00MDc0LTgwNDMtYWE5MTI2ZGI4YWIwXkEyXkFqcGc@._V1_.jpg&quot;,&quot;link&quot;:&quot;https:\/\/podcast.aripplesong.me\/episodes\/gi-hun-dies-cate-blanchett-recruits\/&quot;},&quot;title&quot;:&quot;Gi-hun Dies Cate Blanchett Recruits&quot;}],&quot;popular&quot;:[{&quot;post_id&quot;:227,&quot;audio_file&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020313\/Andor_s_Emmy_Wins_Political_Conclusion.m4a&quot;,&quot;episode_data&quot;:{&quot;id&quot;:227,&quot;audioUrl&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020313\/Andor_s_Emmy_Wins_Political_Conclusion.m4a&quot;,&quot;title&quot;:&quot;Andor’s Emmy Wins Political Conclusion&quot;,&quot;description&quot;:&quot;Welcome back, players. Today, we are stepping into the arena for one final, devastating time to break down the explosive conclusion of Netflix\u2019s global phenomenon, Squid Game Season 3. Released in June 2025, this final chapter brings Seong Gi-hun\u2019s saga to a heartbreaking close, shifting from a tale of rebellion to a brutal lesson in … Continued&quot;,&quot;publishDate&quot;:1769231269,&quot;featuredImage&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020316\/MV5BNGI2MTJjMjUtMTJhOC00YTY2LTg1NjUtMTdmMjg4YTk2YjM5XkEyXkFqcGc@._V1_.jpg&quot;,&quot;link&quot;:&quot;https:\/\/podcast.aripplesong.me\/episodes\/andors-emmy-wins-political-conclusion\/&quot;},&quot;title&quot;:&quot;Andor's Emmy Wins Political Conclusion&quot;},{&quot;post_id&quot;:224,&quot;audio_file&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020310\/France_New_Cast_No_White_Lotus_Theme.m4a&quot;,&quot;episode_data&quot;:{&quot;id&quot;:224,&quot;audioUrl&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020310\/France_New_Cast_No_White_Lotus_Theme.m4a&quot;,&quot;title&quot;:&quot;France New Cast No White Lotus Theme&quot;,&quot;description&quot;:&quot;Welcome back, players. Today, we are stepping into the arena for one final, devastating time to break down the explosive conclusion of Netflix\u2019s global phenomenon, Squid Game Season 3. Released in June 2025, this final chapter brings Seong Gi-hun\u2019s saga to a heartbreaking close, shifting from a tale of rebellion to a brutal lesson in … Continued&quot;,&quot;publishDate&quot;:1769231167,&quot;featuredImage&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020312\/MV5BN2MyZGJjNzYtMjA0OS00ODYxLWIzYjgtNDliZmMwOGVhMDM5XkEyXkFqcGc@._V1_.jpg&quot;,&quot;link&quot;:&quot;https:\/\/podcast.aripplesong.me\/episodes\/france-new-cast-no-white-lotus-theme\/&quot;},&quot;title&quot;:&quot;France New Cast No White Lotus Theme&quot;},{&quot;post_id&quot;:221,&quot;audio_file&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020306\/Gi-hun_Dies_Cate_Blanchett_Recruits.m4a&quot;,&quot;episode_data&quot;:{&quot;id&quot;:221,&quot;audioUrl&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020306\/Gi-hun_Dies_Cate_Blanchett_Recruits.m4a&quot;,&quot;title&quot;:&quot;Gi-hun Dies Cate Blanchett Recruits&quot;,&quot;description&quot;:&quot;Welcome back, players. Today, we are stepping into the arena for one final, devastating time to break down the explosive conclusion of Netflix\u2019s global phenomenon, Squid Game Season 3. Released in June 2025, this final chapter brings Seong Gi-hun\u2019s saga to a heartbreaking close, shifting from a tale of rebellion to a brutal lesson in … Continued&quot;,&quot;publishDate&quot;:1769231086,&quot;featuredImage&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020308\/MV5BYTU3ZDVhNmMtMDVlNC00MDc0LTgwNDMtYWE5MTI2ZGI4YWIwXkEyXkFqcGc@._V1_.jpg&quot;,&quot;link&quot;:&quot;https:\/\/podcast.aripplesong.me\/episodes\/gi-hun-dies-cate-blanchett-recruits\/&quot;},&quot;title&quot;:&quot;Gi-hun Dies Cate Blanchett Recruits&quot;}],&quot;random&quot;:[{&quot;post_id&quot;:212,&quot;audio_file&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020254\/Paramount_Axes_Dexter_Prequel_For_Hall.m4a&quot;,&quot;episode_data&quot;:{&quot;id&quot;:212,&quot;audioUrl&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020254\/Paramount_Axes_Dexter_Prequel_For_Hall.m4a&quot;,&quot;title&quot;:&quot;Paramount Axes Dexter Prequel For Hall&quot;,&quot;description&quot;:&quot;“Welcome back to ‘The Dark Passenger,’ your essential audio companion for deep dives into the Dexter universe. In today\u2019s episode, we are sharpening our knives to dissect the monumental impact of Dexter: Resurrection and the shocking direction the franchise has taken. We are still reeling from the Season 1 finale, ‘And Justice for All,’ which … Continued&quot;,&quot;publishDate&quot;:1769230785,&quot;featuredImage&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020256\/MV5BMzgxNzUwZTctMzliNi00MDUwLWE4YzctNjgwMDE2OWQwNzMxXkEyXkFqcGc@._V1_-scaled-1.jpg&quot;,&quot;link&quot;:&quot;https:\/\/podcast.aripplesong.me\/episodes\/paramount-axes-dexter-prequel-for-hall\/&quot;},&quot;title&quot;:&quot;Paramount Axes Dexter Prequel For Hall&quot;},{&quot;post_id&quot;:203,&quot;audio_file&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020238\/Mazin_Confirms_Last_of_Us_Season_Four_War.m4a&quot;,&quot;episode_data&quot;:{&quot;id&quot;:203,&quot;audioUrl&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020238\/Mazin_Confirms_Last_of_Us_Season_Four_War.m4a&quot;,&quot;title&quot;:&quot;Mazin Confirms Last of Us Season Four War&quot;,&quot;description&quot;:&quot;Join us for a comprehensive deep dive into the future of HBO\u2019s acclaimed adaptation of The Last of Us, as we unpack the massive developments surrounding the highly anticipated Season 3. With the series officially targeting a 2027 release window, we break down the significant behind-the-scenes shake-up: co-creator Neil Druckmann has stepped back from his … Continued&quot;,&quot;publishDate&quot;:1769230346,&quot;featuredImage&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020242\/MV5BODE3OGFmNzgtNDhmYi00MzAwLWE5NzQtYjA2NmFkMmM1ZDhlXkEyXkFqcGc@._V1_.jpg&quot;,&quot;link&quot;:&quot;https:\/\/podcast.aripplesong.me\/episodes\/mazin-confirms-last-of-us-season-four-war\/&quot;},&quot;title&quot;:&quot;Mazin Confirms Last of Us Season Four War&quot;},{&quot;post_id&quot;:221,&quot;audio_file&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020306\/Gi-hun_Dies_Cate_Blanchett_Recruits.m4a&quot;,&quot;episode_data&quot;:{&quot;id&quot;:221,&quot;audioUrl&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020306\/Gi-hun_Dies_Cate_Blanchett_Recruits.m4a&quot;,&quot;title&quot;:&quot;Gi-hun Dies Cate Blanchett Recruits&quot;,&quot;description&quot;:&quot;Welcome back, players. Today, we are stepping into the arena for one final, devastating time to break down the explosive conclusion of Netflix\u2019s global phenomenon, Squid Game Season 3. Released in June 2025, this final chapter brings Seong Gi-hun\u2019s saga to a heartbreaking close, shifting from a tale of rebellion to a brutal lesson in … Continued&quot;,&quot;publishDate&quot;:1769231086,&quot;featuredImage&quot;:&quot;https:\/\/pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev\/wp-content\/uploads\/2026\/01\/27020308\/MV5BYTU3ZDVhNmMtMDVlNC00MDc0LTgwNDMtYWE5MTI2ZGI4YWIwXkEyXkFqcGc@._V1_.jpg&quot;,&quot;link&quot;:&quot;https:\/\/podcast.aripplesong.me\/episodes\/gi-hun-dies-cate-blanchett-recruits\/&quot;},&quot;title&quot;:&quot;Gi-hun Dies Cate Blanchett Recruits&quot;}]}             }">
                         <div class="grid grid-cols-[1fr_auto] items-center">
                             <h2 class="text-lg font-bold">
-                                PODCAST </h2>
+                                <?php echo esc_html($index_labels['podcast']); ?></h2>
                             <span class="text-xs text-base-content/70">
-                                <a href="https://podcast.aripplesong.me/episodes/">See all</a>
+                                <a href="https://podcast.aripplesong.me/episodes/"><?php echo esc_html($index_labels['see_all']); ?></a>
                             </span>
                         </div>
                         <ul class="flex gap-2 mt-2">
                             <li>
                                 <button @click="activeTab = 'recent'" :class="activeTab === 'recent' ? 'bg-base-200' : 'bg-base-100'" class="btn rounded-full btn-sm bg-base-200">
-                                    Recent </button>
+                                    <?php echo esc_html($index_labels['recent']); ?></button>
                             </li>
                             <li>
                                 <button @click="activeTab = 'popular'" :class="activeTab === 'popular' ? 'bg-base-200' : 'bg-base-100'" class="btn rounded-full btn-sm bg-base-100">
-                                    Popular </button>
+                                    <?php echo esc_html($index_labels['popular']); ?></button>
                             </li>
                             <li>
                                 <button @click="activeTab = 'random'" :class="activeTab === 'random' ? 'bg-base-200' : 'bg-base-100'" class="btn rounded-full btn-sm bg-base-100">
-                                    Random </button>
+                                    <?php echo esc_html($index_labels['random']); ?></button>
                             </li>
                         </ul>
 
@@ -382,7 +414,7 @@
                         } else {
                             $store.player.addEpisode(episode);
                         }
-                    " class="cursor-pointer hover:text-primary transition-colors" :title="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying ? 'Pause' : 'Play'" title="Play">
+                    " class="cursor-pointer hover:text-primary transition-colors" :title="<?php echo esc_attr($player_title_expression); ?>" title="<?php echo esc_attr($index_labels['play']); ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pause" class="lucide lucide-pause text-xs h-4" x-cloak x-show="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying" style="display: none;">
                                                     <rect x="14" y="3" width="5" height="18" rx="1"></rect>
                                                     <rect x="5" y="3" width="5" height="18" rx="1"></rect>
@@ -458,7 +490,7 @@
                         } else {
                             $store.player.addEpisode(episode);
                         }
-                    " class="cursor-pointer hover:text-primary transition-colors" :title="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying ? 'Pause' : 'Play'" title="Play">
+                    " class="cursor-pointer hover:text-primary transition-colors" :title="<?php echo esc_attr($player_title_expression); ?>" title="<?php echo esc_attr($index_labels['play']); ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pause" class="lucide lucide-pause text-xs h-4" x-cloak x-show="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying" style="display: none;">
                                                     <rect x="14" y="3" width="5" height="18" rx="1"></rect>
                                                     <rect x="5" y="3" width="5" height="18" rx="1"></rect>
@@ -534,7 +566,7 @@
                         } else {
                             $store.player.addEpisode(episode);
                         }
-                    " class="cursor-pointer hover:text-primary transition-colors" :title="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying ? 'Pause' : 'Play'" title="Play">
+                    " class="cursor-pointer hover:text-primary transition-colors" :title="<?php echo esc_attr($player_title_expression); ?>" title="<?php echo esc_attr($index_labels['play']); ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pause" class="lucide lucide-pause text-xs h-4" x-cloak x-show="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying" style="display: none;">
                                                     <rect x="14" y="3" width="5" height="18" rx="1"></rect>
                                                     <rect x="5" y="3" width="5" height="18" rx="1"></rect>
@@ -614,7 +646,7 @@
                         } else {
                             $store.player.addEpisode(episode);
                         }
-                    " class="cursor-pointer hover:text-primary transition-colors" :title="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying ? 'Pause' : 'Play'" title="Play">
+                    " class="cursor-pointer hover:text-primary transition-colors" :title="<?php echo esc_attr($player_title_expression); ?>" title="<?php echo esc_attr($index_labels['play']); ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pause" class="lucide lucide-pause text-xs h-4" x-cloak x-show="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying" style="display: none;">
                                                     <rect x="14" y="3" width="5" height="18" rx="1"></rect>
                                                     <rect x="5" y="3" width="5" height="18" rx="1"></rect>
@@ -690,7 +722,7 @@
                         } else {
                             $store.player.addEpisode(episode);
                         }
-                    " class="cursor-pointer hover:text-primary transition-colors" :title="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying ? 'Pause' : 'Play'" title="Play">
+                    " class="cursor-pointer hover:text-primary transition-colors" :title="<?php echo esc_attr($player_title_expression); ?>" title="<?php echo esc_attr($index_labels['play']); ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pause" class="lucide lucide-pause text-xs h-4" x-cloak x-show="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying" style="display: none;">
                                                     <rect x="14" y="3" width="5" height="18" rx="1"></rect>
                                                     <rect x="5" y="3" width="5" height="18" rx="1"></rect>
@@ -766,7 +798,7 @@
                         } else {
                             $store.player.addEpisode(episode);
                         }
-                    " class="cursor-pointer hover:text-primary transition-colors" :title="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying ? 'Pause' : 'Play'" title="Play">
+                    " class="cursor-pointer hover:text-primary transition-colors" :title="<?php echo esc_attr($player_title_expression); ?>" title="<?php echo esc_attr($index_labels['play']); ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pause" class="lucide lucide-pause text-xs h-4" x-cloak x-show="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying" style="display: none;">
                                                     <rect x="14" y="3" width="5" height="18" rx="1"></rect>
                                                     <rect x="5" y="3" width="5" height="18" rx="1"></rect>
@@ -846,7 +878,7 @@
                         } else {
                             $store.player.addEpisode(episode);
                         }
-                    " class="cursor-pointer hover:text-primary transition-colors" :title="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying ? 'Pause' : 'Play'" title="Play">
+                    " class="cursor-pointer hover:text-primary transition-colors" :title="<?php echo esc_attr($player_title_expression); ?>" title="<?php echo esc_attr($index_labels['play']); ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pause" class="lucide lucide-pause text-xs h-4" x-cloak x-show="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying" style="display: none;">
                                                     <rect x="14" y="3" width="5" height="18" rx="1"></rect>
                                                     <rect x="5" y="3" width="5" height="18" rx="1"></rect>
@@ -922,7 +954,7 @@
                         } else {
                             $store.player.addEpisode(episode);
                         }
-                    " class="cursor-pointer hover:text-primary transition-colors" :title="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying ? 'Pause' : 'Play'" title="Play">
+                    " class="cursor-pointer hover:text-primary transition-colors" :title="<?php echo esc_attr($player_title_expression); ?>" title="<?php echo esc_attr($index_labels['play']); ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pause" class="lucide lucide-pause text-xs h-4" x-cloak x-show="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying" style="display: none;">
                                                     <rect x="14" y="3" width="5" height="18" rx="1"></rect>
                                                     <rect x="5" y="3" width="5" height="18" rx="1"></rect>
@@ -998,7 +1030,7 @@
                         } else {
                             $store.player.addEpisode(episode);
                         }
-                    " class="cursor-pointer hover:text-primary transition-colors" :title="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying ? 'Pause' : 'Play'" title="Play">
+                    " class="cursor-pointer hover:text-primary transition-colors" :title="<?php echo esc_attr($player_title_expression); ?>" title="<?php echo esc_attr($index_labels['play']); ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pause" class="lucide lucide-pause text-xs h-4" x-cloak x-show="$store.player.currentEpisode &amp;&amp; $store.player.currentEpisode.id === episode.id &amp;&amp; $store.player.isPlaying" style="display: none;">
                                                     <rect x="14" y="3" width="5" height="18" rx="1"></rect>
                                                     <rect x="5" y="3" width="5" height="18" rx="1"></rect>
@@ -1019,13 +1051,13 @@
                     <div class="rounded-lg bg-base-100 p-4">
                         <div class="grid grid-cols-[1fr_auto] items-center">
                             <h2 class="text-lg font-bold">
-                                BLOG </h2>
+                                <?php echo esc_html($index_labels['blog']); ?></h2>
                             <span class="text-xs text-base-content/70">
-                                <a href="https://podcast.aripplesong.me/blog/">See all</a>
+                                <a href="https://podcast.aripplesong.me/blog/"><?php echo esc_html($index_labels['see_all']); ?></a>
                             </span>
                         </div>
                         <ul class="grid grid-cols-3 gap-4 gap-y-8 mt-4">
-                            <li class="col-span-3 text-center text-base-content/50 py-8">No blog posts yet</li>
+                            <li class="col-span-3 text-center text-base-content/50 py-8"><?php echo esc_html($index_labels['no_blog_posts']); ?></li>
                         </ul>
                     </div>
                 </div>

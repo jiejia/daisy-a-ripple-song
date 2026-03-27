@@ -1,3 +1,18 @@
+<?php
+/**
+ * Store translated labels used in the sidebar widgets.
+ *
+ * @var array<string, string> $sidebar_labels
+ */
+$sidebar_labels = [
+    'search_placeholder' => __('Search …', 'a-ripple-song'),
+    'subscribe'          => __('Subscribe', 'a-ripple-song'),
+    'now_playing'        => __('Now Playing', 'a-ripple-song'),
+    'podcast'            => __('Podcast', 'a-ripple-song'),
+    'no_episode'         => __('No Episode Playing', 'a-ripple-song'),
+    'loading_audio'      => __('Loading audio', 'a-ripple-song'),
+];
+?>
 
 <aside class="sidebar sticky top-[70px] lg:block md:block">
         <div class="hidden md:block lg:block">
@@ -10,7 +25,7 @@
                                 <path d="m21 21-4.3-4.3"></path>
                             </g>
                         </svg>
-                        <input type="search" placeholder="Search …" value="" name="s">
+                        <input type="search" placeholder="<?php echo esc_attr($sidebar_labels['search_placeholder']); ?>" value="" name="s">
                     </label>
                     <a class="btn btn-square bg-base-100" href="https://podcast.aripplesong.me/feed/" target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="Rss" class="lucide lucide-Rss w-4 h-4">
@@ -24,7 +39,7 @@
             <div class="widget subscribe_links_widget-7 widget_subscribe_links_widget mb-4">
                 <div class="card bg-base-100 w-full mt-4">
                     <div class="card-body p-4">
-                        <h2 class="text-lg font-bold">SUBSCRIBE</h2>
+                        <h2 class="text-lg font-bold"><?php echo esc_html($sidebar_labels['subscribe']); ?></h2>
 
                         <a href="https://podcasts.apple.com/" target="_blank" rel="noopener noreferrer" class="btn bg-gradient-to-r from-gray-600 via-gray-800 to-black btn-sm text-white border-black transition-all duration-500 ease-in-out hover:from-black hover:via-gray-800 hover:to-gray-600">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="podcast" class="lucide lucide-podcast w-4 h-4">
@@ -59,19 +74,19 @@
 
         <div class="card md:bg-base-100 bg-base-300/90 md:static md:mt-5 fixed bottom-0 left-0 right-0 z-100" x-data="">
             <div class="card-body md:p-4 py-2 px-4">
-                <h2 class="md:text-lg text-md font-bold">NOW PLAYING</h2>
+                <h2 class="md:text-lg text-md font-bold"><?php echo esc_html($sidebar_labels['now_playing']); ?></h2>
                 <div class="grid grid-cols-[60px_1fr] gap-4 items-center md:bg-base-300/50 bg-base-100/75 md:p-4 py-2 px-4 rounded-lg">
                     <div class="md:w-15 md:h-15 w-10 h-10">
                         <template x-if="$store.player.currentEpisode?.featuredImage">
                             <div class="relative md:w-15 md:h-15 w-10 h-10">
-                                <img :src="$store.player.currentEpisode?.featuredImage" :alt="$store.player.currentEpisode?.title || 'Podcast'" class="md:w-15 md:h-15 w-10 h-10 rounded-md object-cover">
+                                <img :src="$store.player.currentEpisode?.featuredImage" :alt="$store.player.currentEpisode?.title || <?php echo esc_attr(wp_json_encode($sidebar_labels['podcast'])); ?>" class="md:w-15 md:h-15 w-10 h-10 rounded-md object-cover">
                                 <div class="pointer-events-none absolute inset-0 bg-base-900/30 flex items-center justify-center rounded-md">
                                     <i data-lucide="podcast" class="w-6 h-6 text-base-100"></i>
                                 </div>
                             </div>
                         </template>
                         <div class="relative md:w-15 md:h-15 w-10 h-10">
-                            <img :src="$store.player.currentEpisode?.featuredImage" :alt="$store.player.currentEpisode?.title || 'Podcast'" class="md:w-15 md:h-15 w-10 h-10 rounded-md object-cover" src="https://pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev/wp-content/uploads/2026/01/27020302/MV5BYjVmMjA4MGMtZGJiOS00NmRlLTkwNTgtMjFiNzIzZTUyZmU1XkEyXkFqcGc@._V1_-scaled-1.jpg" alt="Dept Q Uncovers Elite School Secrets">
+                            <img :src="$store.player.currentEpisode?.featuredImage" :alt="$store.player.currentEpisode?.title || <?php echo esc_attr(wp_json_encode($sidebar_labels['podcast'])); ?>" class="md:w-15 md:h-15 w-10 h-10 rounded-md object-cover" src="https://pub-33b8ff9693c046fa9dde3f0b2e484f0c.r2.dev/wp-content/uploads/2026/01/27020302/MV5BYjVmMjA4MGMtZGJiOS00NmRlLTkwNTgtMjFiNzIzZTUyZmU1XkEyXkFqcGc@._V1_-scaled-1.jpg" alt="Dept Q Uncovers Elite School Secrets">
                             <div class="pointer-events-none absolute inset-0 bg-base-900/30 flex items-center justify-center rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="podcast" class="lucide lucide-podcast w-6 h-6 text-base-100">
                                     <path d="M13 17a1 1 0 1 0-2 0l.5 4.5a0.5 0.5 0 0 0 1 0z" fill="currentColor"></path>
@@ -88,7 +103,7 @@
                         </template>
                     </div>
                     <div>
-                        <h4 class="text-md font-bold line-clamp-2" x-text="$store.player.currentEpisode?.title || 'No Episode Playing'">Dept Q Uncovers Elite School Secrets</h4>
+                        <h4 class="text-md font-bold line-clamp-2" x-text="$store.player.currentEpisode?.title || <?php echo esc_attr(wp_json_encode($sidebar_labels['no_episode'])); ?>">Dept Q Uncovers Elite School Secrets</h4>
                         <p class="text-xs text-base-content/80">
                             <span x-text="$store.player.currentEpisodePublishDate">Jan 24, 2026</span>
                         </p>
@@ -102,7 +117,7 @@
 
                         <div x-cloak x-show="$store.player.isLoading" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute inset-0 flex items-center justify-center gap-2 text-base-content/60" style="display: none;">
                             <span class="loading loading-ring loading-lg text-base-content"></span>
-                            <span class="text-xs text-base-content/75">Loading audio</span>
+                            <span class="text-xs text-base-content/75"><?php echo esc_html($sidebar_labels['loading_audio']); ?></span>
                         </div>
                     </div>
                     <div class="mt-0 w-full">

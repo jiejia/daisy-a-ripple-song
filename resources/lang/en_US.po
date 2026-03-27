@@ -1,0 +1,140 @@
+# English translations for A Ripple Song Theme package.
+# Copyright (C) 2026 THE A Ripple Song Theme'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the A Ripple Song Theme package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: A Ripple Song Theme 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-27 11:20+0800\n"
+"PO-Revision-Date: 2026-03-27 11:20+0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: wp-content/themes/a-ripple-song/functions.php:12
+msgid ""
+"Theme dependencies are missing. Run \"composer install\" in wp-content/"
+"themes/a-ripple-song."
+msgstr ""
+"Theme dependencies are missing. Run \"composer install\" in wp-content/"
+"themes/a-ripple-song."
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:20
+msgid "Primary Navigation"
+msgstr "Primary Navigation"
+
+#: wp-content/themes/a-ripple-song/index.php:10
+msgid "Previous slide"
+msgstr "Previous slide"
+
+#: wp-content/themes/a-ripple-song/index.php:11
+msgid "Next slide"
+msgstr "Next slide"
+
+#: wp-content/themes/a-ripple-song/index.php:12
+#, php-format
+msgid "Go to slide %d"
+msgstr "Go to slide %d"
+
+#: wp-content/themes/a-ripple-song/index.php:13
+#: wp-content/themes/a-ripple-song/sidebar.php:11
+msgid "Podcast"
+msgstr "Podcast"
+
+#: wp-content/themes/a-ripple-song/index.php:14
+msgid "See all"
+msgstr "See all"
+
+#: wp-content/themes/a-ripple-song/index.php:15
+msgid "Recent"
+msgstr "Recent"
+
+#: wp-content/themes/a-ripple-song/index.php:16
+msgid "Popular"
+msgstr "Popular"
+
+#: wp-content/themes/a-ripple-song/index.php:17
+msgid "Random"
+msgstr "Random"
+
+#: wp-content/themes/a-ripple-song/index.php:18
+msgid "Play"
+msgstr "Play"
+
+#: wp-content/themes/a-ripple-song/index.php:19
+msgid "Pause"
+msgstr "Pause"
+
+#: wp-content/themes/a-ripple-song/index.php:20
+msgid "Blog"
+msgstr "Blog"
+
+#: wp-content/themes/a-ripple-song/index.php:21
+msgid "No blog posts yet"
+msgstr "No blog posts yet"
+
+#: wp-content/themes/a-ripple-song/header.php:8
+msgid "Light Mode"
+msgstr "Light Mode"
+
+#: wp-content/themes/a-ripple-song/header.php:9
+msgid "Dark Mode"
+msgstr "Dark Mode"
+
+#: wp-content/themes/a-ripple-song/header.php:10
+msgid "Follow System"
+msgstr "Follow System"
+
+#: wp-content/themes/a-ripple-song/header.php:11
+msgid "Toggle Theme"
+msgstr "Toggle Theme"
+
+#: wp-content/themes/a-ripple-song/footer.php:8
+msgid "Link 1"
+msgstr "Link 1"
+
+#: wp-content/themes/a-ripple-song/footer.php:9
+msgid "Link 2"
+msgstr "Link 2"
+
+#: wp-content/themes/a-ripple-song/footer.php:10
+msgid "Link 3"
+msgstr "Link 3"
+
+#: wp-content/themes/a-ripple-song/footer.php:11
+msgid "Link 4"
+msgstr "Link 4"
+
+#: wp-content/themes/a-ripple-song/footer.php:12
+#, php-format
+msgid "© %1$s Powered by %2$s Theme"
+msgstr "© %1$s Powered by %2$s Theme"
+
+#: wp-content/themes/a-ripple-song/footer.php:13
+msgid "A Ripple Song"
+msgstr "A Ripple Song"
+
+#: wp-content/themes/a-ripple-song/sidebar.php:8
+msgid "Search …"
+msgstr "Search …"
+
+#: wp-content/themes/a-ripple-song/sidebar.php:9
+msgid "Subscribe"
+msgstr "Subscribe"
+
+#: wp-content/themes/a-ripple-song/sidebar.php:10
+msgid "Now Playing"
+msgstr "Now Playing"
+
+#: wp-content/themes/a-ripple-song/sidebar.php:12
+msgid "No Episode Playing"
+msgstr "No Episode Playing"
+
+#: wp-content/themes/a-ripple-song/sidebar.php:13
+msgid "Loading audio"
+msgstr "Loading audio"

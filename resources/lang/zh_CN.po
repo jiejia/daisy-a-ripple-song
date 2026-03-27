@@ -1,0 +1,138 @@
+# Chinese translations for A Ripple Song Theme package.
+# Copyright (C) 2026 THE A Ripple Song Theme'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the A Ripple Song Theme package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: A Ripple Song Theme 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-27 11:20+0800\n"
+"PO-Revision-Date: 2026-03-27 11:20+0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: wp-content/themes/a-ripple-song/functions.php:12
+msgid ""
+"Theme dependencies are missing. Run \"composer install\" in wp-content/"
+"themes/a-ripple-song."
+msgstr "主题依赖缺失。请在 wp-content/themes/a-ripple-song 中运行 \"composer install\"。"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:20
+msgid "Primary Navigation"
+msgstr "主导航"
+
+#: wp-content/themes/a-ripple-song/index.php:10
+msgid "Previous slide"
+msgstr "上一张幻灯片"
+
+#: wp-content/themes/a-ripple-song/index.php:11
+msgid "Next slide"
+msgstr "下一张幻灯片"
+
+#: wp-content/themes/a-ripple-song/index.php:12
+#, php-format
+msgid "Go to slide %d"
+msgstr "转到第 %d 张幻灯片"
+
+#: wp-content/themes/a-ripple-song/index.php:13
+#: wp-content/themes/a-ripple-song/sidebar.php:11
+msgid "Podcast"
+msgstr "播客"
+
+#: wp-content/themes/a-ripple-song/index.php:14
+msgid "See all"
+msgstr "查看全部"
+
+#: wp-content/themes/a-ripple-song/index.php:15
+msgid "Recent"
+msgstr "最新"
+
+#: wp-content/themes/a-ripple-song/index.php:16
+msgid "Popular"
+msgstr "热门"
+
+#: wp-content/themes/a-ripple-song/index.php:17
+msgid "Random"
+msgstr "随机"
+
+#: wp-content/themes/a-ripple-song/index.php:18
+msgid "Play"
+msgstr "播放"
+
+#: wp-content/themes/a-ripple-song/index.php:19
+msgid "Pause"
+msgstr "暂停"
+
+#: wp-content/themes/a-ripple-song/index.php:20
+msgid "Blog"
+msgstr "博客"
+
+#: wp-content/themes/a-ripple-song/index.php:21
+msgid "No blog posts yet"
+msgstr "暂无博客文章"
+
+#: wp-content/themes/a-ripple-song/header.php:8
+msgid "Light Mode"
+msgstr "浅色模式"
+
+#: wp-content/themes/a-ripple-song/header.php:9
+msgid "Dark Mode"
+msgstr "深色模式"
+
+#: wp-content/themes/a-ripple-song/header.php:10
+msgid "Follow System"
+msgstr "跟随系统"
+
+#: wp-content/themes/a-ripple-song/header.php:11
+msgid "Toggle Theme"
+msgstr "切换主题"
+
+#: wp-content/themes/a-ripple-song/footer.php:8
+msgid "Link 1"
+msgstr "链接 1"
+
+#: wp-content/themes/a-ripple-song/footer.php:9
+msgid "Link 2"
+msgstr "链接 2"
+
+#: wp-content/themes/a-ripple-song/footer.php:10
+msgid "Link 3"
+msgstr "链接 3"
+
+#: wp-content/themes/a-ripple-song/footer.php:11
+msgid "Link 4"
+msgstr "链接 4"
+
+#: wp-content/themes/a-ripple-song/footer.php:12
+#, php-format
+msgid "© %1$s Powered by %2$s Theme"
+msgstr "© %1$s 由 %2$s 主题驱动"
+
+#: wp-content/themes/a-ripple-song/footer.php:13
+msgid "A Ripple Song"
+msgstr "A Ripple Song"
+
+#: wp-content/themes/a-ripple-song/sidebar.php:8
+msgid "Search …"
+msgstr "搜索…"
+
+#: wp-content/themes/a-ripple-song/sidebar.php:9
+msgid "Subscribe"
+msgstr "订阅"
+
+#: wp-content/themes/a-ripple-song/sidebar.php:10
+msgid "Now Playing"
+msgstr "正在播放"
+
+#: wp-content/themes/a-ripple-song/sidebar.php:12
+msgid "No Episode Playing"
+msgstr "暂无播放节目"
+
+#: wp-content/themes/a-ripple-song/sidebar.php:13
+msgid "Loading audio"
+msgstr "正在加载音频"

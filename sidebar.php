@@ -23,4 +23,5 @@
         ?>
     </div>
     <?php get_template_part('resources/views/sections/player'); ?>
+    <?php get_template_part('resources/views/sections/playlist-drawer'); ?>
 </aside>

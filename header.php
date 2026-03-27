@@ -23,7 +23,7 @@ $theme_mode_labels = [
 <body <?php body_class('bg-base-200'); ?>>
     <?php wp_body_open(); ?>
     <div id="app" class="p-4 gap-4">
-        <header class="fixed top-0 h-[55px] left-0 right-0 z-100 bg-base-100/75 transition-fade" id="swup-header">
+        <header class="fixed top-0 h-[55px] left-0 right-0 z-50 bg-base-100/75 transition-fade" id="swup-header">
             <div class="max-w-screen-xl mx-auto h-full">
                 <div class="xl:px-0 px-4 py-3">
                     <div class="grid xl:grid-cols-[220px_1fr_300px] grid-cols-[220px_1fr] gap-4">

@@ -26,6 +26,38 @@ msgstr "主题依赖缺失。请在 wp-content/themes/a-ripple-song 中运行 \"
 msgid "Primary Navigation"
 msgstr "主导航"
 
+#: wp-content/themes/a-ripple-song/app/Setup.php:34
+msgid "Footer Links"
+msgstr "页脚链接"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:36
+msgid "Footer links area for displaying link columns"
+msgstr "页脚链接区域，用于展示链接列"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:44
+msgid "Home Main"
+msgstr "首页主区域"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:46
+msgid "Main area of the homepage for displaying various content modules"
+msgstr "首页主区域，用于展示各种内容模块"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:53
+msgid "Sidebar Primary"
+msgstr "主侧边栏"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:55
+msgid "Primary sidebar area for displaying various content modules"
+msgstr "主侧边栏区域，用于展示各种内容模块"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:62
+msgid "Leftbar Primary"
+msgstr "主左侧边栏"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:64
+msgid "Primary left sidebar area for displaying various content modules"
+msgstr "主左侧边栏区域，用于展示各种内容模块"
+
 #: wp-content/themes/a-ripple-song/index.php:10
 msgid "Previous slide"
 msgstr "上一张幻灯片"
@@ -136,3 +168,11 @@ msgstr "暂无播放节目"
 #: wp-content/themes/a-ripple-song/sidebar.php:13
 msgid "Loading audio"
 msgstr "正在加载音频"
+
+#: wp-content/themes/a-ripple-song/sidebar.php:17
+msgid "Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin panel."
+msgstr "请在后台「外观 > 小工具」中向「Sidebar」区域添加小工具。"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/leftbar.php:7
+msgid "Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin panel."
+msgstr "请在后台「外观 > 小工具」中向「Leftbar」区域添加小工具。"

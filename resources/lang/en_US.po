@@ -28,6 +28,38 @@ msgstr ""
 msgid "Primary Navigation"
 msgstr "Primary Navigation"
 
+#: wp-content/themes/a-ripple-song/app/Setup.php:34
+msgid "Footer Links"
+msgstr "Footer Links"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:36
+msgid "Footer links area for displaying link columns"
+msgstr "Footer links area for displaying link columns"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:44
+msgid "Home Main"
+msgstr "Home Main"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:46
+msgid "Main area of the homepage for displaying various content modules"
+msgstr "Main area of the homepage for displaying various content modules"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:53
+msgid "Sidebar Primary"
+msgstr "Sidebar Primary"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:55
+msgid "Primary sidebar area for displaying various content modules"
+msgstr "Primary sidebar area for displaying various content modules"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:62
+msgid "Leftbar Primary"
+msgstr "Leftbar Primary"
+
+#: wp-content/themes/a-ripple-song/app/Setup.php:64
+msgid "Primary left sidebar area for displaying various content modules"
+msgstr "Primary left sidebar area for displaying various content modules"
+
 #: wp-content/themes/a-ripple-song/index.php:10
 msgid "Previous slide"
 msgstr "Previous slide"
@@ -138,3 +170,11 @@ msgstr "No Episode Playing"
 #: wp-content/themes/a-ripple-song/sidebar.php:13
 msgid "Loading audio"
 msgstr "Loading audio"
+
+#: wp-content/themes/a-ripple-song/sidebar.php:17
+msgid "Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin panel."
+msgstr "Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin panel."
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/leftbar.php:7
+msgid "Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin panel."
+msgstr "Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin panel."

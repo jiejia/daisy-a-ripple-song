@@ -47,7 +47,7 @@ $theme_mode_labels = [
                             </button>
 
                             <label for="mobile-menu" class="xl:hidden block">
-                                <i data-lucide="menu" class="w-5 h-5"></i>
+                                <i data-lucide="menu" class="w-5 h-5 cursor-pointer"></i>
                             </label>
 
                         </div>
@@ -55,4 +55,5 @@ $theme_mode_labels = [
                 </div>
             </div>
         </header>
+        <?php get_template_part('resources/views/sections/mobile-menu'); ?>
         <div class="max-w-screen-xl mx-auto h-full">

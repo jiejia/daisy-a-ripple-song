@@ -13,7 +13,7 @@ $footer_labels = [
     'theme_name'      => __('A Ripple Song', 'a-ripple-song'),
 ];
 ?>
-<footer class="text-center text-base-content/70 text-xs">
+<footer class="text-center text-base-content/70 text-xs mt-4">
     <div class="grid md:[grid-template-columns:repeat(auto-fit,minmax(calc(25%-0.75rem),1fr))] grid-cols-2 justify-items-stretch gap-4 mb-4">
         <div class="text-left bg-base-100/60 rounded-lg p-4">
             <h4 class="text-base-content/70 text-lg font-bold mb-2"><?php echo esc_html($footer_labels['link_1']); ?></h4>
@@ -43,6 +43,7 @@ $footer_labels = [
 </footer>
 </div>
 </div>
+<?php get_template_part('resources/views/sections/mobile-menu'); ?>
 <?php wp_footer(); ?>
 </body>
 

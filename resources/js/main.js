@@ -3,8 +3,8 @@ import { createIcons, icons } from 'lucide';
 import { Howl, Howler } from 'howler';
 import AudioMotionAnalyzer from 'audiomotion-analyzer';
 import Alpine from 'alpinejs'
-
-createIcons({ icons });
+import SwupFormsPlugin from '@swup/forms-plugin';
+import SwupScriptsPlugin from '@swup/scripts-plugin';
 
 window.Alpine = Alpine
 
@@ -53,3 +53,24 @@ Alpine.store('theme', {
 
 Alpine.start()
 
+// 初始化 Swup (v4.x 版本)
+const swup = new Swup({
+    containers: ['#swup-main', '#swup-header', '#swup-mobile-menu'], // 指定要替换的容器
+    animateHistoryBrowsing: true,
+    // 让 Swup 在无刷新切换后重新执行页面内联脚本
+    plugins: [new SwupFormsPlugin(), new SwupScriptsPlugin()]
+});
+
+
+function init() {
+    // 重新初始化 Lucide 图标
+    createIcons({ icons });
+
+}
+
+// 页面首次加载
+document.addEventListener('DOMContentLoaded', init);
+
+
+// Swup v4.x 使用 hooks API
+swup.hooks.on('content:replace', init);

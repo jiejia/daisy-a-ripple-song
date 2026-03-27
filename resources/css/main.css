@@ -46,3 +46,14 @@ body.admin-bar .sticky.top-\[70px\] {
 .layout {
     @apply grid lg:grid-cols-[220px_1fr_300px] md:grid-cols-[1fr_300px] grid-cols-[1fr] gap-4 mt-[55px] items-start relative;
 }
+
+.widget {
+    @apply rounded-lg bg-base-100 p-4;
+}
+
+.wp-block-heading,.wp-block-search__label {
+    @apply text-lg font-bold;
+}
+.wp-block-group {
+    @apply text-sm;
+}

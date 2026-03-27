@@ -85,10 +85,10 @@ class AuthorsWidget extends \WP_Widget {
         }
 
         ?>
-        <div class="bg-base-100 rounded-lg p-4">
+        <div class="">
 
             <?php if ($showMembers && !empty($members)): ?>
-            <h3 class="text-sm font-bold text-base-content/50"><?php echo esc_html($membersTitle); ?></h3>
+            <h2 class="wp-block-heading"><?php echo esc_html($membersTitle); ?></h2>
             <div class="grid grid-flow-row gap-2 mt-4">
                 <?php foreach ($members as $user): ?>
                     <?php echo $this->renderUserRow($user, $postCountsByUser, $episodeCountsByUser); ?>
@@ -97,9 +97,9 @@ class AuthorsWidget extends \WP_Widget {
             <?php endif; ?>
 
             <?php if ($showGuests && !empty($contributors)): ?>
-            <h3 class="text-sm font-bold text-base-content/50 <?php echo ($showMembers && !empty($members)) ? 'mt-4' : ''; ?>">
+            <h2 class="wp-block-heading <?php echo ($showMembers && !empty($members)) ? 'mt-4' : ''; ?>">
                 <?php echo esc_html($guestsTitle); ?>
-            </h3>
+            </h2>
             <div class="grid grid-flow-row gap-2 mt-4">
                 <?php foreach ($contributors as $user): ?>
                     <?php echo $this->renderUserRow($user, $postCountsByUser, $episodeCountsByUser); ?>

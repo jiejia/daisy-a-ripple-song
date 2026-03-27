@@ -8,6 +8,7 @@
 ?>
 
 <aside class="sidebar sticky top-[70px] lg:block md:block">
+    <?php get_search_form(); ?>
     <?php
     if (is_active_sidebar('rightbar-primary')) :
         dynamic_sidebar('rightbar-primary');

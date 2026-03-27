@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html <?php language_attributes(); ?> class="bg-base-200" data-theme="retro">
+<html <?php language_attributes(); ?> class="bg-base-200" x-data x-init="$store.theme.init()" :data-theme="$store.theme.current">
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
@@ -16,12 +16,7 @@
                     <div class="grid xl:grid-cols-[220px_1fr_300px] grid-cols-[220px_1fr] gap-4">
                         <h1 class="text-2xl font-bold text-center">
                             <a href="https://podcast.aripplesong.me/" class="flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="podcast" class="lucide lucide-podcast w-6 h-6">
-                                    <path d="M13 17a1 1 0 1 0-2 0l.5 4.5a0.5 0.5 0 0 0 1 0z" fill="currentColor"></path>
-                                    <path d="M16.85 18.58a9 9 0 1 0-9.7 0"></path>
-                                    <path d="M8 14a5 5 0 1 1 8 0"></path>
-                                    <circle cx="12" cy="11" r="1" fill="currentColor"></circle>
-                                </svg>
+                                <i data-lucide="podcast" class="w-6 h-6"></i>
                                 <span class="text-2xl bg-gradient-to-r from-base-content/40 via-base-content/70 to-base-content bg-clip-text text-transparent transition-all duration-500 ease-in-out hover:from-base-content hover:via-base-content/70 hover:to-base-content/40">A Ripple Song</span>
                             </a>
                         </h1>
@@ -44,41 +39,20 @@
                             </li>
                         </ul>
                         <div class="grid grid-flow-col justify-end gap-2 place-items-center">
-                            <label for="search-modal" class="md:hidden block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="lucide lucide-search w-5 h-5 cursor-pointer">
-                                    <path d="m21 21-4.34-4.34"></path>
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                </svg></label>
+                            <label for="search-modal" class="md:hidden block">
+                                <i data-lucide="search" class="w-5 h-5"></i>
+                            </label>
                             <!-- 主题循环切换按钮 -->
                             <button type="button" class="btn btn-ghost btn-sm btn-circle" @click="$store.theme.toggle()" :title="$store.theme.mode === 'light' ? 'Light Mode' : ($store.theme.mode === 'dark' ? 'Dark Mode' : 'Follow System')" title="Follow System">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sun" class="lucide lucide-sun w-5 h-5" x-cloak x-show="$store.theme.isLight" style="display: none;">
-                                    <circle cx="12" cy="12" r="4"></circle>
-                                    <path d="M12 2v2"></path>
-                                    <path d="M12 20v2"></path>
-                                    <path d="m4.93 4.93 1.41 1.41"></path>
-                                    <path d="m17.66 17.66 1.41 1.41"></path>
-                                    <path d="M2 12h2"></path>
-                                    <path d="M20 12h2"></path>
-                                    <path d="m6.34 17.66-1.41 1.41"></path>
-                                    <path d="m19.07 4.93-1.41 1.41"></path>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="moon" class="lucide lucide-moon w-5 h-5" x-cloak x-show="$store.theme.isDark &amp;&amp; !$store.theme.isAuto" style="display: none;">
-                                    <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sun-moon" class="lucide lucide-sun-moon w-5 h-5" x-cloak x-show="$store.theme.isAuto">
-                                    <path d="M12 2v2"></path>
-                                    <path d="M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715"></path>
-                                    <path d="M16 12a4 4 0 0 0-4-4"></path>
-                                    <path d="m19 5-1.256 1.256"></path>
-                                    <path d="M20 12h2"></path>
-                                </svg>
+                                <i data-lucide="sun" class="w-5 h-5" x-show="$store.theme.isLight"></i>
+                                <i data-lucide="moon" class="w-5 h-5" x-show="$store.theme.isDark && !$store.theme.isAuto""></i>
+                                <i data-lucide=" sun-moon" class="w-5 h-5" x-show="$store.theme.isAuto"></i>
                                 <span class="sr-only">Toggle Theme</span>
                             </button>
 
-                            <label for="mobile-menu" class="xl:hidden block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" class="lucide lucide-menu w-5 h-5 cursor-pointer">
-                                    <path d="M4 5h16"></path>
-                                    <path d="M4 12h16"></path>
-                                    <path d="M4 19h16"></path>
-                                </svg></label>
+                            <label for="mobile-menu" class="xl:hidden block">
+                                <i data-lucide="menu" class="w-5 h-5"></i>
+                            </label>
 
                         </div>
                     </div>

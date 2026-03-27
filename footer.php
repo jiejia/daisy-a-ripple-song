@@ -44,6 +44,7 @@ $footer_labels = [
 </div>
 </div>
 <?php get_template_part('resources/views/sections/mobile-menu'); ?>
+<?php get_template_part('resources/views/sections/playlist-drawer'); ?>
 <?php wp_footer(); ?>
 </body>
 

@@ -28,7 +28,7 @@ $theme_mode_labels = [
                 <div class="xl:px-0 px-4 py-3">
                     <div class="grid xl:grid-cols-[220px_1fr_300px] grid-cols-[220px_1fr] gap-4">
                         <h1 class="text-2xl font-bold text-center">
-                            <a href="https://podcast.aripplesong.me/" class="flex items-center gap-2" title="<?php bloginfo('description'); ?>">
+                            <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-2" title="<?php bloginfo('description'); ?>">
                                 <i data-lucide="podcast" class="w-6 h-6"></i>
                                 <span class="text-2xl bg-gradient-to-r from-base-content/40 via-base-content/70 to-base-content bg-clip-text text-transparent transition-all duration-500 ease-in-out hover:from-base-content hover:via-base-content/70 hover:to-base-content/40"><?php bloginfo('name'); ?></span>
                             </a>

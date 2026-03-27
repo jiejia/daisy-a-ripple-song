@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A Ripple Song Theme 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-27 11:20+0800\n"
-"PO-Revision-Date: 2026-03-27 11:20+0800\n"
+"POT-Creation-Date: 2026-03-27 12:05+0800\n"
+"PO-Revision-Date: 2026-03-27 12:05+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: English\n"
 "Language: en_US\n"
@@ -178,3 +178,47 @@ msgstr "Please add widgets to \"Sidebar\" area in Appearance > Widgets in the ad
 #: wp-content/themes/a-ripple-song/resources/views/sections/leftbar.php:7
 msgid "Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin panel."
 msgstr "Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin panel."
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/mobile-menu.php:7
+msgid "Menu"
+msgstr "Menu"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/player.php:3
+msgid "NOW PLAYING"
+msgstr "NOW PLAYING"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:8
+msgid "Playlist"
+msgstr "Playlist"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:15
+msgid "Total"
+msgstr "Total"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:15
+msgid "episodes"
+msgstr "episodes"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:17
+msgid "Are you sure you want to clear the playlist?"
+msgstr "Are you sure you want to clear the playlist?"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:19
+msgid "Clear Playlist"
+msgstr "Clear Playlist"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:21
+msgid "Clear"
+msgstr "Clear"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:31
+msgid "Playlist is empty"
+msgstr "Playlist is empty"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:32
+msgid "Add some episodes to start listening"
+msgstr "Add some episodes to start listening"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:82
+msgid "Remove"
+msgstr "Remove"

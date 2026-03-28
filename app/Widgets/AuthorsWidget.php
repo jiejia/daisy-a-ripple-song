@@ -33,10 +33,10 @@ class AuthorsWidget extends \WP_Widget {
         echo $args['before_widget'];
 
         /** @var string $membersTitle Section heading for site members. */
-        $membersTitle = !empty($instance['members_title']) ? $instance['members_title'] : 'Members';
+        $membersTitle = !empty($instance['members_title']) ? $instance['members_title'] : __('Members', 'a-ripple-song');
 
         /** @var string $guestsTitle Section heading for guest contributors. */
-        $guestsTitle = !empty($instance['guests_title']) ? $instance['guests_title'] : 'Guests';
+        $guestsTitle = !empty($instance['guests_title']) ? $instance['guests_title'] : __('Guests', 'a-ripple-song');
 
         /** @var bool $showMembers Whether to display the members section. */
         $showMembers = isset($instance['show_members']) ? (bool) $instance['show_members'] : true;
@@ -179,10 +179,10 @@ class AuthorsWidget extends \WP_Widget {
      */
     public function form($instance) {
         /** @var string $membersTitle Current members section heading value. */
-        $membersTitle = !empty($instance['members_title']) ? $instance['members_title'] : 'Members';
+        $membersTitle = !empty($instance['members_title']) ? $instance['members_title'] : __('Members', 'a-ripple-song');
 
         /** @var string $guestsTitle Current guests section heading value. */
-        $guestsTitle = !empty($instance['guests_title']) ? $instance['guests_title'] : 'Guests';
+        $guestsTitle = !empty($instance['guests_title']) ? $instance['guests_title'] : __('Guests', 'a-ripple-song');
 
         /** @var bool $showMembers Current state of the show members toggle. */
         $showMembers = isset($instance['show_members']) ? $instance['show_members'] : true;

@@ -232,3 +232,333 @@ msgstr "未知节目"
 #: wp-content/themes/a-ripple-song/resources/views/sections/autoplay-confirm.php:39
 msgid "Cancel"
 msgstr "取消"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:20
+msgid "aripplesong - Banner Carousel"
+msgstr "aripplesong - 横幅轮播"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:21
+msgid "Display banner carousel with images"
+msgstr "显示带图片的横幅轮播"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:74
+msgid "Banner Slides:"
+msgstr "横幅幻灯片："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:81
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:39
+msgid "Image URL:"
+msgstr "图片 URL："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:88
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:40
+msgid "Image URL"
+msgstr "图片 URL"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:91
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:41
+msgid "Select Image"
+msgstr "选择图片"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:42
+msgid "Select Banner Image"
+msgstr "选择横幅图片"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:43
+msgid "Use This Image"
+msgstr "使用这张图片"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:104
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:44
+msgid "Link URL (optional):"
+msgstr "链接 URL（可选）："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:115
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:45
+msgid "Link Target:"
+msgstr "链接打开方式："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:120
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:46
+msgid "Current Page"
+msgstr "当前页面"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:123
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:47
+msgid "New Tab"
+msgstr "新标签页"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:130
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:48
+msgid "Description:"
+msgstr "描述："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:136
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:49
+msgid "Image description"
+msgstr "图片描述"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:141
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:133
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:50
+msgid "Delete"
+msgstr "删除"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:152
+msgid "+ Add Banner"
+msgstr "+ 添加横幅"
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/banner-carousel.php:16
+msgid "No banner yet"
+msgstr "暂无横幅"
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/banner-carousel.php:17
+msgid "Please add banner content in the admin panel"
+msgstr "请在后台添加横幅内容"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:20
+msgid "aripplesong - Blog List"
+msgstr "aripplesong - 博客列表"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:21
+msgid "Display latest blog posts list"
+msgstr "显示最新博客文章列表"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:46
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:108
+msgid "BLOG"
+msgstr "博客"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:119
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:81
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:86
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:76
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:86
+msgid "Title:"
+msgstr "标题："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:130
+msgid "Number of posts:"
+msgstr "文章数量："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:144
+msgid "Number of columns:"
+msgstr "列数："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:164
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:116
+msgid "Show \"See all\" link"
+msgstr "显示“查看全部”链接"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:20
+msgid "aripplesong - Footer Links"
+msgstr "aripplesong - 页脚链接"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:21
+msgid "Display a list of links or text items in the footer"
+msgstr "在页脚显示链接或文本条目列表"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:88
+msgid "e.g., Contact, Navigate, Support"
+msgstr "例如：联系、导航、支持"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:92
+msgid "Items:"
+msgstr "条目："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:100
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:51
+msgid "Text:"
+msgstr "文本："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:106
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:52
+msgid "Display text"
+msgstr "显示文本"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:111
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:53
+msgid "URL (optional - leave empty for plain text):"
+msgstr "URL（可选，留空则显示纯文本）："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:127
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:54
+msgid "Open in new tab"
+msgstr "在新标签页打开"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:144
+msgid "+ Add Item"
+msgstr "+ 添加条目"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:20
+msgid "aripplesong - ARS Episode List"
+msgstr "aripplesong - ARS 节目列表"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:21
+msgid "Display latest ARS Episode list"
+msgstr "显示最新 ARS 节目列表"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:45
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:75
+msgid "ARS EPISODES"
+msgstr "ARS 节目"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:97
+msgid "Number of episodes:"
+msgstr "节目数量："
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/podcast-list.php:63
+msgid "No ARS Episode content"
+msgstr "暂无 ARS 节目内容"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:20
+msgid "aripplesong - Subscribe Links"
+msgstr "aripplesong - 订阅链接"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:21
+msgid "Display podcast subscription platform links"
+msgstr "显示播客订阅平台链接"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:46
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:65
+msgid "SUBSCRIBE"
+msgstr "订阅"
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/subscribe-links.php:17
+msgid "Apple Podcast"
+msgstr "Apple 播客"
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/subscribe-links.php:24
+msgid "Spotify"
+msgstr "Spotify"
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/subscribe-links.php:31
+msgid "YouTube Music"
+msgstr "YouTube Music"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:88
+msgid "Apple Podcast Link:"
+msgstr "Apple 播客链接："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:101
+msgid "Spotify Link:"
+msgstr "Spotify 链接："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:114
+msgid "YouTube Music Link:"
+msgstr "YouTube Music 链接："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:96
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:109
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:122
+msgid "Leave blank to hide this button"
+msgstr "留空则隐藏此按钮"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:20
+msgid "aripplesong - Tags Cloud"
+msgstr "aripplesong - 标签云"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:21
+msgid "Display article tags cloud"
+msgstr "显示文章标签云"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:43
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:75
+msgid "TAGS"
+msgstr "标签"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:97
+msgid "Number of tags:"
+msgstr "标签数量："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:107
+msgid "Maximum number of tags to display"
+msgstr "最多显示的标签数量"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:112
+msgid "Order by:"
+msgstr "排序依据："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:117
+msgid "Post Count"
+msgstr "文章数量"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:118
+msgid "Tag Name"
+msgstr "标签名称"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:119
+msgid "Tag ID"
+msgstr "标签 ID"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:126
+msgid "Sort order:"
+msgstr "排序方向："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:131
+msgid "Descending (High to Low/Z to A)"
+msgstr "降序（高到低 / Z 到 A）"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:132
+msgid "Ascending (Low to High/A to Z)"
+msgstr "升序（低到高 / A 到 Z）"
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/tags-cloud.php:19
+msgid "No tags yet"
+msgstr "暂无标签"
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/tags-cloud.php:20
+msgid "Tags will appear here after publishing articles with tags"
+msgstr "发布带标签的文章后，标签会显示在这里"
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/tags-cloud.php:29
+#, php-format
+msgid "%d post"
+msgstr "%d 篇文章"
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/tags-cloud.php:29
+#, php-format
+msgid "%d posts"
+msgstr "%d 篇文章"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:20
+msgid "aripplesong - Authors List"
+msgstr "aripplesong - 作者列表"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:21
+msgid "Display members and guest authors list"
+msgstr "显示成员和嘉宾作者列表"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:36
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:186
+msgid "Members"
+msgstr "成员"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:39
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:189
+msgid "Guests"
+msgstr "嘉宾"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:116
+msgid "No authors yet"
+msgstr "暂无作者"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:117
+msgid "Authors will appear here after adding users"
+msgstr "添加用户后，作者会显示在这里"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:195
+msgid "Members Title:"
+msgstr "成员标题："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:211
+msgid "Show Members (Administrators, Editors, Authors)"
+msgstr "显示成员（管理员、编辑、作者）"
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:217
+msgid "Guests Title:"
+msgstr "嘉宾标题："
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:233
+msgid "Show Guests (Contributors)"
+msgstr "显示嘉宾（投稿者）"

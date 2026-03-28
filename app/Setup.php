@@ -30,8 +30,14 @@ add_action('after_setup_theme', function (): void {
  */
 add_action('widgets_init', function (): void {
 
-    /** Register the authors list widget for use in any sidebar area. */
+    /** Register the custom theme widgets for use in widget areas. */
+    register_widget(\App\Widgets\BannerCarouselWidget::class);
+    register_widget(\App\Widgets\BlogListWidget::class);
     register_widget(\App\Widgets\AuthorsWidget::class);
+    register_widget(\App\Widgets\FooterLinksWidget::class);
+    register_widget(\App\Widgets\PodcastListWidget::class);
+    register_widget(\App\Widgets\SubscribeLinksWidget::class);
+    register_widget(\App\Widgets\TagsCloudWidget::class);
     
     register_sidebar([
         'name' => __('Footer Links', 'a-ripple-song'),
@@ -72,3 +78,11 @@ add_action('widgets_init', function (): void {
     ]);
 
 });
+
+/**
+ * Load the repeatable widget admin assets on widget management screens.
+ *
+ * @return void
+ */
+$widgetAdminAssets = new \App\Widgets\WidgetAdminAssets();
+add_action('admin_enqueue_scripts', [$widgetAdminAssets, 'enqueueAssets']);

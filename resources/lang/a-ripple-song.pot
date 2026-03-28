@@ -228,3 +228,333 @@ msgstr ""
 #: wp-content/themes/a-ripple-song/resources/views/sections/autoplay-confirm.php:39
 msgid "Cancel"
 msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:20
+msgid "aripplesong - Banner Carousel"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:21
+msgid "Display banner carousel with images"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:74
+msgid "Banner Slides:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:81
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:39
+msgid "Image URL:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:88
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:40
+msgid "Image URL"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:91
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:41
+msgid "Select Image"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:42
+msgid "Select Banner Image"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:43
+msgid "Use This Image"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:104
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:44
+msgid "Link URL (optional):"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:115
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:45
+msgid "Link Target:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:120
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:46
+msgid "Current Page"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:123
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:47
+msgid "New Tab"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:130
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:48
+msgid "Description:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:136
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:49
+msgid "Image description"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:141
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:133
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:50
+msgid "Delete"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:152
+msgid "+ Add Banner"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/banner-carousel.php:16
+msgid "No banner yet"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/banner-carousel.php:17
+msgid "Please add banner content in the admin panel"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:20
+msgid "aripplesong - Blog List"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:21
+msgid "Display latest blog posts list"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:46
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:108
+msgid "BLOG"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:119
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:81
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:86
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:76
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:86
+msgid "Title:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:130
+msgid "Number of posts:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:144
+msgid "Number of columns:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:164
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:116
+msgid "Show \"See all\" link"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:20
+msgid "aripplesong - Footer Links"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:21
+msgid "Display a list of links or text items in the footer"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:88
+msgid "e.g., Contact, Navigate, Support"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:92
+msgid "Items:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:100
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:51
+msgid "Text:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:106
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:52
+msgid "Display text"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:111
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:53
+msgid "URL (optional - leave empty for plain text):"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:127
+#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:54
+msgid "Open in new tab"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:144
+msgid "+ Add Item"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:20
+msgid "aripplesong - ARS Episode List"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:21
+msgid "Display latest ARS Episode list"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:45
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:75
+msgid "ARS EPISODES"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:97
+msgid "Number of episodes:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/podcast-list.php:63
+msgid "No ARS Episode content"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:20
+msgid "aripplesong - Subscribe Links"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:21
+msgid "Display podcast subscription platform links"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:46
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:65
+msgid "SUBSCRIBE"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/subscribe-links.php:17
+msgid "Apple Podcast"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/subscribe-links.php:24
+msgid "Spotify"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/subscribe-links.php:31
+msgid "YouTube Music"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:88
+msgid "Apple Podcast Link:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:101
+msgid "Spotify Link:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:114
+msgid "YouTube Music Link:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:96
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:109
+#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:122
+msgid "Leave blank to hide this button"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:20
+msgid "aripplesong - Tags Cloud"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:21
+msgid "Display article tags cloud"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:43
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:75
+msgid "TAGS"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:97
+msgid "Number of tags:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:107
+msgid "Maximum number of tags to display"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:112
+msgid "Order by:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:117
+msgid "Post Count"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:118
+msgid "Tag Name"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:119
+msgid "Tag ID"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:126
+msgid "Sort order:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:131
+msgid "Descending (High to Low/Z to A)"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:132
+msgid "Ascending (Low to High/A to Z)"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/tags-cloud.php:19
+msgid "No tags yet"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/tags-cloud.php:20
+msgid "Tags will appear here after publishing articles with tags"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/tags-cloud.php:29
+#, php-format
+msgid "%d post"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/widgets/tags-cloud.php:29
+#, php-format
+msgid "%d posts"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:20
+msgid "aripplesong - Authors List"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:21
+msgid "Display members and guest authors list"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:36
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:186
+msgid "Members"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:39
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:189
+msgid "Guests"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:116
+msgid "No authors yet"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:117
+msgid "Authors will appear here after adding users"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:195
+msgid "Members Title:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:211
+msgid "Show Members (Administrators, Editors, Authors)"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:217
+msgid "Guests Title:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:233
+msgid "Show Guests (Contributors)"
+msgstr ""

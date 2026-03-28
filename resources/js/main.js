@@ -98,14 +98,10 @@ function getEpisodesEndpoint() {
     const apiLink = document.querySelector('link[rel="https://api.w.org/"]')?.href;
     const restRoot = window.wpApiSettings?.root || apiLink || `${window.location.origin}/wp-json/`;
     const normalizedRoot = restRoot.endsWith('/') ? restRoot : `${restRoot}/`;
-    const endpoint = new URL('wp/v2/ars_episode', normalizedRoot);
+    const query = 'per_page=5&orderby=date&order=desc&_embed=1';
+    const separator = normalizedRoot.includes('?') ? '&' : '?';
 
-    endpoint.searchParams.set('per_page', '5');
-    endpoint.searchParams.set('orderby', 'date');
-    endpoint.searchParams.set('order', 'desc');
-    endpoint.searchParams.set('_embed', '1');
-
-    return endpoint.toString();
+    return `${normalizedRoot}wp/v2/ars_episode${separator}${query}`;
 }
 
 /**

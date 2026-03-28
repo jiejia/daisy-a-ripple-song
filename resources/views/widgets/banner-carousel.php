@@ -21,7 +21,7 @@
 <?php else: ?>
     <div class="w-full">
         <div class="relative">
-            <div id="<?php echo esc_attr($carouselId); ?>" class="flex w-full snap-x snap-mandatory gap-0 overflow-x-auto rounded-lg scroll-smooth scrollbar-none">
+            <div id="<?php echo esc_attr($carouselId); ?>" class="ars-banner-carousel-track flex w-full snap-x snap-mandatory gap-0 overflow-x-auto rounded-lg scroll-smooth">
                 <?php foreach ($slides as $slide): ?>
                     <div class="min-w-full snap-center">
                         <?php if (!empty($slide['link'])): ?>

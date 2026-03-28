@@ -13,6 +13,17 @@ html {
     scrollbar-gutter: stable;
 }
 
+/* Hide native scrollbars for the banner carousel while keeping swipe scrolling enabled. */
+.ars-banner-carousel-track {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Hide WebKit scrollbars for the banner carousel track. */
+.ars-banner-carousel-track::-webkit-scrollbar {
+    display: none;
+}
+
 /* 全局移除所有链接的下划线 */
 a {
     text-decoration: none;

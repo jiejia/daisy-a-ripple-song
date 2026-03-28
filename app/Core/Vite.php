@@ -86,18 +86,33 @@ class Vite
     }
 
     /**
+     * Enqueue only the theme stylesheet for widget editor previews in admin.
+     *
+     * @return void
+     */
+    public function enqueueWidgetEditorStyles(): void
+    {
+        if (!$this->shouldLoadWidgetEditorStyles()) {
+            return;
+        }
+
+        if ($this->isDev()) {
+            $this->enqueueDevStyle();
+
+            return;
+        }
+
+        $this->enqueueProdStyle();
+    }
+
+    /**
      * Enqueue the Vite client and entry module directly from the dev server.
      *
      * @return void
      */
     private function enqueueDevAssets(): void
     {
-        wp_enqueue_style(
-            $this->handlePrefix . '-style',
-            $this->devServerUrl . '/' . $this->styleEntry,
-            [],
-            null
-        );
+        $this->enqueueDevStyle();
 
         $this->markScriptAsModule($this->handlePrefix . '-vite-client');
         $this->markScriptAsModule($this->handlePrefix . '-main');
@@ -126,31 +141,56 @@ class Vite
      */
     private function enqueueProdAssets(): void
     {
-        /** @var string $themeDir Absolute theme directory path. */
-        $themeDir = get_template_directory();
-
-        /** @var string $themeUri Theme directory URL. */
-        $themeUri = get_template_directory_uri();
-
-        /** @var string $manifestPath Absolute build manifest path. */
-        $manifestPath = $themeDir . '/public/dist/.vite/manifest.json';
-
-        if (!file_exists($manifestPath)) {
-            return;
-        }
-
-        /** @var array<string, array<string, mixed>>|null $manifest Parsed Vite manifest content. */
-        $manifest = json_decode((string) file_get_contents($manifestPath), true);
+        $this->enqueueProdStyle();
 
         /** @var array<string, mixed>|null $script Manifest entry for the main JS file. */
-        $script = $manifest[$this->scriptEntry] ?? null;
-
-        /** @var array<string, mixed>|null $style Manifest entry for the main CSS file. */
-        $style = $manifest[$this->styleEntry] ?? null;
+        $script = $this->getManifestEntry($this->scriptEntry);
 
         if (!$script) {
             return;
         }
+
+        $this->markScriptAsModule($this->handlePrefix . '-main');
+
+        wp_enqueue_script(
+            $this->handlePrefix . '-main',
+            get_template_directory_uri() . '/public/dist/' . $script['file'],
+            [],
+            null,
+            true
+        );
+    }
+
+    /**
+     * Enqueue the stylesheet from the Vite dev server.
+     *
+     * @return void
+     */
+    private function enqueueDevStyle(): void
+    {
+        wp_enqueue_style(
+            $this->handlePrefix . '-style',
+            $this->devServerUrl . '/' . $this->styleEntry,
+            [],
+            null
+        );
+    }
+
+    /**
+     * Enqueue the stylesheet from the Vite build output.
+     *
+     * @return void
+     */
+    private function enqueueProdStyle(): void
+    {
+        /** @var array<string, mixed>|null $style Manifest entry for the main CSS file. */
+        $style = $this->getManifestEntry($this->styleEntry);
+
+        /** @var array<string, mixed>|null $script Manifest entry for the main JS file. */
+        $script = $this->getManifestEntry($this->scriptEntry);
+
+        /** @var string $themeUri Theme directory URL. */
+        $themeUri = get_template_directory_uri();
 
         if ($style) {
             wp_enqueue_style(
@@ -159,26 +199,76 @@ class Vite
                 [],
                 null
             );
-        } elseif (!empty($script['css'])) {
-            foreach ($script['css'] as $index => $cssFile) {
-                wp_enqueue_style(
-                    $this->handlePrefix . '-style-' . $index,
-                    $themeUri . '/public/dist/' . $cssFile,
-                    [],
-                    null
-                );
+
+            return;
+        }
+
+        if (empty($script['css'])) {
+            return;
+        }
+
+        foreach ($script['css'] as $index => $cssFile) {
+            wp_enqueue_style(
+                $this->handlePrefix . '-style-' . $index,
+                $themeUri . '/public/dist/' . $cssFile,
+                [],
+                null
+            );
+        }
+    }
+
+    /**
+     * Return the manifest entry for a given Vite source file.
+     *
+     * @param string $entry The Vite source entry path.
+     * @return array<string, mixed>|null
+     */
+    private function getManifestEntry(string $entry): ?array
+    {
+        /** @var string $themeDir Absolute theme directory path. */
+        $themeDir = get_template_directory();
+
+        /** @var string $manifestPath Absolute build manifest path. */
+        $manifestPath = $themeDir . '/public/dist/.vite/manifest.json';
+
+        if (!file_exists($manifestPath)) {
+            return null;
+        }
+
+        /** @var array<string, array<string, mixed>>|null $manifest Parsed Vite manifest content. */
+        $manifest = json_decode((string) file_get_contents($manifestPath), true);
+
+        return $manifest[$entry] ?? null;
+    }
+
+    /**
+     * Return whether the current admin request is rendering widget editor content.
+     *
+     * @return bool
+     */
+    private function shouldLoadWidgetEditorStyles(): bool
+    {
+        if (!is_admin()) {
+            return false;
+        }
+
+        if (function_exists('get_current_screen')) {
+            /** @var \WP_Screen|null $screen Current admin screen object. */
+            $screen = get_current_screen();
+
+            if ($screen && (
+                in_array($screen->id, ['widgets', 'customize'], true)
+                || in_array($screen->base, ['widgets', 'customize'], true)
+            )) {
+                return true;
             }
         }
 
-        $this->markScriptAsModule($this->handlePrefix . '-main');
+        /** @var string $requestUri Raw request URI used as a fallback when screen data is not available. */
+        $requestUri = isset($_SERVER['REQUEST_URI']) ? (string) wp_unslash($_SERVER['REQUEST_URI']) : '';
 
-        wp_enqueue_script(
-            $this->handlePrefix . '-main',
-            $themeUri . '/public/dist/' . $script['file'],
-            [],
-            null,
-            true
-        );
+        return str_contains($requestUri, 'widgets.php')
+            || str_contains($requestUri, 'customize.php');
     }
 
     /**

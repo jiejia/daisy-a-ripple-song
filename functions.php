@@ -23,6 +23,9 @@ require_once __DIR__ . '/app/Core/Vite.php';
 require_once __DIR__ . '/app/Core/Widget.php';
 require_once __DIR__ . '/app/Core/Setup.php';
 
-add_action('wp_enqueue_scripts', static function (): void {
-    (new App\Core\Vite())->enqueueAssets();
-});
+/** @var App\Core\Vite $vite Theme asset loader shared across frontend and editor preview hooks. */
+$vite = new App\Core\Vite();
+
+add_action('wp_enqueue_scripts', [$vite, 'enqueueAssets']);
+add_action('admin_enqueue_scripts', [$vite, 'enqueueWidgetEditorStyles']);
+add_action('enqueue_block_assets', [$vite, 'enqueueWidgetEditorStyles']);

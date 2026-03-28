@@ -1193,14 +1193,52 @@ Alpine.store('player', {
     },
 });
 
-Alpine.start();
+/**
+ * Return whether the current document is rendering the public theme shell.
+ *
+ * @return {boolean}
+ */
+function hasThemeRuntimeRoot() {
+    return Boolean(document.querySelector('#swup-main'));
+}
+
+/**
+ * Return whether the current document exposes the Swup containers used by the theme.
+ *
+ * @return {boolean}
+ */
+function hasSwupContainers() {
+    return ['#swup-main', '#swup-header', '#swup-mobile-menu']
+        .every((selector) => document.querySelector(selector));
+}
+
+/**
+ * Return whether Swup can safely access the current document history object.
+ *
+ * @return {boolean}
+ */
+function canBootSwup() {
+    if (!hasSwupContainers()) {
+        return false;
+    }
+
+    try {
+        return window.location.protocol !== 'about:' && window.location.href !== 'about:srcdoc';
+    } catch (error) {
+        return false;
+    }
+}
 
 // Initialize Swup navigation for the partial containers used by the theme.
-const swup = new Swup({
-    containers: ['#swup-main', '#swup-header', '#swup-mobile-menu'],
-    animateHistoryBrowsing: true,
-    plugins: [new SwupFormsPlugin(), new SwupScriptsPlugin()],
-});
+let swup = null;
+
+if (canBootSwup()) {
+    swup = new Swup({
+        containers: ['#swup-main', '#swup-header', '#swup-mobile-menu'],
+        animateHistoryBrowsing: true,
+        plugins: [new SwupFormsPlugin(), new SwupScriptsPlugin()],
+    });
+}
 
 /**
  * Run lightweight UI initializers after the initial load and Swup swaps.
@@ -1212,12 +1250,18 @@ function init() {
     Alpine.store('player').init();
 }
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init, { once: true });
-} else {
-    init();
+if (hasThemeRuntimeRoot()) {
+    Alpine.start();
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init, { once: true });
+    } else {
+        init();
+    }
 }
 
-swup.hooks.on('content:replace', () => {
-    createIcons({ icons });
-});
+if (swup) {
+    swup.hooks.on('content:replace', () => {
+        createIcons({ icons });
+    });
+}

@@ -79,14 +79,6 @@ add_action('widgets_init', function (): void {
 });
 
 /**
- * Force the classic widgets administration screen for custom widget compatibility.
- *
- * @return bool Always disable the block-based widgets editor.
- */
-add_filter('use_widgets_block_editor', '__return_false');
-add_filter('gutenberg_use_widgets_block_editor', '__return_false');
-
-/**
  * Load repeatable widget admin assets on widget management screens.
  *
  * @return void

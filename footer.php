@@ -45,6 +45,7 @@ $footer_labels = [
 </div>
 <?php get_template_part('resources/views/sections/mobile-menu'); ?>
 <?php get_template_part('resources/views/sections/playlist-drawer'); ?>
+<?php get_template_part('resources/views/sections/autoplay-confirm'); ?>
 <?php wp_footer(); ?>
 </body>
 

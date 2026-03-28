@@ -220,3 +220,15 @@ msgstr "添加一些节目后即可开始收听"
 #: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:82
 msgid "Remove"
 msgstr "移除"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/autoplay-confirm.php:20
+msgid "Continue playing?"
+msgstr "继续播放吗？"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/autoplay-confirm.php:23
+msgid "Unknown episode"
+msgstr "未知节目"
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/autoplay-confirm.php:39
+msgid "Cancel"
+msgstr "取消"

@@ -391,6 +391,10 @@ Alpine.store('player', {
     playbackRate: 1,
     availableRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
     playbackRatePanelOpen: false,
+    showAutoplayConfirm: false,
+    pendingAutoplay: false,
+    autoplayCountdown: 10,
+    autoplayCountdownTimer: null,
     playlist: [],
     currentIndex: 0,
     currentEpisode: null,
@@ -404,6 +408,7 @@ Alpine.store('player', {
         playlist: 'aripplesong-playlist',
         currentIndex: 'aripplesong-current-index',
         currentTime: 'aripplesong-current-time',
+        isPlaying: 'aripplesong-is-playing',
         volume: 'aripplesong-volume',
         playbackRate: 'aripplesong-playback-rate',
     },
@@ -438,6 +443,7 @@ Alpine.store('player', {
         this.loadPlaylist();
         this.loadVolume();
         this.loadPlaybackRate();
+        const playbackState = this.loadPlaybackState();
 
         if (this.playlist.length === 0) {
             await this.fetchLatestEpisodes();
@@ -454,10 +460,15 @@ Alpine.store('player', {
             return;
         }
 
-        const savedTime = Number.parseFloat(safeLocalStorage.getItem(this.storageKeys.currentTime) || '0');
-        this.currentTime = Number.isFinite(savedTime) ? Math.max(0, savedTime) : 0;
+        this.currentTime = playbackState.currentTime;
 
         this.loadTrack(this.currentEpisode.audioUrl, { autoplay: false, restoreTime: this.currentTime });
+
+        if (playbackState.isPlaying && this.currentSound) {
+            this.currentSound.once('load', () => {
+                this.showAutoplayConfirmDialog();
+            });
+        }
     },
 
     /**
@@ -506,6 +517,9 @@ Alpine.store('player', {
 
         this.stopProgressTimer();
         this.destroyAnalyzer();
+        this.clearAutoplayTimers();
+        this.showAutoplayConfirm = false;
+        this.pendingAutoplay = false;
         this.isPlaying = false;
         this.heatmapNonce += 1;
         this.progressHeatmapGradient = '';
@@ -551,11 +565,12 @@ Alpine.store('player', {
             onpause: () => {
                 this.isPlaying = false;
                 this.stopProgressTimer();
-                this.saveCurrentTime();
+                this.savePlaybackState();
             },
             onstop: () => {
                 this.isPlaying = false;
                 this.stopProgressTimer();
+                this.savePlaybackState();
             },
             onend: () => {
                 this.playNext();
@@ -704,7 +719,7 @@ Alpine.store('player', {
             saveCounter += 1;
 
             if (saveCounter >= 4) {
-                this.saveCurrentTime();
+                this.savePlaybackState();
                 saveCounter = 0;
             }
         }, 250);
@@ -734,6 +749,12 @@ Alpine.store('player', {
             return;
         }
 
+        if (this.showAutoplayConfirm) {
+            this.clearAutoplayTimers();
+            this.showAutoplayConfirm = false;
+            this.pendingAutoplay = false;
+        }
+
         if (this.soundId === null) {
             this.soundId = this.currentSound.play();
         } else {
@@ -743,6 +764,7 @@ Alpine.store('player', {
         this.currentSound.rate(this.playbackRate, this.soundId);
         this.currentSound.volume(this.isMuted ? 0 : this.volume, this.soundId);
         this.isPlaying = true;
+        this.savePlaybackState();
     },
 
     /**
@@ -757,6 +779,7 @@ Alpine.store('player', {
 
         this.currentSound.pause(this.soundId);
         this.isPlaying = false;
+        this.savePlaybackState();
     },
 
     /**
@@ -789,7 +812,7 @@ Alpine.store('player', {
 
         this.currentSound.seek(safePosition, this.soundId);
         this.currentTime = safePosition;
-        this.saveCurrentTime();
+        this.savePlaybackState();
     },
 
     /**
@@ -867,6 +890,66 @@ Alpine.store('player', {
 
         this.playbackRatePanelOpen = false;
         safeLocalStorage.setItem(this.storageKeys.playbackRate, String(rate));
+    },
+
+    /**
+     * Show the autoplay confirmation bar and start its countdown.
+     *
+     * @return {void}
+     */
+    showAutoplayConfirmDialog() {
+        this.clearAutoplayTimers();
+        this.pendingAutoplay = true;
+        this.showAutoplayConfirm = true;
+        this.autoplayCountdown = 10;
+        queueIconRefresh();
+
+        this.autoplayCountdownTimer = window.setInterval(() => {
+            this.autoplayCountdown -= 1;
+
+            if (this.autoplayCountdown <= 0) {
+                this.cancelAutoplay();
+            }
+        }, 1000);
+    },
+
+    /**
+     * Clear timers used by the autoplay confirmation UI.
+     *
+     * @return {void}
+     */
+    clearAutoplayTimers() {
+        if (!this.autoplayCountdownTimer) {
+            return;
+        }
+
+        window.clearInterval(this.autoplayCountdownTimer);
+        this.autoplayCountdownTimer = null;
+    },
+
+    /**
+     * Resume playback after the user accepts the autoplay prompt.
+     *
+     * @return {void}
+     */
+    confirmAutoplay() {
+        this.clearAutoplayTimers();
+        this.showAutoplayConfirm = false;
+        this.pendingAutoplay = false;
+        this.play();
+    },
+
+    /**
+     * Dismiss the autoplay prompt and persist the paused state.
+     *
+     * @return {void}
+     */
+    cancelAutoplay() {
+        this.clearAutoplayTimers();
+        this.showAutoplayConfirm = false;
+        this.pendingAutoplay = false;
+        this.isPlaying = false;
+        this.savePlaybackState();
     },
 
     /**
@@ -1052,8 +1135,32 @@ Alpine.store('player', {
      *
      * @return {void}
      */
-    saveCurrentTime() {
+    savePlaybackState() {
         safeLocalStorage.setItem(this.storageKeys.currentTime, String(this.currentTime));
+        safeLocalStorage.setItem(this.storageKeys.isPlaying, this.isPlaying ? 'true' : 'false');
+    },
+
+    /**
+     * Restore the persisted playback position and play intent.
+     *
+     * @return {{currentTime: number, isPlaying: boolean}}
+     */
+    loadPlaybackState() {
+        const rawTime = Number.parseFloat(safeLocalStorage.getItem(this.storageKeys.currentTime) || '0');
+        const currentTime = Number.isFinite(rawTime) ? Math.max(0, rawTime) : 0;
+        const isPlaying = safeLocalStorage.getItem(this.storageKeys.isPlaying) === 'true';
+
+        return { currentTime, isPlaying };
+    },
+
+    /**
+     * Remove the persisted playback state.
+     *
+     * @return {void}
+     */
+    clearPlaybackState() {
+        safeLocalStorage.removeItem(this.storageKeys.currentTime);
+        safeLocalStorage.removeItem(this.storageKeys.isPlaying);
     },
 
     /**
@@ -1064,6 +1171,7 @@ Alpine.store('player', {
     stopAndReset() {
         this.stopProgressTimer();
         this.destroyAnalyzer();
+        this.clearAutoplayTimers();
 
         if (this.currentSound) {
             this.currentSound.stop();
@@ -1076,9 +1184,12 @@ Alpine.store('player', {
         this.duration = 0;
         this.isLoading = false;
         this.isPlaying = false;
+        this.showAutoplayConfirm = false;
+        this.pendingAutoplay = false;
+        this.autoplayCountdown = 10;
         this.progressHeatmapGradient = '';
         this.progressHeatmapReady = false;
-        safeLocalStorage.removeItem(this.storageKeys.currentTime);
+        this.clearPlaybackState();
     },
 });
 

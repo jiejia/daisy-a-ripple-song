@@ -216,3 +216,15 @@ msgstr ""
 #: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:82
 msgid "Remove"
 msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/autoplay-confirm.php:20
+msgid "Continue playing?"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/autoplay-confirm.php:23
+msgid "Unknown episode"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/autoplay-confirm.php:39
+msgid "Cancel"
+msgstr ""

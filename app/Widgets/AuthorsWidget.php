@@ -2,6 +2,8 @@
 
 namespace App\Widgets;
 
+use App\Core\Widget as WidgetCore;
+
 /**
  * Authors Widget
  *
@@ -9,12 +11,14 @@ namespace App\Widgets;
  * Members include administrators, editors, and authors.
  * Guests are contributors.
  */
-class AuthorsWidget extends \WP_Widget {
+class AuthorsWidget extends \WP_Widget
+{
 
     /**
      * Register widget with WordPress.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct(
             'authors_widget',
             __('aripplesong - Authors List', 'a-ripple-song'),
@@ -29,14 +33,19 @@ class AuthorsWidget extends \WP_Widget {
      * @param array $instance Saved widget option values.
      * @return void
      */
-    public function widget($args, $instance) {
+    public function widget($args, $instance)
+    {
         echo $args['before_widget'];
 
         /** @var string $membersTitle Section heading for site members. */
-        $membersTitle = !empty($instance['members_title']) ? $instance['members_title'] : __('Members', 'a-ripple-song');
+        $membersTitle = !empty($instance['members_title'])
+            ? sanitize_text_field((string) $instance['members_title'])
+            : __('Members', 'a-ripple-song');
 
         /** @var string $guestsTitle Section heading for guest contributors. */
-        $guestsTitle = !empty($instance['guests_title']) ? $instance['guests_title'] : __('Guests', 'a-ripple-song');
+        $guestsTitle = !empty($instance['guests_title'])
+            ? sanitize_text_field((string) $instance['guests_title'])
+            : __('Guests', 'a-ripple-song');
 
         /** @var bool $showMembers Whether to display the members section. */
         $showMembers = isset($instance['show_members']) ? (bool) $instance['show_members'] : true;
@@ -84,91 +93,26 @@ class AuthorsWidget extends \WP_Widget {
             }
         }
 
-        ?>
-        <div class="">
+        /** @var array<int, array<string, mixed>> $preparedMembers Prepared member cards. */
+        $preparedMembers = $showMembers
+            ? $this->prepareUsers($members, $postCountsByUser, $episodeCountsByUser)
+            : [];
 
-            <?php if ($showMembers && !empty($members)): ?>
-            <h2 class="wp-block-heading"><?php echo esc_html($membersTitle); ?></h2>
-            <div class="grid grid-flow-row gap-2 mt-4">
-                <?php foreach ($members as $user): ?>
-                    <?php echo $this->renderUserRow($user, $postCountsByUser, $episodeCountsByUser); ?>
-                <?php endforeach; ?>
-            </div>
-            <?php endif; ?>
+        /** @var array<int, array<string, mixed>> $preparedGuests Prepared guest cards. */
+        $preparedGuests = $showGuests
+            ? $this->prepareUsers($contributors, $postCountsByUser, $episodeCountsByUser)
+            : [];
 
-            <?php if ($showGuests && !empty($contributors)): ?>
-            <h2 class="wp-block-heading <?php echo ($showMembers && !empty($members)) ? 'mt-4' : ''; ?>">
-                <?php echo esc_html($guestsTitle); ?>
-            </h2>
-            <div class="grid grid-flow-row gap-2 mt-4">
-                <?php foreach ($contributors as $user): ?>
-                    <?php echo $this->renderUserRow($user, $postCountsByUser, $episodeCountsByUser); ?>
-                <?php endforeach; ?>
-            </div>
-            <?php endif; ?>
-
-            <?php if ((!$showMembers || empty($members)) && (!$showGuests || empty($contributors))): ?>
-            <div class="text-center py-8">
-                <div class="text-base-content/50">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-2 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <p class="text-sm font-medium"><?php esc_html_e('No authors yet', 'a-ripple-song'); ?></p>
-                    <p class="text-xs mt-1"><?php esc_html_e('Authors will appear here after adding users', 'a-ripple-song'); ?></p>
-                </div>
-            </div>
-            <?php endif; ?>
-
-        </div>
-        <?php
+        echo WidgetCore::render('authors', [
+            'membersTitle' => $membersTitle,
+            'guestsTitle' => $guestsTitle,
+            'showMembers' => $showMembers,
+            'showGuests' => $showGuests,
+            'members' => $preparedMembers,
+            'guests' => $preparedGuests,
+        ]);
 
         echo $args['after_widget'];
-    }
-
-    /**
-     * Render a single user row with avatar, name, and post count.
-     *
-     * @param \WP_User          $user                The user object to render.
-     * @param array<int, int>   $postCountsByUser    Pre-fetched standard post counts keyed by user ID.
-     * @param array<int, int>   $episodeCountsByUser Pre-fetched episode counts keyed by user ID.
-     * @return string HTML markup for the user row.
-     */
-    protected function renderUserRow(\WP_User $user, array $postCountsByUser, array $episodeCountsByUser): string {
-        /** @var string $avatarUrl URL of the user's avatar image. */
-        $avatarUrl = get_avatar_url($user->ID, ['size' => 192]);
-
-        /** @var int $baseCount Sum of standard posts and podcast episodes authored by the user. */
-        $baseCount = (int) ($postCountsByUser[$user->ID] ?? 0)
-                   + (int) ($episodeCountsByUser[$user->ID] ?? 0);
-
-        /**
-         * Count episodes where the user participated but is not the primary author.
-         * Falls back to 0 if the helper function is not available.
-         *
-         * @var int $participatedCount Number of episodes the user participated in.
-         */
-        $participatedCount = is_callable([\App\Core\Helper::class, 'getParticipatedPodcastIds'])
-            ? count(\App\Core\Helper::getParticipatedPodcastIds($user->ID))
-            : 0;
-
-        /** @var int $postCount Total content count displayed next to the user name. */
-        $postCount = $baseCount + $participatedCount;
-
-        ob_start();
-        ?>
-        <a href="<?php echo esc_url(get_author_posts_url($user->ID)); ?>"
-           class="grid grid-cols-[40px_1fr_40px] items-center gap-2 bg-base-200/50 hover:bg-base-200 rounded-lg p-2">
-            <div class="avatar">
-                <div class="ring-base-content/50 ring-offset-base-100 w-6 rounded-full ring-1 ring-offset-1">
-                    <img src="<?php echo esc_url($avatarUrl); ?>"
-                         alt="<?php echo esc_attr($user->display_name); ?>" />
-                </div>
-            </div>
-            <span class="text-xs"><?php echo esc_html($user->display_name); ?></span>
-            <span class="text-xs text-base-content/50"><?php echo esc_html($postCount); ?></span>
-        </a>
-        <?php
-        return ob_get_clean();
     }
 
     /**
@@ -177,7 +121,8 @@ class AuthorsWidget extends \WP_Widget {
      * @param array $instance Current widget settings.
      * @return void
      */
-    public function form($instance) {
+    public function form($instance)
+    {
         /** @var string $membersTitle Current members section heading value. */
         $membersTitle = !empty($instance['members_title']) ? $instance['members_title'] : __('Members', 'a-ripple-song');
 
@@ -185,10 +130,10 @@ class AuthorsWidget extends \WP_Widget {
         $guestsTitle = !empty($instance['guests_title']) ? $instance['guests_title'] : __('Guests', 'a-ripple-song');
 
         /** @var bool $showMembers Current state of the show members toggle. */
-        $showMembers = isset($instance['show_members']) ? $instance['show_members'] : true;
+        $showMembers = isset($instance['show_members']) ? (bool) $instance['show_members'] : true;
 
         /** @var bool $showGuests Current state of the show guests toggle. */
-        $showGuests = isset($instance['show_guests']) ? $instance['show_guests'] : true;
+        $showGuests = isset($instance['show_guests']) ? (bool) $instance['show_guests'] : true;
         ?>
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('members_title')); ?>">
@@ -243,21 +188,62 @@ class AuthorsWidget extends \WP_Widget {
      * @param array $oldInstance Previous widget settings.
      * @return array Sanitized settings to be saved.
      */
-    public function update($newInstance, $oldInstance) {
-        /** @var array $instance Sanitized widget settings to persist. */
+    public function update($newInstance, $oldInstance)
+    {
+        /** @var array<string, mixed> $instance Sanitized widget settings to persist. */
         $instance = [];
 
         $instance['members_title'] = !empty($newInstance['members_title'])
-            ? sanitize_text_field($newInstance['members_title'])
+            ? sanitize_text_field((string) $newInstance['members_title'])
             : 'Members';
 
         $instance['guests_title'] = !empty($newInstance['guests_title'])
-            ? sanitize_text_field($newInstance['guests_title'])
+            ? sanitize_text_field((string) $newInstance['guests_title'])
             : 'Guests';
 
         $instance['show_members'] = !empty($newInstance['show_members']) ? 1 : 0;
-        $instance['show_guests']  = !empty($newInstance['show_guests']) ? 1 : 0;
+        $instance['show_guests'] = !empty($newInstance['show_guests']) ? 1 : 0;
 
         return $instance;
+    }
+
+    /**
+     * Convert a list of users into widget card data.
+     *
+     * @param \WP_User[]        $users               The user list to prepare.
+     * @param array<int, int>   $postCountsByUser    Pre-fetched standard post counts keyed by user ID.
+     * @param array<int, int>   $episodeCountsByUser Pre-fetched episode counts keyed by user ID.
+     * @return array<int, array<string, mixed>> Prepared card rows.
+     */
+    protected function prepareUsers(array $users, array $postCountsByUser, array $episodeCountsByUser): array
+    {
+        /** @var array<int, array<string, mixed>> $preparedUsers Prepared user rows. */
+        $preparedUsers = [];
+
+        foreach ($users as $user) {
+            /** @var string $avatarUrl URL of the user's avatar image. */
+            $avatarUrl = get_avatar_url($user->ID, ['size' => 192]);
+
+            /** @var int $baseCount Sum of standard posts and podcast episodes authored by the user. */
+            $baseCount = (int) ($postCountsByUser[$user->ID] ?? 0)
+                + (int) ($episodeCountsByUser[$user->ID] ?? 0);
+
+            /** @var int $participatedCount Number of podcast appearances linked through helper data. */
+            $participatedCount = is_callable([\App\Core\Helper::class, 'getParticipatedPodcastIds'])
+                ? count(\App\Core\Helper::getParticipatedPodcastIds($user->ID))
+                : 0;
+
+            /** @var int $postCount Total content count displayed next to the user name. */
+            $postCount = $baseCount + $participatedCount;
+
+            $preparedUsers[] = [
+                'author_url' => get_author_posts_url($user->ID),
+                'avatar_url' => $avatarUrl,
+                'display_name' => $user->display_name,
+                'post_count' => $postCount,
+            ];
+        }
+
+        return $preparedUsers;
     }
 }

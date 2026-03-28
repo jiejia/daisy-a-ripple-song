@@ -8,7 +8,6 @@ namespace App\Core;
  * @return void
  */
 add_action('after_setup_theme', function (): void {
-
     /**
      * Load translations from the custom theme language directory.
      */
@@ -78,6 +77,14 @@ add_action('widgets_init', function (): void {
         'after_title' => '</h2>',
     ]);
 });
+
+/**
+ * Force the classic widgets administration screen for custom widget compatibility.
+ *
+ * @return bool Always disable the block-based widgets editor.
+ */
+add_filter('use_widgets_block_editor', '__return_false');
+add_filter('gutenberg_use_widgets_block_editor', '__return_false');
 
 /**
  * Load repeatable widget admin assets on widget management screens.

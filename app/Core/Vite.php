@@ -9,6 +9,9 @@ namespace App\Core;
  */
 class Vite
 {
+    /** @var bool $widgetEditorAssetsLoaded Track whether widget editor assets were already enqueued. */
+    private bool $widgetEditorAssetsLoaded = false;
+
 
     /** @var string $devServerUrl Base URL of the Vite dev server. */
     private string $devServerUrl;
@@ -90,19 +93,25 @@ class Vite
      *
      * @return void
      */
-    public function enqueueWidgetEditorStyles(): void
+    public function enqueueWidgetEditorAssets(): void
     {
         if (!$this->shouldLoadWidgetEditorStyles()) {
             return;
         }
 
-        if ($this->isDev()) {
-            $this->enqueueDevStyle();
-
+        if ($this->widgetEditorAssetsLoaded) {
             return;
         }
 
-        $this->enqueueProdStyle();
+        $this->widgetEditorAssetsLoaded = true;
+
+        if ($this->isDev()) {
+            $this->enqueueDevStyle();
+        } else {
+            $this->enqueueProdStyle();
+        }
+
+        $this->enqueueWidgetEditorThemeScript();
     }
 
     /**
@@ -269,6 +278,185 @@ class Vite
 
         return str_contains($requestUri, 'widgets.php')
             || str_contains($requestUri, 'customize.php');
+    }
+
+    /**
+     * Enqueue a small runtime that applies the active DaisyUI theme inside widget previews.
+     *
+     * @return void
+     */
+    private function enqueueWidgetEditorThemeScript(): void
+    {
+        /** @var string $handle Existing core script handle that can carry the widget editor inline runtime. */
+        $handle = wp_script_is('wp-blocks', 'registered')
+            ? 'wp-blocks'
+            : (wp_script_is('editor', 'registered')
+                ? 'editor'
+                : (wp_script_is('jquery', 'registered') ? 'jquery' : ''));
+
+        if ($handle === '') {
+            return;
+        }
+
+        wp_add_inline_script($handle, $this->getWidgetEditorThemeScript());
+    }
+
+    /**
+     * Build the widget editor theme bridge script.
+     *
+     * @return string
+     */
+    private function getWidgetEditorThemeScript(): string
+    {
+        return <<<JS
+(() => {
+    'use strict';
+
+    const storageKey = 'theme-mode';
+    const lightTheme = 'retro';
+    const darkTheme = 'dim';
+    const supportedModes = ['light', 'dark', 'auto'];
+    const root = document.documentElement;
+    const colorSchemeMedia = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+    /**
+     * Read the persisted theme mode from local storage when available.
+     *
+     * @return {string}
+     */
+    function getStoredMode() {
+        try {
+            const storedMode = window.localStorage.getItem(storageKey);
+
+            return supportedModes.includes(storedMode) ? storedMode : 'auto';
+        } catch (error) {
+            return 'auto';
+        }
+    }
+
+    /**
+     * Resolve the DaisyUI theme name that should be applied to the preview document.
+     *
+     * @return {string}
+     */
+    function getResolvedTheme() {
+        const currentMode = getStoredMode();
+
+        if (currentMode === 'light') {
+            return lightTheme;
+        }
+
+        if (currentMode === 'dark') {
+            return darkTheme;
+        }
+
+        return colorSchemeMedia && colorSchemeMedia.matches ? darkTheme : lightTheme;
+    }
+
+    /**
+     * Apply the resolved theme classes and attributes to a specific document.
+     *
+     * @param {Document} targetDocument The document that should receive the active theme.
+     * @return {void}
+     */
+    function applyThemeToDocument(targetDocument) {
+        if (!targetDocument || !targetDocument.documentElement) {
+            return;
+        }
+
+        const resolvedTheme = getResolvedTheme();
+        const targetRoot = targetDocument.documentElement;
+        const targetBody = targetDocument.body;
+
+        targetRoot.setAttribute('data-theme', resolvedTheme);
+        targetRoot.classList.add('bg-base-200');
+
+        if (targetBody) {
+            targetBody.classList.add('bg-base-200');
+        }
+    }
+
+    /**
+     * Apply the active theme to a legacy widget preview iframe when it is accessible.
+     *
+     * @param {HTMLIFrameElement} frameElement The preview iframe element.
+     * @return {void}
+     */
+    function applyThemeToFrame(frameElement) {
+        if (!frameElement) {
+            return;
+        }
+
+        try {
+            if (frameElement.contentDocument) {
+                applyThemeToDocument(frameElement.contentDocument);
+            }
+        } catch (error) {
+            // Ignore inaccessible preview frames and continue processing others.
+        }
+
+        if (!frameElement.dataset.arsThemeBound) {
+            frameElement.dataset.arsThemeBound = '1';
+            frameElement.addEventListener('load', () => {
+                applyThemeToFrame(frameElement);
+            });
+        }
+    }
+
+    /**
+     * Apply the active theme to the parent editor document and all preview iframes.
+     *
+     * @return {void}
+     */
+    function applyThemeEverywhere() {
+        applyThemeToDocument(document);
+
+        document.querySelectorAll('iframe[title="Legacy Widget Preview"]').forEach((frameElement) => {
+            applyThemeToFrame(frameElement);
+        });
+    }
+
+    /**
+     * Observe the editor canvas so newly created preview iframes also receive the active theme.
+     *
+     * @return {void}
+     */
+    function observePreviewFrames() {
+        if (!document.body || typeof MutationObserver === 'undefined') {
+            return;
+        }
+
+        const observer = new MutationObserver(() => {
+            applyThemeEverywhere();
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            applyThemeEverywhere();
+            observePreviewFrames();
+        }, { once: true });
+    } else {
+        applyThemeEverywhere();
+        observePreviewFrames();
+    }
+
+    if (colorSchemeMedia && typeof colorSchemeMedia.addEventListener === 'function') {
+        colorSchemeMedia.addEventListener('change', applyThemeEverywhere);
+    }
+
+    window.addEventListener('storage', (event) => {
+        if (event.key === storageKey) {
+            applyThemeEverywhere();
+        }
+    });
+})();
+JS;
     }
 
     /**

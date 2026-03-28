@@ -27,5 +27,5 @@ require_once __DIR__ . '/app/Core/Setup.php';
 $vite = new App\Core\Vite();
 
 add_action('wp_enqueue_scripts', [$vite, 'enqueueAssets']);
-add_action('admin_enqueue_scripts', [$vite, 'enqueueWidgetEditorStyles']);
-add_action('enqueue_block_assets', [$vite, 'enqueueWidgetEditorStyles']);
+add_action('admin_enqueue_scripts', [$vite, 'enqueueWidgetEditorAssets']);
+add_action('enqueue_block_assets', [$vite, 'enqueueWidgetEditorAssets']);

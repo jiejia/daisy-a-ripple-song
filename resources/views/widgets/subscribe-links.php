@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Subscribe Links Widget Template
  *
@@ -7,10 +8,9 @@
  */
 ?>
 <?php if (!empty(array_filter($links))): ?>
-    <div class="card mt-4 w-full bg-base-100">
-        <div class="card-body p-4">
-            <h2 class="text-lg font-bold"><?php echo esc_html($title); ?></h2>
-
+    <div class="">
+        <h2 class="wp-block-heading"><?php echo esc_html($title); ?></h2>
+        <div class="mt-2 grid grid-flow-row gap-2">
             <?php if (!empty($links['apple'])): ?>
                 <a href="<?php echo esc_url($links['apple']); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-sm border-black bg-gradient-to-r from-gray-600 via-gray-800 to-black text-white transition-all duration-500 ease-in-out hover:from-black hover:via-gray-800 hover:to-gray-600">
                     <i data-lucide="podcast" class="h-4 w-4"></i>

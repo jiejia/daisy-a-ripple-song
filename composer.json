@@ -4,7 +4,8 @@
   "license": "GPL-3.0-or-later",
   "type": "wordpress-theme",
   "require": {
-    "php": "^8.0"
+    "php": "^8.0",
+    "htmlburger/carbon-fields": "^3.6"
   },
   "autoload": {
     "psr-4": {

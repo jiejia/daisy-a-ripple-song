@@ -18,8 +18,11 @@ if (! file_exists($autoload)) {
 
 require_once $autoload;
 
-add_action('wp_enqueue_scripts', static function (): void {
-    (new App\Vite())->enqueueAssets();
-});
+require_once __DIR__ . '/app/Core/Helper.php';
+require_once __DIR__ . '/app/Core/Vite.php';
+require_once __DIR__ . '/app/Core/Widget.php';
+require_once __DIR__ . '/app/Core/Setup.php';
 
-require_once __DIR__ . '/app/Setup.php';
+add_action('wp_enqueue_scripts', static function (): void {
+    (new App\Core\Vite())->enqueueAssets();
+});

@@ -2,6 +2,8 @@
 
 namespace App\Widgets;
 
+use App\Core\Widget as WidgetCore;
+
 /**
  * Banner Carousel Widget
  *
@@ -39,7 +41,7 @@ class BannerCarouselWidget extends \WP_Widget
         /** @var string $carouselId Unique DOM ID for the current carousel instance. */
         $carouselId = 'banner-carousel-' . $this->id;
 
-        echo WidgetView::render('banner-carousel', [
+        echo WidgetCore::render('banner-carousel', [
             'slides' => $slides,
             'carouselId' => $carouselId,
         ]);

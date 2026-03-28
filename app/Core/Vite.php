@@ -1,28 +1,32 @@
 <?php
-namespace App;
+
+namespace App\Core;
 
 /**
- * Handles Vite asset integration for both development and production environments.
+ * Vite
+ *
+ * Handle Vite asset integration for both development and production environments.
  */
-class Vite {
+class Vite
+{
 
-    /** Base URL of the Vite dev server. */
+    /** @var string $devServerUrl Base URL of the Vite dev server. */
     private string $devServerUrl;
 
-    /** Entry point file path relative to the project root. */
+    /** @var string $scriptEntry Entry point file path relative to the project root. */
     private string $scriptEntry;
 
-    /** CSS entry file path relative to the project root. */
+    /** @var string $styleEntry CSS entry file path relative to the project root. */
     private string $styleEntry;
 
-    /** Prefix used for WordPress script/style handles. */
+    /** @var string $handlePrefix Prefix used for WordPress script/style handles. */
     private string $handlePrefix;
 
     /**
-     * @param string $devServerUrl  Vite dev server base URL.
-     * @param string $scriptEntry   JS entry point file (e.g. resources/js/main.js).
-     * @param string $styleEntry    CSS entry point file (e.g. resources/css/main.css).
-     * @param string $handlePrefix  Prefix for wp_enqueue handles.
+     * @param string $devServerUrl Vite dev server base URL.
+     * @param string $scriptEntry JS entry point file.
+     * @param string $styleEntry CSS entry point file.
+     * @param string $handlePrefix Prefix for wp_enqueue handles.
      */
     public function __construct(
         string $devServerUrl = 'http://127.0.0.1:5173',
@@ -31,26 +35,34 @@ class Vite {
         string $handlePrefix = 'a-ripple-song'
     ) {
         $this->devServerUrl = $devServerUrl;
-        $this->scriptEntry  = $scriptEntry;
-        $this->styleEntry   = $styleEntry;
+        $this->scriptEntry = $scriptEntry;
+        $this->styleEntry = $styleEntry;
         $this->handlePrefix = $handlePrefix;
     }
 
     /**
-     * Checks whether the Vite dev server is reachable by requesting the Vite client endpoint.
+     * Check whether the Vite dev server is reachable by requesting the Vite client endpoint.
+     *
+     * @return bool True when the dev server responds successfully.
      */
     public function isDevServerRunning(): bool
     {
-        $response = wp_remote_get($this->devServerUrl . '/@vite/client', [
+        /** @var array<string, mixed> $args HTTP client arguments for the health check request. */
+        $args = [
             'timeout' => 0.3,
-        ]);
+        ];
 
-        return ! is_wp_error($response)
+        /** @var array<string, mixed>|\WP_Error $response HTTP response from the Vite dev server. */
+        $response = wp_remote_get($this->devServerUrl . '/@vite/client', $args);
+
+        return !is_wp_error($response)
             && wp_remote_retrieve_response_code($response) === 200;
     }
 
     /**
-     * Returns true when the Vite dev server is running.
+     * Return true when the Vite dev server is running.
+     *
+     * @return bool True when development mode is available.
      */
     public function isDev(): bool
     {
@@ -58,19 +70,25 @@ class Vite {
     }
 
     /**
-     * Enqueues dev or production assets depending on the current environment.
+     * Enqueue dev or production assets depending on the current environment.
+     *
+     * @return void
      */
     public function enqueueAssets(): void
     {
         if ($this->isDev()) {
             $this->enqueueDevAssets();
-        } else {
-            $this->enqueueProdAssets();
+
+            return;
         }
+
+        $this->enqueueProdAssets();
     }
 
     /**
-     * Enqueues the Vite client and entry module directly from the dev server.
+     * Enqueue the Vite client and entry module directly from the dev server.
+     *
+     * @return void
      */
     private function enqueueDevAssets(): void
     {
@@ -84,7 +102,6 @@ class Vite {
         $this->markScriptAsModule($this->handlePrefix . '-vite-client');
         $this->markScriptAsModule($this->handlePrefix . '-main');
 
-        // Enqueue the Vite HMR client script.
         wp_enqueue_script(
             $this->handlePrefix . '-vite-client',
             $this->devServerUrl . '/@vite/client',
@@ -93,7 +110,6 @@ class Vite {
             false
         );
 
-        // Enqueue the main entry module from the dev server.
         wp_enqueue_script(
             $this->handlePrefix . '-main',
             $this->devServerUrl . '/' . $this->scriptEntry,
@@ -104,25 +120,35 @@ class Vite {
     }
 
     /**
-     * Enqueues hashed CSS and JS assets from the Vite build manifest.
+     * Enqueue hashed CSS and JS assets from the Vite build manifest.
+     *
+     * @return void
      */
     private function enqueueProdAssets(): void
     {
-        $themeDir     = get_template_directory();
-        $themeUri     = get_template_directory_uri();
+        /** @var string $themeDir Absolute theme directory path. */
+        $themeDir = get_template_directory();
+
+        /** @var string $themeUri Theme directory URL. */
+        $themeUri = get_template_directory_uri();
+
+        /** @var string $manifestPath Absolute build manifest path. */
         $manifestPath = $themeDir . '/public/dist/.vite/manifest.json';
 
-        // Bail early if the manifest file does not exist.
-        if (! file_exists($manifestPath)) {
+        if (!file_exists($manifestPath)) {
             return;
         }
 
-        $manifest = json_decode(file_get_contents($manifestPath), true);
-        $script   = $manifest[$this->scriptEntry] ?? null;
-        $style    = $manifest[$this->styleEntry] ?? null;
+        /** @var array<string, array<string, mixed>>|null $manifest Parsed Vite manifest content. */
+        $manifest = json_decode((string) file_get_contents($manifestPath), true);
 
-        // Bail early if the script entry is not found in the manifest.
-        if (! $script) {
+        /** @var array<string, mixed>|null $script Manifest entry for the main JS file. */
+        $script = $manifest[$this->scriptEntry] ?? null;
+
+        /** @var array<string, mixed>|null $style Manifest entry for the main CSS file. */
+        $style = $manifest[$this->styleEntry] ?? null;
+
+        if (!$script) {
             return;
         }
 
@@ -133,7 +159,7 @@ class Vite {
                 [],
                 null
             );
-        } elseif (! empty($script['css'])) {
+        } elseif (!empty($script['css'])) {
             foreach ($script['css'] as $index => $cssFile) {
                 wp_enqueue_style(
                     $this->handlePrefix . '-style-' . $index,
@@ -146,7 +172,6 @@ class Vite {
 
         $this->markScriptAsModule($this->handlePrefix . '-main');
 
-        // Enqueue the compiled JS entry module.
         wp_enqueue_script(
             $this->handlePrefix . '-main',
             $themeUri . '/public/dist/' . $script['file'],
@@ -156,6 +181,12 @@ class Vite {
         );
     }
 
+    /**
+     * Mark a specific enqueued script as a JavaScript module.
+     *
+     * @param string $handle Script handle to rewrite.
+     * @return void
+     */
     private function markScriptAsModule(string $handle): void
     {
         add_filter('script_loader_tag', static function (string $tag, string $currentHandle, string $src) use ($handle): string {

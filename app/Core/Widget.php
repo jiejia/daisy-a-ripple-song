@@ -1,14 +1,37 @@
 <?php
 
-namespace App\Widgets;
+namespace App\Core;
 
 /**
- * Widget Admin Assets
+ * Widget
  *
- * Load the repeatable field controls used by custom widgets in the admin area.
+ * Provide shared widget template rendering and admin asset loading helpers.
  */
-class WidgetAdminAssets
+class Widget
 {
+
+    /**
+     * Render a widget template and return the generated markup.
+     *
+     * @param string               $template The template file name without extension.
+     * @param array<string, mixed> $data Data extracted into the template scope.
+     * @return string Rendered HTML output.
+     */
+    public static function render(string $template, array $data = []): string
+    {
+        /** @var string $templatePath Absolute template path. */
+        $templatePath = get_template_directory() . '/resources/views/widgets/' . $template . '.php';
+
+        if (!file_exists($templatePath)) {
+            return '';
+        }
+
+        ob_start();
+        extract($data, EXTR_SKIP);
+        include $templatePath;
+
+        return (string) ob_get_clean();
+    }
 
     /**
      * Enqueue media support and inline scripts for widget forms.
@@ -34,7 +57,7 @@ class WidgetAdminAssets
      */
     protected function getInlineScript(): string
     {
-        /** @var string $labelsJson JSON encoded labels consumed by the admin script. */
+        /** @var string|false $labelsJson JSON encoded labels consumed by the admin script. */
         $labelsJson = wp_json_encode([
             'imageUrl' => __('Image URL:', 'a-ripple-song'),
             'imageUrlPlaceholder' => __('Image URL', 'a-ripple-song'),

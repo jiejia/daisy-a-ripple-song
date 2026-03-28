@@ -1,6 +1,6 @@
 <?php
 /** @var array $menu_items Top-level navigation menu items with nested children */
-$menu_items  = App\Helper::getMenuItems();
+$menu_items  = App\Core\Helper::getMenuItems();
 $current_url = home_url($_SERVER['REQUEST_URI']);
 ?>
 <ul class="xl:grid hidden grid-flow-col gap-2 text-md justify-center" id="menu-1">
@@ -13,7 +13,7 @@ $current_url = home_url($_SERVER['REQUEST_URI']);
         $has_children = !empty($children);
 
         /** @var bool $is_active Whether this item or a descendant matches the current URL */
-        $is_active    = App\Helper::isMenuItemActive($item, $children, $current_url);
+        $is_active    = App\Core\Helper::isMenuItemActive($item, $children, $current_url);
 
         /** @var string $active_class CSS classes applied based on active state */
         $active_class = $is_active

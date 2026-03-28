@@ -2,6 +2,8 @@
 
 namespace App\Widgets;
 
+use App\Core\Widget as WidgetCore;
+
 /**
  * Blog List Widget
  *
@@ -83,7 +85,7 @@ class BlogListWidget extends \WP_Widget
             wp_reset_postdata();
         }
 
-        echo WidgetView::render('blog-list', [
+        echo WidgetCore::render('blog-list', [
             'title' => $title,
             'posts' => $posts,
             'columns' => $columns,

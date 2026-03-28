@@ -147,8 +147,8 @@ class AuthorsWidget extends \WP_Widget {
          *
          * @var int $participatedCount Number of episodes the user participated in.
          */
-        $participatedCount = function_exists('\App\Helper::getParticipatedPodcastIds')
-            ? count(\App\Helper::getParticipatedPodcastIds($user->ID))
+        $participatedCount = is_callable([\App\Core\Helper::class, 'getParticipatedPodcastIds'])
+            ? count(\App\Core\Helper::getParticipatedPodcastIds($user->ID))
             : 0;
 
         /** @var int $postCount Total content count displayed next to the user name. */

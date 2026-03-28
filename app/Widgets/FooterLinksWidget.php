@@ -2,6 +2,8 @@
 
 namespace App\Widgets;
 
+use App\Core\Widget as WidgetCore;
+
 /**
  * Footer Links Widget
  *
@@ -39,7 +41,7 @@ class FooterLinksWidget extends \WP_Widget
         /** @var array<int, array<string, mixed>> $items Sanitized footer items. */
         $items = $this->getSanitizedItems($instance['items'] ?? []);
 
-        echo WidgetView::render('footer-links', [
+        echo WidgetCore::render('footer-links', [
             'title' => $title,
             'items' => $items,
         ]);

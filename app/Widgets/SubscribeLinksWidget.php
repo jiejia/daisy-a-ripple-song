@@ -2,6 +2,8 @@
 
 namespace App\Widgets;
 
+use App\Core\Widget as WidgetCore;
+
 /**
  * Subscribe Links Widget
  *
@@ -43,7 +45,7 @@ class SubscribeLinksWidget extends \WP_Widget
             'youtube' => !empty($instance['youtube_music_url']) ? esc_url((string) $instance['youtube_music_url']) : '',
         ];
 
-        echo WidgetView::render('subscribe-links', [
+        echo WidgetCore::render('subscribe-links', [
             'title' => $title,
             'links' => $links,
         ]);

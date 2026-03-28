@@ -2,6 +2,8 @@
 
 namespace App\Widgets;
 
+use App\Core\Widget as WidgetCore;
+
 /**
  * Tags Cloud Widget
  *
@@ -53,7 +55,7 @@ class TagsCloudWidget extends \WP_Widget
             'hide_empty' => true,
         ]);
 
-        echo WidgetView::render('tags-cloud', [
+        echo WidgetCore::render('tags-cloud', [
             'title' => $title,
             'tags' => $tags,
         ]);

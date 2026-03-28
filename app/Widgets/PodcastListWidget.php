@@ -2,6 +2,8 @@
 
 namespace App\Widgets;
 
+use App\Core\Widget as WidgetCore;
+
 /**
  * Podcast List Widget
  *
@@ -54,7 +56,7 @@ class PodcastListWidget extends \WP_Widget
             'random' => $this->getRandomEpisodes($episodePostType, $postsPerPage),
         ];
 
-        echo WidgetView::render('podcast-list', [
+        echo WidgetCore::render('podcast-list', [
             'title' => $title,
             'showSeeAll' => $showSeeAll,
             'archiveUrl' => get_post_type_archive_link($episodePostType) ?: home_url('/'),

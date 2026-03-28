@@ -100,6 +100,14 @@ msgstr ""
 msgid "Pause"
 msgstr ""
 
+#: wp-content/themes/a-ripple-song/resources/views/partials/entry-meta.php:16
+msgid "views"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/partials/entry-meta.php:18
+msgid "plays"
+msgstr ""
+
 #: wp-content/themes/a-ripple-song/index.php:20
 msgid "Blog"
 msgstr ""

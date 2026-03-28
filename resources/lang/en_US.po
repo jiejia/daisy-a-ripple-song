@@ -102,6 +102,14 @@ msgstr "Play"
 msgid "Pause"
 msgstr "Pause"
 
+#: wp-content/themes/a-ripple-song/resources/views/partials/entry-meta.php:16
+msgid "views"
+msgstr "views"
+
+#: wp-content/themes/a-ripple-song/resources/views/partials/entry-meta.php:18
+msgid "plays"
+msgstr "plays"
+
 #: wp-content/themes/a-ripple-song/index.php:20
 msgid "Blog"
 msgstr "Blog"

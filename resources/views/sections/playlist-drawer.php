@@ -1,4 +1,4 @@
-<div class="drawer drawer-end z-[300]" x-data>
+<div class="drawer drawer-end z-[101]" x-data>
   <input id="playlist-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-side">
     <label for="playlist-drawer" aria-label="close sidebar" class="drawer-overlay"></label>

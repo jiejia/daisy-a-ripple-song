@@ -1,12 +1,45 @@
 import Swup from 'swup';
 import { createIcons, icons } from 'lucide';
+import {
+    siApplepodcasts,
+    siFacebook,
+    siInstagram,
+    siPinterest,
+    siRss,
+    siSinaweibo,
+    siSpotify,
+    siThreads,
+    siTiktok,
+    siWechat,
+    siX,
+    siYoutube,
+    siYoutubemusic,
+} from 'simple-icons';
 import { Howl } from 'howler';
 import AudioMotionAnalyzer from 'audiomotion-analyzer';
 import Alpine from 'alpinejs';
 import SwupFormsPlugin from '@swup/forms-plugin';
 import SwupScriptsPlugin from '@swup/scripts-plugin';
 
+
 window.Alpine = Alpine;
+
+/** @type {Record<string, {title: string, path: string, hex: string}>} Footer brand icon lookup. */
+const simpleBrandIcons = {
+    applepodcasts: siApplepodcasts,
+    facebook: siFacebook,
+    twitter: siX,
+    instagram: siInstagram,
+    youtube: siYoutube,
+    youtubemusic: siYoutubemusic,
+    tiktok: siTiktok,
+    pinterest: siPinterest,
+    threads: siThreads,
+    weibo: siSinaweibo,
+    wechat: siWechat,
+    rss: siRss,
+    spotify: siSpotify,
+};
 
 /**
  * Create an in-memory storage fallback when the browser blocks persistent storage.
@@ -102,6 +135,38 @@ function getEpisodesEndpoint() {
     const separator = normalizedRoot.includes('?') ? '&' : '?';
 
     return `${normalizedRoot}wp/v2/ars_episode${separator}${query}`;
+}
+
+/**
+ * Render footer brand icons using Simple Icons.
+ *
+ * @param {ParentNode} root The DOM subtree to scan.
+ * @return {void}
+ */
+function renderSimpleIcons(root = document) {
+    root.querySelectorAll('[data-simple-icon]').forEach((iconNode) => {
+        if (!(iconNode instanceof HTMLElement)) {
+            return;
+        }
+
+        const iconName = String(iconNode.dataset.simpleIcon || '').trim().toLowerCase();
+        const iconLabel = String(iconNode.dataset.simpleIconLabel || '').trim();
+        const icon = simpleBrandIcons[iconName];
+
+        if (!icon) {
+            iconNode.textContent = iconLabel.slice(0, 1).toUpperCase();
+            iconNode.setAttribute('aria-hidden', 'true');
+            return;
+        }
+
+        iconNode.innerHTML = `
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor" class="block h-full w-full">
+                <title>${iconLabel || icon.title}</title>
+                <path d="${icon.path}"></path>
+            </svg>
+        `;
+        iconNode.setAttribute('aria-hidden', 'true');
+    });
 }
 
 /**
@@ -1248,6 +1313,7 @@ if (canBootSwup()) {
  */
 function init() {
     createIcons({ icons });
+    renderSimpleIcons(document);
     Alpine.store('player').init();
 }
 
@@ -1264,5 +1330,6 @@ if (hasThemeRuntimeRoot()) {
 if (swup) {
     swup.hooks.on('content:replace', () => {
         createIcons({ icons });
+        renderSimpleIcons(document);
     });
 }

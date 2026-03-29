@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: a-ripple-song\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-29 15:54+0800\n"
+"POT-Creation-Date: 2026-03-29 16:09+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 msgid "+ Add Item"
 msgstr ""
 
-#: app/ThemeOptions/General.php:88 footer.php:13
+#: app/ThemeOptions/General.php:86
 msgid "A Ripple Song"
 msgstr ""
 
@@ -81,11 +81,11 @@ msgstr ""
 msgid "Clear Playlist"
 msgstr ""
 
-#: app/ThemeOptions/General.php:124
+#: app/ThemeOptions/General.php:122
 msgid "Click any card to choose the dark theme."
 msgstr ""
 
-#: app/ThemeOptions/General.php:109
+#: app/ThemeOptions/General.php:107
 msgid "Click any card to choose the light theme."
 msgstr ""
 
@@ -101,11 +101,11 @@ msgstr ""
 msgid "Dark Mode"
 msgstr ""
 
-#: app/ThemeOptions/General.php:116 app/ThemeOptions/General.php:120
+#: app/ThemeOptions/General.php:114 app/ThemeOptions/General.php:118
 msgid "Dark Theme"
 msgstr ""
 
-#: app/ThemeOptions/General.php:125
+#: app/ThemeOptions/General.php:123
 msgid "Dark Theme (fallback)"
 msgstr ""
 
@@ -162,7 +162,7 @@ msgstr ""
 msgid "Follow System"
 msgstr ""
 
-#: app/ThemeOptions/General.php:131
+#: app/ThemeOptions/General.php:129
 msgid "Footer Copyright"
 msgstr ""
 
@@ -170,7 +170,7 @@ msgstr ""
 msgid "Footer Links"
 msgstr ""
 
-#: app/ThemeOptions/General.php:137
+#: app/ThemeOptions/General.php:135
 msgid "Footer Scripts"
 msgstr ""
 
@@ -178,7 +178,7 @@ msgstr ""
 msgid "Footer links area for displaying link columns"
 msgstr ""
 
-#: app/ThemeOptions/General.php:82 app/ThemeOptions/General.php:175
+#: app/ThemeOptions/General.php:80 app/ThemeOptions/General.php:173
 msgid "General"
 msgstr ""
 
@@ -195,7 +195,7 @@ msgstr ""
 msgid "Guests Title:"
 msgstr ""
 
-#: app/ThemeOptions/General.php:135
+#: app/ThemeOptions/General.php:133
 msgid "Header Scripts"
 msgstr ""
 
@@ -203,11 +203,11 @@ msgstr ""
 msgid "Home Main"
 msgstr ""
 
-#: app/ThemeOptions/General.php:128
+#: app/ThemeOptions/General.php:126
 msgid "If the card picker is unavailable, use this dropdown (default: dim)."
 msgstr ""
 
-#: app/ThemeOptions/General.php:113
+#: app/ThemeOptions/General.php:111
 msgid "If the card picker is unavailable, use this dropdown (default: retro)."
 msgstr ""
 
@@ -245,28 +245,12 @@ msgstr ""
 msgid "Light Mode"
 msgstr ""
 
-#: app/ThemeOptions/General.php:101 app/ThemeOptions/General.php:105
+#: app/ThemeOptions/General.php:99 app/ThemeOptions/General.php:103
 msgid "Light Theme"
 msgstr ""
 
-#: app/ThemeOptions/General.php:110
+#: app/ThemeOptions/General.php:108
 msgid "Light Theme (fallback)"
-msgstr ""
-
-#: footer.php:8
-msgid "Link 1"
-msgstr ""
-
-#: footer.php:9
-msgid "Link 2"
-msgstr ""
-
-#: footer.php:10
-msgid "Link 3"
-msgstr ""
-
-#: footer.php:11
-msgid "Link 4"
 msgstr ""
 
 #: app/Core/Widget.php:68 app/Widgets/BannerCarouselWidget.php:117
@@ -357,7 +341,7 @@ msgstr ""
 msgid "Number of tags:"
 msgstr ""
 
-#: app/ThemeOptions/General.php:1031
+#: app/ThemeOptions/General.php:998
 msgid "Only filled links will be used by the theme."
 msgstr ""
 
@@ -365,7 +349,7 @@ msgstr ""
 msgid "Open in new tab"
 msgstr ""
 
-#: app/ThemeOptions/General.php:1036
+#: app/ThemeOptions/General.php:1003
 msgid "Optional. Enter a full URL."
 msgstr ""
 
@@ -373,7 +357,7 @@ msgstr ""
 msgid "Order by:"
 msgstr ""
 
-#: app/ThemeOptions/General.php:134
+#: app/ThemeOptions/General.php:132
 msgid "Overrides the footer copyright line. Leave empty to use the default."
 msgstr ""
 
@@ -432,7 +416,12 @@ msgstr ""
 msgid "Post Count"
 msgstr ""
 
-#: app/ThemeOptions/General.php:133
+#: footer.php:22
+#, php-format
+msgid "Powered by %s"
+msgstr ""
+
+#: app/ThemeOptions/General.php:131
 msgid "Powered by A Ripple Song Theme"
 msgstr ""
 
@@ -469,7 +458,7 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: app/ThemeOptions/General.php:436
+#: app/ThemeOptions/General.php:434
 msgid "Remove Logo"
 msgstr ""
 
@@ -482,12 +471,12 @@ msgstr ""
 msgid "SUBSCRIBE"
 msgstr ""
 
-#: app/ThemeOptions/General.php:138
+#: app/ThemeOptions/General.php:136
 msgid ""
 "Scripts to be added before </body>. You can include complete <script> tags."
 msgstr ""
 
-#: app/ThemeOptions/General.php:136
+#: app/ThemeOptions/General.php:134
 msgid ""
 "Scripts to be added in the <head> section. You can include complete <script> "
 "tags for services like Google Analytics."
@@ -518,12 +507,12 @@ msgstr ""
 msgid "Show Members (Administrators, Editors, Authors)"
 msgstr ""
 
-#: app/ThemeOptions/General.php:94 app/ThemeOptions/General.php:426
-#: app/ThemeOptions/General.php:782
+#: app/ThemeOptions/General.php:92 app/ThemeOptions/General.php:424
+#: app/ThemeOptions/General.php:780
 msgid "Site Logo"
 msgstr ""
 
-#: app/ThemeOptions/General.php:143 app/ThemeOptions/General.php:1030
+#: app/ThemeOptions/General.php:141 app/ThemeOptions/General.php:997
 msgid "Social Links"
 msgstr ""
 
@@ -559,7 +548,7 @@ msgstr ""
 msgid "Text:"
 msgstr ""
 
-#: app/ThemeOptions/General.php:80
+#: app/ThemeOptions/General.php:78
 msgid "Theme Settings"
 msgstr ""
 
@@ -603,11 +592,11 @@ msgstr ""
 msgid "Unknown episode"
 msgstr ""
 
-#: app/ThemeOptions/General.php:434
+#: app/ThemeOptions/General.php:432
 msgid "Upload / Change Logo"
 msgstr ""
 
-#: app/ThemeOptions/General.php:96
+#: app/ThemeOptions/General.php:94
 msgid ""
 "Upload a logo image (220px × 32px). You will be able to crop the image after "
 "upload."
@@ -679,9 +668,4 @@ msgstr ""
 
 #: resources/views/partials/entry-meta.php:16
 msgid "views"
-msgstr ""
-
-#: footer.php:12
-#, php-format
-msgid "© %1$s Powered by %2$s Theme"
 msgstr ""

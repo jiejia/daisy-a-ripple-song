@@ -20,23 +20,23 @@ class SocialLinks
         return [
             'facebook' => [
                 'label' => __('Facebook', 'a-ripple-song'),
-                'icon' => 'facebook',
+                'icon' => 'thumbs-up',
             ],
             'twitter' => [
                 'label' => __('Twitter / X', 'a-ripple-song'),
-                'icon' => 'twitter',
+                'icon' => 'message-circle',
             ],
             'instagram' => [
                 'label' => __('Instagram', 'a-ripple-song'),
-                'icon' => 'instagram',
+                'icon' => 'camera',
             ],
             'linkedin' => [
                 'label' => __('LinkedIn', 'a-ripple-song'),
-                'icon' => 'linkedin',
+                'icon' => 'briefcase',
             ],
             'youtube' => [
                 'label' => __('YouTube', 'a-ripple-song'),
-                'icon' => 'youtube',
+                'icon' => 'play-circle',
             ],
             'tiktok' => [
                 'label' => __('TikTok', 'a-ripple-song'),

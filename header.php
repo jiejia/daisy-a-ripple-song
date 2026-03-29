@@ -12,11 +12,14 @@ $theme_mode_labels = [
 ];
 ?>
 <!DOCTYPE html>
-<html <?php language_attributes(); ?> class="bg-base-200" x-data x-init="$store.theme.init()" :data-theme="$store.theme.current">
+<html <?php language_attributes(); ?> class="bg-base-200" data-theme="<?php echo esc_attr(\App\ThemeOptions\General::getLightTheme()); ?>" x-data x-init="$store.theme.init()" :data-theme="$store.theme.current">
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        window.arsThemeOptions = <?php echo wp_json_encode(\App\ThemeOptions\General::getThemeModeConfig()); ?>;
+    </script>
     <?php wp_head(); ?>
 </head>
 
@@ -29,8 +32,12 @@ $theme_mode_labels = [
                     <div class="grid xl:grid-cols-[220px_1fr_300px] grid-cols-[220px_1fr] gap-4">
                         <h1 class="text-2xl font-bold text-center">
                             <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-2" title="<?php bloginfo('description'); ?>">
-                                <i data-lucide="podcast" class="w-6 h-6"></i>
-                                <span class="text-2xl bg-gradient-to-r from-base-content/40 via-base-content/70 to-base-content bg-clip-text text-transparent transition-all duration-500 ease-in-out hover:from-base-content hover:via-base-content/70 hover:to-base-content/40"><?php bloginfo('name'); ?></span>
+                                <?php if (\App\ThemeOptions\General::getSiteLogoUrl() !== ''): ?>
+                                    <img src="<?php echo esc_url(\App\ThemeOptions\General::getSiteLogoUrl()); ?>" alt="<?php bloginfo('name'); ?>" class="h-8 w-auto max-w-[220px] object-contain">
+                                <?php else: ?>
+                                    <i data-lucide="podcast" class="w-6 h-6"></i>
+                                    <span class="text-2xl bg-gradient-to-r from-base-content/40 via-base-content/70 to-base-content bg-clip-text text-transparent transition-all duration-500 ease-in-out hover:from-base-content hover:via-base-content/70 hover:to-base-content/40"><?php bloginfo('name'); ?></span>
+                                <?php endif; ?>
                             </a>
                         </h1>
                         <?php get_template_part('resources/views/sections/primary-navigation'); ?>

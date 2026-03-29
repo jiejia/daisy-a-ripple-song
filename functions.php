@@ -23,6 +23,8 @@ require_once __DIR__ . '/app/Core/Vite.php';
 require_once __DIR__ . '/app/Core/Widget.php';
 require_once __DIR__ . '/app/Core/Setup.php';
 
+App\ThemeOptions\General::boot();
+
 /** @var App\Core\Vite $vite Theme asset loader shared across frontend and editor preview hooks. */
 $vite = new App\Core\Vite();
 

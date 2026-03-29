@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A Ripple Song Theme 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-27 12:05+0800\n"
+"POT-Creation-Date: 2026-03-29 15:54+0800\n"
 "PO-Revision-Date: 2026-03-27 12:05+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: English\n"
@@ -16,7 +16,556 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: wp-content/themes/a-ripple-song/functions.php:12
+#: resources/views/widgets/tags-cloud.php:28
+#, fuzzy, php-format
+msgid "%d post"
+msgid_plural "%d posts"
+msgstr[0] "%d post"
+msgstr[1] "%d post"
+
+#: app/Widgets/BannerCarouselWidget.php:154
+msgid "+ Add Banner"
+msgstr "+ Add Banner"
+
+#: app/Widgets/FooterLinksWidget.php:146
+msgid "+ Add Item"
+msgstr "+ Add Item"
+
+#: app/ThemeOptions/General.php:88 footer.php:13
+msgid "A Ripple Song"
+msgstr "A Ripple Song"
+
+#: resources/views/sections/playlist-drawer.php:32
+msgid "Add some episodes to start listening"
+msgstr "Add some episodes to start listening"
+
+#: resources/views/widgets/subscribe-links.php:17
+msgid "Apple Podcast"
+msgstr "Apple Podcast"
+
+#: app/Widgets/SubscribeLinksWidget.php:90
+msgid "Apple Podcast Link:"
+msgstr "Apple Podcast Link:"
+
+#: resources/views/sections/playlist-drawer.php:17
+msgid "Are you sure you want to clear the playlist?"
+msgstr "Are you sure you want to clear the playlist?"
+
+#: app/Widgets/TagsCloudWidget.php:134
+msgid "Ascending (Low to High/A to Z)"
+msgstr "Ascending (Low to High/A to Z)"
+
+#: resources/views/widgets/authors.php:49
+msgid "Authors will appear here after adding users"
+msgstr "Authors will appear here after adding users"
+
+#: app/Widgets/BlogListWidget.php:39 app/Widgets/BlogListWidget.php:108
+msgid "BLOG"
+msgstr "BLOG"
+
+#: app/Widgets/BannerCarouselWidget.php:76
+msgid "Banner Slides:"
+msgstr "Banner Slides:"
+
+#: resources/views/sections/autoplay-confirm.php:39
+msgid "Cancel"
+msgstr "Cancel"
+
+#: resources/views/sections/playlist-drawer.php:21
+msgid "Clear"
+msgstr "Clear"
+
+#: resources/views/sections/playlist-drawer.php:19
+msgid "Clear Playlist"
+msgstr "Clear Playlist"
+
+#: app/ThemeOptions/General.php:124
+msgid "Click any card to choose the dark theme."
+msgstr ""
+
+#: app/ThemeOptions/General.php:109
+msgid "Click any card to choose the light theme."
+msgstr ""
+
+#: resources/views/sections/autoplay-confirm.php:20
+msgid "Continue playing?"
+msgstr "Continue playing?"
+
+#: app/Core/Widget.php:69 app/Widgets/BannerCarouselWidget.php:122
+msgid "Current Page"
+msgstr "Current Page"
+
+#: header.php:9
+msgid "Dark Mode"
+msgstr "Dark Mode"
+
+#: app/ThemeOptions/General.php:116 app/ThemeOptions/General.php:120
+msgid "Dark Theme"
+msgstr ""
+
+#: app/ThemeOptions/General.php:125
+msgid "Dark Theme (fallback)"
+msgstr ""
+
+#: app/Core/Widget.php:73 app/Widgets/FooterLinksWidget.php:135
+#: app/Widgets/BannerCarouselWidget.php:143
+msgid "Delete"
+msgstr "Delete"
+
+#: app/Widgets/TagsCloudWidget.php:133
+msgid "Descending (High to Low/Z to A)"
+msgstr "Descending (High to Low/Z to A)"
+
+#: app/Core/Widget.php:71 app/Widgets/BannerCarouselWidget.php:132
+msgid "Description:"
+msgstr "Description:"
+
+#: app/Widgets/FooterLinksWidget.php:23
+msgid "Display a list of links or text items in the footer"
+msgstr "Display a list of links or text items in the footer"
+
+#: app/Widgets/TagsCloudWidget.php:23
+msgid "Display article tags cloud"
+msgstr "Display article tags cloud"
+
+#: app/Widgets/BannerCarouselWidget.php:23
+msgid "Display banner carousel with images"
+msgstr "Display banner carousel with images"
+
+#: app/Widgets/BlogListWidget.php:23
+msgid "Display latest blog posts list"
+msgstr "Display latest blog posts list"
+
+#: app/Widgets/PodcastListWidget.php:23
+msgid "Display latest podcast list"
+msgstr "Display latest podcast list"
+
+#: app/Widgets/AuthorsWidget.php:25
+msgid "Display members and guest authors list"
+msgstr "Display members and guest authors list"
+
+#: app/Widgets/SubscribeLinksWidget.php:23
+msgid "Display podcast subscription platform links"
+msgstr "Display podcast subscription platform links"
+
+#: app/Core/Widget.php:75 app/Widgets/FooterLinksWidget.php:108
+msgid "Display text"
+msgstr "Display text"
+
+#: app/ThemeOptions/SocialLinks.php:22
+msgid "Facebook"
+msgstr ""
+
+#: header.php:10
+msgid "Follow System"
+msgstr "Follow System"
+
+#: app/ThemeOptions/General.php:131
+msgid "Footer Copyright"
+msgstr ""
+
+#: app/Core/Setup.php:41
+msgid "Footer Links"
+msgstr "Footer Links"
+
+#: app/ThemeOptions/General.php:137
+msgid "Footer Scripts"
+msgstr ""
+
+#: app/Core/Setup.php:43
+msgid "Footer links area for displaying link columns"
+msgstr "Footer links area for displaying link columns"
+
+#: app/ThemeOptions/General.php:82 app/ThemeOptions/General.php:175
+msgid "General"
+msgstr ""
+
+#: resources/views/widgets/banner-carousel.php:63
+#, php-format
+msgid "Go to slide %d"
+msgstr "Go to slide %d"
+
+#: app/Widgets/AuthorsWidget.php:48 app/Widgets/AuthorsWidget.php:130
+msgid "Guests"
+msgstr "Guests"
+
+#: app/Widgets/AuthorsWidget.php:162
+msgid "Guests Title:"
+msgstr "Guests Title:"
+
+#: app/ThemeOptions/General.php:135
+msgid "Header Scripts"
+msgstr ""
+
+#: app/Core/Setup.php:51
+msgid "Home Main"
+msgstr "Home Main"
+
+#: app/ThemeOptions/General.php:128
+msgid "If the card picker is unavailable, use this dropdown (default: dim)."
+msgstr ""
+
+#: app/ThemeOptions/General.php:113
+msgid "If the card picker is unavailable, use this dropdown (default: retro)."
+msgstr ""
+
+#: app/Core/Widget.php:63 app/Widgets/BannerCarouselWidget.php:90
+msgid "Image URL"
+msgstr "Image URL"
+
+#: app/Core/Widget.php:62 app/Widgets/BannerCarouselWidget.php:83
+msgid "Image URL:"
+msgstr "Image URL:"
+
+#: app/Core/Widget.php:72 app/Widgets/BannerCarouselWidget.php:138
+msgid "Image description"
+msgstr "Image description"
+
+#: app/ThemeOptions/SocialLinks.php:30
+msgid "Instagram"
+msgstr ""
+
+#: app/Widgets/FooterLinksWidget.php:94
+msgid "Items:"
+msgstr "Items:"
+
+#: app/Widgets/SubscribeLinksWidget.php:98
+#: app/Widgets/SubscribeLinksWidget.php:111
+#: app/Widgets/SubscribeLinksWidget.php:124
+msgid "Leave blank to hide this button"
+msgstr "Leave blank to hide this button"
+
+#: app/Core/Setup.php:71
+msgid "Leftbar Primary"
+msgstr "Leftbar Primary"
+
+#: header.php:8
+msgid "Light Mode"
+msgstr "Light Mode"
+
+#: app/ThemeOptions/General.php:101 app/ThemeOptions/General.php:105
+msgid "Light Theme"
+msgstr ""
+
+#: app/ThemeOptions/General.php:110
+msgid "Light Theme (fallback)"
+msgstr ""
+
+#: footer.php:8
+msgid "Link 1"
+msgstr "Link 1"
+
+#: footer.php:9
+msgid "Link 2"
+msgstr "Link 2"
+
+#: footer.php:10
+msgid "Link 3"
+msgstr "Link 3"
+
+#: footer.php:11
+msgid "Link 4"
+msgstr "Link 4"
+
+#: app/Core/Widget.php:68 app/Widgets/BannerCarouselWidget.php:117
+msgid "Link Target:"
+msgstr "Link Target:"
+
+#: app/Core/Widget.php:67 app/Widgets/BannerCarouselWidget.php:106
+msgid "Link URL (optional):"
+msgstr "Link URL (optional):"
+
+#: app/ThemeOptions/SocialLinks.php:34
+msgid "LinkedIn"
+msgstr ""
+
+#: resources/views/sections/player.php:46
+msgid "Loading audio"
+msgstr "Loading audio"
+
+#: app/Core/Setup.php:53
+msgid "Main area of the homepage for displaying various content modules"
+msgstr "Main area of the homepage for displaying various content modules"
+
+#: app/Widgets/TagsCloudWidget.php:109
+msgid "Maximum number of tags to display"
+msgstr "Maximum number of tags to display"
+
+#: app/Widgets/AuthorsWidget.php:43 app/Widgets/AuthorsWidget.php:127
+msgid "Members"
+msgstr "Members"
+
+#: app/Widgets/AuthorsWidget.php:140
+msgid "Members Title:"
+msgstr "Members Title:"
+
+#: resources/views/sections/mobile-menu.php:7
+msgid "Menu"
+msgstr "Menu"
+
+#: resources/views/sections/player.php:3
+msgid "NOW PLAYING"
+msgstr "NOW PLAYING"
+
+#: app/Core/Widget.php:70 app/Widgets/BannerCarouselWidget.php:125
+msgid "New Tab"
+msgstr "New Tab"
+
+#: resources/views/widgets/banner-carousel.php:51
+msgid "Next slide"
+msgstr "Next slide"
+
+#: resources/views/widgets/podcast-list.php:44
+msgid "No ARS Episode content"
+msgstr "No ARS Episode content"
+
+#: resources/views/sections/player.php:26
+msgid "No Episode Playing"
+msgstr "No Episode Playing"
+
+#: resources/views/widgets/authors.php:48
+msgid "No authors yet"
+msgstr "No authors yet"
+
+#: resources/views/widgets/banner-carousel.php:16
+msgid "No banner yet"
+msgstr "No banner yet"
+
+#: resources/views/widgets/blog-list.php:43
+msgid "No blog posts yet"
+msgstr "No blog posts yet"
+
+#: resources/views/widgets/tags-cloud.php:18
+msgid "No tags yet"
+msgstr "No tags yet"
+
+#: app/Widgets/BlogListWidget.php:146
+msgid "Number of columns:"
+msgstr "Number of columns:"
+
+#: app/Widgets/PodcastListWidget.php:99
+msgid "Number of episodes:"
+msgstr "Number of episodes:"
+
+#: app/Widgets/BlogListWidget.php:132
+msgid "Number of posts:"
+msgstr "Number of posts:"
+
+#: app/Widgets/TagsCloudWidget.php:99
+msgid "Number of tags:"
+msgstr "Number of tags:"
+
+#: app/ThemeOptions/General.php:1031
+msgid "Only filled links will be used by the theme."
+msgstr ""
+
+#: app/Core/Widget.php:77 app/Widgets/FooterLinksWidget.php:129
+msgid "Open in new tab"
+msgstr "Open in new tab"
+
+#: app/ThemeOptions/General.php:1036
+msgid "Optional. Enter a full URL."
+msgstr ""
+
+#: app/Widgets/TagsCloudWidget.php:114
+msgid "Order by:"
+msgstr "Order by:"
+
+#: app/ThemeOptions/General.php:134
+msgid "Overrides the footer copyright line. Leave empty to use the default."
+msgstr ""
+
+#: app/Widgets/PodcastListWidget.php:155
+msgid "PODCASTS"
+msgstr "PODCASTS"
+
+#: resources/views/partials/podcast-episode-card.php:70
+msgid "Pause"
+msgstr "Pause"
+
+#: app/ThemeOptions/SocialLinks.php:46
+msgid "Pinterest"
+msgstr ""
+
+#: resources/views/sections/autoplay-confirm.php:32
+#: resources/views/partials/podcast-episode-card.php:70
+msgid "Play"
+msgstr "Play"
+
+#: resources/views/sections/playlist-drawer.php:8
+msgid "Playlist"
+msgstr "Playlist"
+
+#: resources/views/sections/playlist-drawer.php:31
+msgid "Playlist is empty"
+msgstr "Playlist is empty"
+
+#: resources/views/widgets/banner-carousel.php:17
+msgid "Please add banner content in the admin panel"
+msgstr "Please add banner content in the admin panel"
+
+#: template-home.php:18
+msgid ""
+"Please add widgets to \"Home Main\" area in Appearance > Widgets in the "
+"admin panel."
+msgstr ""
+
+#: resources/views/sections/leftbar.php:8
+msgid ""
+"Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin "
+"panel."
+msgstr ""
+"Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin "
+"panel."
+
+#: sidebar.php:19
+msgid ""
+"Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin "
+"panel."
+msgstr ""
+"Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin "
+"panel."
+
+#: resources/views/widgets/podcast-list.php:23
+msgid "Popular"
+msgstr "Popular"
+
+#: app/Widgets/TagsCloudWidget.php:119
+msgid "Post Count"
+msgstr "Post Count"
+
+#: app/ThemeOptions/General.php:133
+msgid "Powered by A Ripple Song Theme"
+msgstr ""
+
+#: resources/views/widgets/banner-carousel.php:42
+msgid "Previous slide"
+msgstr "Previous slide"
+
+#: app/Core/Setup.php:20
+msgid "Primary Navigation"
+msgstr "Primary Navigation"
+
+#: app/Core/Setup.php:73
+msgid "Primary left sidebar area for displaying various content modules"
+msgstr "Primary left sidebar area for displaying various content modules"
+
+#: app/Core/Setup.php:63
+msgid "Primary right sidebar area for displaying various content modules"
+msgstr ""
+
+#: app/ThemeOptions/SocialLinks.php:62
+msgid "RSS Feed"
+msgstr ""
+
+#: app/Widgets/TagsCloudWidget.php:122
+#: resources/views/widgets/podcast-list.php:24
+msgid "Random"
+msgstr "Random"
+
+#: resources/views/widgets/podcast-list.php:22
+msgid "Recent"
+msgstr "Recent"
+
+#: resources/views/sections/playlist-drawer.php:82
+msgid "Remove"
+msgstr "Remove"
+
+#: app/ThemeOptions/General.php:436
+msgid "Remove Logo"
+msgstr ""
+
+#: app/Core/Setup.php:61
+msgid "Rightbar Primary"
+msgstr ""
+
+#: app/Widgets/SubscribeLinksWidget.php:39
+#: app/Widgets/SubscribeLinksWidget.php:65
+msgid "SUBSCRIBE"
+msgstr "SUBSCRIBE"
+
+#: app/ThemeOptions/General.php:138
+msgid ""
+"Scripts to be added before </body>. You can include complete <script> tags."
+msgstr ""
+
+#: app/ThemeOptions/General.php:136
+msgid ""
+"Scripts to be added in the <head> section. You can include complete <script> "
+"tags for services like Google Analytics."
+msgstr ""
+
+#: resources/views/widgets/blog-list.php:18
+#: resources/views/widgets/podcast-list.php:16
+msgid "See all"
+msgstr "See all"
+
+#: app/Core/Widget.php:65
+msgid "Select Banner Image"
+msgstr "Select Banner Image"
+
+#: app/Core/Widget.php:64 app/Widgets/BannerCarouselWidget.php:93
+msgid "Select Image"
+msgstr "Select Image"
+
+#: app/Widgets/PodcastListWidget.php:118 app/Widgets/BlogListWidget.php:166
+msgid "Show \"See all\" link"
+msgstr "Show \"See all\" link"
+
+#: app/Widgets/AuthorsWidget.php:178
+msgid "Show Guests (Contributors)"
+msgstr "Show Guests (Contributors)"
+
+#: app/Widgets/AuthorsWidget.php:156
+msgid "Show Members (Administrators, Editors, Authors)"
+msgstr "Show Members (Administrators, Editors, Authors)"
+
+#: app/ThemeOptions/General.php:94 app/ThemeOptions/General.php:426
+#: app/ThemeOptions/General.php:782
+msgid "Site Logo"
+msgstr ""
+
+#: app/ThemeOptions/General.php:143 app/ThemeOptions/General.php:1030
+msgid "Social Links"
+msgstr ""
+
+#: app/Widgets/TagsCloudWidget.php:128
+msgid "Sort order:"
+msgstr "Sort order:"
+
+#: resources/views/widgets/subscribe-links.php:24
+msgid "Spotify"
+msgstr "Spotify"
+
+#: app/Widgets/SubscribeLinksWidget.php:103
+msgid "Spotify Link:"
+msgstr "Spotify Link:"
+
+#: app/Widgets/TagsCloudWidget.php:39 app/Widgets/TagsCloudWidget.php:75
+msgid "TAGS"
+msgstr "TAGS"
+
+#: app/Widgets/TagsCloudWidget.php:121
+msgid "Tag ID"
+msgstr "Tag ID"
+
+#: app/Widgets/TagsCloudWidget.php:120
+msgid "Tag Name"
+msgstr "Tag Name"
+
+#: resources/views/widgets/tags-cloud.php:19
+msgid "Tags will appear here after publishing articles with tags"
+msgstr "Tags will appear here after publishing articles with tags"
+
+#: app/Core/Widget.php:74 app/Widgets/FooterLinksWidget.php:102
+msgid "Text:"
+msgstr "Text:"
+
+#: app/ThemeOptions/General.php:80
+msgid "Theme Settings"
+msgstr ""
+
+#: functions.php:12
 msgid ""
 "Theme dependencies are missing. Run \"composer install\" in wp-content/"
 "themes/a-ripple-song."
@@ -24,550 +573,144 @@ msgstr ""
 "Theme dependencies are missing. Run \"composer install\" in wp-content/"
 "themes/a-ripple-song."
 
-#: wp-content/themes/a-ripple-song/app/Setup.php:20
-msgid "Primary Navigation"
-msgstr "Primary Navigation"
+#: app/ThemeOptions/SocialLinks.php:50
+msgid "Threads"
+msgstr ""
 
-#: wp-content/themes/a-ripple-song/app/Setup.php:34
-msgid "Footer Links"
-msgstr "Footer Links"
+#: app/ThemeOptions/SocialLinks.php:42
+msgid "TikTok"
+msgstr ""
 
-#: wp-content/themes/a-ripple-song/app/Setup.php:36
-msgid "Footer links area for displaying link columns"
-msgstr "Footer links area for displaying link columns"
+#: app/Widgets/FooterLinksWidget.php:83 app/Widgets/PodcastListWidget.php:88
+#: app/Widgets/TagsCloudWidget.php:88 app/Widgets/SubscribeLinksWidget.php:78
+#: app/Widgets/BlogListWidget.php:121
+msgid "Title:"
+msgstr "Title:"
 
-#: wp-content/themes/a-ripple-song/app/Setup.php:44
-msgid "Home Main"
-msgstr "Home Main"
-
-#: wp-content/themes/a-ripple-song/app/Setup.php:46
-msgid "Main area of the homepage for displaying various content modules"
-msgstr "Main area of the homepage for displaying various content modules"
-
-#: wp-content/themes/a-ripple-song/app/Setup.php:53
-msgid "Sidebar Primary"
-msgstr "Sidebar Primary"
-
-#: wp-content/themes/a-ripple-song/app/Setup.php:55
-msgid "Primary sidebar area for displaying various content modules"
-msgstr "Primary sidebar area for displaying various content modules"
-
-#: wp-content/themes/a-ripple-song/app/Setup.php:62
-msgid "Leftbar Primary"
-msgstr "Leftbar Primary"
-
-#: wp-content/themes/a-ripple-song/app/Setup.php:64
-msgid "Primary left sidebar area for displaying various content modules"
-msgstr "Primary left sidebar area for displaying various content modules"
-
-#: wp-content/themes/a-ripple-song/index.php:10
-msgid "Previous slide"
-msgstr "Previous slide"
-
-#: wp-content/themes/a-ripple-song/index.php:11
-msgid "Next slide"
-msgstr "Next slide"
-
-#: wp-content/themes/a-ripple-song/index.php:12
-#, php-format
-msgid "Go to slide %d"
-msgstr "Go to slide %d"
-
-#: wp-content/themes/a-ripple-song/index.php:13
-#: wp-content/themes/a-ripple-song/sidebar.php:11
-msgid "Podcast"
-msgstr "Podcast"
-
-#: wp-content/themes/a-ripple-song/index.php:14
-msgid "See all"
-msgstr "See all"
-
-#: wp-content/themes/a-ripple-song/index.php:15
-msgid "Recent"
-msgstr "Recent"
-
-#: wp-content/themes/a-ripple-song/index.php:16
-msgid "Popular"
-msgstr "Popular"
-
-#: wp-content/themes/a-ripple-song/index.php:17
-msgid "Random"
-msgstr "Random"
-
-#: wp-content/themes/a-ripple-song/index.php:18
-msgid "Play"
-msgstr "Play"
-
-#: wp-content/themes/a-ripple-song/index.php:19
-msgid "Pause"
-msgstr "Pause"
-
-#: wp-content/themes/a-ripple-song/resources/views/partials/entry-meta.php:16
-msgid "views"
-msgstr "views"
-
-#: wp-content/themes/a-ripple-song/resources/views/partials/entry-meta.php:18
-msgid "plays"
-msgstr "plays"
-
-#: wp-content/themes/a-ripple-song/index.php:20
-msgid "Blog"
-msgstr "Blog"
-
-#: wp-content/themes/a-ripple-song/index.php:21
-msgid "No blog posts yet"
-msgstr "No blog posts yet"
-
-#: wp-content/themes/a-ripple-song/header.php:8
-msgid "Light Mode"
-msgstr "Light Mode"
-
-#: wp-content/themes/a-ripple-song/header.php:9
-msgid "Dark Mode"
-msgstr "Dark Mode"
-
-#: wp-content/themes/a-ripple-song/header.php:10
-msgid "Follow System"
-msgstr "Follow System"
-
-#: wp-content/themes/a-ripple-song/header.php:11
+#: header.php:11
 msgid "Toggle Theme"
 msgstr "Toggle Theme"
 
-#: wp-content/themes/a-ripple-song/footer.php:8
-msgid "Link 1"
-msgstr "Link 1"
+#: resources/views/sections/playlist-drawer.php:15
+msgid "Total"
+msgstr "Total"
 
-#: wp-content/themes/a-ripple-song/footer.php:9
-msgid "Link 2"
-msgstr "Link 2"
+#: app/ThemeOptions/SocialLinks.php:26
+msgid "Twitter / X"
+msgstr ""
 
-#: wp-content/themes/a-ripple-song/footer.php:10
-msgid "Link 3"
-msgstr "Link 3"
+#: app/Core/Widget.php:76 app/Widgets/FooterLinksWidget.php:113
+msgid "URL (optional - leave empty for plain text):"
+msgstr "URL (optional - leave empty for plain text):"
 
-#: wp-content/themes/a-ripple-song/footer.php:11
-msgid "Link 4"
-msgstr "Link 4"
+#: resources/views/sections/autoplay-confirm.php:23
+msgid "Unknown episode"
+msgstr "Unknown episode"
 
-#: wp-content/themes/a-ripple-song/footer.php:12
+#: app/ThemeOptions/General.php:434
+msgid "Upload / Change Logo"
+msgstr ""
+
+#: app/ThemeOptions/General.php:96
+msgid ""
+"Upload a logo image (220px × 32px). You will be able to crop the image after "
+"upload."
+msgstr ""
+
+#: app/Core/Widget.php:66
+msgid "Use This Image"
+msgstr "Use This Image"
+
+#: app/ThemeOptions/SocialLinks.php:58
+msgid "WeChat"
+msgstr ""
+
+#: app/ThemeOptions/SocialLinks.php:54
+msgid "Weibo"
+msgstr ""
+
+#: app/ThemeOptions/SocialLinks.php:38
+msgid "YouTube"
+msgstr ""
+
+#: resources/views/widgets/subscribe-links.php:31
+msgid "YouTube Music"
+msgstr "YouTube Music"
+
+#: app/Widgets/SubscribeLinksWidget.php:116
+msgid "YouTube Music Link:"
+msgstr "YouTube Music Link:"
+
+#: app/Widgets/AuthorsWidget.php:24
+msgid "aripplesong - Authors List"
+msgstr "aripplesong - Authors List"
+
+#: app/Widgets/BannerCarouselWidget.php:22
+msgid "aripplesong - Banner Carousel"
+msgstr "aripplesong - Banner Carousel"
+
+#: app/Widgets/BlogListWidget.php:22
+msgid "aripplesong - Blog List"
+msgstr "aripplesong - Blog List"
+
+#: app/Widgets/FooterLinksWidget.php:22
+msgid "aripplesong - Footer Links"
+msgstr "aripplesong - Footer Links"
+
+#: app/Widgets/PodcastListWidget.php:22
+msgid "aripplesong - Podcast List"
+msgstr "aripplesong - Podcast List"
+
+#: app/Widgets/SubscribeLinksWidget.php:22
+msgid "aripplesong - Subscribe Links"
+msgstr "aripplesong - Subscribe Links"
+
+#: app/Widgets/TagsCloudWidget.php:22
+msgid "aripplesong - Tags Cloud"
+msgstr "aripplesong - Tags Cloud"
+
+#: app/Widgets/FooterLinksWidget.php:90
+msgid "e.g., Contact, Navigate, Support"
+msgstr "e.g., Contact, Navigate, Support"
+
+#: resources/views/sections/playlist-drawer.php:15
+msgid "episodes"
+msgstr "episodes"
+
+#: resources/views/partials/entry-meta.php:18
+msgid "plays"
+msgstr "plays"
+
+#: resources/views/partials/entry-meta.php:16
+msgid "views"
+msgstr "views"
+
+#: footer.php:12
 #, php-format
 msgid "© %1$s Powered by %2$s Theme"
 msgstr "© %1$s Powered by %2$s Theme"
 
-#: wp-content/themes/a-ripple-song/footer.php:13
-msgid "A Ripple Song"
-msgstr "A Ripple Song"
+#~ msgid "Sidebar Primary"
+#~ msgstr "Sidebar Primary"
 
-#: wp-content/themes/a-ripple-song/sidebar.php:8
-msgid "Search …"
-msgstr "Search …"
+#~ msgid "Primary sidebar area for displaying various content modules"
+#~ msgstr "Primary sidebar area for displaying various content modules"
 
-#: wp-content/themes/a-ripple-song/sidebar.php:9
-msgid "Subscribe"
-msgstr "Subscribe"
+#~ msgid "Podcast"
+#~ msgstr "Podcast"
 
-#: wp-content/themes/a-ripple-song/sidebar.php:10
-msgid "Now Playing"
-msgstr "Now Playing"
+#~ msgid "Blog"
+#~ msgstr "Blog"
 
-#: wp-content/themes/a-ripple-song/sidebar.php:12
-msgid "No Episode Playing"
-msgstr "No Episode Playing"
+#~ msgid "Search …"
+#~ msgstr "Search …"
 
-#: wp-content/themes/a-ripple-song/sidebar.php:13
-msgid "Loading audio"
-msgstr "Loading audio"
+#~ msgid "Subscribe"
+#~ msgstr "Subscribe"
 
-#: wp-content/themes/a-ripple-song/sidebar.php:17
-msgid "Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin panel."
-msgstr "Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin panel."
+#~ msgid "Now Playing"
+#~ msgstr "Now Playing"
 
-#: wp-content/themes/a-ripple-song/resources/views/sections/leftbar.php:7
-msgid "Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin panel."
-msgstr "Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin panel."
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/mobile-menu.php:7
-msgid "Menu"
-msgstr "Menu"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/player.php:3
-msgid "NOW PLAYING"
-msgstr "NOW PLAYING"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:8
-msgid "Playlist"
-msgstr "Playlist"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:15
-msgid "Total"
-msgstr "Total"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:15
-msgid "episodes"
-msgstr "episodes"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:17
-msgid "Are you sure you want to clear the playlist?"
-msgstr "Are you sure you want to clear the playlist?"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:19
-msgid "Clear Playlist"
-msgstr "Clear Playlist"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:21
-msgid "Clear"
-msgstr "Clear"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:31
-msgid "Playlist is empty"
-msgstr "Playlist is empty"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:32
-msgid "Add some episodes to start listening"
-msgstr "Add some episodes to start listening"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:82
-msgid "Remove"
-msgstr "Remove"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/autoplay-confirm.php:20
-msgid "Continue playing?"
-msgstr "Continue playing?"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/autoplay-confirm.php:23
-msgid "Unknown episode"
-msgstr "Unknown episode"
-
-#: wp-content/themes/a-ripple-song/resources/views/sections/autoplay-confirm.php:39
-msgid "Cancel"
-msgstr "Cancel"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:20
-msgid "aripplesong - Banner Carousel"
-msgstr "aripplesong - Banner Carousel"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:21
-msgid "Display banner carousel with images"
-msgstr "Display banner carousel with images"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:74
-msgid "Banner Slides:"
-msgstr "Banner Slides:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:81
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:39
-msgid "Image URL:"
-msgstr "Image URL:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:88
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:40
-msgid "Image URL"
-msgstr "Image URL"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:91
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:41
-msgid "Select Image"
-msgstr "Select Image"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:42
-msgid "Select Banner Image"
-msgstr "Select Banner Image"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:43
-msgid "Use This Image"
-msgstr "Use This Image"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:104
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:44
-msgid "Link URL (optional):"
-msgstr "Link URL (optional):"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:115
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:45
-msgid "Link Target:"
-msgstr "Link Target:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:120
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:46
-msgid "Current Page"
-msgstr "Current Page"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:123
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:47
-msgid "New Tab"
-msgstr "New Tab"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:130
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:48
-msgid "Description:"
-msgstr "Description:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:136
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:49
-msgid "Image description"
-msgstr "Image description"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:141
-#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:133
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:50
-msgid "Delete"
-msgstr "Delete"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BannerCarouselWidget.php:152
-msgid "+ Add Banner"
-msgstr "+ Add Banner"
-
-#: wp-content/themes/a-ripple-song/resources/views/widgets/banner-carousel.php:16
-msgid "No banner yet"
-msgstr "No banner yet"
-
-#: wp-content/themes/a-ripple-song/resources/views/widgets/banner-carousel.php:17
-msgid "Please add banner content in the admin panel"
-msgstr "Please add banner content in the admin panel"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:20
-msgid "aripplesong - Blog List"
-msgstr "aripplesong - Blog List"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:21
-msgid "Display latest blog posts list"
-msgstr "Display latest blog posts list"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:46
-#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:108
-msgid "BLOG"
-msgstr "BLOG"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:119
-#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:81
-#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:86
-#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:76
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:86
-msgid "Title:"
-msgstr "Title:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:130
-msgid "Number of posts:"
-msgstr "Number of posts:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:144
-msgid "Number of columns:"
-msgstr "Number of columns:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:164
-#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:116
-msgid "Show \"See all\" link"
-msgstr "Show \"See all\" link"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:20
-msgid "aripplesong - Footer Links"
-msgstr "aripplesong - Footer Links"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:21
-msgid "Display a list of links or text items in the footer"
-msgstr "Display a list of links or text items in the footer"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:88
-msgid "e.g., Contact, Navigate, Support"
-msgstr "e.g., Contact, Navigate, Support"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:92
-msgid "Items:"
-msgstr "Items:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:100
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:51
-msgid "Text:"
-msgstr "Text:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:106
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:52
-msgid "Display text"
-msgstr "Display text"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:111
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:53
-msgid "URL (optional - leave empty for plain text):"
-msgstr "URL (optional - leave empty for plain text):"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:127
-#: wp-content/themes/a-ripple-song/app/Widgets/WidgetAdminAssets.php:54
-msgid "Open in new tab"
-msgstr "Open in new tab"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/FooterLinksWidget.php:144
-msgid "+ Add Item"
-msgstr "+ Add Item"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:20
-msgid "aripplesong - Podcast List"
-msgstr "aripplesong - Podcast List"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:21
-msgid "Display latest podcast list"
-msgstr "Display latest podcast list"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:154
-msgid "PODCASTS"
-msgstr "PODCASTS"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:97
-msgid "Number of episodes:"
-msgstr "Number of episodes:"
-
-#: wp-content/themes/a-ripple-song/resources/views/widgets/podcast-list.php:63
-msgid "No ARS Episode content"
-msgstr "No ARS Episode content"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:20
-msgid "aripplesong - Subscribe Links"
-msgstr "aripplesong - Subscribe Links"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:21
-msgid "Display podcast subscription platform links"
-msgstr "Display podcast subscription platform links"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:46
-#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:65
-msgid "SUBSCRIBE"
-msgstr "SUBSCRIBE"
-
-#: wp-content/themes/a-ripple-song/resources/views/widgets/subscribe-links.php:17
-msgid "Apple Podcast"
-msgstr "Apple Podcast"
-
-#: wp-content/themes/a-ripple-song/resources/views/widgets/subscribe-links.php:24
-msgid "Spotify"
-msgstr "Spotify"
-
-#: wp-content/themes/a-ripple-song/resources/views/widgets/subscribe-links.php:31
-msgid "YouTube Music"
-msgstr "YouTube Music"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:88
-msgid "Apple Podcast Link:"
-msgstr "Apple Podcast Link:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:101
-msgid "Spotify Link:"
-msgstr "Spotify Link:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:114
-msgid "YouTube Music Link:"
-msgstr "YouTube Music Link:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:96
-#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:109
-#: wp-content/themes/a-ripple-song/app/Widgets/SubscribeLinksWidget.php:122
-msgid "Leave blank to hide this button"
-msgstr "Leave blank to hide this button"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:20
-msgid "aripplesong - Tags Cloud"
-msgstr "aripplesong - Tags Cloud"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:21
-msgid "Display article tags cloud"
-msgstr "Display article tags cloud"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:43
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:75
-msgid "TAGS"
-msgstr "TAGS"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:97
-msgid "Number of tags:"
-msgstr "Number of tags:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:107
-msgid "Maximum number of tags to display"
-msgstr "Maximum number of tags to display"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:112
-msgid "Order by:"
-msgstr "Order by:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:117
-msgid "Post Count"
-msgstr "Post Count"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:118
-msgid "Tag Name"
-msgstr "Tag Name"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:119
-msgid "Tag ID"
-msgstr "Tag ID"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:126
-msgid "Sort order:"
-msgstr "Sort order:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:131
-msgid "Descending (High to Low/Z to A)"
-msgstr "Descending (High to Low/Z to A)"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/TagsCloudWidget.php:132
-msgid "Ascending (Low to High/A to Z)"
-msgstr "Ascending (Low to High/A to Z)"
-
-#: wp-content/themes/a-ripple-song/resources/views/widgets/tags-cloud.php:19
-msgid "No tags yet"
-msgstr "No tags yet"
-
-#: wp-content/themes/a-ripple-song/resources/views/widgets/tags-cloud.php:20
-msgid "Tags will appear here after publishing articles with tags"
-msgstr "Tags will appear here after publishing articles with tags"
-
-#: wp-content/themes/a-ripple-song/resources/views/widgets/tags-cloud.php:29
 #, php-format
-msgid "%d post"
-msgstr "%d post"
-
-#: wp-content/themes/a-ripple-song/resources/views/widgets/tags-cloud.php:29
-#, php-format
-msgid "%d posts"
-msgstr "%d posts"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:20
-msgid "aripplesong - Authors List"
-msgstr "aripplesong - Authors List"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:21
-msgid "Display members and guest authors list"
-msgstr "Display members and guest authors list"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:36
-#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:186
-msgid "Members"
-msgstr "Members"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:39
-#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:189
-msgid "Guests"
-msgstr "Guests"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:116
-msgid "No authors yet"
-msgstr "No authors yet"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:117
-msgid "Authors will appear here after adding users"
-msgstr "Authors will appear here after adding users"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:195
-msgid "Members Title:"
-msgstr "Members Title:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:211
-msgid "Show Members (Administrators, Editors, Authors)"
-msgstr "Show Members (Administrators, Editors, Authors)"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:217
-msgid "Guests Title:"
-msgstr "Guests Title:"
-
-#: wp-content/themes/a-ripple-song/app/Widgets/AuthorsWidget.php:233
-msgid "Show Guests (Contributors)"
-msgstr "Show Guests (Contributors)"
+#~ msgid "%d posts"
+#~ msgstr "%d posts"

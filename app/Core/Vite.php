@@ -410,13 +410,29 @@ class Vite
      */
     private function getWidgetEditorThemeScript(): string
     {
+        /** @var string $lightTheme Default light theme configured for the site. */
+        $lightTheme = class_exists(\App\ThemeOptions\General::class)
+            ? \App\ThemeOptions\General::getLightTheme()
+            : 'retro';
+
+        /** @var string $darkTheme Default dark theme configured for the site. */
+        $darkTheme = class_exists(\App\ThemeOptions\General::class)
+            ? \App\ThemeOptions\General::getDarkTheme()
+            : 'dim';
+
+        /** @var string $lightThemeJson JSON-safe light theme slug for the inline script. */
+        $lightThemeJson = wp_json_encode($lightTheme);
+
+        /** @var string $darkThemeJson JSON-safe dark theme slug for the inline script. */
+        $darkThemeJson = wp_json_encode($darkTheme);
+
         return <<<JS
 (() => {
     'use strict';
 
     const storageKey = 'theme-mode';
-    const lightTheme = 'retro';
-    const darkTheme = 'dim';
+    const lightTheme = {$lightThemeJson};
+    const darkTheme = {$darkThemeJson};
     const supportedModes = ['light', 'dark', 'auto'];
     const root = document.documentElement;
     const colorSchemeMedia = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;

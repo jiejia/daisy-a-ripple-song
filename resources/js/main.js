@@ -318,6 +318,7 @@ function buildOrangeHeatGradient(values) {
 
 const safeLocalStorage = createSafeStorage('localStorage');
 const progressHeatmapCache = new Map();
+const themeOptions = window.arsThemeOptions || {};
 
 /**
  * Queue a Lucide refresh after Alpine mutates the DOM.
@@ -335,9 +336,9 @@ Alpine.store('theme', {
     mode: 'auto',
     modes: ['light', 'dark', 'auto'],
     storageKey: 'theme-mode',
-    lightTheme: 'retro',
-    darkTheme: 'dim',
-    current: 'retro',
+    lightTheme: typeof themeOptions.lightTheme === 'string' && themeOptions.lightTheme !== '' ? themeOptions.lightTheme : 'retro',
+    darkTheme: typeof themeOptions.darkTheme === 'string' && themeOptions.darkTheme !== '' ? themeOptions.darkTheme : 'dim',
+    current: typeof themeOptions.lightTheme === 'string' && themeOptions.lightTheme !== '' ? themeOptions.lightTheme : 'retro',
 
     init() {
         const savedMode = safeLocalStorage.getItem(this.storageKey);

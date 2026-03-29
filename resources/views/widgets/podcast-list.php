@@ -8,7 +8,7 @@
  * @var array<string, array<int, array<string, mixed>>> $tabs
  */
 ?>
-<div class="" x-data="{ activeTab: 'recent' }">
+<div class="rounded-lg bg-base-100 p-4" x-data="{ activeTab: 'recent' }">
     <div class="grid grid-cols-[1fr_auto] items-center gap-2">
         <h2 class="text-lg font-bold"><?php echo esc_html($title); ?></h2>
         <?php if ($showSeeAll): ?>

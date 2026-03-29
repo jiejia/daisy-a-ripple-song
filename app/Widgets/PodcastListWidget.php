@@ -19,8 +19,8 @@ class PodcastListWidget extends \WP_Widget
     {
         parent::__construct(
             'podcast_list_widget',
-            __('aripplesong - ARS Episode List', 'a-ripple-song'),
-            ['description' => __('Display latest ARS Episode list', 'a-ripple-song')]
+            __('aripplesong - Podcast List', 'a-ripple-song'),
+            ['description' => __('Display latest podcast list', 'a-ripple-song')]
         );
     }
 
@@ -36,7 +36,7 @@ class PodcastListWidget extends \WP_Widget
         echo $args['before_widget'];
 
         /** @var string $title Widget title displayed above the episode tabs. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('ARS EPISODES', 'a-ripple-song');
+        $title = $this->getWidgetTitle($instance);
 
         /** @var int $postsPerPage Number of episodes to display per tab. */
         $postsPerPage = !empty($instance['posts_per_page']) ? max(1, absint($instance['posts_per_page'])) : 3;
@@ -75,7 +75,7 @@ class PodcastListWidget extends \WP_Widget
     public function form($instance)
     {
         /** @var string $title Current widget title. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('ARS EPISODES', 'a-ripple-song');
+        $title = $this->getWidgetTitle($instance);
 
         /** @var int $postsPerPage Current number of episodes per tab. */
         $postsPerPage = !empty($instance['posts_per_page']) ? max(1, absint($instance['posts_per_page'])) : 3;
@@ -133,11 +133,29 @@ class PodcastListWidget extends \WP_Widget
         /** @var array<string, mixed> $instance Sanitized widget settings to persist. */
         $instance = [];
 
-        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : 'ARS EPISODES';
+        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : 'PODCASTS';
         $instance['posts_per_page'] = !empty($newInstance['posts_per_page']) ? max(1, absint($newInstance['posts_per_page'])) : 3;
         $instance['show_see_all'] = !empty($newInstance['show_see_all']) ? 1 : 0;
 
         return $instance;
+    }
+
+    /**
+     * Return the normalized widget title while upgrading legacy defaults.
+     *
+     * @param array $instance Saved widget options.
+     * @return string
+     */
+    protected function getWidgetTitle($instance): string
+    {
+        /** @var string $savedTitle Raw saved title from the widget instance. */
+        $savedTitle = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : '';
+
+        if ($savedTitle === '' || $savedTitle === 'ARS EPISODES') {
+            return __('PODCASTS', 'a-ripple-song');
+        }
+
+        return $savedTitle;
     }
 
     /**

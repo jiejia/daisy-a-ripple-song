@@ -395,16 +395,15 @@ msgid "+ Add Item"
 msgstr ""
 
 #: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:20
-msgid "aripplesong - ARS Episode List"
+msgid "aripplesong - Podcast List"
 msgstr ""
 
 #: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:21
-msgid "Display latest ARS Episode list"
+msgid "Display latest podcast list"
 msgstr ""
 
-#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:45
-#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:75
-msgid "ARS EPISODES"
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:154
+msgid "PODCASTS"
 msgstr ""
 
 #: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:97

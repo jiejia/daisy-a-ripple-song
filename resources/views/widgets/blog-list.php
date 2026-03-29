@@ -10,7 +10,7 @@
  */
 ?>
 <?php $gridClass = $columns === 1 ? 'grid-cols-1' : ($columns === 2 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3'); ?>
-<div class="">
+<div class="rounded-lg bg-base-100 p-4">
     <div class="grid grid-cols-[1fr_auto] items-center gap-2">
         <h2 class="text-lg font-bold"><?php echo esc_html($title); ?></h2>
         <?php if ($showSeeAll): ?>

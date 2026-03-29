@@ -1,6 +1,6 @@
-<div>
+<div class="rounded-lg bg-base-100 p-4">
     <?php if ($showMembers && !empty($members)): ?>
-        <h2 class="wp-block-heading"><?php echo esc_html($membersTitle); ?></h2>
+        <h2 class="text-lg font-bold"><?php echo esc_html($membersTitle); ?></h2>
         <div class="mt-4 grid grid-flow-row gap-2">
             <?php foreach ($members as $member): ?>
                 <a href="<?php echo esc_url((string) $member['author_url']); ?>"

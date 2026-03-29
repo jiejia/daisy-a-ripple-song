@@ -399,17 +399,16 @@ msgid "+ Add Item"
 msgstr "+ 添加条目"
 
 #: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:20
-msgid "aripplesong - ARS Episode List"
-msgstr "aripplesong - ARS 节目列表"
+msgid "aripplesong - Podcast List"
+msgstr "aripplesong - 播客列表"
 
 #: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:21
-msgid "Display latest ARS Episode list"
-msgstr "显示最新 ARS 节目列表"
+msgid "Display latest podcast list"
+msgstr "显示最新播客列表"
 
-#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:45
-#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:75
-msgid "ARS EPISODES"
-msgstr "ARS 节目"
+#: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:154
+msgid "PODCASTS"
+msgstr "播客"
 
 #: wp-content/themes/a-ripple-song/app/Widgets/PodcastListWidget.php:97
 msgid "Number of episodes:"

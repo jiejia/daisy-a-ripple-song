@@ -59,7 +59,7 @@ body.admin-bar .sticky.top-\[70px\] {
     @apply grid lg:grid-cols-[220px_1fr_300px] md:grid-cols-[1fr_300px] grid-cols-[1fr] gap-4 mt-[55px] items-start relative;
 }
 
-.widget {
+[class*="block-"] {
     @apply rounded-lg bg-base-100 p-4;
 }
 

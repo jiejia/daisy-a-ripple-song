@@ -21,11 +21,21 @@
                          alt="<?php echo esc_attr((string) get_the_title((int) ($args['post_id'] ?? 0))); ?>"
                          class="h-20 w-20 rounded-md object-cover">
                     <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-base-900/30">
-                        <i data-lucide="podcast" class="h-5 w-5 text-base-100"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-base-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M16.85 18.58a9 9 0 1 0-9.7 0" />
+                            <path d="M8 14a5 5 0 1 1 8 0" />
+                            <circle cx="12" cy="11" r="1" />
+                            <path d="M13 17a1 1 0 0 1-2 0v-1a1 1 0 0 1 2 0z" />
+                        </svg>
                     </div>
                 <?php else: ?>
                     <div class="flex h-20 w-20 items-center justify-center rounded-md bg-base-300/50">
-                        <i data-lucide="podcast" class="h-5 w-5 text-base-content/70"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-base-content/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M16.85 18.58a9 9 0 1 0-9.7 0" />
+                            <path d="M8 14a5 5 0 1 1 8 0" />
+                            <circle cx="12" cy="11" r="1" />
+                            <path d="M13 17a1 1 0 0 1-2 0v-1a1 1 0 0 1 2 0z" />
+                        </svg>
                     </div>
                 <?php endif; ?>
             </a>
@@ -58,12 +68,31 @@
                         "
                         class="cursor-pointer transition-colors hover:text-primary"
                         :title="$store.player.currentEpisode && $store.player.currentEpisode.id === episode.id && $store.player.isPlaying ? '<?php echo esc_js(__('Pause', 'a-ripple-song')); ?>' : '<?php echo esc_js(__('Play', 'a-ripple-song')); ?>'">
-                    <i data-lucide="pause"
-                       class="h-4 text-xs"
-                       x-show="$store.player.currentEpisode && $store.player.currentEpisode.id === episode.id && $store.player.isPlaying"></i>
-                    <i data-lucide="play"
-                       class="h-4 text-xs"
-                       x-show="!($store.player.currentEpisode && $store.player.currentEpisode.id === episode.id && $store.player.isPlaying)"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="h-4 text-xs"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         aria-hidden="true"
+                         x-show="$store.player.currentEpisode && $store.player.currentEpisode.id === episode.id && $store.player.isPlaying">
+                        <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+                        <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="h-4 text-xs"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         aria-hidden="true"
+                         x-show="!($store.player.currentEpisode && $store.player.currentEpisode.id === episode.id && $store.player.isPlaying)">
+                        <path d="M6 4l12 8-12 8z"></path>
+                    </svg>
                 </button>
             <?php endif; ?>
         </div>

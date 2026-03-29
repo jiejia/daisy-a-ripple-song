@@ -25,6 +25,9 @@ class Vite
     /** @var string $handlePrefix Prefix used for WordPress script/style handles. */
     private string $handlePrefix;
 
+    /** @var string $widgetPreviewScriptEntry Entry point file path for legacy widget preview runtime. */
+    private string $widgetPreviewScriptEntry = 'resources/js/widget-preview.js';
+
     /**
      * @param string $devServerUrl Vite dev server base URL.
      * @param string $scriptEntry JS entry point file.
@@ -79,6 +82,12 @@ class Vite
      */
     public function enqueueAssets(): void
     {
+        if ($this->isLegacyWidgetPreviewRequest()) {
+            $this->enqueuePreviewAssets();
+
+            return;
+        }
+
         if ($this->isDev()) {
             $this->enqueueDevAssets();
 
@@ -115,6 +124,24 @@ class Vite
     }
 
     /**
+     * Enqueue the minimal asset set used by legacy widget preview iframes.
+     *
+     * @return void
+     */
+    private function enqueuePreviewAssets(): void
+    {
+        if ($this->isDev()) {
+            $this->enqueueDevStyle();
+            $this->enqueueDevPreviewScript();
+
+            return;
+        }
+
+        $this->enqueueProdStyle();
+        $this->enqueueProdPreviewScript();
+    }
+
+    /**
      * Enqueue the Vite client and entry module directly from the dev server.
      *
      * @return void
@@ -144,6 +171,33 @@ class Vite
     }
 
     /**
+     * Enqueue the lightweight widget preview runtime directly from the dev server.
+     *
+     * @return void
+     */
+    private function enqueueDevPreviewScript(): void
+    {
+        $this->markScriptAsModule($this->handlePrefix . '-widget-preview-vite-client');
+        $this->markScriptAsModule($this->handlePrefix . '-widget-preview');
+
+        wp_enqueue_script(
+            $this->handlePrefix . '-widget-preview-vite-client',
+            $this->devServerUrl . '/@vite/client',
+            [],
+            null,
+            false
+        );
+
+        wp_enqueue_script(
+            $this->handlePrefix . '-widget-preview',
+            $this->devServerUrl . '/' . $this->widgetPreviewScriptEntry,
+            [],
+            null,
+            false
+        );
+    }
+
+    /**
      * Enqueue hashed CSS and JS assets from the Vite build manifest.
      *
      * @return void
@@ -163,6 +217,31 @@ class Vite
 
         wp_enqueue_script(
             $this->handlePrefix . '-main',
+            get_template_directory_uri() . '/public/dist/' . $script['file'],
+            [],
+            null,
+            true
+        );
+    }
+
+    /**
+     * Enqueue the lightweight widget preview runtime from the build manifest.
+     *
+     * @return void
+     */
+    private function enqueueProdPreviewScript(): void
+    {
+        /** @var array<string, mixed>|null $script Manifest entry for the preview JS file. */
+        $script = $this->getManifestEntry($this->widgetPreviewScriptEntry);
+
+        if (!$script) {
+            return;
+        }
+
+        $this->markScriptAsModule($this->handlePrefix . '-widget-preview');
+
+        wp_enqueue_script(
+            $this->handlePrefix . '-widget-preview',
             get_template_directory_uri() . '/public/dist/' . $script['file'],
             [],
             null,
@@ -281,6 +360,29 @@ class Vite
     }
 
     /**
+     * Return whether the current request is rendering a legacy widget preview iframe.
+     *
+     * @return bool
+     */
+    private function isLegacyWidgetPreviewRequest(): bool
+    {
+        /** @var string $requestUri Raw request URI used to identify preview REST routes. */
+        $requestUri = isset($_SERVER['REQUEST_URI']) ? (string) wp_unslash($_SERVER['REQUEST_URI']) : '';
+
+        /** @var string $restRoute Explicit REST route value when the request uses the query-string format. */
+        $restRoute = isset($_GET['rest_route']) ? (string) wp_unslash($_GET['rest_route']) : '';
+
+        /** @var bool $isLegacyWidgetRenderRoute Whether the current REST request targets the legacy widget preview renderer. */
+        $isLegacyWidgetRenderRoute = (defined('REST_REQUEST') && REST_REQUEST)
+            && (
+                (str_contains($requestUri, '/wp/v2/widget-types/') && str_contains($requestUri, '/render'))
+                || (str_contains($restRoute, '/wp/v2/widget-types/') && str_contains($restRoute, '/render'))
+            );
+
+        return $isLegacyWidgetRenderRoute || !empty($_GET['legacy-widget-preview']);
+    }
+
+    /**
      * Enqueue a small runtime that applies the active DaisyUI theme inside widget previews.
      *
      * @return void
@@ -377,6 +479,324 @@ class Vite
     }
 
     /**
+     * Force the preview document wrappers to size strictly to their content.
+     *
+     * @param {Document} targetDocument The preview iframe document.
+     * @return {void}
+     */
+    function normalizePreviewDocumentLayout(targetDocument) {
+        if (!targetDocument) {
+            return;
+        }
+
+        if (!targetDocument.getElementById('ars-widget-preview-style')) {
+            const styleElement = targetDocument.createElement('style');
+
+            styleElement.id = 'ars-widget-preview-style';
+            styleElement.textContent = `
+                html,
+                body,
+                #page,
+                #content,
+                .widget,
+                .widget > * {
+                    min-height: 0 !important;
+                    max-height: none !important;
+                    height: auto !important;
+                }
+
+                html,
+                body {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    overflow-x: hidden !important;
+                    overflow-y: hidden !important;
+                    scrollbar-width: none !important;
+                }
+
+                html::-webkit-scrollbar,
+                body::-webkit-scrollbar {
+                    display: none !important;
+                    width: 0 !important;
+                    height: 0 !important;
+                }
+
+                .widget {
+                    overflow: hidden !important;
+                    border-radius: 0.75rem !important;
+                }
+            `;
+
+            targetDocument.head.appendChild(styleElement);
+        }
+
+        const wrapperNodes = [
+            targetDocument.documentElement,
+            targetDocument.body,
+            targetDocument.querySelector('#page'),
+            targetDocument.querySelector('#content'),
+            targetDocument.querySelector('.widget'),
+            targetDocument.querySelector('.widget > *'),
+        ].filter(Boolean);
+
+        wrapperNodes.forEach((node) => {
+            node.style.setProperty('height', 'auto', 'important');
+            node.style.setProperty('min-height', '0', 'important');
+            node.style.setProperty('max-height', 'none', 'important');
+            node.style.setProperty('overflow', 'hidden', 'important');
+        });
+
+        if (targetDocument.body) {
+            targetDocument.body.style.setProperty('margin', '0', 'important');
+            targetDocument.body.style.setProperty('padding', '0', 'important');
+        }
+
+        const widgetElement = targetDocument.querySelector('.widget');
+
+        if (widgetElement) {
+            widgetElement.style.setProperty('border-radius', '0.75rem', 'important');
+            widgetElement.style.setProperty('overflow', 'hidden', 'important');
+        }
+    }
+
+    /**
+     * Return the best-fit pixel height for a preview iframe.
+     *
+     * @param {HTMLIFrameElement} frameElement The preview iframe element.
+     * @return {?number}
+     */
+    function getFrameContentHeight(frameElement) {
+        try {
+            const targetDocument = frameElement.contentDocument;
+
+            if (!targetDocument) {
+                return null;
+            }
+
+            const targetBody = targetDocument.body;
+            const targetRoot = targetDocument.documentElement;
+            const widgetElement = targetDocument.querySelector('.widget');
+            const height = Math.max(
+                targetBody ? targetBody.scrollHeight : 0,
+                targetBody ? targetBody.offsetHeight : 0,
+                targetRoot ? targetRoot.scrollHeight : 0,
+                targetRoot ? targetRoot.offsetHeight : 0,
+                widgetElement ? widgetElement.scrollHeight : 0,
+                widgetElement ? widgetElement.getBoundingClientRect().height : 0,
+                100
+            );
+
+            return Number.isFinite(height) ? Math.ceil(height) : null;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    /**
+     * Apply the computed layout styles to a preview iframe.
+     *
+     * @param {HTMLIFrameElement} frameElement The preview iframe element.
+     * @param {number} contentHeight The resolved preview height in pixels.
+     * @return {void}
+     */
+    function applyFrameHeight(frameElement, contentHeight) {
+        if (!Number.isFinite(contentHeight) || contentHeight <= 0) {
+            return;
+        }
+
+        frameElement.style.height = contentHeight + 'px';
+        frameElement.height = String(contentHeight);
+        frameElement.setAttribute('scrolling', 'no');
+        frameElement.style.borderRadius = '0.75rem';
+        frameElement.style.overflow = 'hidden';
+        frameElement.style.display = 'block';
+        frameElement.style.width = '100%';
+        frameElement.style.maxHeight = 'none';
+    }
+
+    /**
+     * Sync the iframe height with the rendered widget preview height.
+     *
+     * @param {HTMLIFrameElement} frameElement The preview iframe element.
+     * @return {void}
+     */
+    function syncFrameHeight(frameElement) {
+        const contentHeight = getFrameContentHeight(frameElement);
+
+        if (!contentHeight) {
+            return;
+        }
+
+        applyFrameHeight(frameElement, contentHeight);
+    }
+
+    /**
+     * Run a few delayed height sync passes so collapsed previews can recover when they become visible.
+     *
+     * @param {HTMLIFrameElement} frameElement The preview iframe element.
+     * @return {void}
+     */
+    function syncFrameHeightWithDelay(frameElement) {
+        syncFrameHeight(frameElement);
+        window.requestAnimationFrame(() => {
+            syncFrameHeight(frameElement);
+        });
+        window.setTimeout(() => {
+            syncFrameHeight(frameElement);
+        }, 150);
+        window.setTimeout(() => {
+            syncFrameHeight(frameElement);
+        }, 500);
+    }
+
+    /**
+     * Observe iframe mutations so late content changes keep the preview height accurate.
+     *
+     * @param {HTMLIFrameElement} frameElement The preview iframe element.
+     * @return {void}
+     */
+    function bindFrameHeightObserver(frameElement) {
+        if (!frameElement || frameElement.dataset.arsHeightObserverBound === '1') {
+            return;
+        }
+
+        try {
+            const targetDocument = frameElement.contentDocument;
+            const targetBody = targetDocument && targetDocument.body;
+
+            if (!targetDocument || !targetBody || typeof MutationObserver === 'undefined') {
+                return;
+            }
+
+            const resizeFrame = () => {
+                syncFrameHeightWithDelay(frameElement);
+            };
+
+            const mutationObserver = new MutationObserver(resizeFrame);
+            mutationObserver.observe(targetBody, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                characterData: true,
+            });
+
+            if (typeof ResizeObserver !== 'undefined') {
+                const resizeObserver = new ResizeObserver(resizeFrame);
+                const widgetElement = targetDocument.querySelector('.widget');
+
+                resizeObserver.observe(targetBody);
+                resizeObserver.observe(targetDocument.documentElement);
+
+                if (widgetElement) {
+                    resizeObserver.observe(widgetElement);
+                }
+            }
+
+            Array.from(targetDocument.images || []).forEach((imageElement) => {
+                if (imageElement.complete) {
+                    return;
+                }
+
+                imageElement.addEventListener('load', resizeFrame, { once: true });
+                imageElement.addEventListener('error', resizeFrame, { once: true });
+            });
+
+            if (targetDocument.fonts && typeof targetDocument.fonts.addEventListener === 'function') {
+                targetDocument.fonts.addEventListener('loadingdone', resizeFrame);
+            }
+
+            frameElement.dataset.arsHeightObserverBound = '1';
+            resizeFrame();
+        } catch (error) {
+            // Ignore inaccessible preview frames and continue processing others.
+        }
+    }
+
+    /**
+     * Re-sync iframe height whenever the preview enters the viewport after being collapsed.
+     *
+     * @param {HTMLIFrameElement} frameElement The preview iframe element.
+     * @return {void}
+     */
+    function bindFrameVisibilityObserver(frameElement) {
+        if (!frameElement || frameElement.dataset.arsVisibilityObserverBound === '1' || typeof IntersectionObserver === 'undefined') {
+            return;
+        }
+
+        const visibilityObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    syncFrameHeightWithDelay(frameElement);
+                }
+            });
+        }, {
+            threshold: 0,
+        });
+
+        visibilityObserver.observe(frameElement);
+        frameElement.dataset.arsVisibilityObserverBound = '1';
+    }
+
+    /**
+     * Bind a window message listener so preview iframes can report their own height.
+     *
+     * @return {void}
+     */
+    function bindPreviewMessageListener() {
+        if (window.__arsWidgetPreviewMessageBound) {
+            return;
+        }
+
+        window.__arsWidgetPreviewMessageBound = true;
+        window.addEventListener('message', (event) => {
+            const message = event.data;
+
+            if (!message || message.type !== 'ars-widget-preview:height') {
+                return;
+            }
+
+            const matchingFrame = Array.from(document.querySelectorAll('iframe[title="Legacy Widget Preview"]')).find((frameElement) => {
+                try {
+                    return frameElement.contentWindow === event.source;
+                } catch (error) {
+                    return false;
+                }
+            });
+
+            if (!matchingFrame) {
+                return;
+            }
+
+            applyFrameHeight(matchingFrame, Number(message.height || 0));
+        });
+    }
+
+    /**
+     * Keep the widget editor shell on the default admin background so only preview iframes use the theme surface colors.
+     *
+     * @return {void}
+     */
+    function ensureWidgetEditorShellStyles() {
+        if (document.getElementById('ars-widget-editor-shell-style')) {
+            return;
+        }
+
+        const styleElement = document.createElement('style');
+
+        styleElement.id = 'ars-widget-editor-shell-style';
+        styleElement.textContent = `
+            .edit-widgets-block-editor .wp-block-widget-area__inner-blocks,
+            .edit-widgets-block-editor .wp-block-widget-area__inner-blocks.editor-styles-wrapper,
+            .edit-widgets-block-editor .wp-block-widget-area__inner-blocks > .block-editor-block-list__layout,
+            .edit-widgets-block-editor .block-editor-block-list__layout {
+                background: #ffffff !important;
+            }
+        `;
+
+        document.head.appendChild(styleElement);
+    }
+
+    /**
      * Apply the active theme to a legacy widget preview iframe when it is accessible.
      *
      * @param {HTMLIFrameElement} frameElement The preview iframe element.
@@ -390,6 +810,10 @@ class Vite
         try {
             if (frameElement.contentDocument) {
                 applyThemeToDocument(frameElement.contentDocument);
+                normalizePreviewDocumentLayout(frameElement.contentDocument);
+                syncFrameHeightWithDelay(frameElement);
+                bindFrameHeightObserver(frameElement);
+                bindFrameVisibilityObserver(frameElement);
             }
         } catch (error) {
             // Ignore inaccessible preview frames and continue processing others.
@@ -399,6 +823,7 @@ class Vite
             frameElement.dataset.arsThemeBound = '1';
             frameElement.addEventListener('load', () => {
                 applyThemeToFrame(frameElement);
+                syncFrameHeightWithDelay(frameElement);
             });
         }
     }
@@ -409,11 +834,29 @@ class Vite
      * @return {void}
      */
     function applyThemeEverywhere() {
-        applyThemeToDocument(document);
+        ensureWidgetEditorShellStyles();
 
         document.querySelectorAll('iframe[title="Legacy Widget Preview"]').forEach((frameElement) => {
             applyThemeToFrame(frameElement);
         });
+    }
+
+    /**
+     * Re-run the preview sync loop for a short period after page load so restored widget areas settle correctly.
+     *
+     * @return {void}
+     */
+    function bootstrapPreviewSync() {
+        let runCount = 0;
+        const maxRuns = 24;
+        const intervalId = window.setInterval(() => {
+            applyThemeEverywhere();
+            runCount += 1;
+
+            if (runCount >= maxRuns) {
+                window.clearInterval(intervalId);
+            }
+        }, 250);
     }
 
     /**
@@ -439,11 +882,15 @@ class Vite
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             applyThemeEverywhere();
+            bindPreviewMessageListener();
             observePreviewFrames();
+            bootstrapPreviewSync();
         }, { once: true });
     } else {
         applyThemeEverywhere();
+        bindPreviewMessageListener();
         observePreviewFrames();
+        bootstrapPreviewSync();
     }
 
     if (colorSchemeMedia && typeof colorSchemeMedia.addEventListener === 'function') {

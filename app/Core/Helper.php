@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Constants\PodcastPluginConstant;
+
 /**
  * Helper
  *
@@ -178,5 +180,75 @@ class Helper
         set_transient($transientKey, $cache[$userId], HOUR_IN_SECONDS);
 
         return $cache[$userId];
+    }
+
+
+    /**
+     * Get all authors/participants for a post.
+     *
+     * This includes:
+     * - The post author
+     * - For podcasts: users listed in members and guests fields
+     *
+     * @param int $post_id Post ID
+     * @return array Array of user IDs (unique)
+     */
+    public static function getPostAllAuthors($post_id)
+    {
+        $authors = [];
+
+        // Get the post author
+        $author_id = get_post_field('post_author', $post_id);
+        if ($author_id) {
+            $authors[] = (int)$author_id;
+        }
+
+        // If it's a podcast, also get members and guests
+        $post_type = get_post_type($post_id);
+        if ($post_type === PodcastPluginConstant::PODCAST_POST_TYPE) {
+            $members = get_post_meta($post_id, 'members', true);
+            $guests = get_post_meta($post_id, 'guests', true);
+
+            $authors = array_merge(
+                $authors,
+                self::extractMulticheckUserIds($members),
+                self::extractMulticheckUserIds($guests)
+            );
+        }
+
+        $authors = array_values(array_unique(array_filter(array_map('absint', $authors))));
+
+        return $authors;
+    }
+
+    /**
+     * Extract user IDs from a CMB2 multicheck value.
+     *
+     * CMB2 multicheck typically stores selected values as an associative array of
+     * "id" => "on". Some installs may store a simple numeric array instead.
+     *
+     * @param mixed $value
+     * @return int[]
+     */
+    public static function extractMulticheckUserIds($value): array
+    {
+        if (!is_array($value) || empty($value)) {
+            return [];
+        }
+
+        $ids = [];
+
+        foreach ($value as $key => $item) {
+            if ($item === 'on' && is_numeric($key)) {
+                $ids[] = (int) $key;
+                continue;
+            }
+
+            if (is_numeric($item)) {
+                $ids[] = (int) $item;
+            }
+        }
+
+        return array_values(array_unique(array_filter(array_map('absint', $ids))));
     }
 }

@@ -11,8 +11,8 @@
             </div>
         <?php endif; ?>
 
-        <div class="grid md:grid-cols-2 grid-flow-row gap-2 md:justify-between bg-base-100/60 rounded-lg p-4">
-            <div class="md:justify-self-start">
+        <div class="grid md:grid-cols-2 grid-flow-row gap-2 md:justify-between bg-base-100/60 rounded-lg p-4 items-center">
+            <div class="md:justify-self-start self-center">
                 <?php
                 echo wp_kses_post(
                     (
@@ -29,7 +29,7 @@
             </div>
 
             <?php if (\App\ThemeOptions\SocialLinks::hasLinks()): ?>
-                <div class="md:justify-self-end">
+                <div class="md:justify-self-end self-center">
                     <ul class="flex justify-center gap-2">
                         <?php foreach (\App\ThemeOptions\SocialLinks::getConfiguredLinks() as $platformKey => $social): ?>
                             <li>

@@ -4,6 +4,8 @@
     <?php get_template_part('resources/views/sections/leftbar'); ?>
     <div class="">
         <main id="swup-main" class="main transition-fade">
+        <?php get_template_part('resources/views/partials/page-header'); ?>
+
         <?php while (have_posts()): ?>
             <?php
             /**

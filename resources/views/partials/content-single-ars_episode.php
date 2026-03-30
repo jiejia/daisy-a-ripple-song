@@ -1,6 +1,6 @@
 <?php
 /**
- * Episode Content Partial
+ * Single Episode Content Partial
  *
  * Expected args:
  * - post_id: Episode post ID.
@@ -17,11 +17,15 @@
 $postId = (int) ($args['post_id'] ?? get_the_ID());
 
 /**
- * Resolve the episode audio file used by the player controls.
+ * Resolve the episode audio file with support for both public and underscored meta keys.
  *
  * @var string $audioFile
  */
-$audioFile = (string) get_post_meta($postId, '_audio_file', true);
+$audioFile = (string) get_post_meta($postId, 'audio_file', true);
+
+if ($audioFile === '') {
+    $audioFile = (string) get_post_meta($postId, '_audio_file', true);
+}
 
 /**
  * Build the frontend player payload for Alpine state.
@@ -37,20 +41,22 @@ $episodeData = \App\Core\Helper::getEpisodeData($postId);
  */
 $title = (string) ($args['title'] ?? get_the_title($postId));
 ?>
-
-<div class="mb-4 rounded-lg bg-base-100 p-4" x-data="<?php echo esc_attr((string) wp_json_encode(['episode' => $episodeData], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)); ?>">
+<div class="rounded-lg bg-base-100 p-4" x-data="<?php echo esc_attr((string) wp_json_encode(['episode' => $episodeData], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)); ?>">
     <div class="grid grid-flow-row gap-2">
         <?php get_template_part('resources/views/partials/podcast-episode-card', null, [
             'post_id' => $postId,
             'audio_file' => $audioFile,
             'episode_data' => $episodeData,
             'title' => $title,
-            'show_link' => true,
+            'show_link' => false,
         ]); ?>
-        <div class="prose max-w-none text-sm text-base-content/80 [&_p]:py-2 [&_img]:mx-auto [&_img]:cursor-pointer [&_img]:rounded-lg [&_img]:shadow-md" id="content">
-            <?php the_excerpt(); ?>
+        <div class="max-w-none text-sm text-base-content/80 [&_p]:py-2 [&_img]:mx-auto [&_img]:cursor-pointer [&_img]:rounded-lg [&_img]:shadow-md" id="content">
+            <?php the_content(); ?>
         </div>
         <?php get_template_part('resources/views/partials/entry-tags', null, ['post_id' => $postId]); ?>
         <?php get_template_part('resources/views/partials/entry-authors', null, ['post_id' => $postId]); ?>
     </div>
+</div>
+<div class="mt-4 rounded-lg bg-base-100 p-4">
+    <?php comments_template(); ?>
 </div>

@@ -1,10 +1,10 @@
 <?php
 /**
- * Content Partial
+ * Page Content Partial
  *
  * Expected args:
- * - post_id: Post ID used to render the content block.
- * - title: Optional title override.
+ * - post_id: Page post ID.
+ * - title: Optional page title override.
  *
  * @var array<string, mixed> $args
  */
@@ -22,8 +22,6 @@
     <div class="prose max-w-none text-sm text-base-content/80 [&_p]:py-2 [&_img]:mx-auto [&_img]:cursor-pointer [&_img]:rounded-lg [&_img]:shadow-md" id="content">
       <?php the_excerpt(); ?>
     </div>
-    <?php get_template_part('resources/views/partials/entry-tags', null, ['post_id' => (int) ($args['post_id'] ?? get_the_ID())]); ?>
-    <?php get_template_part('resources/views/partials/entry-authors', null, ['post_id' => (int) ($args['post_id'] ?? get_the_ID())]); ?>
   </div>
   <div class="mt-4 rounded-lg bg-base-100 p-4">
   </div>

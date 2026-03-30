@@ -1,6 +1,6 @@
 <?php
 /**
- * Entry Tag Partial
+ * Entry Tags Partial
  *
  * Expected args:
  * - post_id: Post ID used to render the tag list.

@@ -251,4 +251,30 @@ class Helper
 
         return array_values(array_unique(array_filter(array_map('absint', $ids))));
     }
+
+    /**
+ * Get episode data for a podcast post
+ *
+ * @param int|null $post_id Post ID (defaults to current post)
+ * @return array Episode data array with id, audioUrl, title, description, publishDate (timestamp), featuredImage, link
+ */
+public static function getEpisodeData($post_id = null) {
+    if (!$post_id) {
+        $post_id = get_the_ID();
+    }
+
+    $audio_file = get_post_meta($post_id, 'audio_file', true);
+    $featured_image = get_the_post_thumbnail_url($post_id, 'medium');
+
+    return [
+        'id' => $post_id,
+        'audioUrl' => $audio_file,
+        'title' => get_the_title($post_id),
+        'description' => wp_strip_all_tags(get_the_excerpt()),
+        'publishDate' => get_post_time('U', false, $post_id), // Return Unix timestamp
+        'featuredImage' => $featured_image,
+        'link' => get_permalink($post_id)
+    ];
+}
+
 }

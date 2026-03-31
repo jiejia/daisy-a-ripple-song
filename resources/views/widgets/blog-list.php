@@ -3,7 +3,7 @@
  * Blog List Widget Template
  *
  * @var string                          $title
- * @var array<int, array<string, string>> $posts
+ * @var array<int, array<string, int|string>> $posts
  * @var int                             $columns
  * @var bool                            $showSeeAll
  * @var string                          $archiveUrl
@@ -28,14 +28,8 @@
                         <a href="<?php echo esc_url($post['permalink']); ?>"><?php echo esc_html($post['title']); ?></a>
                     </h3>
 
-                    <div class="mt-2 grid gap-1 text-xs text-base-content/70">
-                        <?php if (!empty($post['category_name']) && !empty($post['category_link'])): ?>
-                            <span>
-                                <a href="<?php echo esc_url($post['category_link']); ?>"><?php echo esc_html($post['category_name']); ?></a>
-                            </span>
-                        <?php endif; ?>
-
-                        <span><?php echo esc_html($post['date']); ?></span>
+                    <div class="mt-2">
+                        <?php get_template_part('resources/views/partials/entry-meta', null, ['post_id' => (int) $post['id']]); ?>
                     </div>
                 </li>
             <?php endforeach; ?>

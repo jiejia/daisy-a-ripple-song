@@ -60,7 +60,7 @@ class BlogListWidget extends \WP_Widget
             'order' => 'DESC',
         ]);
 
-        /** @var array<int, array<string, string>> $posts Prepared post cards for the template. */
+        /** @var array<int, array<string, int|string>> $posts Prepared post cards for the template. */
         $posts = [];
 
         if ($query->have_posts()) {
@@ -70,15 +70,10 @@ class BlogListWidget extends \WP_Widget
                 /** @var int $postId Current post ID. */
                 $postId = get_the_ID();
 
-                /** @var \WP_Term[] $categories Current post categories. */
-                $categories = get_the_category($postId);
-
                 $posts[] = [
+                    'id' => $postId,
                     'title' => get_the_title($postId),
                     'permalink' => get_permalink($postId),
-                    'category_name' => !empty($categories) ? $categories[0]->name : '',
-                    'category_link' => !empty($categories) ? get_category_link($categories[0]->term_id) : '',
-                    'date' => get_the_date('', $postId),
                 ];
             }
 

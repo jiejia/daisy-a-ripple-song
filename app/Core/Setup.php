@@ -2,6 +2,10 @@
 
 namespace App\Core;
 
+use App\Constants\PodcastPluginConstant;
+
+define('IS_PODCAST_PLUGIN_INSTALLED', Helper::isPluginInstalled(PodcastPluginConstant::PLUGIN_SLUG));
+
 /**
  * Register theme supports, text domain, menus, sidebars, and widget helpers.
  *
@@ -33,9 +37,13 @@ add_action('widgets_init', function (): void {
     register_widget(\App\Widgets\BlogListWidget::class);
     register_widget(\App\Widgets\AuthorsWidget::class);
     register_widget(\App\Widgets\FooterLinksWidget::class);
-    register_widget(\App\Widgets\PodcastListWidget::class);
-    register_widget(\App\Widgets\SubscribeLinksWidget::class);
     register_widget(\App\Widgets\TagsCloudWidget::class);
+
+    if (IS_PODCAST_PLUGIN_INSTALLED) {
+        register_widget(\App\Widgets\PodcastListWidget::class);
+        register_widget(\App\Widgets\SubscribeLinksWidget::class);
+    }
+
 
     register_sidebar([
         'name' => __('Footer Links', 'a-ripple-song'),
@@ -85,3 +93,28 @@ add_action('widgets_init', function (): void {
  */
 $widget = new Widget();
 add_action('admin_enqueue_scripts', [$widget, 'enqueueAssets']);
+
+
+
+/**
+ * Modify tag archive query to include both post and podcast types.
+ *
+ * By default, WordPress tag archives only query 'post' type.
+ * This filter ensures that both 'post' and 'podcast' types are included.
+ *
+ * @param WP_Query $query The WordPress query object.
+ * @return void
+ */
+
+if (IS_PODCAST_PLUGIN_INSTALLED) {
+    add_action('pre_get_posts', function ($query) {
+        // Only modify the main query on tag archive pages
+        if (!is_admin() && $query->is_main_query() && $query->is_tag()) {
+            $query->set('post_type', ['post', PodcastPluginConstant::PODCAST_POST_TYPE]);
+        }
+    });
+}
+
+if (IS_PODCAST_PLUGIN_INSTALLED) {
+    add_action('pre_get_posts', [Helper::class, 'modifyAuthorArchiveQuery']);
+}

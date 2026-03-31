@@ -44,7 +44,9 @@ add_action('widgets_init', function (): void {
         register_widget(\App\Widgets\SubscribeLinksWidget::class);
     }
 
-
+    /**
+     * Register the footer links sidebar.
+     */
     register_sidebar([
         'name' => __('Footer Links', 'a-ripple-song'),
         'id' => 'footer-links',
@@ -55,6 +57,9 @@ add_action('widgets_init', function (): void {
         'after_title' => '',
     ]);
 
+    /**
+     * Register the home main sidebar.
+     */
     register_sidebar([
         'name' => __('Home Main', 'a-ripple-song'),
         'id' => 'home-main',
@@ -65,6 +70,9 @@ add_action('widgets_init', function (): void {
         'after_title' => '</h2>',
     ]);
 
+    /**
+     * Register the rightbar primary sidebar.
+     */
     register_sidebar([
         'name' => __('Rightbar Primary', 'a-ripple-song'),
         'id' => 'rightbar-primary',
@@ -75,6 +83,9 @@ add_action('widgets_init', function (): void {
         'after_title' => '</h2>',
     ]);
 
+    /**
+     * Register the leftbar primary sidebar.
+     */
     register_sidebar([
         'name' => __('Leftbar Primary', 'a-ripple-song'),
         'id' => 'leftbar-primary',
@@ -93,8 +104,6 @@ add_action('widgets_init', function (): void {
  */
 $widget = new Widget();
 add_action('admin_enqueue_scripts', [$widget, 'enqueueAssets']);
-
-
 
 /**
  * Modify tag archive query to include both post and podcast types.

@@ -12,11 +12,13 @@
                 the_post();
 
                 /**
-                 * Resolve the post-type-specific partial first, then fall back to the shared content partial.
+                 * Resolve the single-post partial first, then fall back to the shared single content partial.
                  *
                  * @var string|false $contentTemplate
                  */
                 $contentTemplate = locate_template([
+                    'resources/views/partials/content-single-' . get_post_type() . '.php',
+                    'resources/views/partials/content-single.php',
                     'resources/views/partials/content-' . get_post_type() . '.php',
                     'resources/views/partials/content.php',
                 ], false, false);

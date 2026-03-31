@@ -127,3 +127,10 @@ if (IS_PODCAST_PLUGIN_INSTALLED) {
 if (IS_PODCAST_PLUGIN_INSTALLED) {
     add_action('pre_get_posts', [Helper::class, 'modifyAuthorArchiveQuery']);
 }
+
+/**
+ * Apply custom comment list and form styling.
+ */
+add_filter('comment_form_defaults', [Helper::class, 'filterCommentFormDefaults']);
+add_filter('comment_form_default_fields', [Helper::class, 'filterCommentFormDefaultFields']);
+add_filter('comment_form_field_comment', [Helper::class, 'filterCommentFormFieldComment']);

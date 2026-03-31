@@ -712,15 +712,28 @@ Alpine.store('player', {
      * @return {void}
      */
     bindAnalyzer() {
-        if (this.audioMotion || !this.currentSound) {
+        if (!this.currentSound) {
             return;
         }
 
         const container = document.getElementById('wave');
-        const sourceNode = this.currentSound?._sounds?.[0]?._node;
+        const sound = this.currentSound?._sounds?.find((item) => item?._id === this.soundId)
+            || this.currentSound?._sounds?.[0]
+            || null;
+
+        /**
+         * Prefer the live buffer source so waveform analysis stays independent
+         * from the gain node that Howler uses for volume control.
+         */
+        const sourceNode = sound?._node?.bufferSource || sound?._node || null;
 
         if (!container || !sourceNode) {
             return;
+        }
+
+        if (this.audioMotion) {
+            this.audioMotion.destroy();
+            this.audioMotion = null;
         }
 
         this.audioMotion = new AudioMotionAnalyzer(container, {

@@ -253,28 +253,83 @@ class Helper
     }
 
     /**
- * Get episode data for a podcast post
- *
- * @param int|null $post_id Post ID (defaults to current post)
- * @return array Episode data array with id, audioUrl, title, description, publishDate (timestamp), featuredImage, link
- */
-public static function getEpisodeData($post_id = null) {
-    if (!$post_id) {
-        $post_id = get_the_ID();
+     * Check whether a plugin is installed by its slug.
+     *
+     * Supports both directory-based plugins like "akismet" and single-file
+     * plugins whose main file name matches the provided slug.
+     *
+     * @param string $pluginSlug Plugin slug.
+     * @return bool True when a matching installed plugin is found.
+     */
+    public static function isPluginInstalled(string $pluginSlug): bool
+    {
+        /** @var array<string, bool> $cache In-request cache keyed by plugin slug. */
+        static $cache = [];
+
+        /** @var string $normalizedPluginSlug Normalized plugin slug used for matching. */
+        $normalizedPluginSlug = sanitize_key($pluginSlug);
+
+        if ($normalizedPluginSlug === '') {
+            return false;
+        }
+
+        if (isset($cache[$normalizedPluginSlug])) {
+            return $cache[$normalizedPluginSlug];
+        }
+
+        if (!function_exists('get_plugins')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        /** @var array<string, array<string, string>> $plugins Installed plugins keyed by plugin file path. */
+        $plugins = get_plugins();
+
+        foreach (array_keys($plugins) as $pluginFile) {
+            /** @var string $pluginDirectorySlug Directory slug for directory-based plugins. */
+            $pluginDirectorySlug = dirname($pluginFile);
+
+            /** @var string $pluginFileSlug File slug for single-file plugins. */
+            $pluginFileSlug = basename($pluginFile, '.php');
+
+            if ($pluginDirectorySlug === $normalizedPluginSlug || $pluginFileSlug === $normalizedPluginSlug) {
+                $cache[$normalizedPluginSlug] = true;
+
+                return true;
+            }
+        }
+
+        $cache[$normalizedPluginSlug] = false;
+
+        return false;
     }
 
-    $audio_file = get_post_meta($post_id, 'audio_file', true);
-    $featured_image = get_the_post_thumbnail_url($post_id, 'medium');
+    /**
+     * Get episode data for a podcast post.
+     *
+     * @param int|null $post_id Post ID (defaults to current post).
+     * @return array<string, mixed> Episode data array with id, audioUrl, title, description, publishDate, featuredImage, and link.
+     */
+    public static function getEpisodeData($post_id = null)
+    {
+        if (!$post_id) {
+            $post_id = get_the_ID();
+        }
 
-    return [
-        'id' => $post_id,
-        'audioUrl' => $audio_file,
-        'title' => get_the_title($post_id),
-        'description' => wp_strip_all_tags(get_the_excerpt()),
-        'publishDate' => get_post_time('U', false, $post_id), // Return Unix timestamp
-        'featuredImage' => $featured_image,
-        'link' => get_permalink($post_id)
-    ];
-}
+        /** @var string $audio_file Episode audio file URL. */
+        $audio_file = get_post_meta($post_id, 'audio_file', true);
+
+        /** @var string|false $featured_image Episode featured image URL. */
+        $featured_image = get_the_post_thumbnail_url($post_id, 'medium');
+
+        return [
+            'id' => $post_id,
+            'audioUrl' => $audio_file,
+            'title' => get_the_title($post_id),
+            'description' => wp_strip_all_tags(get_the_excerpt()),
+            'publishDate' => get_post_time('U', false, $post_id),
+            'featuredImage' => $featured_image,
+            'link' => get_permalink($post_id),
+        ];
+    }
 
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="app/Core/Test.php"
+         cacheDirectory=".phpunit.cache"
+         colors="true">
+    <testsuites>
+        <testsuite name="Theme Tests">
+            <directory>app/Tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

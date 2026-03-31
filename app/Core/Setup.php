@@ -134,3 +134,13 @@ if (IS_PODCAST_PLUGIN_INSTALLED) {
 add_filter('comment_form_defaults', [Helper::class, 'filterCommentFormDefaults']);
 add_filter('comment_form_default_fields', [Helper::class, 'filterCommentFormDefaultFields']);
 add_filter('comment_form_field_comment', [Helper::class, 'filterCommentFormFieldComment']);
+
+/**
+ * Register AJAX handlers for post metric tracking.
+ */
+add_action('wp_ajax_aripplesong_increment_view', [Helper::class, 'incrementViewCount']);
+add_action('wp_ajax_nopriv_aripplesong_increment_view', [Helper::class, 'incrementViewCount']);
+add_action('wp_ajax_aripplesong_increment_play', [Helper::class, 'incrementPlayCount']);
+add_action('wp_ajax_nopriv_aripplesong_increment_play', [Helper::class, 'incrementPlayCount']);
+add_action('wp_ajax_aripplesong_get_metrics', [Helper::class, 'getMetrics']);
+add_action('wp_ajax_nopriv_aripplesong_get_metrics', [Helper::class, 'getMetrics']);

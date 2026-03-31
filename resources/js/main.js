@@ -41,6 +41,222 @@ const simpleBrandIcons = {
     spotify: siSpotify,
 };
 
+/** @type {{view: string, play: string}} AJAX action names for metric updates. */
+const metricActions = {
+    view: 'aripplesong_increment_view',
+    play: 'aripplesong_increment_play',
+};
+
+/** @type {string|null} Deduplicate singular view tracking across Swup page loads. */
+let lastViewMetricKey = null;
+
+/**
+ * Format a metric count using the current document locale when possible.
+ *
+ * @param {number|string} value The numeric value to format.
+ * @return {string}
+ */
+function formatMetricCount(value) {
+    const safeValue = Math.max(0, Number.parseInt(value, 10) || 0);
+
+    try {
+        return new Intl.NumberFormat(document.documentElement.lang || undefined).format(safeValue);
+    } catch (error) {
+        return String(safeValue);
+    }
+}
+
+/**
+ * Update every metric DOM node that matches the target post ID.
+ *
+ * @param {string} selector CSS selector for the metric nodes.
+ * @param {number} postId The post ID whose nodes should be updated.
+ * @param {number} count The latest metric count.
+ * @return {void}
+ */
+function updateMetricCountDom(selector, postId, count) {
+    if (!postId || !Number.isFinite(count)) {
+        return;
+    }
+
+    document.querySelectorAll(`${selector}[data-post-id="${postId}"]`).forEach((element) => {
+        element.textContent = formatMetricCount(count);
+    });
+}
+
+/**
+ * Return the primary singular post ID for view tracking.
+ *
+ * @return {number}
+ */
+function resolvePrimaryPostId() {
+    const ajax = window.aripplesongData?.ajax;
+
+    if (ajax?.postId) {
+        return Number(ajax.postId) || 0;
+    }
+
+    const viewElements = Array.from(document.querySelectorAll('.js-views-count[data-post-id]'));
+    const postIds = [...new Set(viewElements.map((element) => Number(element.dataset.postId)).filter(Boolean))];
+
+    return postIds.length === 1 ? postIds[0] : 0;
+}
+
+/**
+ * Send a metric AJAX request to WordPress.
+ *
+ * @param {string} action The WordPress AJAX action name.
+ * @param {number} postId The target post ID.
+ * @param {Record<string, string|number>} extraData Additional form fields to include.
+ * @return {Promise<object|null>}
+ */
+async function sendAjaxMetric(action, postId, extraData = {}) {
+    const ajax = window.aripplesongData?.ajax;
+
+    if (!ajax?.url || !ajax?.nonce || !postId) {
+        return null;
+    }
+
+    const params = new URLSearchParams({
+        action,
+        post_id: String(postId),
+        _ajax_nonce: ajax.nonce,
+    });
+
+    Object.entries(extraData).forEach(([key, value]) => {
+        params.append(key, String(value));
+    });
+
+    try {
+        const response = await fetch(ajax.url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: params,
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error(`[aripplesong] Failed to send metric "${action}"`, error);
+        return null;
+    }
+}
+
+/**
+ * Fetch current metric counts for the posts rendered on the page.
+ *
+ * @param {number[]} postIds Post IDs to fetch.
+ * @return {Promise<Record<string, {views?: number, plays?: number|null}>|null>}
+ */
+async function fetchMetrics(postIds = []) {
+    const ids = [...new Set(postIds.map((id) => Number(id)).filter(Boolean))];
+
+    if (!ids.length) {
+        return null;
+    }
+
+    const ajax = window.aripplesongData?.ajax;
+
+    if (!ajax?.url || !ajax?.nonce) {
+        return null;
+    }
+
+    const params = new URLSearchParams({
+        action: 'aripplesong_get_metrics',
+        _ajax_nonce: ajax.nonce,
+    });
+
+    ids.forEach((id) => {
+        params.append('post_ids[]', String(id));
+    });
+
+    try {
+        const fetchResponse = await fetch(ajax.url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: params,
+        });
+
+        if (!fetchResponse.ok) {
+            throw new Error(`HTTP ${fetchResponse.status}`);
+        }
+
+        const json = await fetchResponse.json();
+        return json?.data?.counts || null;
+    } catch (error) {
+        console.error('[aripplesong] Failed to fetch metrics', error);
+        return null;
+    }
+}
+
+/**
+ * Hydrate rendered metric values with the latest AJAX counts.
+ *
+ * @return {void}
+ */
+function hydrateMetricsFromDom() {
+    const metricElements = Array.from(document.querySelectorAll('.js-views-count[data-post-id], .js-play-count[data-post-id]'));
+    const postIds = [...new Set(metricElements.map((element) => Number(element.dataset.postId)).filter(Boolean))];
+
+    if (!postIds.length) {
+        return;
+    }
+
+    fetchMetrics(postIds).then((counts) => {
+        if (!counts) {
+            return;
+        }
+
+        Object.entries(counts).forEach(([postId, entry]) => {
+            const numericPostId = Number(postId);
+
+            if (Number.isFinite(entry?.views)) {
+                updateMetricCountDom('.js-views-count', numericPostId, Number(entry.views));
+            }
+
+            if (Number.isFinite(entry?.plays)) {
+                updateMetricCountDom('.js-play-count', numericPostId, Number(entry.plays));
+            }
+        });
+    }).catch(() => null);
+}
+
+/**
+ * Send a single view increment for the current singular page.
+ *
+ * @return {void}
+ */
+function maybeSendViewMetric() {
+    const postId = resolvePrimaryPostId();
+
+    if (!postId) {
+        return;
+    }
+
+    const metricKey = `${postId}:${window.location.href}`;
+
+    if (lastViewMetricKey === metricKey) {
+        return;
+    }
+
+    lastViewMetricKey = metricKey;
+
+    sendAjaxMetric(metricActions.view, postId).then((response) => {
+        const count = response?.data?.count;
+
+        if (Number.isFinite(count)) {
+            updateMetricCountDom('.js-views-count', postId, Number(count));
+        }
+    }).catch(() => null);
+}
+
 /**
  * Create an in-memory storage fallback when the browser blocks persistent storage.
  *
@@ -835,6 +1051,16 @@ Alpine.store('player', {
         }
 
         if (this.soundId === null) {
+            if (this.currentEpisode?.id) {
+                sendAjaxMetric(metricActions.play, Number(this.currentEpisode.id)).then((response) => {
+                    const count = response?.data?.count;
+
+                    if (Number.isFinite(count)) {
+                        updateMetricCountDom('.js-play-count', Number(this.currentEpisode.id), Number(count));
+                    }
+                }).catch(() => null);
+            }
+
             this.soundId = this.currentSound.play();
         } else {
             this.currentSound.play(this.soundId);
@@ -1328,6 +1554,8 @@ function init() {
     createIcons({ icons });
     renderSimpleIcons(document);
     Alpine.store('player').init();
+    hydrateMetricsFromDom();
+    maybeSendViewMetric();
 }
 
 if (hasThemeRuntimeRoot()) {
@@ -1344,5 +1572,7 @@ if (swup) {
     swup.hooks.on('content:replace', () => {
         createIcons({ icons });
         renderSimpleIcons(document);
+        hydrateMetricsFromDom();
+        maybeSendViewMetric();
     });
 }

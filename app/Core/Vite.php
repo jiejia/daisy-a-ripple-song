@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Constants\PodcastPluginConstant;
+
 /**
  * Vite
  *
@@ -168,6 +170,8 @@ class Vite
             null,
             false
         );
+
+        $this->injectFrontendData($this->handlePrefix . '-main');
     }
 
     /**
@@ -222,6 +226,46 @@ class Vite
             null,
             true
         );
+
+        $this->injectFrontendData($this->handlePrefix . '-main');
+    }
+
+    /**
+     * Attach frontend runtime data before the main theme script executes.
+     *
+     * @param string $handle The registered WordPress script handle.
+     * @return void
+     */
+    private function injectFrontendData(string $handle): void
+    {
+        /** @var string $script Inline bootstrap script for the theme runtime. */
+        $script = 'window.aripplesongData = Object.assign({}, window.aripplesongData || {}, ' . wp_json_encode($this->getFrontendData()) . ');';
+
+        wp_add_inline_script($handle, $script, 'before');
+    }
+
+    /**
+     * Build the frontend runtime payload used by AJAX-driven theme features.
+     *
+     * @return array<string, array<string, int|string>>
+     */
+    private function getFrontendData(): array
+    {
+        /** @var int $postId Current singular post ID when available. */
+        $postId = is_singular() ? (int) get_queried_object_id() : 0;
+
+        /** @var string $postType Current singular post type when available. */
+        $postType = $postId ? (string) get_post_type($postId) : '';
+
+        return [
+            'ajax' => [
+                'url' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('aripplesong-ajax'),
+                'postId' => $postId,
+                'postType' => $postType,
+                'podcastPostType' => PodcastPluginConstant::PODCAST_POST_TYPE,
+            ],
+        ];
     }
 
     /**
@@ -935,11 +979,20 @@ JS;
                 return $tag;
             }
 
-            return sprintf(
-                '<script type="module" src="%s" id="%s-js"></script>',
-                esc_url($src),
-                esc_attr($currentHandle)
+            /** @var string|null $updatedTag Preserve inline scripts and only upgrade the external tag to a module. */
+            $updatedTag = preg_replace_callback(
+                '/<script\b(?=[^>]*\ssrc=)([^>]*)>/',
+                static function (array $matches): string {
+                    /** @var string $attributes Existing script tag attributes. */
+                    $attributes = preg_replace('/\s+type=(["\']).*?\1/', '', $matches[1], 1);
+
+                    return '<script type="module"' . $attributes . '>';
+                },
+                $tag,
+                1
             );
+
+            return is_string($updatedTag) ? $updatedTag : $tag;
         }, 10, 3);
     }
 }

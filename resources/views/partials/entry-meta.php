@@ -13,9 +13,9 @@
         <?php echo esc_html(get_the_date('', (int) ($args['post_id'] ?? 0))); ?>
     </time>
     <span class="ml-2">
-        · <span><?php echo esc_html(number_format_i18n((int) get_post_meta((int) ($args['post_id'] ?? 0), '_views_count', true))); ?></span> <?php esc_html_e('views', 'a-ripple-song'); ?>
+        · <span class="js-views-count" data-post-id="<?php echo esc_attr((string) ((int) ($args['post_id'] ?? 0))); ?>" data-post-type="<?php echo esc_attr((string) get_post_type((int) ($args['post_id'] ?? 0))); ?>"><?php echo esc_html(number_format_i18n((int) get_post_meta((int) ($args['post_id'] ?? 0), '_views_count', true))); ?></span> <?php esc_html_e('views', 'a-ripple-song'); ?>
         <?php if (get_post_type((int) ($args['post_id'] ?? 0)) === (class_exists('A_Ripple_Song_Podcast_Episodes') ? \A_Ripple_Song_Podcast_Episodes::POST_TYPE : 'ars_episode')): ?>
-            · <span><?php echo esc_html(number_format_i18n((int) get_post_meta((int) ($args['post_id'] ?? 0), '_play_count', true))); ?></span> <?php esc_html_e('plays', 'a-ripple-song'); ?>
+            · <span class="js-play-count" data-post-id="<?php echo esc_attr((string) ((int) ($args['post_id'] ?? 0))); ?>" data-post-type="<?php echo esc_attr((string) get_post_type((int) ($args['post_id'] ?? 0))); ?>"><?php echo esc_html(number_format_i18n((int) get_post_meta((int) ($args['post_id'] ?? 0), '_play_count', true))); ?></span> <?php esc_html_e('plays', 'a-ripple-song'); ?>
         <?php endif; ?>
     </span>
 </p>

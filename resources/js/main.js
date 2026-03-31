@@ -90,6 +90,13 @@ function updateMetricCountDom(selector, postId, count) {
  * @return {number}
  */
 function resolvePrimaryPostId() {
+    const swupMain = document.querySelector('#swup-main');
+    const mainPostId = Number(swupMain?.dataset.currentPostId || 0);
+
+    if (mainPostId) {
+        return mainPostId;
+    }
+
     const ajax = window.aripplesongData?.ajax;
 
     if (ajax?.postId) {
@@ -100,6 +107,30 @@ function resolvePrimaryPostId() {
     const postIds = [...new Set(viewElements.map((element) => Number(element.dataset.postId)).filter(Boolean))];
 
     return postIds.length === 1 ? postIds[0] : 0;
+}
+
+/**
+ * Sync the frontend AJAX context from the currently rendered Swup main container.
+ *
+ * @return {void}
+ */
+function syncCurrentPageAjaxContext() {
+    const swupMain = document.querySelector('#swup-main');
+
+    if (!swupMain) {
+        return;
+    }
+
+    if (!window.aripplesongData) {
+        window.aripplesongData = {};
+    }
+
+    if (!window.aripplesongData.ajax) {
+        window.aripplesongData.ajax = {};
+    }
+
+    window.aripplesongData.ajax.postId = Number(swupMain.dataset.currentPostId || 0);
+    window.aripplesongData.ajax.postType = swupMain.dataset.currentPostType || '';
 }
 
 /**
@@ -660,6 +691,8 @@ Alpine.store('theme', {
 Alpine.store('player', {
     currentSound: null,
     audioMotion: null,
+    analyzerSourceNode: null,
+    analyzerRebindTimer: null,
     progressTimer: null,
     soundId: null,
     currentTime: 0,
@@ -844,6 +877,10 @@ Alpine.store('player', {
                 this.bindAnalyzer();
                 this.startProgressTimer();
             },
+            onseek: () => {
+                this.currentTime = Number(this.currentSound?.seek(this.soundId)) || 0;
+                this.scheduleAnalyzerRebind();
+            },
             onpause: () => {
                 this.isPlaying = false;
                 this.stopProgressTimer();
@@ -947,37 +984,75 @@ Alpine.store('player', {
             return;
         }
 
-        if (this.audioMotion) {
-            this.audioMotion.destroy();
-            this.audioMotion = null;
+        if (this.audioMotion && this.analyzerSourceNode === sourceNode) {
+            return;
         }
 
-        this.audioMotion = new AudioMotionAnalyzer(container, {
-            source: sourceNode,
-            connectSpeakers: false,
-            mode: 4,
-            alphaBars: false,
-            ansiBands: false,
-            barSpace: 0.25,
-            channelLayout: 'single',
-            colorMode: 'bar-level',
-            frequencyScale: 'log',
-            gradient: 'prism',
-            linearAmplitude: true,
-            linearBoost: 1.6,
-            maxFreq: 16000,
-            minFreq: 30,
-            reflexRatio: 0.5,
-            reflexAlpha: 1,
-            roundBars: true,
-            showPeaks: false,
-            showScaleX: false,
-            smoothing: 0.7,
-            weightingFilter: 'D',
-            overlay: true,
-            showBgColor: false,
-            maxDecibels: -30,
-        });
+        if (!this.audioMotion || this.audioMotion.isDestroyed || this.audioMotion.canvas?.parentElement !== container) {
+            container.querySelectorAll('canvas').forEach((canvas) => {
+                canvas.remove();
+            });
+
+            this.audioMotion = new AudioMotionAnalyzer(container, {
+                audioCtx: sourceNode.context,
+                connectSpeakers: false,
+                mode: 4,
+                alphaBars: false,
+                ansiBands: false,
+                barSpace: 0.25,
+                channelLayout: 'single',
+                colorMode: 'bar-level',
+                frequencyScale: 'log',
+                gradient: 'prism',
+                linearAmplitude: true,
+                linearBoost: 1.6,
+                maxFreq: 16000,
+                minFreq: 30,
+                reflexRatio: 0.5,
+                reflexAlpha: 1,
+                roundBars: true,
+                showPeaks: false,
+                showScaleX: false,
+                smoothing: 0.7,
+                weightingFilter: 'D',
+                overlay: true,
+                showBgColor: false,
+                maxDecibels: -30,
+            });
+        } else {
+            try {
+                this.audioMotion.disconnectInput();
+            } catch (error) {
+                // Ignore disconnect failures and try reconnecting anyway.
+            }
+        }
+
+        this.audioMotion.connectInput(sourceNode);
+        this.analyzerSourceNode = sourceNode;
+    },
+
+    /**
+     * Rebind the waveform analyzer after Howler replaces the active buffer source.
+     *
+     * Seeking while a track is playing recreates the underlying Web Audio node,
+     * so the visualizer must reconnect to the new source after that swap.
+     *
+     * @return {void}
+     */
+    scheduleAnalyzerRebind() {
+        if (this.analyzerRebindTimer) {
+            window.clearTimeout(this.analyzerRebindTimer);
+            this.analyzerRebindTimer = null;
+        }
+
+        if (!this.currentSound || !this.isPlaying) {
+            return;
+        }
+
+        this.analyzerRebindTimer = window.setTimeout(() => {
+            this.analyzerRebindTimer = null;
+            this.bindAnalyzer();
+        }, 0);
     },
 
     /**
@@ -986,6 +1061,13 @@ Alpine.store('player', {
      * @return {void}
      */
     destroyAnalyzer() {
+        if (this.analyzerRebindTimer) {
+            window.clearTimeout(this.analyzerRebindTimer);
+            this.analyzerRebindTimer = null;
+        }
+
+        this.analyzerSourceNode = null;
+
         if (!this.audioMotion) {
             return;
         }
@@ -1554,6 +1636,7 @@ function init() {
     createIcons({ icons });
     renderSimpleIcons(document);
     Alpine.store('player').init();
+    syncCurrentPageAjaxContext();
     hydrateMetricsFromDom();
     maybeSendViewMetric();
 }
@@ -1572,6 +1655,10 @@ if (swup) {
     swup.hooks.on('content:replace', () => {
         createIcons({ icons });
         renderSimpleIcons(document);
+    });
+
+    swup.hooks.on('page:view', () => {
+        syncCurrentPageAjaxContext();
         hydrateMetricsFromDom();
         maybeSendViewMetric();
     });

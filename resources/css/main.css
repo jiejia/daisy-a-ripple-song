@@ -69,3 +69,7 @@ body.admin-bar .sticky.top-\[70px\] {
 .wp-block-group {
     @apply text-sm;
 }
+
+.drawer-side .widget .bg-base-100 {
+    @apply bg-base-300/25;
+}

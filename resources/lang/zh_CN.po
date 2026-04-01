@@ -75,6 +75,10 @@ msgstr "横幅幻灯片："
 msgid "Cancel"
 msgstr "取消"
 
+#: footer.php:85
+msgid "Back to top"
+msgstr "返回顶部"
+
 #: resources/views/sections/playlist-drawer.php:21
 msgid "Clear"
 msgstr "清空"
@@ -82,6 +86,11 @@ msgstr "清空"
 #: resources/views/sections/playlist-drawer.php:19
 msgid "Clear Playlist"
 msgstr "清空播放列表"
+
+#: resources/views/sections/leftbar-drawer.php:8
+#: resources/views/sections/sidebar-drawer.php:8
+msgid "Close sidebar"
+msgstr "关闭侧边栏"
 
 #: app/ThemeOptions/General.php:122
 msgid "Click any card to choose the dark theme."
@@ -179,6 +188,18 @@ msgstr "页脚脚本"
 #: app/Core/Setup.php:43
 msgid "Footer links area for displaying link columns"
 msgstr "页脚链接区域，用于展示链接列"
+
+#: resources/views/sections/leftbar-drawer.php:11
+msgid "Left Sidebar"
+msgstr "左侧边栏"
+
+#: footer.php:69
+msgid "Open Left Sidebar"
+msgstr "打开左侧边栏"
+
+#: footer.php:77
+msgid "Open Right Sidebar"
+msgstr "打开右侧边栏"
 
 #: app/ThemeOptions/General.php:80 app/ThemeOptions/General.php:173
 msgid "General"
@@ -467,6 +488,10 @@ msgstr "移除 Logo"
 #: app/Core/Setup.php:61
 msgid "Rightbar Primary"
 msgstr "主要右侧栏"
+
+#: resources/views/sections/sidebar-drawer.php:11
+msgid "Right Sidebar"
+msgstr "右侧边栏"
 
 #: app/Widgets/SubscribeLinksWidget.php:39
 #: app/Widgets/SubscribeLinksWidget.php:65

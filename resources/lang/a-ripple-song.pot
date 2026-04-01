@@ -583,10 +583,26 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: wp-content/themes/a-ripple-song/footer.php:85
+msgid "Back to top"
+msgstr ""
+
 #: wp-content/themes/a-ripple-song/resources/views/sections/leftbar.php:8
 msgid ""
 "Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin "
 "panel."
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/leftbar-drawer.php:11
+msgid "Left Sidebar"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/footer.php:69
+msgid "Open Left Sidebar"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/footer.php:77
+msgid "Open Right Sidebar"
 msgstr ""
 
 #: wp-content/themes/a-ripple-song/resources/views/sections/playlist-drawer.php:8
@@ -696,6 +712,16 @@ msgstr ""
 #: wp-content/themes/a-ripple-song/resources/views/widgets/blog-list.php:18
 #: wp-content/themes/a-ripple-song/resources/views/widgets/podcast-list.php:16
 msgid "See all"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/sidebar-drawer.php:24
+msgid ""
+"Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin "
+"panel."
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/sections/sidebar-drawer.php:11
+msgid "Right Sidebar"
 msgstr ""
 
 #: wp-content/themes/a-ripple-song/resources/views/widgets/blog-list.php:37

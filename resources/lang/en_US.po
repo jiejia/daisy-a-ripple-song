@@ -75,6 +75,10 @@ msgstr "Banner Slides:"
 msgid "Cancel"
 msgstr "Cancel"
 
+#: footer.php:85
+msgid "Back to top"
+msgstr "Back to top"
+
 #: resources/views/sections/playlist-drawer.php:21
 msgid "Clear"
 msgstr "Clear"
@@ -82,6 +86,11 @@ msgstr "Clear"
 #: resources/views/sections/playlist-drawer.php:19
 msgid "Clear Playlist"
 msgstr "Clear Playlist"
+
+#: resources/views/sections/leftbar-drawer.php:8
+#: resources/views/sections/sidebar-drawer.php:8
+msgid "Close sidebar"
+msgstr "Close sidebar"
 
 #: app/ThemeOptions/General.php:122
 msgid "Click any card to choose the dark theme."
@@ -179,6 +188,18 @@ msgstr ""
 #: app/Core/Setup.php:43
 msgid "Footer links area for displaying link columns"
 msgstr "Footer links area for displaying link columns"
+
+#: resources/views/sections/leftbar-drawer.php:11
+msgid "Left Sidebar"
+msgstr "Left Sidebar"
+
+#: footer.php:69
+msgid "Open Left Sidebar"
+msgstr "Open Left Sidebar"
+
+#: footer.php:77
+msgid "Open Right Sidebar"
+msgstr "Open Right Sidebar"
 
 #: app/ThemeOptions/General.php:80 app/ThemeOptions/General.php:173
 msgid "General"
@@ -471,6 +492,10 @@ msgstr ""
 #: app/Core/Setup.php:61
 msgid "Rightbar Primary"
 msgstr ""
+
+#: resources/views/sections/sidebar-drawer.php:11
+msgid "Right Sidebar"
+msgstr "Right Sidebar"
 
 #: app/Widgets/SubscribeLinksWidget.php:39
 #: app/Widgets/SubscribeLinksWidget.php:65

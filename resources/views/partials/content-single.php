@@ -24,6 +24,4 @@
     <?php get_template_part('resources/views/partials/entry-authors', null, ['post_id' => (int) ($args['post_id'] ?? get_the_ID())]); ?>
   </div>
 </article>
-<div class="mt-4 rounded-lg bg-base-100 p-4">
-  <?php comments_template(); ?>
-</div>
+<?php comments_template(); ?>

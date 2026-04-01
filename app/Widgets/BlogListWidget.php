@@ -176,7 +176,7 @@ class BlogListWidget extends \WP_Widget
         /** @var array<string, mixed> $instance Sanitized widget settings to persist. */
         $instance = [];
 
-        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : 'BLOG';
+        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : '';
         $instance['posts_per_page'] = !empty($newInstance['posts_per_page']) ? max(1, absint($newInstance['posts_per_page'])) : 6;
         $instance['columns'] = !empty($newInstance['columns']) ? min(3, max(1, absint($newInstance['columns']))) : 3;
         $instance['show_see_all'] = !empty($newInstance['show_see_all']) ? 1 : 0;

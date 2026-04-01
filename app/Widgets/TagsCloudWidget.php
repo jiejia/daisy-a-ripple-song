@@ -149,7 +149,7 @@ class TagsCloudWidget extends \WP_Widget
         /** @var array<string, mixed> $instance Sanitized widget settings to persist. */
         $instance = [];
 
-        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : 'TAGS';
+        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : '';
         $instance['number'] = !empty($newInstance['number']) ? max(1, absint($newInstance['number'])) : 20;
         $instance['orderby'] = !empty($newInstance['orderby']) && in_array($newInstance['orderby'], ['count', 'name', 'term_id', 'rand'], true)
             ? (string) $newInstance['orderby']

@@ -7,7 +7,7 @@
                 <template x-if="$store.player.currentEpisode?.featuredImage">
                     <div class="relative md:w-15 md:h-15 w-10 h-10">
                         <img :src="$store.player.currentEpisode?.featuredImage"
-                            :alt="$store.player.currentEpisode?.title || 'ARS Episode'"
+                            :alt="$store.player.currentEpisode?.title || <?php echo esc_attr(wp_json_encode(__('No Episode Playing', 'a-ripple-song'))); ?>"
                             class="md:w-15 md:h-15 w-10 h-10 rounded-md object-cover" />
                         <div
                             class="pointer-events-none absolute inset-0 bg-base-900/30 flex items-center justify-center rounded-md">
@@ -24,10 +24,10 @@
             <div>
                 <h4 class="text-md font-bold line-clamp-2"
                     x-text="$store.player.currentEpisode?.title || <?php echo esc_attr(wp_json_encode(__('No Episode Playing', 'a-ripple-song'))); ?>">
-                    ARS Episode
+                    <?php esc_html_e('No Episode Playing', 'a-ripple-song'); ?>
                 </h4>
                 <p class="text-xs text-base-content/80">
-                    <span x-text="$store.player.currentEpisodePublishDate">October 18, 2025</span>
+                    <span x-text="$store.player.currentEpisodePublishDate"><?php esc_html_e('No publish date', 'a-ripple-song'); ?></span>
                 </p>
                 <!-- <p class="text-xs text-base-content/50" x-show="$store.player.currentEpisode?.description">
                     <span x-text="$store.player.currentEpisode?.description" class="line-clamp-1">142k views</span>

@@ -2,6 +2,7 @@
 
 namespace App\Widgets;
 
+use App\Constants\PodcastPluginConstant;
 use App\Core\Widget as WidgetCore;
 
 /**
@@ -45,9 +46,7 @@ class PodcastListWidget extends \WP_Widget
         $showSeeAll = isset($instance['show_see_all']) ? (bool) $instance['show_see_all'] : true;
 
         /** @var string $episodePostType The podcast episode post type slug. */
-        $episodePostType = class_exists('A_Ripple_Song_Podcast_Episodes')
-            ? \A_Ripple_Song_Podcast_Episodes::POST_TYPE
-            : 'ars_episode';
+        $episodePostType = PodcastPluginConstant::PODCAST_POST_TYPE;
 
         /** @var array<string, array<int, array<string, mixed>>> $tabs Prepared episode lists for each tab. */
         $tabs = [
@@ -133,7 +132,7 @@ class PodcastListWidget extends \WP_Widget
         /** @var array<string, mixed> $instance Sanitized widget settings to persist. */
         $instance = [];
 
-        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : 'PODCASTS';
+        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : '';
         $instance['posts_per_page'] = !empty($newInstance['posts_per_page']) ? max(1, absint($newInstance['posts_per_page'])) : 3;
         $instance['show_see_all'] = !empty($newInstance['show_see_all']) ? 1 : 0;
 

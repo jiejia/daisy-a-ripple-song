@@ -1,7 +1,7 @@
 <div class="drawer drawer-end z-[101]" x-data>
   <input id="playlist-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-side">
-    <label for="playlist-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+    <label for="playlist-drawer" aria-label="<?php echo esc_attr__('Close sidebar', 'a-ripple-song'); ?>" class="drawer-overlay"></label>
     <div class="bg-base-100 text-base-content min-h-full w-96 max-w-[90vw]">
       <!-- Header -->
       <div class="sticky top-0 bg-base-100 p-4 border-b border-base-300 flex items-center justify-between z-10">

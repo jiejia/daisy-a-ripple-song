@@ -378,10 +378,11 @@ function getEpisodesEndpoint() {
     const apiLink = document.querySelector('link[rel="https://api.w.org/"]')?.href;
     const restRoot = window.wpApiSettings?.root || apiLink || `${window.location.origin}/wp-json/`;
     const normalizedRoot = restRoot.endsWith('/') ? restRoot : `${restRoot}/`;
+    const podcastPostType = window.aripplesongData?.ajax?.podcastPostType || 'ars_episode';
     const query = 'per_page=5&orderby=date&order=desc&_embed=1';
     const separator = normalizedRoot.includes('?') ? '&' : '?';
 
-    return `${normalizedRoot}wp/v2/ars_episode${separator}${query}`;
+    return `${normalizedRoot}wp/v2/${podcastPostType}${separator}${query}`;
 }
 
 /**
@@ -633,13 +634,63 @@ const progressHeatmapCache = new Map();
 const themeOptions = window.arsThemeOptions || {};
 
 /**
+ * Normalize a Lucide icon name to the kebab-case format expected by the runtime.
+ *
+ * @param {string} value The raw icon name from the DOM.
+ * @return {string}
+ */
+function normalizeLucideIconName(value = '') {
+    return String(value)
+        .trim()
+        .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
+        .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+        .replace(/_/g, '-')
+        .toLowerCase();
+}
+
+const lucideIconNames = new Set(
+    Object.keys(icons)
+        .map((iconName) => normalizeLucideIconName(iconName))
+        .filter(Boolean),
+);
+
+/**
+ * Render Lucide icons while skipping unsupported icon names.
+ *
+ * @param {ParentNode} root The DOM subtree to scan.
+ * @return {void}
+ */
+function renderLucideIcons(root = document) {
+    if (!root?.querySelectorAll) {
+        return;
+    }
+
+    root.querySelectorAll('[data-lucide]').forEach((iconNode) => {
+        const rawName = iconNode.getAttribute('data-lucide') || '';
+        const normalizedName = normalizeLucideIconName(rawName);
+
+        if (!normalizedName || !lucideIconNames.has(normalizedName)) {
+            iconNode.removeAttribute('data-lucide');
+            iconNode.setAttribute('data-lucide-missing', rawName);
+            return;
+        }
+
+        if (normalizedName !== rawName) {
+            iconNode.setAttribute('data-lucide', normalizedName);
+        }
+    });
+
+    createIcons({ icons });
+}
+
+/**
  * Queue a Lucide refresh after Alpine mutates the DOM.
  *
  * @return {void}
  */
 function queueIconRefresh() {
     window.requestAnimationFrame(() => {
-        createIcons({ icons });
+        renderLucideIcons(document);
     });
 }
 
@@ -691,6 +742,7 @@ Alpine.store('theme', {
 Alpine.store('player', {
     currentSound: null,
     audioMotion: null,
+    analyzerAudioContext: null,
     analyzerSourceNode: null,
     analyzerRebindTimer: null,
     progressTimer: null,
@@ -978,47 +1030,63 @@ Alpine.store('player', {
          * Prefer the live buffer source so waveform analysis stays independent
          * from the gain node that Howler uses for volume control.
          */
-        const sourceNode = sound?._node?.bufferSource || sound?._node || null;
+        const sourceNode = sound?._node || sound?._node?.bufferSource || null;
+        const sourceContext = sourceNode?.context || null;
 
-        if (!container || !sourceNode) {
+        if (!container || !sourceNode || !sourceContext || typeof sourceNode.connect !== 'function') {
             return;
         }
 
-        if (this.audioMotion && this.analyzerSourceNode === sourceNode) {
+        const shouldRecreateAnalyzer = !this.audioMotion
+            || this.audioMotion.isDestroyed
+            || this.audioMotion.canvas?.parentElement !== container
+            || this.analyzerAudioContext !== sourceContext;
+
+        if (!shouldRecreateAnalyzer && this.audioMotion && this.analyzerSourceNode === sourceNode) {
             return;
         }
 
-        if (!this.audioMotion || this.audioMotion.isDestroyed || this.audioMotion.canvas?.parentElement !== container) {
+        if (shouldRecreateAnalyzer) {
+            this.destroyAnalyzer();
             container.querySelectorAll('canvas').forEach((canvas) => {
                 canvas.remove();
             });
 
-            this.audioMotion = new AudioMotionAnalyzer(container, {
-                audioCtx: sourceNode.context,
-                connectSpeakers: false,
-                mode: 4,
-                alphaBars: false,
-                ansiBands: false,
-                barSpace: 0.25,
-                channelLayout: 'single',
-                colorMode: 'bar-level',
-                frequencyScale: 'log',
-                gradient: 'prism',
-                linearAmplitude: true,
-                linearBoost: 1.6,
-                maxFreq: 16000,
-                minFreq: 30,
-                reflexRatio: 0.5,
-                reflexAlpha: 1,
-                roundBars: true,
-                showPeaks: false,
-                showScaleX: false,
-                smoothing: 0.7,
-                weightingFilter: 'D',
-                overlay: true,
-                showBgColor: false,
-                maxDecibels: -30,
-            });
+            try {
+                this.audioMotion = new AudioMotionAnalyzer(container, {
+                    audioCtx: sourceContext,
+                    connectSpeakers: false,
+                    mode: 4,
+                    alphaBars: false,
+                    ansiBands: false,
+                    barSpace: 0.25,
+                    channelLayout: 'single',
+                    colorMode: 'bar-level',
+                    frequencyScale: 'log',
+                    gradient: 'prism',
+                    linearAmplitude: true,
+                    linearBoost: 1.6,
+                    maxFreq: 16000,
+                    minFreq: 30,
+                    reflexRatio: 0.5,
+                    reflexAlpha: 1,
+                    roundBars: true,
+                    showPeaks: false,
+                    showScaleX: false,
+                    smoothing: 0.7,
+                    weightingFilter: 'D',
+                    overlay: true,
+                    showBgColor: false,
+                    maxDecibels: -30,
+                });
+                this.analyzerAudioContext = sourceContext;
+            } catch (error) {
+                this.audioMotion = null;
+                this.analyzerAudioContext = null;
+                this.analyzerSourceNode = null;
+                console.warn('[aripplesong] Failed to create waveform analyzer.', error);
+                return;
+            }
         } else {
             try {
                 this.audioMotion.disconnectInput();
@@ -1027,8 +1095,16 @@ Alpine.store('player', {
             }
         }
 
-        this.audioMotion.connectInput(sourceNode);
-        this.analyzerSourceNode = sourceNode;
+        try {
+            this.audioMotion.connectInput(sourceNode);
+            this.analyzerSourceNode = sourceNode;
+        } catch (error) {
+            this.destroyAnalyzer();
+            container.querySelectorAll('canvas').forEach((canvas) => {
+                canvas.remove();
+            });
+            console.warn('[aripplesong] Failed to bind waveform analyzer.', error);
+        }
     },
 
     /**
@@ -1066,13 +1142,25 @@ Alpine.store('player', {
             this.analyzerRebindTimer = null;
         }
 
+        this.analyzerAudioContext = null;
         this.analyzerSourceNode = null;
 
         if (!this.audioMotion) {
             return;
         }
 
-        this.audioMotion.destroy();
+        try {
+            this.audioMotion.disconnectInput();
+        } catch (error) {
+            // Ignore disconnect failures while tearing down the analyzer.
+        }
+
+        try {
+            this.audioMotion.destroy();
+        } catch (error) {
+            // Ignore destroy failures and continue clearing stale references.
+        }
+
         this.audioMotion = null;
     },
 
@@ -1633,7 +1721,7 @@ if (canBootSwup()) {
  * @return {void}
  */
 function init() {
-    createIcons({ icons });
+    renderLucideIcons(document);
     renderSimpleIcons(document);
     Alpine.store('player').init();
     syncCurrentPageAjaxContext();
@@ -1653,7 +1741,7 @@ if (hasThemeRuntimeRoot()) {
 
 if (swup) {
     swup.hooks.on('content:replace', () => {
-        createIcons({ icons });
+        renderLucideIcons(document);
         renderSimpleIcons(document);
     });
 

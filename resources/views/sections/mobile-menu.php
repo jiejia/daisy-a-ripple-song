@@ -1,7 +1,7 @@
 <div class="drawer drawer-start z-[101]" id="swup-mobile-menu">
   <input type="checkbox" id="mobile-menu" class="drawer-toggle" />
   <div class="drawer-side">
-    <label for="mobile-menu" aria-label="close sidebar" class="drawer-overlay"></label>
+    <label for="mobile-menu" aria-label="<?php echo esc_attr__('Close sidebar', 'a-ripple-song'); ?>" class="drawer-overlay"></label>
     <div class="bg-base-100 h-full w-80 max-w-xs">
       <div class="sticky top-0 bg-base-100 p-4 border-b border-base-300 flex items-center justify-between">
         <h3 class="font-bold text-lg"><?php echo esc_html__('Menu', 'a-ripple-song'); ?></h3>

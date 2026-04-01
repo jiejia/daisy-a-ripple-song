@@ -57,6 +57,4 @@ $title = (string) ($args['title'] ?? get_the_title($postId));
         <?php get_template_part('resources/views/partials/entry-authors', null, ['post_id' => $postId]); ?>
     </div>
 </div>
-<div class="mt-4 rounded-lg bg-base-100 p-4">
-    <?php comments_template(); ?>
-</div>
+<?php comments_template(); ?>

@@ -82,7 +82,7 @@ class SubscribeLinksWidget extends \WP_Widget
                    name="<?php echo esc_attr($this->get_field_name('title')); ?>"
                    type="text"
                    value="<?php echo esc_attr($title); ?>"
-                   placeholder="SUBSCRIBE">
+                   placeholder="<?php echo esc_attr__('SUBSCRIBE', 'a-ripple-song'); ?>">
         </p>
 
         <p>
@@ -138,7 +138,7 @@ class SubscribeLinksWidget extends \WP_Widget
         /** @var array<string, mixed> $instance Sanitized widget settings to persist. */
         $instance = [];
 
-        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : 'SUBSCRIBE';
+        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : '';
         $instance['apple_podcast_url'] = !empty($newInstance['apple_podcast_url']) ? esc_url_raw((string) $newInstance['apple_podcast_url']) : '';
         $instance['spotify_url'] = !empty($newInstance['spotify_url']) ? esc_url_raw((string) $newInstance['spotify_url']) : '';
         $instance['youtube_music_url'] = !empty($newInstance['youtube_music_url']) ? esc_url_raw((string) $newInstance['youtube_music_url']) : '';

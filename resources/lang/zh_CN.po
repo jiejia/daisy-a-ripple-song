@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A Ripple Song Theme 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-29 15:54+0800\n"
+"POT-Creation-Date: 2026-03-29 16:09+0800\n"
 "PO-Revision-Date: 2026-03-27 12:05+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -31,7 +31,7 @@ msgstr "+ 添加横幅"
 msgid "+ Add Item"
 msgstr "+ 添加条目"
 
-#: app/ThemeOptions/General.php:88 footer.php:13
+#: app/ThemeOptions/General.php:86
 msgid "A Ripple Song"
 msgstr "A Ripple Song"
 
@@ -79,11 +79,11 @@ msgstr "清空"
 msgid "Clear Playlist"
 msgstr "清空播放列表"
 
-#: app/ThemeOptions/General.php:124
+#: app/ThemeOptions/General.php:122
 msgid "Click any card to choose the dark theme."
 msgstr "点击任意卡片即可选择深色主题。"
 
-#: app/ThemeOptions/General.php:109
+#: app/ThemeOptions/General.php:107
 msgid "Click any card to choose the light theme."
 msgstr "点击任意卡片即可选择浅色主题。"
 
@@ -99,11 +99,11 @@ msgstr "当前页面"
 msgid "Dark Mode"
 msgstr "深色模式"
 
-#: app/ThemeOptions/General.php:116 app/ThemeOptions/General.php:120
+#: app/ThemeOptions/General.php:114 app/ThemeOptions/General.php:118
 msgid "Dark Theme"
 msgstr "深色主题"
 
-#: app/ThemeOptions/General.php:125
+#: app/ThemeOptions/General.php:123
 msgid "Dark Theme (fallback)"
 msgstr "深色主题（后备下拉框）"
 
@@ -160,7 +160,7 @@ msgstr "Facebook"
 msgid "Follow System"
 msgstr "跟随系统"
 
-#: app/ThemeOptions/General.php:131
+#: app/ThemeOptions/General.php:129
 msgid "Footer Copyright"
 msgstr "页脚版权"
 
@@ -168,7 +168,7 @@ msgstr "页脚版权"
 msgid "Footer Links"
 msgstr "页脚链接"
 
-#: app/ThemeOptions/General.php:137
+#: app/ThemeOptions/General.php:135
 msgid "Footer Scripts"
 msgstr "页脚脚本"
 
@@ -176,7 +176,7 @@ msgstr "页脚脚本"
 msgid "Footer links area for displaying link columns"
 msgstr "页脚链接区域，用于展示链接列"
 
-#: app/ThemeOptions/General.php:82 app/ThemeOptions/General.php:175
+#: app/ThemeOptions/General.php:80 app/ThemeOptions/General.php:173
 msgid "General"
 msgstr "常规"
 
@@ -193,7 +193,7 @@ msgstr "嘉宾"
 msgid "Guests Title:"
 msgstr "嘉宾标题："
 
-#: app/ThemeOptions/General.php:135
+#: app/ThemeOptions/General.php:133
 msgid "Header Scripts"
 msgstr "头部脚本"
 
@@ -201,11 +201,11 @@ msgstr "头部脚本"
 msgid "Home Main"
 msgstr "首页主区域"
 
-#: app/ThemeOptions/General.php:128
+#: app/ThemeOptions/General.php:126
 msgid "If the card picker is unavailable, use this dropdown (default: dim)."
 msgstr "如果色卡选择器不可用，请使用此下拉框（默认：dim）。"
 
-#: app/ThemeOptions/General.php:113
+#: app/ThemeOptions/General.php:111
 msgid "If the card picker is unavailable, use this dropdown (default: retro)."
 msgstr "如果色卡选择器不可用，请使用此下拉框（默认：retro）。"
 
@@ -243,29 +243,13 @@ msgstr "主左侧边栏"
 msgid "Light Mode"
 msgstr "浅色模式"
 
-#: app/ThemeOptions/General.php:101 app/ThemeOptions/General.php:105
+#: app/ThemeOptions/General.php:99 app/ThemeOptions/General.php:103
 msgid "Light Theme"
 msgstr "浅色主题"
 
-#: app/ThemeOptions/General.php:110
+#: app/ThemeOptions/General.php:108
 msgid "Light Theme (fallback)"
 msgstr "浅色主题（后备下拉框）"
-
-#: footer.php:8
-msgid "Link 1"
-msgstr "链接 1"
-
-#: footer.php:9
-msgid "Link 2"
-msgstr "链接 2"
-
-#: footer.php:10
-msgid "Link 3"
-msgstr "链接 3"
-
-#: footer.php:11
-msgid "Link 4"
-msgstr "链接 4"
 
 #: app/Core/Widget.php:68 app/Widgets/BannerCarouselWidget.php:117
 msgid "Link Target:"
@@ -355,7 +339,7 @@ msgstr "文章数量："
 msgid "Number of tags:"
 msgstr "标签数量："
 
-#: app/ThemeOptions/General.php:1031
+#: app/ThemeOptions/General.php:998
 msgid "Only filled links will be used by the theme."
 msgstr "只有已填写的链接才会在主题中显示。"
 
@@ -363,7 +347,7 @@ msgstr "只有已填写的链接才会在主题中显示。"
 msgid "Open in new tab"
 msgstr "在新标签页打开"
 
-#: app/ThemeOptions/General.php:1036
+#: app/ThemeOptions/General.php:1003
 msgid "Optional. Enter a full URL."
 msgstr "可选。请输入完整 URL。"
 
@@ -371,7 +355,7 @@ msgstr "可选。请输入完整 URL。"
 msgid "Order by:"
 msgstr "排序依据："
 
-#: app/ThemeOptions/General.php:134
+#: app/ThemeOptions/General.php:132
 msgid "Overrides the footer copyright line. Leave empty to use the default."
 msgstr "覆盖页脚版权文案。留空则使用默认内容。"
 
@@ -408,8 +392,7 @@ msgstr "请在后台添加横幅内容"
 msgid ""
 "Please add widgets to \"Home Main\" area in Appearance > Widgets in the "
 "admin panel."
-msgstr ""
-"请在后台的“外观 > 小工具”中向“Home Main”区域添加小工具。"
+msgstr "请在后台的“外观 > 小工具”中向“Home Main”区域添加小工具。"
 
 #: resources/views/sections/leftbar.php:8
 msgid ""
@@ -431,7 +414,12 @@ msgstr "热门"
 msgid "Post Count"
 msgstr "文章数量"
 
-#: app/ThemeOptions/General.php:133
+#: footer.php:22
+#, fuzzy, php-format
+msgid "Powered by %s"
+msgstr "© %1$s 由 %2$s 主题驱动"
+
+#: app/ThemeOptions/General.php:131
 msgid "Powered by A Ripple Song Theme"
 msgstr "由 A Ripple Song 主题驱动"
 
@@ -468,7 +456,7 @@ msgstr "最新"
 msgid "Remove"
 msgstr "移除"
 
-#: app/ThemeOptions/General.php:436
+#: app/ThemeOptions/General.php:434
 msgid "Remove Logo"
 msgstr "移除 Logo"
 
@@ -481,12 +469,12 @@ msgstr "主要右侧栏"
 msgid "SUBSCRIBE"
 msgstr "订阅"
 
-#: app/ThemeOptions/General.php:138
+#: app/ThemeOptions/General.php:136
 msgid ""
 "Scripts to be added before </body>. You can include complete <script> tags."
 msgstr "将在 </body> 前插入的脚本。你可以包含完整的 <script> 标签。"
 
-#: app/ThemeOptions/General.php:136
+#: app/ThemeOptions/General.php:134
 msgid ""
 "Scripts to be added in the <head> section. You can include complete <script> "
 "tags for services like Google Analytics."
@@ -519,12 +507,12 @@ msgstr "显示嘉宾（投稿者）"
 msgid "Show Members (Administrators, Editors, Authors)"
 msgstr "显示成员（管理员、编辑、作者）"
 
-#: app/ThemeOptions/General.php:94 app/ThemeOptions/General.php:426
-#: app/ThemeOptions/General.php:782
+#: app/ThemeOptions/General.php:92 app/ThemeOptions/General.php:424
+#: app/ThemeOptions/General.php:780
 msgid "Site Logo"
 msgstr "网站 Logo"
 
-#: app/ThemeOptions/General.php:143 app/ThemeOptions/General.php:1030
+#: app/ThemeOptions/General.php:141 app/ThemeOptions/General.php:997
 msgid "Social Links"
 msgstr "社交链接"
 
@@ -560,7 +548,7 @@ msgstr "发布带标签的文章后，标签会显示在这里"
 msgid "Text:"
 msgstr "文本："
 
-#: app/ThemeOptions/General.php:80
+#: app/ThemeOptions/General.php:78
 msgid "Theme Settings"
 msgstr "主题设置"
 
@@ -606,11 +594,11 @@ msgstr "URL（可选，留空则显示纯文本）："
 msgid "Unknown episode"
 msgstr "未知节目"
 
-#: app/ThemeOptions/General.php:434
+#: app/ThemeOptions/General.php:432
 msgid "Upload / Change Logo"
 msgstr "上传 / 更换 Logo"
 
-#: app/ThemeOptions/General.php:96
+#: app/ThemeOptions/General.php:94
 msgid ""
 "Upload a logo image (220px × 32px). You will be able to crop the image after "
 "upload."
@@ -684,10 +672,17 @@ msgstr "次播放"
 msgid "views"
 msgstr "次浏览"
 
-#: footer.php:12
-#, php-format
-msgid "© %1$s Powered by %2$s Theme"
-msgstr "© %1$s 由 %2$s 主题驱动"
+#~ msgid "Link 1"
+#~ msgstr "链接 1"
+
+#~ msgid "Link 2"
+#~ msgstr "链接 2"
+
+#~ msgid "Link 3"
+#~ msgstr "链接 3"
+
+#~ msgid "Link 4"
+#~ msgstr "链接 4"
 
 #~ msgid "Sidebar Primary"
 #~ msgstr "主侧边栏"

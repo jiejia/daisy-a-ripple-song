@@ -2,6 +2,7 @@
 
 namespace App\Widgets;
 
+use App\Constants\PodcastPluginConstant;
 use App\Core\Widget as WidgetCore;
 
 /**
@@ -83,13 +84,11 @@ class AuthorsWidget extends \WP_Widget
             }, $allUsers)));
 
             if (!empty($userIds)) {
-                /** @var string $episodePostType The custom podcast episode post type slug. */
-                $episodePostType = class_exists('A_Ripple_Song_Podcast_Episodes')
-                    ? \A_Ripple_Song_Podcast_Episodes::POST_TYPE
-                    : 'ars_episode';
-
                 $postCountsByUser    = count_many_users_posts($userIds, 'post', true);
-                $episodeCountsByUser = count_many_users_posts($userIds, $episodePostType, true);
+
+                if (IS_PODCAST_PLUGIN_INSTALLED) {
+                    $episodeCountsByUser = count_many_users_posts($userIds, PodcastPluginConstant::PODCAST_POST_TYPE, true);
+                }
             }
         }
 
@@ -195,11 +194,11 @@ class AuthorsWidget extends \WP_Widget
 
         $instance['members_title'] = !empty($newInstance['members_title'])
             ? sanitize_text_field((string) $newInstance['members_title'])
-            : 'Members';
+            : '';
 
         $instance['guests_title'] = !empty($newInstance['guests_title'])
             ? sanitize_text_field((string) $newInstance['guests_title'])
-            : 'Guests';
+            : '';
 
         $instance['show_members'] = !empty($newInstance['show_members']) ? 1 : 0;
         $instance['show_guests'] = !empty($newInstance['show_guests']) ? 1 : 0;

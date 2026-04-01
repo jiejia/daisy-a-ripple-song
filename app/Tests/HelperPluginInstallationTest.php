@@ -2,6 +2,7 @@
 
 namespace App\Tests;
 
+use App\Constants\PodcastPluginConstant;
 use App\Core\Helper;
 use PHPUnit\Framework\TestCase;
 
@@ -21,7 +22,7 @@ class HelperPluginInstallationTest extends TestCase
     public function testReturnsTrueForInstalledPlugin(): void
     {
         /** @var string $pluginSlug Known installed plugin slug in the current project. */
-        $pluginSlug = 'a-ripple-song-podcast';
+        $pluginSlug = PodcastPluginConstant::PLUGIN_SLUG;
 
         /** @var bool $isInstalled Helper result for the installed plugin slug. */
         $isInstalled = Helper::isPluginInstalled($pluginSlug);

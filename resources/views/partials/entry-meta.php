@@ -12,7 +12,7 @@
     <time class="dt-published" datetime="<?php echo esc_attr(get_post_time('c', true, (int) ($args['post_id'] ?? 0))); ?>">
         <?php echo esc_html(get_the_date('', (int) ($args['post_id'] ?? 0))); ?>
     </time>
-    <?php if (defined('IS_PODCAST_PLUGIN_INSTALLED') && IS_PODCAST_PLUGIN_INSTALLED): ?>
+    <?php if (IS_PODCAST_PLUGIN_INSTALLED): ?>
         <span class="ml-2">
             · <span class="js-views-count" data-post-id="<?php echo esc_attr((string) ((int) ($args['post_id'] ?? 0))); ?>" data-post-type="<?php echo esc_attr((string) get_post_type((int) ($args['post_id'] ?? 0))); ?>"><?php echo esc_html(number_format_i18n((int) get_post_meta((int) ($args['post_id'] ?? 0), '_views_count', true))); ?></span> <?php esc_html_e('views', 'a-ripple-song'); ?>
             <?php if (get_post_type((int) ($args['post_id'] ?? 0)) === \App\Constants\PodcastPluginConstant::PODCAST_POST_TYPE): ?>

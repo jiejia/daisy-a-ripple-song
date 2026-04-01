@@ -26,3 +26,4 @@
   <div class="mt-4 rounded-lg bg-base-100 p-4">
   </div>
 </article>
+<?php comments_template(); ?>

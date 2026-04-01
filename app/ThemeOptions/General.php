@@ -2,6 +2,7 @@
 
 namespace App\ThemeOptions;
 
+use App\Constants\PodcastPluginConstant;
 use App\Constants\ThemeConstant;
 use Carbon_Fields\Carbon_Fields;
 use Carbon_Fields\Container;
@@ -197,7 +198,7 @@ class General
      */
     public static function hasPluginSettingsMenu(): bool
     {
-        return class_exists('A_Ripple_Song_Podcast_Podcast_Settings');
+        return IS_PODCAST_PLUGIN_INSTALLED;
     }
 
     /**

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A Ripple Song Theme 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-29 15:54+0800\n"
+"POT-Creation-Date: 2026-03-29 16:09+0800\n"
 "PO-Revision-Date: 2026-03-27 12:05+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: English\n"
@@ -31,7 +31,7 @@ msgstr "+ Add Banner"
 msgid "+ Add Item"
 msgstr "+ Add Item"
 
-#: app/ThemeOptions/General.php:88 footer.php:13
+#: app/ThemeOptions/General.php:86
 msgid "A Ripple Song"
 msgstr "A Ripple Song"
 
@@ -79,11 +79,11 @@ msgstr "Clear"
 msgid "Clear Playlist"
 msgstr "Clear Playlist"
 
-#: app/ThemeOptions/General.php:124
+#: app/ThemeOptions/General.php:122
 msgid "Click any card to choose the dark theme."
 msgstr ""
 
-#: app/ThemeOptions/General.php:109
+#: app/ThemeOptions/General.php:107
 msgid "Click any card to choose the light theme."
 msgstr ""
 
@@ -99,11 +99,11 @@ msgstr "Current Page"
 msgid "Dark Mode"
 msgstr "Dark Mode"
 
-#: app/ThemeOptions/General.php:116 app/ThemeOptions/General.php:120
+#: app/ThemeOptions/General.php:114 app/ThemeOptions/General.php:118
 msgid "Dark Theme"
 msgstr ""
 
-#: app/ThemeOptions/General.php:125
+#: app/ThemeOptions/General.php:123
 msgid "Dark Theme (fallback)"
 msgstr ""
 
@@ -160,7 +160,7 @@ msgstr ""
 msgid "Follow System"
 msgstr "Follow System"
 
-#: app/ThemeOptions/General.php:131
+#: app/ThemeOptions/General.php:129
 msgid "Footer Copyright"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Footer Links"
 msgstr "Footer Links"
 
-#: app/ThemeOptions/General.php:137
+#: app/ThemeOptions/General.php:135
 msgid "Footer Scripts"
 msgstr ""
 
@@ -176,7 +176,7 @@ msgstr ""
 msgid "Footer links area for displaying link columns"
 msgstr "Footer links area for displaying link columns"
 
-#: app/ThemeOptions/General.php:82 app/ThemeOptions/General.php:175
+#: app/ThemeOptions/General.php:80 app/ThemeOptions/General.php:173
 msgid "General"
 msgstr ""
 
@@ -193,7 +193,7 @@ msgstr "Guests"
 msgid "Guests Title:"
 msgstr "Guests Title:"
 
-#: app/ThemeOptions/General.php:135
+#: app/ThemeOptions/General.php:133
 msgid "Header Scripts"
 msgstr ""
 
@@ -201,11 +201,11 @@ msgstr ""
 msgid "Home Main"
 msgstr "Home Main"
 
-#: app/ThemeOptions/General.php:128
+#: app/ThemeOptions/General.php:126
 msgid "If the card picker is unavailable, use this dropdown (default: dim)."
 msgstr ""
 
-#: app/ThemeOptions/General.php:113
+#: app/ThemeOptions/General.php:111
 msgid "If the card picker is unavailable, use this dropdown (default: retro)."
 msgstr ""
 
@@ -243,29 +243,13 @@ msgstr "Leftbar Primary"
 msgid "Light Mode"
 msgstr "Light Mode"
 
-#: app/ThemeOptions/General.php:101 app/ThemeOptions/General.php:105
+#: app/ThemeOptions/General.php:99 app/ThemeOptions/General.php:103
 msgid "Light Theme"
 msgstr ""
 
-#: app/ThemeOptions/General.php:110
+#: app/ThemeOptions/General.php:108
 msgid "Light Theme (fallback)"
 msgstr ""
-
-#: footer.php:8
-msgid "Link 1"
-msgstr "Link 1"
-
-#: footer.php:9
-msgid "Link 2"
-msgstr "Link 2"
-
-#: footer.php:10
-msgid "Link 3"
-msgstr "Link 3"
-
-#: footer.php:11
-msgid "Link 4"
-msgstr "Link 4"
 
 #: app/Core/Widget.php:68 app/Widgets/BannerCarouselWidget.php:117
 msgid "Link Target:"
@@ -355,7 +339,7 @@ msgstr "Number of posts:"
 msgid "Number of tags:"
 msgstr "Number of tags:"
 
-#: app/ThemeOptions/General.php:1031
+#: app/ThemeOptions/General.php:998
 msgid "Only filled links will be used by the theme."
 msgstr ""
 
@@ -363,7 +347,7 @@ msgstr ""
 msgid "Open in new tab"
 msgstr "Open in new tab"
 
-#: app/ThemeOptions/General.php:1036
+#: app/ThemeOptions/General.php:1003
 msgid "Optional. Enter a full URL."
 msgstr ""
 
@@ -371,7 +355,7 @@ msgstr ""
 msgid "Order by:"
 msgstr "Order by:"
 
-#: app/ThemeOptions/General.php:134
+#: app/ThemeOptions/General.php:132
 msgid "Overrides the footer copyright line. Leave empty to use the default."
 msgstr ""
 
@@ -434,7 +418,12 @@ msgstr "Popular"
 msgid "Post Count"
 msgstr "Post Count"
 
-#: app/ThemeOptions/General.php:133
+#: footer.php:22
+#, fuzzy, php-format
+msgid "Powered by %s"
+msgstr "© %1$s Powered by %2$s Theme"
+
+#: app/ThemeOptions/General.php:131
 msgid "Powered by A Ripple Song Theme"
 msgstr ""
 
@@ -471,7 +460,7 @@ msgstr "Recent"
 msgid "Remove"
 msgstr "Remove"
 
-#: app/ThemeOptions/General.php:436
+#: app/ThemeOptions/General.php:434
 msgid "Remove Logo"
 msgstr ""
 
@@ -484,12 +473,12 @@ msgstr ""
 msgid "SUBSCRIBE"
 msgstr "SUBSCRIBE"
 
-#: app/ThemeOptions/General.php:138
+#: app/ThemeOptions/General.php:136
 msgid ""
 "Scripts to be added before </body>. You can include complete <script> tags."
 msgstr ""
 
-#: app/ThemeOptions/General.php:136
+#: app/ThemeOptions/General.php:134
 msgid ""
 "Scripts to be added in the <head> section. You can include complete <script> "
 "tags for services like Google Analytics."
@@ -520,12 +509,12 @@ msgstr "Show Guests (Contributors)"
 msgid "Show Members (Administrators, Editors, Authors)"
 msgstr "Show Members (Administrators, Editors, Authors)"
 
-#: app/ThemeOptions/General.php:94 app/ThemeOptions/General.php:426
-#: app/ThemeOptions/General.php:782
+#: app/ThemeOptions/General.php:92 app/ThemeOptions/General.php:424
+#: app/ThemeOptions/General.php:780
 msgid "Site Logo"
 msgstr ""
 
-#: app/ThemeOptions/General.php:143 app/ThemeOptions/General.php:1030
+#: app/ThemeOptions/General.php:141 app/ThemeOptions/General.php:997
 msgid "Social Links"
 msgstr ""
 
@@ -561,7 +550,7 @@ msgstr "Tags will appear here after publishing articles with tags"
 msgid "Text:"
 msgstr "Text:"
 
-#: app/ThemeOptions/General.php:80
+#: app/ThemeOptions/General.php:78
 msgid "Theme Settings"
 msgstr ""
 
@@ -607,11 +596,11 @@ msgstr "URL (optional - leave empty for plain text):"
 msgid "Unknown episode"
 msgstr "Unknown episode"
 
-#: app/ThemeOptions/General.php:434
+#: app/ThemeOptions/General.php:432
 msgid "Upload / Change Logo"
 msgstr ""
 
-#: app/ThemeOptions/General.php:96
+#: app/ThemeOptions/General.php:94
 msgid ""
 "Upload a logo image (220px × 32px). You will be able to crop the image after "
 "upload."
@@ -685,10 +674,17 @@ msgstr "plays"
 msgid "views"
 msgstr "views"
 
-#: footer.php:12
-#, php-format
-msgid "© %1$s Powered by %2$s Theme"
-msgstr "© %1$s Powered by %2$s Theme"
+#~ msgid "Link 1"
+#~ msgstr "Link 1"
+
+#~ msgid "Link 2"
+#~ msgstr "Link 2"
+
+#~ msgid "Link 3"
+#~ msgstr "Link 3"
+
+#~ msgid "Link 4"
+#~ msgstr "Link 4"
 
 #~ msgid "Sidebar Primary"
 #~ msgstr "Sidebar Primary"

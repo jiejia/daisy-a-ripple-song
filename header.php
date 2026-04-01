@@ -25,7 +25,7 @@ $theme_mode_labels = [
 
 <body <?php body_class('bg-base-200'); ?>>
     <?php wp_body_open(); ?>
-    <div id="app" class="p-4 gap-4 mb-[180px] md:mb-0">
+    <div id="app" class="p-4 gap-4 mb-[<?php echo IS_PODCAST_PLUGIN_ACTIVATED ? '180px' : '0px'; ?>] md:mb-0">
         <header class="fixed top-0 h-[55px] left-0 right-0 z-50 bg-base-100/75 transition-fade z-[100]" id="swup-header">
             <div class="max-w-screen-xl mx-auto h-full">
                 <div class="xl:px-0 px-4 py-3">

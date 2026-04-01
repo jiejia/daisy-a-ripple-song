@@ -1,3 +1,9 @@
+<?php
+  if(! IS_PODCAST_PLUGIN_ACTIVATED) {
+    return ;
+  }
+?>
+
 <div 
     x-data
     x-cloak

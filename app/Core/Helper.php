@@ -253,15 +253,15 @@ class Helper
     }
 
     /**
-     * Check whether a plugin is installed by its slug.
+     * Check whether a plugin is activated by its slug.
      *
      * Supports both directory-based plugins like "akismet" and single-file
      * plugins whose main file name matches the provided slug.
      *
      * @param string $pluginSlug Plugin slug.
-     * @return bool True when a matching installed plugin is found.
+     * @return bool True when the matching plugin is active on the current site or network.
      */
-    public static function isPluginInstalled(string $pluginSlug): bool
+    public static function isPluginActivated(string $pluginSlug): bool
     {
         /** @var array<string, bool> $cache In-request cache keyed by plugin slug. */
         static $cache = [];
@@ -277,8 +277,44 @@ class Helper
             return $cache[$normalizedPluginSlug];
         }
 
-        if (!function_exists('get_plugins')) {
+        if (!function_exists('get_plugins') || !function_exists('is_plugin_active')) {
             require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        /** @var string $pluginFile Matching plugin file path relative to the plugins directory. */
+        $pluginFile = self::resolvePluginFileBySlug($normalizedPluginSlug);
+
+        if ($pluginFile === '') {
+            $cache[$normalizedPluginSlug] = false;
+
+            return false;
+        }
+
+        $cache[$normalizedPluginSlug] = is_plugin_active($pluginFile);
+
+        return $cache[$normalizedPluginSlug];
+    }
+
+    /**
+     * Resolve the plugin file path for a plugin slug.
+     *
+     * @param string $pluginSlug Normalized plugin slug.
+     * @return string Relative plugin file path, or an empty string when no match is found.
+     */
+    private static function resolvePluginFileBySlug(string $pluginSlug): string
+    {
+        /** @var string $directoryPluginFile Conventional directory plugin bootstrap file. */
+        $directoryPluginFile = $pluginSlug . '/' . $pluginSlug . '.php';
+
+        if (file_exists(WP_PLUGIN_DIR . '/' . $directoryPluginFile)) {
+            return $directoryPluginFile;
+        }
+
+        /** @var string $singleFilePlugin Conventional single-file plugin bootstrap file. */
+        $singleFilePlugin = $pluginSlug . '.php';
+
+        if (file_exists(WP_PLUGIN_DIR . '/' . $singleFilePlugin)) {
+            return $singleFilePlugin;
         }
 
         /** @var array<string, array<string, string>> $plugins Installed plugins keyed by plugin file path. */
@@ -291,16 +327,12 @@ class Helper
             /** @var string $pluginFileSlug File slug for single-file plugins. */
             $pluginFileSlug = basename($pluginFile, '.php');
 
-            if ($pluginDirectorySlug === $normalizedPluginSlug || $pluginFileSlug === $normalizedPluginSlug) {
-                $cache[$normalizedPluginSlug] = true;
-
-                return true;
+            if ($pluginDirectorySlug === $pluginSlug || $pluginFileSlug === $pluginSlug) {
+                return $pluginFile;
             }
         }
 
-        $cache[$normalizedPluginSlug] = false;
-
-        return false;
+        return '';
     }
 
     /**

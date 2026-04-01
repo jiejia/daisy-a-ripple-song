@@ -198,7 +198,7 @@ class General
      */
     public static function hasPluginSettingsMenu(): bool
     {
-        return IS_PODCAST_PLUGIN_INSTALLED;
+        return IS_PODCAST_PLUGIN_ACTIVATED;
     }
 
     /**

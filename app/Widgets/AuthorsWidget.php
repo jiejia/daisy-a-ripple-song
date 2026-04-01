@@ -86,7 +86,7 @@ class AuthorsWidget extends \WP_Widget
             if (!empty($userIds)) {
                 $postCountsByUser    = count_many_users_posts($userIds, 'post', true);
 
-                if (IS_PODCAST_PLUGIN_INSTALLED) {
+                if (IS_PODCAST_PLUGIN_ACTIVATED) {
                     $episodeCountsByUser = count_many_users_posts($userIds, PodcastPluginConstant::PODCAST_POST_TYPE, true);
                 }
             }

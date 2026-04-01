@@ -233,6 +233,20 @@ class General
     }
 
     /**
+     * Return the admin menu parent slug for custom theme submenu pages.
+     *
+     * @return string
+     */
+    public static function getAdminMenuParentFile(): string
+    {
+        if (static::hasPluginSettingsMenu()) {
+            return static::PLUGIN_SETTINGS_PAGE_FILE;
+        }
+
+        return static::GENERAL_PAGE_FILE;
+    }
+
+    /**
      * Return the saved theme option value.
      *
      * @param string $key Theme option key.

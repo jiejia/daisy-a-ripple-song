@@ -774,7 +774,7 @@ msgid "Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\">Log out?</a>"
 msgstr ""
 
 #: app/Core/Helper.php:609
-#: app/ThemeOptions/RecommendedPlugins.php:80
+#: app/ThemeOptions/RecommendedPlugins.php:84
 msgid "Name"
 msgstr ""
 
@@ -878,96 +878,121 @@ msgstr ""
 msgid "https://github.com/jiejia"
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:52
-#: app/ThemeOptions/RecommendedPlugins.php:53
-#: app/ThemeOptions/RecommendedPlugins.php:75
-msgid "Recommended Plugins"
-msgstr "推荐插件"
-
-#: app/ThemeOptions/RecommendedPlugins.php:68
+#: app/ThemeOptions/RecommendedPlugins.php:72
 msgid "You are not allowed to manage plugins on this site."
 msgstr "您无权管理此站点上的插件。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:76
+#: app/ThemeOptions/RecommendedPlugins.php:80
 msgid "These plugins are recommended for the A Ripple Song theme."
 msgstr "这些插件是 A Ripple Song 主题推荐使用的插件。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:81
+#: app/ThemeOptions/RecommendedPlugins.php:85
 msgid "Slug"
 msgstr "Slug"
 
-#: app/ThemeOptions/RecommendedPlugins.php:82
+#: app/ThemeOptions/RecommendedPlugins.php:86
 msgid "Description"
 msgstr "说明"
 
-#: app/ThemeOptions/RecommendedPlugins.php:83
+#: app/ThemeOptions/RecommendedPlugins.php:87
 msgid "Status"
 msgstr "状态"
 
-#: app/ThemeOptions/RecommendedPlugins.php:98
+#: app/ThemeOptions/RecommendedPlugins.php:108
 msgid "Activate"
 msgstr "启用"
 
-#: app/ThemeOptions/RecommendedPlugins.php:104
+#: app/ThemeOptions/RecommendedPlugins.php:114
 msgid "Install"
 msgstr "安装"
 
-#: app/ThemeOptions/RecommendedPlugins.php:109
+#: app/ThemeOptions/RecommendedPlugins.php:119
 msgid "This plugin will be installable after it is published on WordPress.org."
 msgstr "该插件发布到 WordPress.org 后即可在这里安装。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:129
+#: app/ThemeOptions/RecommendedPlugins.php:139
 msgid "You are not allowed to activate plugins on this site."
 msgstr "您无权在此站点上启用插件。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:168
+#: app/ThemeOptions/RecommendedPlugins.php:216
 msgid "You are not allowed to install plugins on this site."
 msgstr "您无权在此站点上安装插件。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:313
+#: app/ThemeOptions/RecommendedPlugins.php:361
 msgid "Podcast features for the A Ripple Song theme, including episode management and podcast feed support."
 msgstr "为 A Ripple Song 主题提供播客功能，包括节目管理和播客 Feed 支持。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:327
+#: app/ThemeOptions/RecommendedPlugins.php:375
 msgid "Active"
 msgstr "已启用"
 
-#: app/ThemeOptions/RecommendedPlugins.php:331
+#: app/ThemeOptions/RecommendedPlugins.php:379
 msgid "Installed but Inactive"
 msgstr "未启用"
 
-#: app/ThemeOptions/RecommendedPlugins.php:334
+#: app/ThemeOptions/RecommendedPlugins.php:382
 msgid "Not Installed"
 msgstr "未安装"
 
-#: app/ThemeOptions/RecommendedPlugins.php:492
+#: app/ThemeOptions/RecommendedPlugins.php:557
 msgid "The requested recommended plugin could not be found."
 msgstr "未找到请求的推荐插件。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:493
+#: app/ThemeOptions/RecommendedPlugins.php:558
 msgid "The selected plugin is not installed on this site."
 msgstr "所选插件尚未安装到此站点。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:494
+#: app/ThemeOptions/RecommendedPlugins.php:559
 msgid "The plugin could not be activated."
 msgstr "该插件无法启用。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:495
+#: app/ThemeOptions/RecommendedPlugins.php:560
 msgid "The plugin was activated successfully."
 msgstr "该插件已成功启用。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:496
+#: app/ThemeOptions/RecommendedPlugins.php:563
 msgid "The plugin is not yet available for installation from WordPress.org."
 msgstr "该插件暂时还不能从 WordPress.org 安装。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:497
+#: app/ThemeOptions/RecommendedPlugins.php:564
 msgid "The plugin could not be installed."
 msgstr "该插件无法安装。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:498
+#: app/ThemeOptions/RecommendedPlugins.php:565
 msgid "The plugin was installed successfully. You can activate it now."
 msgstr "该插件已安装成功，现在可以启用了。"
 
 #. Template Name of the theme
 msgid "Home Template"
+msgstr ""
+
+#: app/ThemeOptions/RecommendedPlugins.php:56
+#: app/ThemeOptions/RecommendedPlugins.php:57
+#: app/ThemeOptions/RecommendedPlugins.php:79
+msgid "ARS Plugins"
+msgstr "ARS 插件"
+
+#: app/ThemeOptions/RecommendedPlugins.php:102
+msgid "Deactivate"
+msgstr "停用"
+
+#: app/ThemeOptions/RecommendedPlugins.php:178
+msgid "You are not allowed to deactivate plugins on this site."
+msgstr "您无权在此站点上停用插件。"
+
+#: app/ThemeOptions/RecommendedPlugins.php:561
+msgid "The plugin could not be deactivated."
+msgstr "该插件无法停用。"
+
+#: app/ThemeOptions/RecommendedPlugins.php:562
+msgid "The plugin was deactivated successfully."
+msgstr "该插件已成功停用。"
+msgstr ""
+
+#: app/ThemeOptions/RecommendedPlugins.php:561
+msgid "The plugin could not be deactivated."
+msgstr ""
+
+#: app/ThemeOptions/RecommendedPlugins.php:562
+msgid "The plugin was deactivated successfully."
 msgstr ""

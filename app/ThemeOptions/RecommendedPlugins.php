@@ -5,7 +5,7 @@ namespace App\ThemeOptions;
 use App\Constants\PodcastPluginConstant;
 
 /**
- * Recommended plugin admin page for the theme settings menu.
+ * ARS plugin admin page for the theme settings menu.
  */
 class RecommendedPlugins
 {
@@ -14,6 +14,9 @@ class RecommendedPlugins
 
     /** @var string $activateAction Admin-post action for plugin activation. */
     protected const ACTIVATE_ACTION = 'ars_activate_recommended_plugin';
+
+    /** @var string $deactivateAction Admin-post action for plugin deactivation. */
+    protected const DEACTIVATE_ACTION = 'ars_deactivate_recommended_plugin';
 
     /** @var string $installAction Admin-post action for plugin installation. */
     protected const INSTALL_ACTION = 'ars_install_recommended_plugin';
@@ -33,12 +36,13 @@ class RecommendedPlugins
     {
         add_action('admin_menu', [static::class, 'registerPage'], 1100);
         add_action('admin_post_' . static::ACTIVATE_ACTION, [static::class, 'handleActivateAction']);
+        add_action('admin_post_' . static::DEACTIVATE_ACTION, [static::class, 'handleDeactivateAction']);
         add_action('admin_post_' . static::INSTALL_ACTION, [static::class, 'handleInstallAction']);
         add_action('admin_notices', [static::class, 'renderAdminNotice']);
     }
 
     /**
-     * Register the Recommended Plugins submenu page.
+     * Register the ARS Plugins submenu page.
      *
      * @return void
      */
@@ -49,8 +53,8 @@ class RecommendedPlugins
 
         add_submenu_page(
             $parentFile,
-            __('Recommended Plugins', 'a-ripple-song'),
-            __('Recommended Plugins', 'a-ripple-song'),
+            __('ARS Plugins', 'a-ripple-song'),
+            __('ARS Plugins', 'a-ripple-song'),
             'install_plugins',
             static::PAGE_SLUG,
             [static::class, 'renderPage']
@@ -58,7 +62,7 @@ class RecommendedPlugins
     }
 
     /**
-     * Render the Recommended Plugins admin screen.
+     * Render the ARS Plugins admin screen.
      *
      * @return void
      */
@@ -72,7 +76,7 @@ class RecommendedPlugins
         $plugins = static::getRecommendedPlugins();
         ?>
         <div class="wrap">
-            <h1><?php echo esc_html__('Recommended Plugins', 'a-ripple-song'); ?></h1>
+            <h1><?php echo esc_html__('ARS Plugins', 'a-ripple-song'); ?></h1>
             <p><?php echo esc_html__('These plugins are recommended for the A Ripple Song theme.', 'a-ripple-song'); ?></p>
             <table class="widefat striped">
                 <thead>
@@ -92,7 +96,13 @@ class RecommendedPlugins
                             <td>
                                 <?php echo esc_html((string) $plugin['statusLabel']); ?>
 
-                                <?php if ((string) $plugin['status'] === 'inactive') : ?>
+                                <?php if ((string) $plugin['status'] === 'active') : ?>
+                                    <p>
+                                        <a class="button button-secondary" href="<?php echo esc_url(static::getDeactivateUrl((string) $plugin['slug'])); ?>">
+                                            <?php echo esc_html__('Deactivate', 'a-ripple-song'); ?>
+                                        </a>
+                                    </p>
+                                <?php elseif ((string) $plugin['status'] === 'inactive') : ?>
                                     <p>
                                         <a class="button button-secondary" href="<?php echo esc_url(static::getActivateUrl((string) $plugin['slug'])); ?>">
                                             <?php echo esc_html__('Activate', 'a-ripple-song'); ?>
@@ -155,6 +165,44 @@ class RecommendedPlugins
         }
 
         static::redirectWithNotice('plugin-activated', 'success');
+    }
+
+    /**
+     * Handle the deactivation action for a recommended plugin.
+     *
+     * @return void
+     */
+    public static function handleDeactivateAction(): void
+    {
+        if (!current_user_can('deactivate_plugins')) {
+            wp_die(esc_html__('You are not allowed to deactivate plugins on this site.', 'a-ripple-song'));
+        }
+
+        check_admin_referer(static::DEACTIVATE_ACTION);
+
+        /** @var string $pluginSlug Requested plugin slug from the admin action. */
+        $pluginSlug = isset($_GET['plugin']) ? sanitize_key(wp_unslash((string) $_GET['plugin'])) : '';
+
+        if (!static::isRecommendedPlugin($pluginSlug)) {
+            static::redirectWithNotice('recommended-plugin-not-found', 'error');
+        }
+
+        static::loadPluginFunctions();
+
+        /** @var string $pluginFile Plugin bootstrap file resolved from the plugin slug. */
+        $pluginFile = static::resolvePluginFileBySlug($pluginSlug);
+
+        if ($pluginFile === '') {
+            static::redirectWithNotice('plugin-file-missing', 'error');
+        }
+
+        deactivate_plugins($pluginFile, false, false);
+
+        if (is_plugin_active($pluginFile)) {
+            static::redirectWithNotice('plugin-deactivation-failed', 'error');
+        }
+
+        static::redirectWithNotice('plugin-deactivated', 'success');
     }
 
     /**
@@ -445,6 +493,23 @@ class RecommendedPlugins
     }
 
     /**
+     * Return the deactivate action URL for a plugin row.
+     *
+     * @param string $pluginSlug Plugin slug.
+     * @return string
+     */
+    protected static function getDeactivateUrl(string $pluginSlug): string
+    {
+        /** @var string $deactivateUrl Signed admin-post URL for plugin deactivation. */
+        $deactivateUrl = add_query_arg([
+            'action' => static::DEACTIVATE_ACTION,
+            'plugin' => $pluginSlug,
+        ], admin_url('admin-post.php'));
+
+        return wp_nonce_url($deactivateUrl, static::DEACTIVATE_ACTION);
+    }
+
+    /**
      * Return the install action URL for a plugin row.
      *
      * @param string $pluginSlug Plugin slug.
@@ -493,6 +558,8 @@ class RecommendedPlugins
             'plugin-file-missing' => __('The selected plugin is not installed on this site.', 'a-ripple-song'),
             'plugin-activation-failed' => __('The plugin could not be activated.', 'a-ripple-song'),
             'plugin-activated' => __('The plugin was activated successfully.', 'a-ripple-song'),
+            'plugin-deactivation-failed' => __('The plugin could not be deactivated.', 'a-ripple-song'),
+            'plugin-deactivated' => __('The plugin was deactivated successfully.', 'a-ripple-song'),
             'plugin-install-unavailable' => __('The plugin is not yet available for installation from WordPress.org.', 'a-ripple-song'),
             'plugin-install-failed' => __('The plugin could not be installed.', 'a-ripple-song'),
             'plugin-installed' => __('The plugin was installed successfully. You can activate it now.', 'a-ripple-song'),
@@ -523,7 +590,7 @@ class RecommendedPlugins
      */
     protected static function loadPluginFunctions(): void
     {
-        if (!function_exists('get_plugins') || !function_exists('is_plugin_active') || !function_exists('activate_plugin')) {
+        if (!function_exists('get_plugins') || !function_exists('is_plugin_active') || !function_exists('activate_plugin') || !function_exists('deactivate_plugins')) {
             require_once ABSPATH . 'wp-admin/includes/plugin.php';
         }
     }

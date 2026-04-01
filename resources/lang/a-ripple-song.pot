@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-01T04:07:52+00:00\n"
+"POT-Creation-Date: 2026-04-01T06:51:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: a-ripple-song\n"
@@ -66,7 +66,7 @@ msgid "Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\">Log out?</a>"
 msgstr ""
 
 #: app/Core/Helper.php:609
-#: app/ThemeOptions/RecommendedPlugins.php:80
+#: app/ThemeOptions/RecommendedPlugins.php:84
 msgid "Name"
 msgstr ""
 
@@ -328,93 +328,109 @@ msgstr ""
 msgid "Optional. Enter a full URL."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:52
-#: app/ThemeOptions/RecommendedPlugins.php:53
-#: app/ThemeOptions/RecommendedPlugins.php:75
-msgid "Recommended Plugins"
+#: app/ThemeOptions/RecommendedPlugins.php:56
+#: app/ThemeOptions/RecommendedPlugins.php:57
+#: app/ThemeOptions/RecommendedPlugins.php:79
+msgid "ARS Plugins"
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:68
+#: app/ThemeOptions/RecommendedPlugins.php:72
 msgid "You are not allowed to manage plugins on this site."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:76
+#: app/ThemeOptions/RecommendedPlugins.php:80
 msgid "These plugins are recommended for the A Ripple Song theme."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:81
+#: app/ThemeOptions/RecommendedPlugins.php:85
 msgid "Slug"
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:82
+#: app/ThemeOptions/RecommendedPlugins.php:86
 msgid "Description"
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:83
+#: app/ThemeOptions/RecommendedPlugins.php:87
 msgid "Status"
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:98
+#: app/ThemeOptions/RecommendedPlugins.php:102
+msgid "Deactivate"
+msgstr ""
+
+#: app/ThemeOptions/RecommendedPlugins.php:108
 msgid "Activate"
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:104
+#: app/ThemeOptions/RecommendedPlugins.php:114
 msgid "Install"
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:109
+#: app/ThemeOptions/RecommendedPlugins.php:119
 msgid "This plugin will be installable after it is published on WordPress.org."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:129
+#: app/ThemeOptions/RecommendedPlugins.php:139
 msgid "You are not allowed to activate plugins on this site."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:168
+#: app/ThemeOptions/RecommendedPlugins.php:178
+msgid "You are not allowed to deactivate plugins on this site."
+msgstr ""
+
+#: app/ThemeOptions/RecommendedPlugins.php:216
 msgid "You are not allowed to install plugins on this site."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:313
+#: app/ThemeOptions/RecommendedPlugins.php:361
 msgid "Podcast features for the A Ripple Song theme, including episode management and podcast feed support."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:327
+#: app/ThemeOptions/RecommendedPlugins.php:375
 msgid "Active"
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:331
+#: app/ThemeOptions/RecommendedPlugins.php:379
 msgid "Installed but Inactive"
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:334
+#: app/ThemeOptions/RecommendedPlugins.php:382
 msgid "Not Installed"
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:492
+#: app/ThemeOptions/RecommendedPlugins.php:557
 msgid "The requested recommended plugin could not be found."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:493
+#: app/ThemeOptions/RecommendedPlugins.php:558
 msgid "The selected plugin is not installed on this site."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:494
+#: app/ThemeOptions/RecommendedPlugins.php:559
 msgid "The plugin could not be activated."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:495
+#: app/ThemeOptions/RecommendedPlugins.php:560
 msgid "The plugin was activated successfully."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:496
+#: app/ThemeOptions/RecommendedPlugins.php:561
+msgid "The plugin could not be deactivated."
+msgstr ""
+
+#: app/ThemeOptions/RecommendedPlugins.php:562
+msgid "The plugin was deactivated successfully."
+msgstr ""
+
+#: app/ThemeOptions/RecommendedPlugins.php:563
 msgid "The plugin is not yet available for installation from WordPress.org."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:497
+#: app/ThemeOptions/RecommendedPlugins.php:564
 msgid "The plugin could not be installed."
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:498
+#: app/ThemeOptions/RecommendedPlugins.php:565
 msgid "The plugin was installed successfully. You can activate it now."
 msgstr ""
 

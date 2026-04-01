@@ -16,8 +16,32 @@
  */
 $pageTitle = (string) ($args['title'] ?? '');
 
+/**
+ * Normalize the queried post type value for archive title handling.
+ *
+ * @var string $queriedPostType
+ */
+$queriedPostType = '';
+
+if (get_query_var('post_type')) {
+    /** @var string|array<int, string> $rawPostType The raw queried post type value. */
+    $rawPostType = get_query_var('post_type');
+
+    if (is_array($rawPostType)) {
+        $queriedPostType = count($rawPostType) === 1 ? (string) reset($rawPostType) : '';
+    } else {
+        $queriedPostType = (string) $rawPostType;
+    }
+}
+
 if ($pageTitle === '') {
-    if (is_home() && !is_front_page()) {
+    if ($queriedPostType === 'post' && !is_archive() && !is_singular()) {
+        $pageTitle = sprintf(
+            /* translators: %s Archive object title. */
+            __('Archives: %s'),
+            __('Blog', 'a-ripple-song')
+        );
+    } elseif (is_home() && !is_front_page()) {
         $pageTitle = single_post_title('', false);
     } elseif (is_search()) {
         $pageTitle = sprintf(

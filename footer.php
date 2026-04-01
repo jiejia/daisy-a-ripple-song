@@ -3,7 +3,7 @@
  * Theme footer template.
  */
 ?>
-<footer class="text-center text-base-content/70 text-xs">
+<footer class="text-center text-base-content/70 text-xs mt-4">
     <div class="max-w-screen-xl mx-auto py-4 pt-0">
         <?php if (is_active_sidebar('footer-links')): ?>
             <div class="grid md:[grid-template-columns:repeat(auto-fit,minmax(calc(25%-0.75rem),1fr))] grid-cols-2 justify-items-stretch gap-4 mb-4">

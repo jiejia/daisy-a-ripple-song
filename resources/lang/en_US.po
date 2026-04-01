@@ -63,6 +63,10 @@ msgstr "Authors will appear here after adding users"
 msgid "BLOG"
 msgstr "BLOG"
 
+#: resources/views/partials/page-header.php:44
+msgid "Blog"
+msgstr "Blog"
+
 #: app/Widgets/BannerCarouselWidget.php:76
 msgid "Banner Slides:"
 msgstr "Banner Slides:"
@@ -694,9 +698,6 @@ msgstr "views"
 
 #~ msgid "Podcast"
 #~ msgstr "Podcast"
-
-#~ msgid "Blog"
-#~ msgstr "Blog"
 
 #~ msgid "Search …"
 #~ msgstr "Search …"

@@ -112,7 +112,7 @@ $isClosed = !comments_open() && $commentsNumber > 0;
       </div>
     <?php endif; ?>
 
-    <div class="rounded-lg bg-base-200/50 p-4">
+    <div class="rounded-lg bg-base-200/50 p-4 mt-4">
       <h3 class="mb-4 flex items-center gap-2 text-base font-bold">
         <i data-lucide="pen-line" class="h-4 w-4"></i>
         <?php esc_html_e('Leave a Comment', 'a-ripple-song'); ?>

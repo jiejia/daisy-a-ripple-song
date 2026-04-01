@@ -198,6 +198,13 @@ class BlogListWidget extends \WP_Widget
             return (string) get_permalink($postsPageId);
         }
 
+        /** @var string $showOnFront The current front page display mode. */
+        $showOnFront = (string) get_option('show_on_front');
+
+        if ($showOnFront === 'page') {
+            return (string) add_query_arg('post_type', 'post', home_url('/'));
+        }
+
         return home_url('/');
     }
 }

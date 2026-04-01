@@ -545,6 +545,10 @@ msgstr ""
 msgid "BLOG"
 msgstr ""
 
+#: wp-content/themes/a-ripple-song/resources/views/partials/page-header.php:44
+msgid "Blog"
+msgstr ""
+
 #: wp-content/themes/a-ripple-song/app/Widgets/BlogListWidget.php:127
 msgid "Number of posts:"
 msgstr ""

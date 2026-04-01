@@ -63,6 +63,10 @@ msgstr "添加用户后，作者会显示在这里"
 msgid "BLOG"
 msgstr "博客"
 
+#: resources/views/partials/page-header.php:44
+msgid "Blog"
+msgstr "博客"
+
 #: app/Widgets/BannerCarouselWidget.php:76
 msgid "Banner Slides:"
 msgstr "横幅幻灯片："
@@ -692,9 +696,6 @@ msgstr "次浏览"
 
 #~ msgid "Podcast"
 #~ msgstr "播客"
-
-#~ msgid "Blog"
-#~ msgstr "博客"
 
 #~ msgid "Search …"
 #~ msgstr "搜索…"

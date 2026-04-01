@@ -78,13 +78,46 @@ class RecommendedPlugins
         <div class="wrap">
             <h1><?php echo esc_html__('ARS Plugins', 'a-ripple-song'); ?></h1>
             <p><?php echo esc_html__('These plugins are recommended for the A Ripple Song theme.', 'a-ripple-song'); ?></p>
-            <table class="widefat striped">
+            <style>
+                .ars-plugins-table th,
+                .ars-plugins-table td {
+                    vertical-align: middle;
+                }
+
+                .ars-plugins-table {
+                    table-layout: fixed;
+                    width: 100%;
+                }
+
+                .ars-plugins-table .ars-plugin-action {
+                    margin: 0;
+                }
+
+                .ars-plugins-table .ars-plugin-action .description {
+                    margin: 0;
+                }
+
+                .ars-plugins-table code,
+                .ars-plugins-table td {
+                    overflow-wrap: anywhere;
+                    word-break: break-word;
+                }
+            </style>
+            <table class="widefat striped ars-plugins-table">
+                <colgroup>
+                    <col style="width: 14%;">
+                    <col style="width: 17%;">
+                    <col style="width: 47%;">
+                    <col style="width: 10%;">
+                    <col style="width: 12%;">
+                </colgroup>
                 <thead>
                     <tr>
                         <th scope="col"><?php echo esc_html__('Name', 'a-ripple-song'); ?></th>
                         <th scope="col"><?php echo esc_html__('Slug', 'a-ripple-song'); ?></th>
                         <th scope="col"><?php echo esc_html__('Description', 'a-ripple-song'); ?></th>
                         <th scope="col"><?php echo esc_html__('Status', 'a-ripple-song'); ?></th>
+                        <th scope="col"><?php echo esc_html__('Option', 'a-ripple-song'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,31 +126,34 @@ class RecommendedPlugins
                             <td><?php echo esc_html((string) $plugin['name']); ?></td>
                             <td><code><?php echo esc_html((string) $plugin['slug']); ?></code></td>
                             <td><?php echo esc_html((string) $plugin['description']); ?></td>
+                            <td><?php echo esc_html((string) $plugin['statusLabel']); ?></td>
                             <td>
-                                <?php echo esc_html((string) $plugin['statusLabel']); ?>
-
                                 <?php if ((string) $plugin['status'] === 'active') : ?>
-                                    <p>
+                                    <div class="ars-plugin-action">
                                         <a class="button button-secondary" href="<?php echo esc_url(static::getDeactivateUrl((string) $plugin['slug'])); ?>">
                                             <?php echo esc_html__('Deactivate', 'a-ripple-song'); ?>
                                         </a>
-                                    </p>
+                                    </div>
                                 <?php elseif ((string) $plugin['status'] === 'inactive') : ?>
-                                    <p>
-                                        <a class="button button-secondary" href="<?php echo esc_url(static::getActivateUrl((string) $plugin['slug'])); ?>">
+                                    <div class="ars-plugin-action">
+                                        <a class="button button-primary" href="<?php echo esc_url(static::getActivateUrl((string) $plugin['slug'])); ?>">
                                             <?php echo esc_html__('Activate', 'a-ripple-song'); ?>
                                         </a>
-                                    </p>
+                                    </div>
                                 <?php elseif ((string) $plugin['status'] === 'missing' && (bool) $plugin['canInstall']) : ?>
-                                    <p>
-                                        <a class="button button-secondary" href="<?php echo esc_url(static::getInstallUrl((string) $plugin['slug'])); ?>">
+                                    <div class="ars-plugin-action">
+                                        <a class="button button-primary" href="<?php echo esc_url(static::getInstallUrl((string) $plugin['slug'])); ?>">
                                             <?php echo esc_html__('Install', 'a-ripple-song'); ?>
                                         </a>
-                                    </p>
+                                    </div>
                                 <?php elseif ((string) $plugin['status'] === 'missing') : ?>
-                                    <p class="description">
-                                        <?php echo esc_html__('This plugin will be installable after it is published on WordPress.org.', 'a-ripple-song'); ?>
-                                    </p>
+                                    <div class="ars-plugin-action">
+                                        <p class="description">
+                                            <?php echo esc_html__('This plugin will be installable after it is published on WordPress.org.', 'a-ripple-song'); ?>
+                                        </p>
+                                    </div>
+                                <?php else : ?>
+                                    <span aria-hidden="true">-</span>
                                 <?php endif; ?>
                             </td>
                         </tr>

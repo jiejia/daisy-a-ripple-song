@@ -910,55 +910,55 @@ msgstr "安装"
 msgid "This plugin will be installable after it is published on WordPress.org."
 msgstr "该插件发布到 WordPress.org 后即可在这里安装。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:139
+#: app/ThemeOptions/RecommendedPlugins.php:141
 msgid "You are not allowed to activate plugins on this site."
 msgstr "您无权在此站点上启用插件。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:216
+#: app/ThemeOptions/RecommendedPlugins.php:218
 msgid "You are not allowed to install plugins on this site."
 msgstr "您无权在此站点上安装插件。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:361
+#: app/ThemeOptions/RecommendedPlugins.php:363
 msgid "Podcast features for the A Ripple Song theme, including episode management and podcast feed support."
 msgstr "为 A Ripple Song 主题提供播客功能，包括节目管理和播客 Feed 支持。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:375
+#: app/ThemeOptions/RecommendedPlugins.php:377
 msgid "Active"
 msgstr "已启用"
 
-#: app/ThemeOptions/RecommendedPlugins.php:379
+#: app/ThemeOptions/RecommendedPlugins.php:381
 msgid "Installed but Inactive"
 msgstr "未启用"
 
-#: app/ThemeOptions/RecommendedPlugins.php:382
+#: app/ThemeOptions/RecommendedPlugins.php:384
 msgid "Not Installed"
 msgstr "未安装"
 
-#: app/ThemeOptions/RecommendedPlugins.php:557
+#: app/ThemeOptions/RecommendedPlugins.php:559
 msgid "The requested recommended plugin could not be found."
 msgstr "未找到请求的推荐插件。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:558
+#: app/ThemeOptions/RecommendedPlugins.php:560
 msgid "The selected plugin is not installed on this site."
 msgstr "所选插件尚未安装到此站点。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:559
+#: app/ThemeOptions/RecommendedPlugins.php:561
 msgid "The plugin could not be activated."
 msgstr "该插件无法启用。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:560
+#: app/ThemeOptions/RecommendedPlugins.php:562
 msgid "The plugin was activated successfully."
 msgstr "该插件已成功启用。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:563
+#: app/ThemeOptions/RecommendedPlugins.php:565
 msgid "The plugin is not yet available for installation from WordPress.org."
 msgstr "该插件暂时还不能从 WordPress.org 安装。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:564
+#: app/ThemeOptions/RecommendedPlugins.php:566
 msgid "The plugin could not be installed."
 msgstr "该插件无法安装。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:565
+#: app/ThemeOptions/RecommendedPlugins.php:567
 msgid "The plugin was installed successfully. You can activate it now."
 msgstr "该插件已安装成功，现在可以启用了。"
 
@@ -976,23 +976,18 @@ msgstr "ARS 插件"
 msgid "Deactivate"
 msgstr "停用"
 
-#: app/ThemeOptions/RecommendedPlugins.php:178
+#: app/ThemeOptions/RecommendedPlugins.php:180
 msgid "You are not allowed to deactivate plugins on this site."
 msgstr "您无权在此站点上停用插件。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:561
+#: app/ThemeOptions/RecommendedPlugins.php:563
 msgid "The plugin could not be deactivated."
 msgstr "该插件无法停用。"
 
-#: app/ThemeOptions/RecommendedPlugins.php:562
+#: app/ThemeOptions/RecommendedPlugins.php:564
 msgid "The plugin was deactivated successfully."
 msgstr "该插件已成功停用。"
-msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:561
-msgid "The plugin could not be deactivated."
-msgstr ""
-
-#: app/ThemeOptions/RecommendedPlugins.php:562
-msgid "The plugin was deactivated successfully."
-msgstr ""
+#: app/ThemeOptions/RecommendedPlugins.php:88
+msgid "Option"
+msgstr "操作"

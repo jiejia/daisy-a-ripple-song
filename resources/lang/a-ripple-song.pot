@@ -825,6 +825,41 @@ msgstr ""
 msgid "© %1$s Powered by %2$s Theme"
 msgstr ""
 
+#: wp-content/themes/a-ripple-song/app/Core/Setup.php:74
+msgid "Panel"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Core/Setup.php:83
+msgid "Intro Panel"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Core/Setup.php:84
+msgid "A rounded introduction block with heading, text, and call to action."
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Core/Setup.php:86
+msgid "Start your next episode here"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Core/Setup.php:86
+msgid "Use this pattern to introduce a featured story, announcement, or podcast episode."
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/app/Core/Setup.php:86
+msgid "Learn more"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/partials/content-single.php:32
+#: wp-content/themes/a-ripple-song/resources/views/partials/content-single-page.php:31
+#: wp-content/themes/a-ripple-song/resources/views/partials/content-single-ars_episode.php:59
+msgid "Pages:"
+msgstr ""
+
+#: wp-content/themes/a-ripple-song/resources/views/partials/page-header.php:41
+#, php-format
+msgid "Archives: %s"
+msgstr ""
+
 #: wp-content/themes/a-ripple-song/author.php:22
 msgid "Author:"
 msgstr ""

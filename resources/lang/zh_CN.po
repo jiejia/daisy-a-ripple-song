@@ -701,6 +701,41 @@ msgstr "次播放"
 msgid "views"
 msgstr "次浏览"
 
+#: app/Core/Setup.php:74
+msgid "Panel"
+msgstr "面板"
+
+#: app/Core/Setup.php:83
+msgid "Intro Panel"
+msgstr "介绍面板"
+
+#: app/Core/Setup.php:84
+msgid "A rounded introduction block with heading, text, and call to action."
+msgstr "一个带有标题、正文和操作按钮的圆角介绍区块。"
+
+#: app/Core/Setup.php:86
+msgid "Start your next episode here"
+msgstr "从这里开始下一期节目"
+
+#: app/Core/Setup.php:86
+msgid "Use this pattern to introduce a featured story, announcement, or podcast episode."
+msgstr "使用这个区块样式来介绍精选文章、公告或播客节目。"
+
+#: app/Core/Setup.php:86
+msgid "Learn more"
+msgstr "了解更多"
+
+#: resources/views/partials/content-single.php:32
+#: resources/views/partials/content-single-page.php:31
+#: resources/views/partials/content-single-ars_episode.php:59
+msgid "Pages:"
+msgstr "分页："
+
+#: resources/views/partials/page-header.php:41
+#, php-format
+msgid "Archives: %s"
+msgstr "归档：%s"
+
 #~ msgid "Link 1"
 #~ msgstr "链接 1"
 

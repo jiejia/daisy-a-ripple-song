@@ -41,7 +41,7 @@ $episodeData = \App\Core\Helper::getEpisodeData($postId);
  */
 $title = (string) ($args['title'] ?? get_the_title($postId));
 ?>
-<div class="rounded-lg bg-base-100 p-4" x-data="<?php echo esc_attr((string) wp_json_encode(['episode' => $episodeData], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)); ?>">
+<article id="post-<?php the_ID(); ?>" <?php post_class('rounded-lg bg-base-100 p-4'); ?> x-data="<?php echo esc_attr((string) wp_json_encode(['episode' => $episodeData], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)); ?>">
     <div class="grid grid-flow-row gap-2">
         <?php get_template_part('resources/views/partials/podcast-episode-card', null, [
             'post_id' => $postId,
@@ -53,8 +53,16 @@ $title = (string) ($args['title'] ?? get_the_title($postId));
         <div class="max-w-none text-sm text-base-content/80 [&_p]:py-2 [&_img]:mx-auto [&_img]:cursor-pointer [&_img]:rounded-lg [&_img]:shadow-md" id="content">
             <?php the_content(); ?>
         </div>
+        <?php
+        wp_link_pages([
+            'before' => '<nav class="page-links mt-4 flex flex-wrap items-center gap-2 text-sm"><span class="font-semibold">' . esc_html__('Pages:', 'a-ripple-song') . '</span>',
+            'after' => '</nav>',
+            'link_before' => '<span class="btn btn-xs btn-outline">',
+            'link_after' => '</span>',
+        ]);
+        ?>
         <?php get_template_part('resources/views/partials/entry-tags', null, ['post_id' => $postId]); ?>
         <?php get_template_part('resources/views/partials/entry-authors', null, ['post_id' => $postId]); ?>
     </div>
-</div>
+</article>
 <?php comments_template(); ?>

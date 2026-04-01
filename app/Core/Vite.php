@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Constants\PodcastPluginConstant;
+use App\ThemeOptions\General;
 
 /**
  * Vite
@@ -265,6 +266,7 @@ class Vite
                 'postType' => $postType,
                 'podcastPostType' => PodcastPluginConstant::PODCAST_POST_TYPE,
             ],
+            'theme' => General::getThemeModeConfig(),
         ];
     }
 

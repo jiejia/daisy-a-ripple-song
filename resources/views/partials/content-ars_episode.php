@@ -38,7 +38,7 @@ $episodeData = \App\Core\Helper::getEpisodeData($postId);
 $title = (string) ($args['title'] ?? get_the_title($postId));
 ?>
 
-<div class="mb-4 rounded-lg bg-base-100 p-4" x-data="<?php echo esc_attr((string) wp_json_encode(['episode' => $episodeData], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)); ?>">
+<article id="post-<?php the_ID(); ?>" <?php post_class('mb-4 rounded-lg bg-base-100 p-4'); ?> x-data="<?php echo esc_attr((string) wp_json_encode(['episode' => $episodeData], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)); ?>">
     <div class="grid grid-flow-row gap-2">
         <?php get_template_part('resources/views/partials/podcast-episode-card', null, [
             'post_id' => $postId,
@@ -53,4 +53,4 @@ $title = (string) ($args['title'] ?? get_the_title($postId));
         <?php get_template_part('resources/views/partials/entry-tags', null, ['post_id' => $postId]); ?>
         <?php get_template_part('resources/views/partials/entry-authors', null, ['post_id' => $postId]); ?>
     </div>
-</div>
+</article>

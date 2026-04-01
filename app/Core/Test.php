@@ -14,8 +14,7 @@
 $wpLoadPath = __DIR__ . '/../../../../../wp-load.php';
 
 if (!file_exists($wpLoadPath)) {
-    fwrite(STDERR, "Unable to locate wp-load.php for PHPUnit bootstrap.\n");
-    exit(1);
+    exit("Unable to locate wp-load.php for PHPUnit bootstrap.\n");
 }
 
 require_once $wpLoadPath;

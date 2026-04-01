@@ -703,6 +703,41 @@ msgstr "plays"
 msgid "views"
 msgstr "views"
 
+#: app/Core/Setup.php:74
+msgid "Panel"
+msgstr "Panel"
+
+#: app/Core/Setup.php:83
+msgid "Intro Panel"
+msgstr "Intro Panel"
+
+#: app/Core/Setup.php:84
+msgid "A rounded introduction block with heading, text, and call to action."
+msgstr "A rounded introduction block with heading, text, and call to action."
+
+#: app/Core/Setup.php:86
+msgid "Start your next episode here"
+msgstr "Start your next episode here"
+
+#: app/Core/Setup.php:86
+msgid "Use this pattern to introduce a featured story, announcement, or podcast episode."
+msgstr "Use this pattern to introduce a featured story, announcement, or podcast episode."
+
+#: app/Core/Setup.php:86
+msgid "Learn more"
+msgstr "Learn more"
+
+#: resources/views/partials/content-single.php:32
+#: resources/views/partials/content-single-page.php:31
+#: resources/views/partials/content-single-ars_episode.php:59
+msgid "Pages:"
+msgstr "Pages:"
+
+#: resources/views/partials/page-header.php:41
+#, php-format
+msgid "Archives: %s"
+msgstr "Archives: %s"
+
 #~ msgid "Link 1"
 #~ msgstr "Link 1"
 

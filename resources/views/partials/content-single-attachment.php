@@ -9,7 +9,7 @@
  * @var array<string, mixed> $args
  */
 ?>
-<article class="rounded-lg bg-base-100 p-4">
+<article id="post-<?php the_ID(); ?>" <?php post_class('rounded-lg bg-base-100 p-4'); ?>>
   <div class="grid grid-flow-row gap-2">
     <div class="grid grid-flow-row gap-1">
       <h4 class="text-md font-bold">

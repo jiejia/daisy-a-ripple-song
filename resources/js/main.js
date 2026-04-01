@@ -631,7 +631,7 @@ function buildOrangeHeatGradient(values) {
 
 const safeLocalStorage = createSafeStorage('localStorage');
 const progressHeatmapCache = new Map();
-const themeOptions = window.arsThemeOptions || {};
+const themeOptions = window.aripplesongData?.theme || {};
 
 /**
  * Normalize a Lucide icon name to the kebab-case format expected by the runtime.

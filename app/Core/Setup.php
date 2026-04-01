@@ -18,11 +18,79 @@ add_action('after_setup_theme', function (): void {
     load_theme_textdomain('a-ripple-song', get_template_directory() . '/resources/lang');
 
     /**
+     * Register classic theme supports required by WordPress theme guidelines.
+     */
+    add_theme_support('title-tag');
+    add_theme_support('automatic-feed-links');
+    add_theme_support('post-thumbnails');
+    add_theme_support('wp-block-styles');
+    add_theme_support('responsive-embeds');
+    add_theme_support('align-wide');
+    add_theme_support('html5', [
+        'search-form',
+        'comment-form',
+        'comment-list',
+        'gallery',
+        'caption',
+        'style',
+        'script',
+    ]);
+    add_theme_support('custom-logo', [
+        'height' => 64,
+        'width' => 220,
+        'flex-height' => true,
+        'flex-width' => true,
+        'unlink-homepage-logo' => true,
+    ]);
+    add_theme_support('custom-header', [
+        'width' => 1440,
+        'height' => 420,
+        'flex-width' => true,
+        'flex-height' => true,
+        'uploads' => true,
+        'default-text-color' => '111827',
+    ]);
+    add_theme_support('custom-background', [
+        'default-color' => 'f3f4f6',
+        'default-image' => '',
+    ]);
+    add_editor_style('editor-style.css');
+
+    /**
      * Register navigation menus.
      */
     register_nav_menus([
         'primary_navigation' => __('Primary Navigation', 'a-ripple-song'),
     ]);
+});
+
+/**
+ * Register custom block styles and starter block patterns.
+ *
+ * @return void
+ */
+add_action('init', function (): void {
+    /**
+     * Register a reusable panel style for core Group blocks.
+     */
+    if (function_exists('register_block_style')) {
+        register_block_style('core/group', [
+            'name' => 'ars-panel',
+            'label' => __('Panel', 'a-ripple-song'),
+        ]);
+    }
+
+    /**
+     * Register a lightweight intro pattern for content-first landing sections.
+     */
+    if (function_exists('register_block_pattern')) {
+        register_block_pattern('a-ripple-song/intro-panel', [
+            'title' => __('Intro Panel', 'a-ripple-song'),
+            'description' => __('A rounded introduction block with heading, text, and call to action.', 'a-ripple-song'),
+            'categories' => ['text'],
+            'content' => '<!-- wp:group {"align":"wide","className":"is-style-ars-panel"} --><div class="wp-block-group alignwide is-style-ars-panel"><!-- wp:heading --><h2>' . esc_html__('Start your next episode here', 'a-ripple-song') . '</h2><!-- /wp:heading --><!-- wp:paragraph --><p>' . esc_html__('Use this pattern to introduce a featured story, announcement, or podcast episode.', 'a-ripple-song') . '</p><!-- /wp:paragraph --><!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#">' . esc_html__('Learn more', 'a-ripple-song') . '</a></div><!-- /wp:button --></div><!-- /wp:buttons --></div><!-- /wp:group -->',
+        ]);
+    }
 });
 
 /**
@@ -104,6 +172,19 @@ add_action('widgets_init', function (): void {
  */
 $widget = new Widget();
 add_action('admin_enqueue_scripts', [$widget, 'enqueueAssets']);
+
+/**
+ * Enqueue the built-in threaded comment reply script on eligible singular screens.
+ *
+ * @return void
+ */
+add_action('wp_enqueue_scripts', function (): void {
+    if (!is_singular() || !comments_open() || !(bool) get_option('thread_comments')) {
+        return;
+    }
+
+    wp_enqueue_script('comment-reply');
+});
 
 /**
  * Modify tag archive query to include both post and podcast types.

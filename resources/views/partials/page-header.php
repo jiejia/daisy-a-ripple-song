@@ -38,7 +38,7 @@ if ($pageTitle === '') {
     if ($queriedPostType === 'post' && !is_archive() && !is_singular()) {
         $pageTitle = sprintf(
             /* translators: %s Archive object title. */
-            __('Archives: %s'),
+            __('Archives: %s', 'a-ripple-song'),
             __('Blog', 'a-ripple-song')
         );
     } elseif (is_home() && !is_front_page()) {

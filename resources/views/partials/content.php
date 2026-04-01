@@ -9,7 +9,7 @@
  * @var array<string, mixed> $args
  */
 ?>
-<article class="mb-4 rounded-lg bg-base-100 p-4">
+<article id="post-<?php the_ID(); ?>" <?php post_class('mb-4 rounded-lg bg-base-100 p-4'); ?>>
   <div class="grid grid-flow-row gap-2">
     <div class="grid grid-flow-row gap-1">
       <h4 class="text-md font-bold">
@@ -19,6 +19,11 @@
       </h4>
       <?php get_template_part('resources/views/partials/entry-meta', null, ['post_id' => (int) ($args['post_id'] ?? get_the_ID())]); ?>
     </div>
+    <?php if (has_post_thumbnail()): ?>
+      <a href="<?php echo esc_url(get_permalink((int) ($args['post_id'] ?? get_the_ID()))); ?>" class="block overflow-hidden rounded-lg">
+        <?php the_post_thumbnail('large', ['class' => 'h-auto w-full rounded-lg shadow-md']); ?>
+      </a>
+    <?php endif; ?>
     <div class="prose max-w-none text-sm text-base-content/80 [&_p]:py-2 [&_img]:mx-auto [&_img]:cursor-pointer [&_img]:rounded-lg [&_img]:shadow-md" id="content">
       <?php the_excerpt(); ?>
     </div>

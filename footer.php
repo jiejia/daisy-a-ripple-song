@@ -20,8 +20,8 @@
                             ? \App\ThemeOptions\General::getFooterCopyright()
                             : sprintf(
                                 __('© %1$s Powered by %2$s Theme', 'a-ripple-song'),
-                                date_i18n('Y'),
-                                '<a href="https://github.com/jiejia/a-ripple-song" target="_blank" rel="noopener noreferrer" class="text-primary">A Ripple Song</a>'
+                                wp_date('Y'),
+                                '<a href="' . esc_url((string) wp_get_theme()->get('ThemeURI')) . '" target="_blank" rel="noopener noreferrer" class="text-primary">' . esc_html((string) wp_get_theme()->get('Name')) . '</a>'
                             )
                     )
                 );

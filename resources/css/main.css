@@ -73,3 +73,75 @@ body.admin-bar .sticky.top-\[70px\] {
 .drawer-side .widget .bg-base-100 {
     @apply bg-base-300/25;
 }
+
+.is-style-ars-panel,
+.wp-block-group.is-style-ars-panel {
+    @apply rounded-lg bg-base-100 p-6 shadow-sm;
+}
+
+.screen-reader-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.screen-reader-text:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+.sticky {
+    @apply ring-1 ring-primary/20;
+}
+
+.bypostauthor {
+    @apply ring-1 ring-secondary/20;
+}
+
+.alignleft {
+    float: left;
+    margin-right: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.alignright {
+    float: right;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.aligncenter {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 1rem;
+}
+
+.wp-caption {
+    max-width: 100%;
+    text-align: center;
+}
+
+.wp-caption img {
+    display: block;
+    margin: 0 auto;
+}
+
+.wp-caption-text,
+.gallery-caption {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    opacity: 0.8;
+}

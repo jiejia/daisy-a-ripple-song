@@ -2,6 +2,8 @@
 
 namespace App\ThemeOptions;
 
+use App\Core\CarbonCompat;
+
 /**
  * Social links option helper.
  */
@@ -75,13 +77,9 @@ class SocialLinks
         /** @var array<string, array<string, string>> $configuredLinks Prepared configured social links. */
         $configuredLinks = [];
 
-        if (!function_exists('carbon_get_theme_option')) {
-            return $configuredLinks;
-        }
-
         foreach (static::getPlatforms() as $platformKey => $platformData) {
             /** @var string $platformUrl Raw saved URL for the current platform. */
-            $platformUrl = trim((string) carbon_get_theme_option(static::SETTING_PREFIX . $platformKey));
+            $platformUrl = trim((string) CarbonCompat::getThemeOption(static::SETTING_PREFIX . $platformKey));
 
             if ($platformUrl === '') {
                 continue;

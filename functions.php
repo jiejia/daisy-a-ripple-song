@@ -1,8 +1,9 @@
 <?php
 
 $autoload = __DIR__ . '/vendor/autoload.php';
+$scoperAutoload = __DIR__ . '/vendor/scoper-autoload.php';
 
-if (! file_exists($autoload)) {
+if (! file_exists($autoload) && ! file_exists($scoperAutoload)) {
     add_action('admin_notices', static function (): void {
         if (! current_user_can('manage_options')) {
             return;
@@ -16,9 +17,14 @@ if (! file_exists($autoload)) {
     return;
 }
 
-require_once $autoload;
+if (file_exists($scoperAutoload)) {
+    require_once $scoperAutoload;
+} else {
+    require_once $autoload;
+}
 
 require_once __DIR__ . '/app/Core/Helper.php';
+require_once __DIR__ . '/app/Core/CarbonCompat.php';
 require_once __DIR__ . '/app/Core/Vite.php';
 require_once __DIR__ . '/app/Core/Widget.php';
 require_once __DIR__ . '/app/Core/Setup.php';

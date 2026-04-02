@@ -1,5 +1,5 @@
 node_modules/
 vendor/
 dist/
+build/
 package-lock.json
-composer.lock

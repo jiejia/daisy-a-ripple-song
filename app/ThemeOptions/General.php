@@ -4,9 +4,7 @@ namespace App\ThemeOptions;
 
 use App\Constants\PodcastPluginConstant;
 use App\Constants\ThemeConstant;
-use Carbon_Fields\Carbon_Fields;
-use Carbon_Fields\Container;
-use Carbon_Fields\Field;
+use App\Core\CarbonCompat;
 
 /**
  * Theme general options powered by Carbon Fields.
@@ -57,11 +55,11 @@ class General
      */
     public static function bootCarbon(): void
     {
-        if (!class_exists(Carbon_Fields::class) || did_action('carbon_fields_loaded')) {
+        if (did_action('carbon_fields_loaded')) {
             return;
         }
 
-        Carbon_Fields::boot();
+        CarbonCompat::bootCarbonFields();
     }
 
     /**
@@ -71,12 +69,18 @@ class General
      */
     public static function registerFields(): void
     {
-        if (!class_exists(Container::class) || !class_exists(Field::class)) {
+        /** @var null|string $containerClass Carbon Fields container class resolved for scoped or unscoped builds. */
+        $containerClass = CarbonCompat::getContainerClass();
+
+        /** @var null|string $fieldClass Carbon Fields field class resolved for scoped or unscoped builds. */
+        $fieldClass = CarbonCompat::getFieldClass();
+
+        if ($containerClass === null || $fieldClass === null) {
             return;
         }
 
         /** @var \Carbon_Fields\Container\Container $themeContainer General settings container. */
-        $themeContainer = Container::make('theme_options', __('Theme Settings', 'a-ripple-song'))
+        $themeContainer = $containerClass::make('theme_options', __('Theme Settings', 'a-ripple-song'))
             ->set_page_file(static::GENERAL_PAGE_FILE)
             ->set_page_menu_title(__('General', 'a-ripple-song'));
 
@@ -90,14 +94,14 @@ class General
         }
 
         $themeContainer->add_fields([
-            Field::make('html', 'crb_site_logo_uploader', __('Site Logo', 'a-ripple-song'))
+            $fieldClass::make('html', 'crb_site_logo_uploader', __('Site Logo', 'a-ripple-song'))
                 ->set_html(static::renderLogoUploader())
                 ->set_help_text(__('Upload a logo image (220px × 32px). You will be able to crop the image after upload.', 'a-ripple-song')),
-            Field::make('text', 'crb_site_logo', '')
+            $fieldClass::make('text', 'crb_site_logo', '')
                 ->set_attribute('type', 'hidden')
                 ->set_attribute('data-logo-field', 'true')
                 ->set_classes('crb-logo-carbon-field'),
-            Field::make('html', 'crb_light_theme_picker', __('Light Theme', 'a-ripple-song'))
+            $fieldClass::make('html', 'crb_light_theme_picker', __('Light Theme', 'a-ripple-song'))
                 ->set_html(
                     sprintf(
                         '<div class="crb-theme-heading">%s</div>%s',
@@ -106,13 +110,13 @@ class General
                     )
                 )
                 ->set_help_text(__('Click any card to choose the light theme.', 'a-ripple-song')),
-            Field::make('select', 'crb_light_theme', __('Light Theme (fallback)', 'a-ripple-song'))
+            $fieldClass::make('select', 'crb_light_theme', __('Light Theme (fallback)', 'a-ripple-song'))
                 ->set_options(static::getLightThemeOptions())
                 ->set_default_value('retro')
                 ->set_help_text(__('If the card picker is unavailable, use this dropdown (default: retro).', 'a-ripple-song'))
                 ->set_classes('crb-theme-select')
                 ->set_attribute('data-theme-target', 'light'),
-            Field::make('html', 'crb_dark_theme_picker', __('Dark Theme', 'a-ripple-song'))
+            $fieldClass::make('html', 'crb_dark_theme_picker', __('Dark Theme', 'a-ripple-song'))
                 ->set_html(
                     sprintf(
                         '<div class="crb-theme-heading">%s</div>%s',
@@ -121,25 +125,25 @@ class General
                     )
                 )
                 ->set_help_text(__('Click any card to choose the dark theme.', 'a-ripple-song')),
-            Field::make('select', 'crb_dark_theme', __('Dark Theme (fallback)', 'a-ripple-song'))
+            $fieldClass::make('select', 'crb_dark_theme', __('Dark Theme (fallback)', 'a-ripple-song'))
                 ->set_options(static::getDarkThemeOptions())
                 ->set_default_value('dim')
                 ->set_help_text(__('If the card picker is unavailable, use this dropdown (default: dim).', 'a-ripple-song'))
                 ->set_classes('crb-theme-select')
                 ->set_attribute('data-theme-target', 'dark'),
-            Field::make('textarea', 'crb_footer_copyright', __('Footer Copyright', 'a-ripple-song'))
+            $fieldClass::make('textarea', 'crb_footer_copyright', __('Footer Copyright', 'a-ripple-song'))
                 ->set_rows(2)
                 ->set_attribute('placeholder', __('Powered by A Ripple Song Theme', 'a-ripple-song'))
                 ->set_help_text(__('Overrides the footer copyright line. Leave empty to use the default.', 'a-ripple-song')),
-            Field::make('header_scripts', 'crb_header_scripts', __('Header Scripts', 'a-ripple-song'))
+            $fieldClass::make('header_scripts', 'crb_header_scripts', __('Header Scripts', 'a-ripple-song'))
                 ->set_help_text(esc_html__('Scripts to be added in the <head> section. You can include complete <script> tags for services like Google Analytics.', 'a-ripple-song')),
-            Field::make('footer_scripts', 'crb_footer_scripts', __('Footer Scripts', 'a-ripple-song'))
+            $fieldClass::make('footer_scripts', 'crb_footer_scripts', __('Footer Scripts', 'a-ripple-song'))
                 ->set_help_text(esc_html__('Scripts to be added before </body>. You can include complete <script> tags.', 'a-ripple-song')),
         ]);
 
         static::$themeContainer = $themeContainer;
 
-        Container::make('theme_options', __('Social Links', 'a-ripple-song'))
+        $containerClass::make('theme_options', __('Social Links', 'a-ripple-song'))
             ->set_page_file(static::SOCIAL_PAGE_FILE)
             ->set_page_parent(static::getSettingsParent())
             ->add_fields(static::getSocialLinkFields());
@@ -255,12 +259,8 @@ class General
      */
     public static function getThemeOption(string $key, string $default = ''): string
     {
-        if (!function_exists('carbon_get_theme_option')) {
-            return $default;
-        }
-
         /** @var mixed $optionValue Raw Carbon Fields option value. */
-        $optionValue = carbon_get_theme_option($key);
+        $optionValue = CarbonCompat::getThemeOption($key);
 
         return is_string($optionValue) && $optionValue !== '' ? $optionValue : $default;
     }
@@ -1004,9 +1004,7 @@ class General
         /** @var string $logoUrl Sanitized logo URL from the custom uploader field. */
         $logoUrl = esc_url_raw(wp_unslash((string) $_POST['_crb_site_logo']));
 
-        if (function_exists('carbon_set_theme_option')) {
-            carbon_set_theme_option('crb_site_logo', $logoUrl);
-        }
+        CarbonCompat::setThemeOption('crb_site_logo', $logoUrl);
     }
 
     /**
@@ -1046,14 +1044,21 @@ class General
      */
     protected static function getSocialLinkFields(): array
     {
+        /** @var null|string $fieldClass Carbon Fields field class resolved for scoped or unscoped builds. */
+        $fieldClass = CarbonCompat::getFieldClass();
+
+        if ($fieldClass === null) {
+            return [];
+        }
+
         /** @var array<int, \Carbon_Fields\Field\Field> $fields Social links page fields. */
         $fields = [
-            Field::make('html', 'crb_social_links_intro', __('Social Links', 'a-ripple-song'))
+            $fieldClass::make('html', 'crb_social_links_intro', __('Social Links', 'a-ripple-song'))
                 ->set_html('<p>' . esc_html__('Only filled links will be used by the theme.', 'a-ripple-song') . '</p>'),
         ];
 
         foreach (SocialLinks::getPlatforms() as $platformKey => $platformData) {
-            $fields[] = Field::make('text', SocialLinks::SETTING_PREFIX . $platformKey, $platformData['label'])
+            $fields[] = $fieldClass::make('text', SocialLinks::SETTING_PREFIX . $platformKey, $platformData['label'])
                 ->set_help_text(__('Optional. Enter a full URL.', 'a-ripple-song'))
                 ->set_attribute('type', 'url');
         }

@@ -16,6 +16,11 @@
     "sort-packages": true
   },
   "require-dev": {
+    "humbug/php-scoper": "^0.18.17",
     "phpunit/phpunit": "^11.2"
+  },
+  "scripts": {
+    "scoper:build": "bash bin/build-scoped-vendor.sh",
+    "build:dist": "bash bin/build-dist.sh"
   }
 }

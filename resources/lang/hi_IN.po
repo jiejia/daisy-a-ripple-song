@@ -475,7 +475,7 @@ msgstr ""
 #: app/Widgets/TagsCloudWidget.php:122
 #: resources/views/widgets/podcast-list.php:24
 msgid "Random"
-msgstr "Random"
+msgstr "यादृच्छिक"
 
 #: resources/views/widgets/podcast-list.php:22
 msgid "Recent"
@@ -636,6 +636,7 @@ msgid ""
 "Upload a logo image (220px × 32px). You will be able to crop the image after"
 " upload."
 msgstr ""
+"लोगो छवि (220px × 32px) अपलोड करें। अपलोड के बाद आप इसे क्रॉप कर सकेंगे।"
 
 #: app/Core/Widget.php:66
 msgid "Use This Image"
@@ -947,11 +948,11 @@ msgstr "The selected plugin is not installed on this site."
 
 #: app/ThemeOptions/RecommendedPlugins.php:561
 msgid "The plugin could not be activated."
-msgstr "The plugin could not be activated."
+msgstr "प्लगइन सक्रिय नहीं किया जा सका।"
 
 #: app/ThemeOptions/RecommendedPlugins.php:562
 msgid "The plugin was activated successfully."
-msgstr "The plugin was activated successfully."
+msgstr "प्लगइन सफलतापूर्वक सक्रिय कर दिया गया।"
 
 #: app/ThemeOptions/RecommendedPlugins.php:565
 msgid "The plugin is not yet available for installation from WordPress.org."
@@ -959,11 +960,11 @@ msgstr "The plugin is not yet available for installation from WordPress.org."
 
 #: app/ThemeOptions/RecommendedPlugins.php:566
 msgid "The plugin could not be installed."
-msgstr "The plugin could not be installed."
+msgstr "प्लगइन इंस्टॉल नहीं किया जा सका।"
 
 #: app/ThemeOptions/RecommendedPlugins.php:567
 msgid "The plugin was installed successfully. You can activate it now."
-msgstr "The plugin was installed successfully. You can activate it now."
+msgstr "प्लगइन सफलतापूर्वक इंस्टॉल हो गया। अब आप इसे सक्रिय कर सकते हैं।"
 
 #. Template Name of the theme
 msgid "Home Template"

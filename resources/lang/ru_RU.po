@@ -477,7 +477,7 @@ msgstr ""
 #: app/Widgets/TagsCloudWidget.php:122
 #: resources/views/widgets/podcast-list.php:24
 msgid "Random"
-msgstr "Random"
+msgstr "Случайно"
 
 #: resources/views/widgets/podcast-list.php:22
 msgid "Recent"
@@ -638,6 +638,8 @@ msgid ""
 "Upload a logo image (220px × 32px). You will be able to crop the image after"
 " upload."
 msgstr ""
+"Загрузите изображение логотипа (220 × 32 px). После загрузки его можно будет"
+" обрезать."
 
 #: app/Core/Widget.php:66
 msgid "Use This Image"
@@ -949,11 +951,11 @@ msgstr "The selected plugin is not installed on this site."
 
 #: app/ThemeOptions/RecommendedPlugins.php:561
 msgid "The plugin could not be activated."
-msgstr "The plugin could not be activated."
+msgstr "Не удалось активировать плагин."
 
 #: app/ThemeOptions/RecommendedPlugins.php:562
 msgid "The plugin was activated successfully."
-msgstr "The plugin was activated successfully."
+msgstr "Плагин успешно активирован."
 
 #: app/ThemeOptions/RecommendedPlugins.php:565
 msgid "The plugin is not yet available for installation from WordPress.org."
@@ -961,11 +963,11 @@ msgstr "The plugin is not yet available for installation from WordPress.org."
 
 #: app/ThemeOptions/RecommendedPlugins.php:566
 msgid "The plugin could not be installed."
-msgstr "The plugin could not be installed."
+msgstr "Не удалось установить плагин."
 
 #: app/ThemeOptions/RecommendedPlugins.php:567
 msgid "The plugin was installed successfully. You can activate it now."
-msgstr "The plugin was installed successfully. You can activate it now."
+msgstr "Плагин успешно установлен. Теперь его можно активировать."
 
 #. Template Name of the theme
 msgid "Home Template"

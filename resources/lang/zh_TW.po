@@ -469,7 +469,7 @@ msgstr "RSS 订阅"
 #: app/Widgets/TagsCloudWidget.php:122
 #: resources/views/widgets/podcast-list.php:24
 msgid "Random"
-msgstr "随机"
+msgstr "隨機"
 
 #: resources/views/widgets/podcast-list.php:22
 msgid "Recent"
@@ -627,7 +627,7 @@ msgstr "上傳 / 更換 Logo"
 msgid ""
 "Upload a logo image (220px × 32px). You will be able to crop the image after"
 " upload."
-msgstr "上传一张 Logo 图片（220px × 32px）。上传后可以继续裁切。"
+msgstr "上傳一張 Logo 圖片（220px × 32px）。上傳後可以繼續裁切。"
 
 #: app/Core/Widget.php:66
 msgid "Use This Image"
@@ -934,11 +934,11 @@ msgstr "所选插件尚未安装到此站点。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:561
 msgid "The plugin could not be activated."
-msgstr "该插件无法启用。"
+msgstr "外掛無法啟用。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:562
 msgid "The plugin was activated successfully."
-msgstr "该插件已成功启用。"
+msgstr "外掛已成功啟用。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:565
 msgid "The plugin is not yet available for installation from WordPress.org."
@@ -946,11 +946,11 @@ msgstr "该插件暂时还不能从 WordPress.org 安装。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:566
 msgid "The plugin could not be installed."
-msgstr "该插件无法安装。"
+msgstr "外掛無法安裝。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:567
 msgid "The plugin was installed successfully. You can activate it now."
-msgstr "该插件已安装成功，现在可以启用了。"
+msgstr "外掛已成功安裝，現在可以啟用。"
 
 #. Template Name of the theme
 msgid "Home Template"

@@ -1,3 +1,4 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Carbon Fields (A Ripple Song Theme override)\n"

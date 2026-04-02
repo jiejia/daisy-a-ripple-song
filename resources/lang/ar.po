@@ -477,7 +477,7 @@ msgstr ""
 #: app/Widgets/TagsCloudWidget.php:122
 #: resources/views/widgets/podcast-list.php:24
 msgid "Random"
-msgstr "Random"
+msgstr "عشوائي"
 
 #: resources/views/widgets/podcast-list.php:22
 msgid "Recent"
@@ -637,7 +637,7 @@ msgstr "رفع / تغيير الشعار"
 msgid ""
 "Upload a logo image (220px × 32px). You will be able to crop the image after"
 " upload."
-msgstr ""
+msgstr "ارفع صورة شعار (220×32 بكسل). ستتمكن من اقتصاصها بعد الرفع."
 
 #: app/Core/Widget.php:66
 msgid "Use This Image"
@@ -949,11 +949,11 @@ msgstr "The selected plugin is not installed on this site."
 
 #: app/ThemeOptions/RecommendedPlugins.php:561
 msgid "The plugin could not be activated."
-msgstr "The plugin could not be activated."
+msgstr "تعذر تفعيل الإضافة."
 
 #: app/ThemeOptions/RecommendedPlugins.php:562
 msgid "The plugin was activated successfully."
-msgstr "The plugin was activated successfully."
+msgstr "تم تفعيل الإضافة بنجاح."
 
 #: app/ThemeOptions/RecommendedPlugins.php:565
 msgid "The plugin is not yet available for installation from WordPress.org."
@@ -961,11 +961,11 @@ msgstr "The plugin is not yet available for installation from WordPress.org."
 
 #: app/ThemeOptions/RecommendedPlugins.php:566
 msgid "The plugin could not be installed."
-msgstr "The plugin could not be installed."
+msgstr "تعذر تثبيت الإضافة."
 
 #: app/ThemeOptions/RecommendedPlugins.php:567
 msgid "The plugin was installed successfully. You can activate it now."
-msgstr "The plugin was installed successfully. You can activate it now."
+msgstr "تم تثبيت الإضافة بنجاح. يمكنك تفعيلها الآن."
 
 #. Template Name of the theme
 msgid "Home Template"

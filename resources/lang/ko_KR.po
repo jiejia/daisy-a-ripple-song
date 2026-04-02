@@ -473,7 +473,7 @@ msgstr ""
 #: app/Widgets/TagsCloudWidget.php:122
 #: resources/views/widgets/podcast-list.php:24
 msgid "Random"
-msgstr "Random"
+msgstr "무작위"
 
 #: resources/views/widgets/podcast-list.php:22
 msgid "Recent"
@@ -633,7 +633,7 @@ msgstr "로고 업로드 / 변경"
 msgid ""
 "Upload a logo image (220px × 32px). You will be able to crop the image after"
 " upload."
-msgstr ""
+msgstr "로고 이미지(220px × 32px)를 업로드하세요. 업로드 후 이미지를 자를 수 있습니다."
 
 #: app/Core/Widget.php:66
 msgid "Use This Image"
@@ -943,11 +943,11 @@ msgstr "The selected plugin is not installed on this site."
 
 #: app/ThemeOptions/RecommendedPlugins.php:561
 msgid "The plugin could not be activated."
-msgstr "The plugin could not be activated."
+msgstr "플러그인을 활성화할 수 없습니다."
 
 #: app/ThemeOptions/RecommendedPlugins.php:562
 msgid "The plugin was activated successfully."
-msgstr "The plugin was activated successfully."
+msgstr "플러그인이 성공적으로 활성화되었습니다."
 
 #: app/ThemeOptions/RecommendedPlugins.php:565
 msgid "The plugin is not yet available for installation from WordPress.org."
@@ -955,11 +955,11 @@ msgstr "The plugin is not yet available for installation from WordPress.org."
 
 #: app/ThemeOptions/RecommendedPlugins.php:566
 msgid "The plugin could not be installed."
-msgstr "The plugin could not be installed."
+msgstr "플러그인을 설치할 수 없습니다."
 
 #: app/ThemeOptions/RecommendedPlugins.php:567
 msgid "The plugin was installed successfully. You can activate it now."
-msgstr "The plugin was installed successfully. You can activate it now."
+msgstr "플러그인이 성공적으로 설치되었습니다. 이제 활성화할 수 있습니다."
 
 #. Template Name of the theme
 msgid "Home Template"

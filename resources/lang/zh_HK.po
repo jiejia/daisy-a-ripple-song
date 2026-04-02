@@ -1,18 +1,19 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: A Ripple Song Theme 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-29 16:09+0800\n"
+"PO-Revision-Date: 2026-03-27 12:05+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
+"Language: zh_HK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-29 16:09+0800\n"
-"PO-Revision-Date: 2026-03-27 12:05+0800\n"
-"Language: zh_HK\n"
 
 #: resources/views/widgets/tags-cloud.php:28
-#, fuzzy,php-format
+#, fuzzy, php-format
 msgid "%d post"
 msgid_plural "%d posts"
 msgstr[0] "%d 篇文章"
@@ -27,14 +28,13 @@ msgid "+ Add Item"
 msgstr "+ 添加条目"
 
 #. Theme Name of the theme
-#: style.css
-#: app/ThemeOptions/General.php:87
+#: style.css app/ThemeOptions/General.php:87
 msgid "A Ripple Song"
 msgstr "A Ripple Song"
 
 #: resources/views/sections/playlist-drawer.php:32
 msgid "Add some episodes to start listening"
-msgstr "添加一些节目后即可开始收听"
+msgstr "新增一些節目開始收聽"
 
 #: resources/views/widgets/subscribe-links.php:16
 #: resources/views/widgets/subscribe-links.php:17
@@ -47,7 +47,7 @@ msgstr "Apple 播客链接："
 
 #: resources/views/sections/playlist-drawer.php:17
 msgid "Are you sure you want to clear the playlist?"
-msgstr "确定要清空播放列表吗？"
+msgstr "你確定要清空播放清單嗎？"
 
 #: app/Widgets/TagsCloudWidget.php:134
 msgid "Ascending (Low to High/A to Z)"
@@ -57,14 +57,13 @@ msgstr "升序（低到高 / A 到 Z）"
 msgid "Authors will appear here after adding users"
 msgstr "添加用户后，作者会显示在这里"
 
-#: app/Widgets/BlogListWidget.php:39
-#: app/Widgets/BlogListWidget.php:103
+#: app/Widgets/BlogListWidget.php:39 app/Widgets/BlogListWidget.php:103
 msgid "BLOG"
 msgstr "博客"
 
 #: resources/views/partials/page-header.php:42
 msgid "Blog"
-msgstr "博客"
+msgstr "部落格"
 
 #: app/Widgets/BannerCarouselWidget.php:76
 msgid "Banner Slides:"
@@ -76,7 +75,7 @@ msgstr "取消"
 
 #: footer.php:92
 msgid "Back to top"
-msgstr "返回顶部"
+msgstr "返回頂部"
 
 #: resources/views/sections/playlist-drawer.php:21
 msgid "Clear"
@@ -84,29 +83,28 @@ msgstr "清空"
 
 #: resources/views/sections/playlist-drawer.php:19
 msgid "Clear Playlist"
-msgstr "清空播放列表"
+msgstr "清空播放清單"
 
 #: resources/views/sections/leftbar-drawer.php:9
 #: resources/views/sections/mobile-menu.php:4
 #: resources/views/sections/playlist-drawer.php:4
 #: resources/views/sections/sidebar-drawer.php:9
 msgid "Close sidebar"
-msgstr "关闭侧边栏"
+msgstr "關閉側欄"
 
 #: app/ThemeOptions/General.php:123
 msgid "Click any card to choose the dark theme."
-msgstr "点击任意卡片即可选择深色主题。"
+msgstr "點擊任一卡片以選擇深色主題。"
 
 #: app/ThemeOptions/General.php:108
 msgid "Click any card to choose the light theme."
-msgstr "点击任意卡片即可选择浅色主题。"
+msgstr "點擊任一卡片以選擇淺色主題。"
 
 #: resources/views/sections/autoplay-confirm.php:26
 msgid "Continue playing?"
-msgstr "继续播放吗？"
+msgstr "繼續播放？"
 
-#: app/Core/Widget.php:69
-#: app/Widgets/BannerCarouselWidget.php:122
+#: app/Core/Widget.php:69 app/Widgets/BannerCarouselWidget.php:122
 msgid "Current Page"
 msgstr "当前页面"
 
@@ -114,17 +112,15 @@ msgstr "当前页面"
 msgid "Dark Mode"
 msgstr "深色模式"
 
-#: app/ThemeOptions/General.php:115
-#: app/ThemeOptions/General.php:119
+#: app/ThemeOptions/General.php:115 app/ThemeOptions/General.php:119
 msgid "Dark Theme"
-msgstr "深色主题"
+msgstr "深色主題"
 
 #: app/ThemeOptions/General.php:124
 msgid "Dark Theme (fallback)"
-msgstr "深色主题（后备下拉框）"
+msgstr "深色主題（備用）"
 
-#: app/Core/Widget.php:73
-#: app/Widgets/BannerCarouselWidget.php:143
+#: app/Core/Widget.php:73 app/Widgets/BannerCarouselWidget.php:143
 #: app/Widgets/FooterLinksWidget.php:135
 msgid "Delete"
 msgstr "删除"
@@ -133,8 +129,7 @@ msgstr "删除"
 msgid "Descending (High to Low/Z to A)"
 msgstr "降序（高到低 / Z 到 A）"
 
-#: app/Core/Widget.php:71
-#: app/Widgets/BannerCarouselWidget.php:132
+#: app/Core/Widget.php:71 app/Widgets/BannerCarouselWidget.php:132
 msgid "Description:"
 msgstr "描述："
 
@@ -166,8 +161,7 @@ msgstr "显示成员和嘉宾作者列表"
 msgid "Display podcast subscription platform links"
 msgstr "显示播客订阅平台链接"
 
-#: app/Core/Widget.php:75
-#: app/Widgets/FooterLinksWidget.php:108
+#: app/Core/Widget.php:75 app/Widgets/FooterLinksWidget.php:108
 msgid "Display text"
 msgstr "显示文本"
 
@@ -177,11 +171,11 @@ msgstr "Facebook"
 
 #: header.php:10
 msgid "Follow System"
-msgstr "跟随系统"
+msgstr "跟隨系統"
 
 #: app/ThemeOptions/General.php:130
 msgid "Footer Copyright"
-msgstr "页脚版权"
+msgstr "頁腳版權"
 
 #: app/Core/Setup.php:119
 msgid "Footer Links"
@@ -189,7 +183,7 @@ msgstr "页脚链接"
 
 #: app/ThemeOptions/General.php:136
 msgid "Footer Scripts"
-msgstr "页脚脚本"
+msgstr "頁腳腳本"
 
 #: app/Core/Setup.php:121
 msgid "Footer links area for displaying link columns"
@@ -197,28 +191,26 @@ msgstr "页脚链接区域，用于展示链接列"
 
 #: resources/views/sections/leftbar-drawer.php:12
 msgid "Left Sidebar"
-msgstr "左侧边栏"
+msgstr "左側欄"
 
 #: footer.php:67
 msgid "Open Left Sidebar"
-msgstr "打开左侧边栏"
+msgstr "開啟左側邊欄"
 
 #: footer.php:75
 msgid "Open Right Sidebar"
-msgstr "打开右侧边栏"
+msgstr "開啟右側邊欄"
 
-#: app/ThemeOptions/General.php:81
-#: app/ThemeOptions/General.php:174
+#: app/ThemeOptions/General.php:81 app/ThemeOptions/General.php:174
 msgid "General"
-msgstr "常规"
+msgstr "一般"
 
 #: resources/views/widgets/banner-carousel.php:63
 #, php-format
 msgid "Go to slide %d"
 msgstr "转到第 %d 张幻灯片"
 
-#: app/Widgets/AuthorsWidget.php:49
-#: app/Widgets/AuthorsWidget.php:129
+#: app/Widgets/AuthorsWidget.php:49 app/Widgets/AuthorsWidget.php:129
 msgid "Guests"
 msgstr "嘉宾"
 
@@ -228,7 +220,7 @@ msgstr "嘉宾标题："
 
 #: app/ThemeOptions/General.php:134
 msgid "Header Scripts"
-msgstr "头部脚本"
+msgstr "頁首腳本"
 
 #: app/Core/Setup.php:132
 msgid "Home Main"
@@ -236,24 +228,21 @@ msgstr "首页主区域"
 
 #: app/ThemeOptions/General.php:127
 msgid "If the card picker is unavailable, use this dropdown (default: dim)."
-msgstr "如果色卡选择器不可用，请使用此下拉框（默认：dim）。"
+msgstr "如果卡片選擇器不可用，請使用此下拉選單（預設：dim）。"
 
 #: app/ThemeOptions/General.php:112
 msgid "If the card picker is unavailable, use this dropdown (default: retro)."
-msgstr "如果色卡选择器不可用，请使用此下拉框（默认：retro）。"
+msgstr "如果卡片選擇器不可用，請使用此下拉選單（預設：retro）。"
 
-#: app/Core/Widget.php:63
-#: app/Widgets/BannerCarouselWidget.php:90
+#: app/Core/Widget.php:63 app/Widgets/BannerCarouselWidget.php:90
 msgid "Image URL"
 msgstr "图片 URL"
 
-#: app/Core/Widget.php:62
-#: app/Widgets/BannerCarouselWidget.php:83
+#: app/Core/Widget.php:62 app/Widgets/BannerCarouselWidget.php:83
 msgid "Image URL:"
 msgstr "图片 URL："
 
-#: app/Core/Widget.php:72
-#: app/Widgets/BannerCarouselWidget.php:138
+#: app/Core/Widget.php:72 app/Widgets/BannerCarouselWidget.php:138
 msgid "Image description"
 msgstr "图片描述"
 
@@ -277,24 +266,21 @@ msgstr "主左侧边栏"
 
 #: header.php:8
 msgid "Light Mode"
-msgstr "浅色模式"
+msgstr "淺色模式"
 
-#: app/ThemeOptions/General.php:100
-#: app/ThemeOptions/General.php:104
+#: app/ThemeOptions/General.php:100 app/ThemeOptions/General.php:104
 msgid "Light Theme"
-msgstr "浅色主题"
+msgstr "淺色主題"
 
 #: app/ThemeOptions/General.php:109
 msgid "Light Theme (fallback)"
-msgstr "浅色主题（后备下拉框）"
+msgstr "淺色主題（備用）"
 
-#: app/Core/Widget.php:68
-#: app/Widgets/BannerCarouselWidget.php:117
+#: app/Core/Widget.php:68 app/Widgets/BannerCarouselWidget.php:117
 msgid "Link Target:"
 msgstr "链接打开方式："
 
-#: app/Core/Widget.php:67
-#: app/Widgets/BannerCarouselWidget.php:106
+#: app/Core/Widget.php:67 app/Widgets/BannerCarouselWidget.php:106
 msgid "Link URL (optional):"
 msgstr "链接 URL（可选）："
 
@@ -304,7 +290,7 @@ msgstr "LinkedIn"
 
 #: resources/views/sections/player.php:51
 msgid "Loading audio"
-msgstr "正在加载音频"
+msgstr "音訊載入中"
 
 #: app/Core/Setup.php:134
 msgid "Main area of the homepage for displaying various content modules"
@@ -314,8 +300,7 @@ msgstr "首页主区域，用于展示各种内容模块"
 msgid "Maximum number of tags to display"
 msgstr "最多显示的标签数量"
 
-#: app/Widgets/AuthorsWidget.php:44
-#: app/Widgets/AuthorsWidget.php:126
+#: app/Widgets/AuthorsWidget.php:44 app/Widgets/AuthorsWidget.php:126
 msgid "Members"
 msgstr "成员"
 
@@ -325,14 +310,13 @@ msgstr "成员标题："
 
 #: resources/views/sections/mobile-menu.php:7
 msgid "Menu"
-msgstr "菜单"
+msgstr "選單"
 
 #: resources/views/sections/player.php:8
 msgid "NOW PLAYING"
 msgstr "正在播放"
 
-#: app/Core/Widget.php:70
-#: app/Widgets/BannerCarouselWidget.php:125
+#: app/Core/Widget.php:70 app/Widgets/BannerCarouselWidget.php:125
 msgid "New Tab"
 msgstr "新标签页"
 
@@ -348,7 +332,7 @@ msgstr "暂无 ARS 节目内容"
 #: resources/views/sections/player.php:31
 #: resources/views/sections/player.php:32
 msgid "No Episode Playing"
-msgstr "暂无播放节目"
+msgstr "沒有正在播放的節目"
 
 #: resources/views/widgets/authors.php:48
 msgid "No authors yet"
@@ -384,16 +368,15 @@ msgstr "标签数量："
 
 #: app/ThemeOptions/General.php:1013
 msgid "Only filled links will be used by the theme."
-msgstr "只有已填写的链接才会在主题中显示。"
+msgstr "只有已填寫的連結會被主題使用。"
 
-#: app/Core/Widget.php:77
-#: app/Widgets/FooterLinksWidget.php:129
+#: app/Core/Widget.php:77 app/Widgets/FooterLinksWidget.php:129
 msgid "Open in new tab"
 msgstr "在新标签页打开"
 
 #: app/ThemeOptions/General.php:1018
 msgid "Optional. Enter a full URL."
-msgstr "可选。请输入完整 URL。"
+msgstr "可選。請輸入完整 URL。"
 
 #: app/Widgets/TagsCloudWidget.php:114
 msgid "Order by:"
@@ -422,33 +405,38 @@ msgstr "播放"
 
 #: resources/views/sections/playlist-drawer.php:8
 msgid "Playlist"
-msgstr "播放列表"
+msgstr "播放清單"
 
 #: resources/views/sections/playlist-drawer.php:31
 msgid "Playlist is empty"
-msgstr "播放列表为空"
+msgstr "播放清單為空"
 
 #: resources/views/widgets/banner-carousel.php:17
 msgid "Please add banner content in the admin panel"
 msgstr "请在后台添加横幅内容"
 
 #: template-home.php:18
-msgid "Please add widgets to \"Home Main\" area in Appearance > Widgets in the admin panel."
+msgid ""
+"Please add widgets to \"Home Main\" area in Appearance > Widgets in the "
+"admin panel."
 msgstr "请在后台的“外观 > 小工具”中向“Home Main”区域添加小工具。"
 
 #: resources/views/sections/leftbar-drawer.php:23
 #: resources/views/sections/leftbar.php:8
-msgid "Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin panel."
+msgid ""
+"Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin "
+"panel."
 msgstr "请在后台「外观 > 小工具」中向「Leftbar」区域添加小工具。"
 
-#: resources/views/sections/sidebar-drawer.php:24
-#: sidebar.php:19
-msgid "Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin panel."
+#: resources/views/sections/sidebar-drawer.php:24 sidebar.php:19
+msgid ""
+"Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin "
+"panel."
 msgstr "请在后台「外观 > 小工具」中向「Sidebar」区域添加小工具。"
 
 #: resources/views/widgets/podcast-list.php:23
 msgid "Popular"
-msgstr "热门"
+msgstr "熱門"
 
 #: app/Widgets/TagsCloudWidget.php:119
 msgid "Post Count"
@@ -501,7 +489,7 @@ msgstr "主要右侧栏"
 
 #: resources/views/sections/sidebar-drawer.php:12
 msgid "Right Sidebar"
-msgstr "右侧边栏"
+msgstr "右側欄"
 
 #: app/Widgets/SubscribeLinksWidget.php:39
 #: app/Widgets/SubscribeLinksWidget.php:65
@@ -510,11 +498,14 @@ msgid "SUBSCRIBE"
 msgstr "订阅"
 
 #: app/ThemeOptions/General.php:137
-msgid "Scripts to be added before </body>. You can include complete <script> tags."
+msgid ""
+"Scripts to be added before </body>. You can include complete <script> tags."
 msgstr "将在 </body> 前插入的脚本。你可以包含完整的 <script> 标签。"
 
 #: app/ThemeOptions/General.php:135
-msgid "Scripts to be added in the <head> section. You can include complete <script> tags for services like Google Analytics."
+msgid ""
+"Scripts to be added in the <head> section. You can include complete <script>"
+" tags for services like Google Analytics."
 msgstr "将在 <head> 区域插入的脚本。你可以为 Google Analytics 等服务填写完整的 <script> 标签。"
 
 #: resources/views/widgets/blog-list.php:18
@@ -526,13 +517,11 @@ msgstr "查看全部"
 msgid "Select Banner Image"
 msgstr "选择横幅图片"
 
-#: app/Core/Widget.php:64
-#: app/Widgets/BannerCarouselWidget.php:93
+#: app/Core/Widget.php:64 app/Widgets/BannerCarouselWidget.php:93
 msgid "Select Image"
 msgstr "选择图片"
 
-#: app/Widgets/BlogListWidget.php:161
-#: app/Widgets/PodcastListWidget.php:117
+#: app/Widgets/BlogListWidget.php:161 app/Widgets/PodcastListWidget.php:117
 msgid "Show \"See all\" link"
 msgstr "显示“查看全部”链接"
 
@@ -544,16 +533,14 @@ msgstr "显示嘉宾（投稿者）"
 msgid "Show Members (Administrators, Editors, Authors)"
 msgstr "显示成员（管理员、编辑、作者）"
 
-#: app/ThemeOptions/General.php:93
-#: app/ThemeOptions/General.php:439
+#: app/ThemeOptions/General.php:93 app/ThemeOptions/General.php:439
 #: app/ThemeOptions/General.php:795
 msgid "Site Logo"
-msgstr "网站 Logo"
+msgstr "網站 Logo"
 
-#: app/ThemeOptions/General.php:142
-#: app/ThemeOptions/General.php:1012
+#: app/ThemeOptions/General.php:142 app/ThemeOptions/General.php:1012
 msgid "Social Links"
-msgstr "社交链接"
+msgstr "社交連結"
 
 #: app/Widgets/TagsCloudWidget.php:128
 msgid "Sort order:"
@@ -568,8 +555,7 @@ msgstr "Spotify"
 msgid "Spotify Link:"
 msgstr "Spotify 链接："
 
-#: app/Widgets/TagsCloudWidget.php:39
-#: app/Widgets/TagsCloudWidget.php:75
+#: app/Widgets/TagsCloudWidget.php:39 app/Widgets/TagsCloudWidget.php:75
 msgid "TAGS"
 msgstr "标签"
 
@@ -585,17 +571,18 @@ msgstr "标签名称"
 msgid "Tags will appear here after publishing articles with tags"
 msgstr "发布带标签的文章后，标签会显示在这里"
 
-#: app/Core/Widget.php:74
-#: app/Widgets/FooterLinksWidget.php:102
+#: app/Core/Widget.php:74 app/Widgets/FooterLinksWidget.php:102
 msgid "Text:"
 msgstr "文本："
 
 #: app/ThemeOptions/General.php:79
 msgid "Theme Settings"
-msgstr "主题设置"
+msgstr "主題設定"
 
 #: functions.php:12
-msgid "Theme dependencies are missing. Run \"composer install\" in wp-content/themes/a-ripple-song."
+msgid ""
+"Theme dependencies are missing. Run \"composer install\" in wp-"
+"content/themes/a-ripple-song."
 msgstr "主题依赖缺失。请在 wp-content/themes/a-ripple-song 中运行 \"composer install\"。"
 
 #: app/ThemeOptions/SocialLinks.php:50
@@ -606,41 +593,40 @@ msgstr "Threads"
 msgid "TikTok"
 msgstr "TikTok"
 
-#: app/Widgets/BlogListWidget.php:116
-#: app/Widgets/FooterLinksWidget.php:83
+#: app/Widgets/BlogListWidget.php:116 app/Widgets/FooterLinksWidget.php:83
 #: app/Widgets/PodcastListWidget.php:87
-#: app/Widgets/SubscribeLinksWidget.php:78
-#: app/Widgets/TagsCloudWidget.php:88
+#: app/Widgets/SubscribeLinksWidget.php:78 app/Widgets/TagsCloudWidget.php:88
 msgid "Title:"
 msgstr "标题："
 
 #: header.php:11
 msgid "Toggle Theme"
-msgstr "切换主题"
+msgstr "切換主題"
 
 #: resources/views/sections/playlist-drawer.php:15
 msgid "Total"
-msgstr "共"
+msgstr "總計"
 
 #: app/ThemeOptions/SocialLinks.php:26
 msgid "Twitter / X"
 msgstr "Twitter / X"
 
-#: app/Core/Widget.php:76
-#: app/Widgets/FooterLinksWidget.php:113
+#: app/Core/Widget.php:76 app/Widgets/FooterLinksWidget.php:113
 msgid "URL (optional - leave empty for plain text):"
 msgstr "URL（可选，留空则显示纯文本）："
 
 #: resources/views/sections/autoplay-confirm.php:29
 msgid "Unknown episode"
-msgstr "未知节目"
+msgstr "未知節目"
 
 #: app/ThemeOptions/General.php:447
 msgid "Upload / Change Logo"
-msgstr "上传 / 更换 Logo"
+msgstr "上傳 / 更換 Logo"
 
 #: app/ThemeOptions/General.php:95
-msgid "Upload a logo image (220px × 32px). You will be able to crop the image after upload."
+msgid ""
+"Upload a logo image (220px × 32px). You will be able to crop the image after"
+" upload."
 msgstr "上传一张 Logo 图片（220px × 32px）。上传后可以继续裁切。"
 
 #: app/Core/Widget.php:66
@@ -702,7 +688,7 @@ msgstr "例如：联系、导航、支持"
 
 #: resources/views/sections/playlist-drawer.php:15
 msgid "episodes"
-msgstr "个节目"
+msgstr "集"
 
 #: resources/views/partials/entry-meta.php:19
 msgid "plays"
@@ -729,7 +715,9 @@ msgid "Start your next episode here"
 msgstr "从这里开始下一期节目"
 
 #: app/Core/Setup.php:91
-msgid "Use this pattern to introduce a featured story, announcement, or podcast episode."
+msgid ""
+"Use this pattern to introduce a featured story, announcement, or podcast "
+"episode."
 msgstr "使用这个区块样式来介绍精选文章、公告或播客节目。"
 
 #: app/Core/Setup.php:91
@@ -773,10 +761,9 @@ msgstr ""
 msgid "Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\">Log out?</a>"
 msgstr ""
 
-#: app/Core/Helper.php:609
-#: app/ThemeOptions/RecommendedPlugins.php:84
+#: app/Core/Helper.php:609 app/ThemeOptions/RecommendedPlugins.php:84
 msgid "Name"
-msgstr "名称"
+msgstr "名稱"
 
 #: app/Core/Helper.php:611
 msgid "Email"
@@ -787,11 +774,12 @@ msgid "Website"
 msgstr ""
 
 #: app/Core/Helper.php:615
-msgid "Save my name, email, and website in this browser for the next time I comment."
+msgid ""
+"Save my name, email, and website in this browser for the next time I "
+"comment."
 msgstr ""
 
-#: app/Core/Helper.php:628
-#: resources/views/partials/comments.php:84
+#: app/Core/Helper.php:628 resources/views/partials/comments.php:84
 msgid "Comment"
 msgstr ""
 
@@ -839,8 +827,7 @@ msgstr ""
 msgid "Search Results for: %s"
 msgstr ""
 
-#: author.php:50
-#: search.php:10
+#: author.php:50 search.php:10
 msgid "Sorry, no results were found."
 msgstr ""
 
@@ -884,7 +871,7 @@ msgstr "您无权管理此站点上的插件。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:80
 msgid "Plugins recommended for the A Ripple Song theme."
-msgstr "A Ripple Song 主题推荐使用的插件"
+msgstr "A Ripple Song 主題推薦使用的外掛"
 
 #: app/ThemeOptions/RecommendedPlugins.php:85
 msgid "Slug"
@@ -892,22 +879,23 @@ msgstr "Slug"
 
 #: app/ThemeOptions/RecommendedPlugins.php:86
 msgid "Description"
-msgstr "说明"
+msgstr "描述"
 
 #: app/ThemeOptions/RecommendedPlugins.php:87
 msgid "Status"
-msgstr "状态"
+msgstr "狀態"
 
 #: app/ThemeOptions/RecommendedPlugins.php:108
 msgid "Activate"
-msgstr "启用"
+msgstr "啟用"
 
 #: app/ThemeOptions/RecommendedPlugins.php:114
 msgid "Install"
-msgstr "安装"
+msgstr "安裝"
 
 #: app/ThemeOptions/RecommendedPlugins.php:119
-msgid "This plugin will be installable after it is published on WordPress.org."
+msgid ""
+"This plugin will be installable after it is published on WordPress.org."
 msgstr "该插件发布到 WordPress.org 后即可在这里安装。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:141
@@ -919,20 +907,22 @@ msgid "You are not allowed to install plugins on this site."
 msgstr "您无权在此站点上安装插件。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:363
-msgid "Podcast features for the A Ripple Song theme, including episode management and podcast feed support."
-msgstr "为 A Ripple Song 主题提供播客功能，包括节目管理和播客 Feed 支持。"
+msgid ""
+"Podcast features for the A Ripple Song theme, including episode management "
+"and podcast feed support."
+msgstr "為 A Ripple Song 主題提供播客功能，包括節目管理和播客 Feed 支援。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:377
 msgid "Active"
-msgstr "已启用"
+msgstr "已啟用"
 
 #: app/ThemeOptions/RecommendedPlugins.php:381
 msgid "Installed but Inactive"
-msgstr "未启用"
+msgstr "已安裝但未啟用"
 
 #: app/ThemeOptions/RecommendedPlugins.php:384
 msgid "Not Installed"
-msgstr "未安装"
+msgstr "未安裝"
 
 #: app/ThemeOptions/RecommendedPlugins.php:559
 msgid "The requested recommended plugin could not be found."
@@ -970,7 +960,7 @@ msgstr ""
 #: app/ThemeOptions/RecommendedPlugins.php:57
 #: app/ThemeOptions/RecommendedPlugins.php:79
 msgid "ARS Plugins"
-msgstr "ARS 插件"
+msgstr "ARS 外掛"
 
 #: app/ThemeOptions/RecommendedPlugins.php:102
 msgid "Deactivate"
@@ -990,7 +980,7 @@ msgstr "该插件已成功停用。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:88
 msgid "Option"
-msgstr "操作"
+msgstr "選項"
 
 #: app/ThemeOptions/RecommendedPlugins.php:109
 msgid "ARS Official"

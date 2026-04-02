@@ -1,18 +1,19 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: A Ripple Song Theme 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-29 16:09+0800\n"
+"PO-Revision-Date: 2026-03-27 12:05+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: English\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-29 16:09+0800\n"
-"PO-Revision-Date: 2026-03-27 12:05+0800\n"
-"Language: pt_BR\n"
 
 #: resources/views/widgets/tags-cloud.php:28
-#, fuzzy,php-format
+#, fuzzy, php-format
 msgid "%d post"
 msgid_plural "%d posts"
 msgstr[0] "%d post"
@@ -27,14 +28,13 @@ msgid "+ Add Item"
 msgstr "+ Add Item"
 
 #. Theme Name of the theme
-#: style.css
-#: app/ThemeOptions/General.php:87
+#: style.css app/ThemeOptions/General.php:87
 msgid "A Ripple Song"
 msgstr "A Ripple Song"
 
 #: resources/views/sections/playlist-drawer.php:32
 msgid "Add some episodes to start listening"
-msgstr "Add some episodes to start listening"
+msgstr "Adicione alguns episódios para começar a ouvir"
 
 #: resources/views/widgets/subscribe-links.php:16
 #: resources/views/widgets/subscribe-links.php:17
@@ -47,7 +47,7 @@ msgstr "Apple Podcast Link:"
 
 #: resources/views/sections/playlist-drawer.php:17
 msgid "Are you sure you want to clear the playlist?"
-msgstr "Are you sure you want to clear the playlist?"
+msgstr "Tem certeza de que deseja limpar a playlist?"
 
 #: app/Widgets/TagsCloudWidget.php:134
 msgid "Ascending (Low to High/A to Z)"
@@ -57,8 +57,7 @@ msgstr "Ascending (Low to High/A to Z)"
 msgid "Authors will appear here after adding users"
 msgstr "Authors will appear here after adding users"
 
-#: app/Widgets/BlogListWidget.php:39
-#: app/Widgets/BlogListWidget.php:103
+#: app/Widgets/BlogListWidget.php:39 app/Widgets/BlogListWidget.php:103
 msgid "BLOG"
 msgstr "BLOG"
 
@@ -72,59 +71,56 @@ msgstr "Banner Slides:"
 
 #: resources/views/sections/autoplay-confirm.php:45
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Cancelar"
 
 #: footer.php:92
 msgid "Back to top"
-msgstr "Back to top"
+msgstr "Voltar ao topo"
 
 #: resources/views/sections/playlist-drawer.php:21
 msgid "Clear"
-msgstr "Clear"
+msgstr "Limpar"
 
 #: resources/views/sections/playlist-drawer.php:19
 msgid "Clear Playlist"
-msgstr "Clear Playlist"
+msgstr "Limpar lista de reprodução"
 
 #: resources/views/sections/leftbar-drawer.php:9
 #: resources/views/sections/mobile-menu.php:4
 #: resources/views/sections/playlist-drawer.php:4
 #: resources/views/sections/sidebar-drawer.php:9
 msgid "Close sidebar"
-msgstr "Close sidebar"
+msgstr "Fechar barra lateral"
 
 #: app/ThemeOptions/General.php:123
 msgid "Click any card to choose the dark theme."
-msgstr ""
+msgstr "Clique em qualquer cartão para escolher o tema escuro."
 
 #: app/ThemeOptions/General.php:108
 msgid "Click any card to choose the light theme."
-msgstr ""
+msgstr "Clique em qualquer cartão para escolher o tema claro."
 
 #: resources/views/sections/autoplay-confirm.php:26
 msgid "Continue playing?"
-msgstr "Continue playing?"
+msgstr "Continuar reproduzindo?"
 
-#: app/Core/Widget.php:69
-#: app/Widgets/BannerCarouselWidget.php:122
+#: app/Core/Widget.php:69 app/Widgets/BannerCarouselWidget.php:122
 msgid "Current Page"
 msgstr "Current Page"
 
 #: header.php:9
 msgid "Dark Mode"
-msgstr "Dark Mode"
+msgstr "Modo escuro"
 
-#: app/ThemeOptions/General.php:115
-#: app/ThemeOptions/General.php:119
+#: app/ThemeOptions/General.php:115 app/ThemeOptions/General.php:119
 msgid "Dark Theme"
-msgstr ""
+msgstr "Tema escuro"
 
 #: app/ThemeOptions/General.php:124
 msgid "Dark Theme (fallback)"
-msgstr ""
+msgstr "Tema escuro (reserva)"
 
-#: app/Core/Widget.php:73
-#: app/Widgets/BannerCarouselWidget.php:143
+#: app/Core/Widget.php:73 app/Widgets/BannerCarouselWidget.php:143
 #: app/Widgets/FooterLinksWidget.php:135
 msgid "Delete"
 msgstr "Delete"
@@ -133,8 +129,7 @@ msgstr "Delete"
 msgid "Descending (High to Low/Z to A)"
 msgstr "Descending (High to Low/Z to A)"
 
-#: app/Core/Widget.php:71
-#: app/Widgets/BannerCarouselWidget.php:132
+#: app/Core/Widget.php:71 app/Widgets/BannerCarouselWidget.php:132
 msgid "Description:"
 msgstr "Description:"
 
@@ -166,8 +161,7 @@ msgstr "Display members and guest authors list"
 msgid "Display podcast subscription platform links"
 msgstr "Display podcast subscription platform links"
 
-#: app/Core/Widget.php:75
-#: app/Widgets/FooterLinksWidget.php:108
+#: app/Core/Widget.php:75 app/Widgets/FooterLinksWidget.php:108
 msgid "Display text"
 msgstr "Display text"
 
@@ -177,11 +171,11 @@ msgstr ""
 
 #: header.php:10
 msgid "Follow System"
-msgstr "Follow System"
+msgstr "Seguir o sistema"
 
 #: app/ThemeOptions/General.php:130
 msgid "Footer Copyright"
-msgstr ""
+msgstr "Copyright do rodapé"
 
 #: app/Core/Setup.php:119
 msgid "Footer Links"
@@ -189,7 +183,7 @@ msgstr "Footer Links"
 
 #: app/ThemeOptions/General.php:136
 msgid "Footer Scripts"
-msgstr ""
+msgstr "Scripts do rodapé"
 
 #: app/Core/Setup.php:121
 msgid "Footer links area for displaying link columns"
@@ -197,28 +191,26 @@ msgstr "Footer links area for displaying link columns"
 
 #: resources/views/sections/leftbar-drawer.php:12
 msgid "Left Sidebar"
-msgstr "Left Sidebar"
+msgstr "Barra lateral esquerda"
 
 #: footer.php:67
 msgid "Open Left Sidebar"
-msgstr "Open Left Sidebar"
+msgstr "Abrir barra lateral esquerda"
 
 #: footer.php:75
 msgid "Open Right Sidebar"
-msgstr "Open Right Sidebar"
+msgstr "Abrir barra lateral direita"
 
-#: app/ThemeOptions/General.php:81
-#: app/ThemeOptions/General.php:174
+#: app/ThemeOptions/General.php:81 app/ThemeOptions/General.php:174
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: resources/views/widgets/banner-carousel.php:63
 #, php-format
 msgid "Go to slide %d"
 msgstr "Go to slide %d"
 
-#: app/Widgets/AuthorsWidget.php:49
-#: app/Widgets/AuthorsWidget.php:129
+#: app/Widgets/AuthorsWidget.php:49 app/Widgets/AuthorsWidget.php:129
 msgid "Guests"
 msgstr "Guests"
 
@@ -228,7 +220,7 @@ msgstr "Guests Title:"
 
 #: app/ThemeOptions/General.php:134
 msgid "Header Scripts"
-msgstr ""
+msgstr "Scripts do cabeçalho"
 
 #: app/Core/Setup.php:132
 msgid "Home Main"
@@ -237,23 +229,24 @@ msgstr "Home Main"
 #: app/ThemeOptions/General.php:127
 msgid "If the card picker is unavailable, use this dropdown (default: dim)."
 msgstr ""
+"Se o seletor de cartões não estiver disponível, use esta lista (padrão: "
+"dim)."
 
 #: app/ThemeOptions/General.php:112
 msgid "If the card picker is unavailable, use this dropdown (default: retro)."
 msgstr ""
+"Se o seletor de cartões não estiver disponível, use esta lista (padrão: "
+"retro)."
 
-#: app/Core/Widget.php:63
-#: app/Widgets/BannerCarouselWidget.php:90
+#: app/Core/Widget.php:63 app/Widgets/BannerCarouselWidget.php:90
 msgid "Image URL"
 msgstr "Image URL"
 
-#: app/Core/Widget.php:62
-#: app/Widgets/BannerCarouselWidget.php:83
+#: app/Core/Widget.php:62 app/Widgets/BannerCarouselWidget.php:83
 msgid "Image URL:"
 msgstr "Image URL:"
 
-#: app/Core/Widget.php:72
-#: app/Widgets/BannerCarouselWidget.php:138
+#: app/Core/Widget.php:72 app/Widgets/BannerCarouselWidget.php:138
 msgid "Image description"
 msgstr "Image description"
 
@@ -277,24 +270,21 @@ msgstr "Leftbar Primary"
 
 #: header.php:8
 msgid "Light Mode"
-msgstr "Light Mode"
+msgstr "Modo claro"
 
-#: app/ThemeOptions/General.php:100
-#: app/ThemeOptions/General.php:104
+#: app/ThemeOptions/General.php:100 app/ThemeOptions/General.php:104
 msgid "Light Theme"
-msgstr ""
+msgstr "Tema claro"
 
 #: app/ThemeOptions/General.php:109
 msgid "Light Theme (fallback)"
-msgstr ""
+msgstr "Tema claro (reserva)"
 
-#: app/Core/Widget.php:68
-#: app/Widgets/BannerCarouselWidget.php:117
+#: app/Core/Widget.php:68 app/Widgets/BannerCarouselWidget.php:117
 msgid "Link Target:"
 msgstr "Link Target:"
 
-#: app/Core/Widget.php:67
-#: app/Widgets/BannerCarouselWidget.php:106
+#: app/Core/Widget.php:67 app/Widgets/BannerCarouselWidget.php:106
 msgid "Link URL (optional):"
 msgstr "Link URL (optional):"
 
@@ -304,7 +294,7 @@ msgstr ""
 
 #: resources/views/sections/player.php:51
 msgid "Loading audio"
-msgstr "Loading audio"
+msgstr "Carregando áudio"
 
 #: app/Core/Setup.php:134
 msgid "Main area of the homepage for displaying various content modules"
@@ -314,8 +304,7 @@ msgstr "Main area of the homepage for displaying various content modules"
 msgid "Maximum number of tags to display"
 msgstr "Maximum number of tags to display"
 
-#: app/Widgets/AuthorsWidget.php:44
-#: app/Widgets/AuthorsWidget.php:126
+#: app/Widgets/AuthorsWidget.php:44 app/Widgets/AuthorsWidget.php:126
 msgid "Members"
 msgstr "Members"
 
@@ -329,10 +318,9 @@ msgstr "Menu"
 
 #: resources/views/sections/player.php:8
 msgid "NOW PLAYING"
-msgstr "NOW PLAYING"
+msgstr "TOCANDO AGORA"
 
-#: app/Core/Widget.php:70
-#: app/Widgets/BannerCarouselWidget.php:125
+#: app/Core/Widget.php:70 app/Widgets/BannerCarouselWidget.php:125
 msgid "New Tab"
 msgstr "New Tab"
 
@@ -348,7 +336,7 @@ msgstr "No ARS Episode content"
 #: resources/views/sections/player.php:31
 #: resources/views/sections/player.php:32
 msgid "No Episode Playing"
-msgstr "No Episode Playing"
+msgstr "Nenhum episódio em reprodução"
 
 #: resources/views/widgets/authors.php:48
 msgid "No authors yet"
@@ -384,16 +372,15 @@ msgstr "Number of tags:"
 
 #: app/ThemeOptions/General.php:1013
 msgid "Only filled links will be used by the theme."
-msgstr ""
+msgstr "Apenas os links preenchidos serão usados pelo tema."
 
-#: app/Core/Widget.php:77
-#: app/Widgets/FooterLinksWidget.php:129
+#: app/Core/Widget.php:77 app/Widgets/FooterLinksWidget.php:129
 msgid "Open in new tab"
 msgstr "Open in new tab"
 
 #: app/ThemeOptions/General.php:1018
 msgid "Optional. Enter a full URL."
-msgstr ""
+msgstr "Opcional. Insira uma URL completa."
 
 #: app/Widgets/TagsCloudWidget.php:114
 msgid "Order by:"
@@ -422,33 +409,42 @@ msgstr "Play"
 
 #: resources/views/sections/playlist-drawer.php:8
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "Lista de reprodução"
 
 #: resources/views/sections/playlist-drawer.php:31
 msgid "Playlist is empty"
-msgstr "Playlist is empty"
+msgstr "A lista está vazia"
 
 #: resources/views/widgets/banner-carousel.php:17
 msgid "Please add banner content in the admin panel"
 msgstr "Please add banner content in the admin panel"
 
 #: template-home.php:18
-msgid "Please add widgets to \"Home Main\" area in Appearance > Widgets in the admin panel."
+msgid ""
+"Please add widgets to \"Home Main\" area in Appearance > Widgets in the "
+"admin panel."
 msgstr ""
 
 #: resources/views/sections/leftbar-drawer.php:23
 #: resources/views/sections/leftbar.php:8
-msgid "Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin panel."
-msgstr "Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin panel."
+msgid ""
+"Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin "
+"panel."
+msgstr ""
+"Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin "
+"panel."
 
-#: resources/views/sections/sidebar-drawer.php:24
-#: sidebar.php:19
-msgid "Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin panel."
-msgstr "Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin panel."
+#: resources/views/sections/sidebar-drawer.php:24 sidebar.php:19
+msgid ""
+"Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin "
+"panel."
+msgstr ""
+"Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin "
+"panel."
 
 #: resources/views/widgets/podcast-list.php:23
 msgid "Popular"
-msgstr "Popular"
+msgstr "Populares"
 
 #: app/Widgets/TagsCloudWidget.php:119
 msgid "Post Count"
@@ -485,15 +481,15 @@ msgstr "Random"
 
 #: resources/views/widgets/podcast-list.php:22
 msgid "Recent"
-msgstr "Recent"
+msgstr "Recentes"
 
 #: resources/views/sections/playlist-drawer.php:82
 msgid "Remove"
-msgstr "Remove"
+msgstr "Remover"
 
 #: app/ThemeOptions/General.php:449
 msgid "Remove Logo"
-msgstr ""
+msgstr "Remover logotipo"
 
 #: app/Core/Setup.php:145
 msgid "Rightbar Primary"
@@ -501,7 +497,7 @@ msgstr ""
 
 #: resources/views/sections/sidebar-drawer.php:12
 msgid "Right Sidebar"
-msgstr "Right Sidebar"
+msgstr "Barra lateral direita"
 
 #: app/Widgets/SubscribeLinksWidget.php:39
 #: app/Widgets/SubscribeLinksWidget.php:65
@@ -510,29 +506,30 @@ msgid "SUBSCRIBE"
 msgstr "SUBSCRIBE"
 
 #: app/ThemeOptions/General.php:137
-msgid "Scripts to be added before </body>. You can include complete <script> tags."
+msgid ""
+"Scripts to be added before </body>. You can include complete <script> tags."
 msgstr ""
 
 #: app/ThemeOptions/General.php:135
-msgid "Scripts to be added in the <head> section. You can include complete <script> tags for services like Google Analytics."
+msgid ""
+"Scripts to be added in the <head> section. You can include complete <script>"
+" tags for services like Google Analytics."
 msgstr ""
 
 #: resources/views/widgets/blog-list.php:18
 #: resources/views/widgets/podcast-list.php:16
 msgid "See all"
-msgstr "See all"
+msgstr "Ver tudo"
 
 #: app/Core/Widget.php:65
 msgid "Select Banner Image"
 msgstr "Select Banner Image"
 
-#: app/Core/Widget.php:64
-#: app/Widgets/BannerCarouselWidget.php:93
+#: app/Core/Widget.php:64 app/Widgets/BannerCarouselWidget.php:93
 msgid "Select Image"
 msgstr "Select Image"
 
-#: app/Widgets/BlogListWidget.php:161
-#: app/Widgets/PodcastListWidget.php:117
+#: app/Widgets/BlogListWidget.php:161 app/Widgets/PodcastListWidget.php:117
 msgid "Show \"See all\" link"
 msgstr "Show \"See all\" link"
 
@@ -544,16 +541,14 @@ msgstr "Show Guests (Contributors)"
 msgid "Show Members (Administrators, Editors, Authors)"
 msgstr "Show Members (Administrators, Editors, Authors)"
 
-#: app/ThemeOptions/General.php:93
-#: app/ThemeOptions/General.php:439
+#: app/ThemeOptions/General.php:93 app/ThemeOptions/General.php:439
 #: app/ThemeOptions/General.php:795
 msgid "Site Logo"
-msgstr ""
+msgstr "Logo do site"
 
-#: app/ThemeOptions/General.php:142
-#: app/ThemeOptions/General.php:1012
+#: app/ThemeOptions/General.php:142 app/ThemeOptions/General.php:1012
 msgid "Social Links"
-msgstr ""
+msgstr "Links sociais"
 
 #: app/Widgets/TagsCloudWidget.php:128
 msgid "Sort order:"
@@ -568,8 +563,7 @@ msgstr "Spotify"
 msgid "Spotify Link:"
 msgstr "Spotify Link:"
 
-#: app/Widgets/TagsCloudWidget.php:39
-#: app/Widgets/TagsCloudWidget.php:75
+#: app/Widgets/TagsCloudWidget.php:39 app/Widgets/TagsCloudWidget.php:75
 msgid "TAGS"
 msgstr "TAGS"
 
@@ -585,18 +579,21 @@ msgstr "Tag Name"
 msgid "Tags will appear here after publishing articles with tags"
 msgstr "Tags will appear here after publishing articles with tags"
 
-#: app/Core/Widget.php:74
-#: app/Widgets/FooterLinksWidget.php:102
+#: app/Core/Widget.php:74 app/Widgets/FooterLinksWidget.php:102
 msgid "Text:"
 msgstr "Text:"
 
 #: app/ThemeOptions/General.php:79
 msgid "Theme Settings"
-msgstr ""
+msgstr "Configurações do tema"
 
 #: functions.php:12
-msgid "Theme dependencies are missing. Run \"composer install\" in wp-content/themes/a-ripple-song."
-msgstr "Theme dependencies are missing. Run \"composer install\" in wp-content/themes/a-ripple-song."
+msgid ""
+"Theme dependencies are missing. Run \"composer install\" in wp-"
+"content/themes/a-ripple-song."
+msgstr ""
+"Theme dependencies are missing. Run \"composer install\" in wp-"
+"content/themes/a-ripple-song."
 
 #: app/ThemeOptions/SocialLinks.php:50
 msgid "Threads"
@@ -606,17 +603,15 @@ msgstr ""
 msgid "TikTok"
 msgstr ""
 
-#: app/Widgets/BlogListWidget.php:116
-#: app/Widgets/FooterLinksWidget.php:83
+#: app/Widgets/BlogListWidget.php:116 app/Widgets/FooterLinksWidget.php:83
 #: app/Widgets/PodcastListWidget.php:87
-#: app/Widgets/SubscribeLinksWidget.php:78
-#: app/Widgets/TagsCloudWidget.php:88
+#: app/Widgets/SubscribeLinksWidget.php:78 app/Widgets/TagsCloudWidget.php:88
 msgid "Title:"
 msgstr "Title:"
 
 #: header.php:11
 msgid "Toggle Theme"
-msgstr "Toggle Theme"
+msgstr "Alternar tema"
 
 #: resources/views/sections/playlist-drawer.php:15
 msgid "Total"
@@ -626,21 +621,22 @@ msgstr "Total"
 msgid "Twitter / X"
 msgstr ""
 
-#: app/Core/Widget.php:76
-#: app/Widgets/FooterLinksWidget.php:113
+#: app/Core/Widget.php:76 app/Widgets/FooterLinksWidget.php:113
 msgid "URL (optional - leave empty for plain text):"
 msgstr "URL (optional - leave empty for plain text):"
 
 #: resources/views/sections/autoplay-confirm.php:29
 msgid "Unknown episode"
-msgstr "Unknown episode"
+msgstr "Episódio desconhecido"
 
 #: app/ThemeOptions/General.php:447
 msgid "Upload / Change Logo"
-msgstr ""
+msgstr "Enviar / alterar logotipo"
 
 #: app/ThemeOptions/General.php:95
-msgid "Upload a logo image (220px × 32px). You will be able to crop the image after upload."
+msgid ""
+"Upload a logo image (220px × 32px). You will be able to crop the image after"
+" upload."
 msgstr ""
 
 #: app/Core/Widget.php:66
@@ -702,7 +698,7 @@ msgstr "e.g., Contact, Navigate, Support"
 
 #: resources/views/sections/playlist-drawer.php:15
 msgid "episodes"
-msgstr "episodes"
+msgstr "episódios"
 
 #: resources/views/partials/entry-meta.php:19
 msgid "plays"
@@ -729,8 +725,12 @@ msgid "Start your next episode here"
 msgstr "Start your next episode here"
 
 #: app/Core/Setup.php:91
-msgid "Use this pattern to introduce a featured story, announcement, or podcast episode."
-msgstr "Use this pattern to introduce a featured story, announcement, or podcast episode."
+msgid ""
+"Use this pattern to introduce a featured story, announcement, or podcast "
+"episode."
+msgstr ""
+"Use this pattern to introduce a featured story, announcement, or podcast "
+"episode."
 
 #: app/Core/Setup.php:91
 msgid "Learn more"
@@ -773,10 +773,9 @@ msgstr ""
 msgid "Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\">Log out?</a>"
 msgstr ""
 
-#: app/Core/Helper.php:609
-#: app/ThemeOptions/RecommendedPlugins.php:84
+#: app/Core/Helper.php:609 app/ThemeOptions/RecommendedPlugins.php:84
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: app/Core/Helper.php:611
 msgid "Email"
@@ -787,11 +786,12 @@ msgid "Website"
 msgstr ""
 
 #: app/Core/Helper.php:615
-msgid "Save my name, email, and website in this browser for the next time I comment."
+msgid ""
+"Save my name, email, and website in this browser for the next time I "
+"comment."
 msgstr ""
 
-#: app/Core/Helper.php:628
-#: resources/views/partials/comments.php:84
+#: app/Core/Helper.php:628 resources/views/partials/comments.php:84
 msgid "Comment"
 msgstr ""
 
@@ -839,8 +839,7 @@ msgstr ""
 msgid "Search Results for: %s"
 msgstr ""
 
-#: author.php:50
-#: search.php:10
+#: author.php:50 search.php:10
 msgid "Sorry, no results were found."
 msgstr ""
 
@@ -884,7 +883,7 @@ msgstr "You are not allowed to manage plugins on this site."
 
 #: app/ThemeOptions/RecommendedPlugins.php:80
 msgid "Plugins recommended for the A Ripple Song theme."
-msgstr "Plugins recommended for the A Ripple Song theme."
+msgstr "Plugins recomendados para o tema A Ripple Song"
 
 #: app/ThemeOptions/RecommendedPlugins.php:85
 msgid "Slug"
@@ -892,7 +891,7 @@ msgstr "Slug"
 
 #: app/ThemeOptions/RecommendedPlugins.php:86
 msgid "Description"
-msgstr "Description"
+msgstr "Descrição"
 
 #: app/ThemeOptions/RecommendedPlugins.php:87
 msgid "Status"
@@ -900,15 +899,17 @@ msgstr "Status"
 
 #: app/ThemeOptions/RecommendedPlugins.php:108
 msgid "Activate"
-msgstr "Activate"
+msgstr "Ativar"
 
 #: app/ThemeOptions/RecommendedPlugins.php:114
 msgid "Install"
-msgstr "Install"
+msgstr "Instalar"
 
 #: app/ThemeOptions/RecommendedPlugins.php:119
-msgid "This plugin will be installable after it is published on WordPress.org."
-msgstr "This plugin will be installable after it is published on WordPress.org."
+msgid ""
+"This plugin will be installable after it is published on WordPress.org."
+msgstr ""
+"This plugin will be installable after it is published on WordPress.org."
 
 #: app/ThemeOptions/RecommendedPlugins.php:141
 msgid "You are not allowed to activate plugins on this site."
@@ -919,20 +920,24 @@ msgid "You are not allowed to install plugins on this site."
 msgstr "You are not allowed to install plugins on this site."
 
 #: app/ThemeOptions/RecommendedPlugins.php:363
-msgid "Podcast features for the A Ripple Song theme, including episode management and podcast feed support."
-msgstr "Podcast features for the A Ripple Song theme, including episode management and podcast feed support."
+msgid ""
+"Podcast features for the A Ripple Song theme, including episode management "
+"and podcast feed support."
+msgstr ""
+"Recursos de podcast para o tema A Ripple Song, incluindo gerenciamento de "
+"episódios e suporte a feed de podcast."
 
 #: app/ThemeOptions/RecommendedPlugins.php:377
 msgid "Active"
-msgstr "Active"
+msgstr "Ativo"
 
 #: app/ThemeOptions/RecommendedPlugins.php:381
 msgid "Installed but Inactive"
-msgstr "Installed but Inactive"
+msgstr "Instalado, mas inativo"
 
 #: app/ThemeOptions/RecommendedPlugins.php:384
 msgid "Not Installed"
-msgstr "Not Installed"
+msgstr "Não instalado"
 
 #: app/ThemeOptions/RecommendedPlugins.php:559
 msgid "The requested recommended plugin could not be found."
@@ -970,11 +975,11 @@ msgstr ""
 #: app/ThemeOptions/RecommendedPlugins.php:57
 #: app/ThemeOptions/RecommendedPlugins.php:79
 msgid "ARS Plugins"
-msgstr "ARS Plugins"
+msgstr "Plugins do ARS"
 
 #: app/ThemeOptions/RecommendedPlugins.php:102
 msgid "Deactivate"
-msgstr "Deactivate"
+msgstr "Desativar"
 
 #: app/ThemeOptions/RecommendedPlugins.php:180
 msgid "You are not allowed to deactivate plugins on this site."
@@ -990,4 +995,4 @@ msgstr "The plugin was deactivated successfully."
 
 #: app/ThemeOptions/RecommendedPlugins.php:88
 msgid "Option"
-msgstr "Option"
+msgstr "Opção"

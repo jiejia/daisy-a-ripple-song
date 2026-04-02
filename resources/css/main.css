@@ -101,7 +101,7 @@ body.admin-bar .sticky.top-\[70px\] {
     white-space: normal;
 }
 
-.sticky {
+article.sticky {
     @apply ring-1 ring-primary/20;
 }
 

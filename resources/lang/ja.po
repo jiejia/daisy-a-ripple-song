@@ -384,7 +384,7 @@ msgstr "Order by:"
 
 #: app/ThemeOptions/General.php:133
 msgid "Overrides the footer copyright line. Leave empty to use the default."
-msgstr ""
+msgstr "フッターの著作権表記を上書きします。空欄の場合はデフォルトを使用します。"
 
 #: app/Widgets/PodcastListWidget.php:154
 msgid "PODCASTS"
@@ -473,7 +473,7 @@ msgstr ""
 #: app/Widgets/TagsCloudWidget.php:122
 #: resources/views/widgets/podcast-list.php:24
 msgid "Random"
-msgstr "Random"
+msgstr "ランダム"
 
 #: resources/views/widgets/podcast-list.php:22
 msgid "Recent"
@@ -504,13 +504,14 @@ msgstr "SUBSCRIBE"
 #: app/ThemeOptions/General.php:137
 msgid ""
 "Scripts to be added before </body>. You can include complete <script> tags."
-msgstr ""
+msgstr "</body> の前に追加するスクリプトです。完全な <script> タグを含められます。"
 
 #: app/ThemeOptions/General.php:135
 msgid ""
 "Scripts to be added in the <head> section. You can include complete <script>"
 " tags for services like Google Analytics."
 msgstr ""
+"<head> セクションに追加するスクリプトです。Google Analytics などのサービス用に完全な <script> タグを含められます。"
 
 #: resources/views/widgets/blog-list.php:18
 #: resources/views/widgets/podcast-list.php:16
@@ -633,7 +634,7 @@ msgstr "ロゴをアップロード / 変更"
 msgid ""
 "Upload a logo image (220px × 32px). You will be able to crop the image after"
 " upload."
-msgstr ""
+msgstr "ロゴ画像（220px × 32px）をアップロードしてください。アップロード後に画像をトリミングできます。"
 
 #: app/Core/Widget.php:66
 msgid "Use This Image"
@@ -875,7 +876,7 @@ msgstr ""
 
 #: app/ThemeOptions/RecommendedPlugins.php:72
 msgid "You are not allowed to manage plugins on this site."
-msgstr "You are not allowed to manage plugins on this site."
+msgstr "このサイトでプラグインを管理する権限がありません。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:80
 msgid "Plugins recommended for the A Ripple Song theme."
@@ -904,16 +905,15 @@ msgstr "インストール"
 #: app/ThemeOptions/RecommendedPlugins.php:119
 msgid ""
 "This plugin will be installable after it is published on WordPress.org."
-msgstr ""
-"This plugin will be installable after it is published on WordPress.org."
+msgstr "このプラグインは WordPress.org に公開された後にインストールできるようになります。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:141
 msgid "You are not allowed to activate plugins on this site."
-msgstr "You are not allowed to activate plugins on this site."
+msgstr "このサイトでプラグインを有効化する権限がありません。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:218
 msgid "You are not allowed to install plugins on this site."
-msgstr "You are not allowed to install plugins on this site."
+msgstr "このサイトでプラグインをインストールする権限がありません。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:363
 msgid ""
@@ -935,31 +935,31 @@ msgstr "未インストール"
 
 #: app/ThemeOptions/RecommendedPlugins.php:559
 msgid "The requested recommended plugin could not be found."
-msgstr "The requested recommended plugin could not be found."
+msgstr "要求された推奨プラグインが見つかりませんでした。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:560
 msgid "The selected plugin is not installed on this site."
-msgstr "The selected plugin is not installed on this site."
+msgstr "選択したプラグインはこのサイトにインストールされていません。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:561
 msgid "The plugin could not be activated."
-msgstr "The plugin could not be activated."
+msgstr "プラグインを有効化できませんでした。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:562
 msgid "The plugin was activated successfully."
-msgstr "The plugin was activated successfully."
+msgstr "プラグインを有効化しました。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:565
 msgid "The plugin is not yet available for installation from WordPress.org."
-msgstr "The plugin is not yet available for installation from WordPress.org."
+msgstr "このプラグインはまだ WordPress.org からインストールできません。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:566
 msgid "The plugin could not be installed."
-msgstr "The plugin could not be installed."
+msgstr "プラグインをインストールできませんでした。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:567
 msgid "The plugin was installed successfully. You can activate it now."
-msgstr "The plugin was installed successfully. You can activate it now."
+msgstr "プラグインのインストールに成功しました。今すぐ有効化できます。"
 
 #. Template Name of the theme
 msgid "Home Template"
@@ -977,15 +977,15 @@ msgstr "無効化"
 
 #: app/ThemeOptions/RecommendedPlugins.php:180
 msgid "You are not allowed to deactivate plugins on this site."
-msgstr "You are not allowed to deactivate plugins on this site."
+msgstr "このサイトでプラグインを無効化する権限がありません。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:563
 msgid "The plugin could not be deactivated."
-msgstr "The plugin could not be deactivated."
+msgstr "プラグインを無効化できませんでした。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:564
 msgid "The plugin was deactivated successfully."
-msgstr "The plugin was deactivated successfully."
+msgstr "プラグインを無効化しました。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:88
 msgid "Option"

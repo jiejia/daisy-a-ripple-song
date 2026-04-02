@@ -622,6 +622,46 @@ class Vite
     }
 
     /**
+     * Return the element that represents the widget's real rendered content box.
+     *
+     * @param {Document} targetDocument The preview iframe document.
+     * @return {?HTMLElement}
+     */
+    function getPreviewContentElement(targetDocument) {
+        if (!targetDocument) {
+            return null;
+        }
+
+        const widgetElement = targetDocument.querySelector('.widget');
+
+        if (!widgetElement) {
+            return null;
+        }
+
+        const contentElement = widgetElement.firstElementChild;
+
+        return contentElement instanceof HTMLElement ? contentElement : widgetElement;
+    }
+
+    /**
+     * Measure the rendered height of a specific element without inheriting the iframe viewport height.
+     *
+     * @param {?HTMLElement} targetElement Element that should drive the iframe height.
+     * @return {number}
+     */
+    function getElementRenderedHeight(targetElement) {
+        if (!targetElement) {
+            return 0;
+        }
+
+        return Math.max(
+            Math.ceil(targetElement.getBoundingClientRect().height),
+            targetElement.scrollHeight || 0,
+            targetElement.offsetHeight || 0
+        );
+    }
+
+    /**
      * Return the best-fit pixel height for a preview iframe.
      *
      * @param {HTMLIFrameElement} frameElement The preview iframe element.
@@ -635,17 +675,12 @@ class Vite
                 return null;
             }
 
-            const targetBody = targetDocument.body;
-            const targetRoot = targetDocument.documentElement;
+            const contentElement = getPreviewContentElement(targetDocument);
             const widgetElement = targetDocument.querySelector('.widget');
             const height = Math.max(
-                targetBody ? targetBody.scrollHeight : 0,
-                targetBody ? targetBody.offsetHeight : 0,
-                targetRoot ? targetRoot.scrollHeight : 0,
-                targetRoot ? targetRoot.offsetHeight : 0,
-                widgetElement ? widgetElement.scrollHeight : 0,
-                widgetElement ? widgetElement.getBoundingClientRect().height : 0,
-                100
+                getElementRenderedHeight(contentElement),
+                getElementRenderedHeight(widgetElement),
+                1
             );
 
             return Number.isFinite(height) ? Math.ceil(height) : null;

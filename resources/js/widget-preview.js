@@ -59,23 +59,53 @@ function refreshIcons() {
 let lastReportedHeight = 0;
 
 /**
+ * Return the element that represents the widget's real rendered content box.
+ *
+ * @return {?HTMLElement}
+ */
+function getPreviewContentElement() {
+    const widgetElement = document.querySelector('.widget');
+
+    if (!widgetElement) {
+        return null;
+    }
+
+    const contentElement = widgetElement.firstElementChild;
+
+    return contentElement instanceof HTMLElement ? contentElement : widgetElement;
+}
+
+/**
+ * Measure the rendered height of a specific element without inheriting the iframe viewport height.
+ *
+ * @param {?HTMLElement} targetElement Element that should drive the iframe height.
+ * @return {number}
+ */
+function getElementRenderedHeight(targetElement) {
+    if (!targetElement) {
+        return 0;
+    }
+
+    return Math.max(
+        Math.ceil(targetElement.getBoundingClientRect().height),
+        targetElement.scrollHeight || 0,
+        targetElement.offsetHeight || 0
+    );
+}
+
+/**
  * Return the current rendered widget preview height.
  *
  * @return {number}
  */
 function getPreviewHeight() {
+    const contentElement = getPreviewContentElement();
     const widgetElement = document.querySelector('.widget');
-    const targetBody = document.body;
-    const targetRoot = document.documentElement;
 
     return Math.max(
-        widgetElement ? Math.ceil(widgetElement.getBoundingClientRect().height) : 0,
-        widgetElement ? widgetElement.scrollHeight : 0,
-        targetBody ? targetBody.scrollHeight : 0,
-        targetBody ? Math.ceil(targetBody.getBoundingClientRect().height) : 0,
-        targetRoot ? targetRoot.scrollHeight : 0,
-        targetRoot ? Math.ceil(targetRoot.getBoundingClientRect().height) : 0,
-        100
+        getElementRenderedHeight(contentElement),
+        getElementRenderedHeight(widgetElement),
+        1
     );
 }
 

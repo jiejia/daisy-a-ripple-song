@@ -756,14 +756,18 @@ class General
                     inputElement.dispatchEvent(new Event('change', { bubbles: true }));
                 };
 
+                const getUploaderField = () => document.getElementById('crb_site_logo_field');
+
+                const getCarbonField = () => document.querySelector('input[data-logo-field="true"]') ||
+                    document.querySelector('.crb-logo-carbon-field input');
+
                 const syncLogoValue = (nextValue) => {
-                    const uploaderField = document.getElementById('crb_site_logo_field');
-                    const carbonField = document.querySelector('input[data-logo-field="true"]') ||
-                        document.querySelector('.crb-logo-carbon-field input') ||
-                        document.querySelector('input[name*="crb_site_logo"]');
+                    const uploaderField = getUploaderField();
+                    const carbonField = getCarbonField();
 
                     if (uploaderField) {
                         setNativeInputValue(uploaderField, nextValue);
+                        uploaderField.dataset.currentValue = nextValue;
                     }
 
                     if (carbonField) {
@@ -771,8 +775,7 @@ class General
                     }
                 };
 
-                const renderPreview = (url) => {
-                    const wrapper = document.querySelector('.crb-logo-uploader-wrapper');
+                const renderPreview = (wrapper, url) => {
                     if (!wrapper) {
                         return;
                     }
@@ -795,14 +798,32 @@ class General
                     preview.innerHTML = '<img src="' + url + '" alt="<?php echo esc_js(__('Site Logo', 'a-ripple-song')); ?>" style="max-width: 220px; height: auto; border: 1px solid #ddd; padding: 8px; background: #f9f9f9;">';
                 };
 
-                const setRemoveButtonVisibility = (visible) => {
-                    const removeButton = document.querySelector('.crb-logo-remove-btn');
+                const setRemoveButtonVisibility = (wrapper, visible) => {
+                    const removeButton = wrapper ? wrapper.querySelector('.crb-logo-remove-btn') : null;
                     if (removeButton) {
                         removeButton.style.display = visible ? 'inline-block' : 'none';
                     }
                 };
 
-                const openCropper = () => {
+                const getInitialLogoValue = () => {
+                    const uploaderField = getUploaderField();
+                    const carbonField = getCarbonField();
+
+                    if (uploaderField) {
+                        const uploaderValue = String(uploaderField.value || uploaderField.dataset.currentValue || '').trim();
+                        if (uploaderValue) {
+                            return uploaderValue;
+                        }
+                    }
+
+                    if (carbonField) {
+                        return String(carbonField.value || '').trim();
+                    }
+
+                    return '';
+                };
+
+                const openCropper = (wrapper) => {
                     if (!window.wp || !wp.media || !wp.media.controller || typeof wp.media.controller.CustomizeImageCropper === 'undefined') {
                         return;
                     }
@@ -882,8 +903,8 @@ class General
                             return;
                         }
                         syncLogoValue(nextValue);
-                        renderPreview(nextValue);
-                        setRemoveButtonVisibility(true);
+                        renderPreview(wrapper, nextValue);
+                        setRemoveButtonVisibility(wrapper, true);
                     };
 
                     mediaFrame.on('select', () => {
@@ -910,21 +931,29 @@ class General
                     mediaFrame.open();
                 };
 
-                document.addEventListener('DOMContentLoaded', () => {
-                    const uploadButton = document.querySelector('.crb-logo-upload-btn');
-                    const removeButton = document.querySelector('.crb-logo-remove-btn');
-                    const initialField = document.getElementById('crb_site_logo_field');
-                    const initialValue = initialField ? String(initialField.value || initialField.dataset.currentValue || '').trim() : '';
+                const bindLogoUploader = (wrapper) => {
+                    if (!wrapper || wrapper.dataset.logoReady === 'true') {
+                        return;
+                    }
+
+                    const uploadButton = wrapper.querySelector('.crb-logo-upload-btn');
+                    const removeButton = wrapper.querySelector('.crb-logo-remove-btn');
+                    const initialValue = getInitialLogoValue();
+
+                    wrapper.dataset.logoReady = 'true';
 
                     if (initialValue) {
-                        renderPreview(initialValue);
-                        setRemoveButtonVisibility(true);
+                        renderPreview(wrapper, initialValue);
+                        setRemoveButtonVisibility(wrapper, true);
+                    } else {
+                        renderPreview(wrapper, '');
+                        setRemoveButtonVisibility(wrapper, false);
                     }
 
                     if (uploadButton) {
                         uploadButton.addEventListener('click', (event) => {
                             event.preventDefault();
-                            openCropper();
+                            openCropper(wrapper);
                         });
                     }
 
@@ -932,10 +961,20 @@ class General
                         removeButton.addEventListener('click', (event) => {
                             event.preventDefault();
                             syncLogoValue('');
-                            renderPreview('');
-                            setRemoveButtonVisibility(false);
+                            renderPreview(wrapper, '');
+                            setRemoveButtonVisibility(wrapper, false);
                         });
                     }
+                };
+
+                const initLogoUploader = () => {
+                    document.querySelectorAll('.crb-logo-uploader-wrapper').forEach((wrapper) => bindLogoUploader(wrapper));
+                };
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    initLogoUploader();
+                    const observer = new MutationObserver(() => initLogoUploader());
+                    observer.observe(document.body, { childList: true, subtree: true });
                 });
             })();
         </script>

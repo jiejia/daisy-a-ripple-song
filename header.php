@@ -32,8 +32,6 @@ $theme_mode_labels = [
                                 <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-2" title="<?php bloginfo('description'); ?>">
                                     <img src="<?php echo esc_url(\App\ThemeOptions\General::getSiteLogoUrl()); ?>" alt="<?php bloginfo('name'); ?>" class="h-8 w-auto max-w-[220px] object-contain">
                                 </a>
-                            <?php elseif (has_custom_logo()): ?>
-                                <?php echo wp_kses_post(get_custom_logo()); ?>
                             <?php else: ?>
                                 <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-2" title="<?php bloginfo('description'); ?>">
                                     <i data-lucide="podcast" class="w-6 h-6"></i>

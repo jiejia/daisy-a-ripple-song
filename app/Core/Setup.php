@@ -35,13 +35,6 @@ add_action('after_setup_theme', function (): void {
         'style',
         'script',
     ]);
-    add_theme_support('custom-logo', [
-        'height' => 64,
-        'width' => 220,
-        'flex-height' => true,
-        'flex-width' => true,
-        'unlink-homepage-logo' => true,
-    ]);
     add_editor_style('editor-style.css');
 
     /**

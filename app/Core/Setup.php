@@ -42,18 +42,6 @@ add_action('after_setup_theme', function (): void {
         'flex-width' => true,
         'unlink-homepage-logo' => true,
     ]);
-    add_theme_support('custom-header', [
-        'width' => 1440,
-        'height' => 420,
-        'flex-width' => true,
-        'flex-height' => true,
-        'uploads' => true,
-        'default-text-color' => '111827',
-    ]);
-    add_theme_support('custom-background', [
-        'default-color' => 'f3f4f6',
-        'default-image' => '',
-    ]);
     add_editor_style('editor-style.css');
 
     /**

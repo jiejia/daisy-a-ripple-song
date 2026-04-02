@@ -883,8 +883,8 @@ msgid "You are not allowed to manage plugins on this site."
 msgstr "You are not allowed to manage plugins on this site."
 
 #: app/ThemeOptions/RecommendedPlugins.php:80
-msgid "These plugins are recommended for the A Ripple Song theme."
-msgstr "These plugins are recommended for the A Ripple Song theme."
+msgid "Plugins recommended for the A Ripple Song theme."
+msgstr "Plugins recommended for the A Ripple Song theme."
 
 #: app/ThemeOptions/RecommendedPlugins.php:85
 msgid "Slug"

@@ -77,7 +77,7 @@ class RecommendedPlugins
         ?>
         <div class="wrap">
             <h1><?php echo esc_html__('ARS Plugins', 'a-ripple-song'); ?></h1>
-            <p><?php echo esc_html__('These plugins are recommended for the A Ripple Song theme.', 'a-ripple-song'); ?></p>
+            <p><?php echo esc_html__('Plugins recommended for the A Ripple Song theme.', 'a-ripple-song'); ?></p>
             <style>
                 .ars-plugins-table th,
                 .ars-plugins-table td {
@@ -97,6 +97,14 @@ class RecommendedPlugins
                     margin: 0;
                 }
 
+                .ars-plugins-table code {
+                    background: #eef2ff;
+                    border-radius: 4px;
+                    color: #3730a3;
+                    display: inline-block;
+                    padding: 2px 6px;
+                }
+
                 .ars-plugins-table code,
                 .ars-plugins-table td {
                     overflow-wrap: anywhere;
@@ -105,17 +113,19 @@ class RecommendedPlugins
             </style>
             <table class="widefat striped ars-plugins-table">
                 <colgroup>
-                    <col style="width: 14%;">
-                    <col style="width: 17%;">
-                    <col style="width: 47%;">
+                    <col style="width: 13%;">
+                    <col style="width: 16%;">
+                    <col style="width: 37%;">
                     <col style="width: 10%;">
-                    <col style="width: 12%;">
+                    <col style="width: 10%;">
+                    <col style="width: 14%;">
                 </colgroup>
                 <thead>
                     <tr>
                         <th scope="col"><?php echo esc_html__('Name', 'a-ripple-song'); ?></th>
                         <th scope="col"><?php echo esc_html__('Slug', 'a-ripple-song'); ?></th>
                         <th scope="col"><?php echo esc_html__('Description', 'a-ripple-song'); ?></th>
+                        <th scope="col"><?php echo esc_html__('ARS Official', 'a-ripple-song'); ?></th>
                         <th scope="col"><?php echo esc_html__('Status', 'a-ripple-song'); ?></th>
                         <th scope="col"><?php echo esc_html__('Option', 'a-ripple-song'); ?></th>
                     </tr>
@@ -125,7 +135,8 @@ class RecommendedPlugins
                         <tr>
                             <td><?php echo esc_html((string) $plugin['name']); ?></td>
                             <td><code><?php echo esc_html((string) $plugin['slug']); ?></code></td>
-                            <td><?php echo esc_html((string) $plugin['description']); ?></td>
+                            <td class="ars-plugin-description"><?php echo wp_kses((string) $plugin['description'], ['code' => []]); ?></td>
+                            <td><?php echo esc_html((string) $plugin['officialLabel']); ?></td>
                             <td><?php echo esc_html((string) $plugin['statusLabel']); ?></td>
                             <td>
                                 <?php if ((string) $plugin['status'] === 'active') : ?>
@@ -372,7 +383,8 @@ class RecommendedPlugins
             $recommendedPlugins[] = [
                 'slug' => $pluginSlug,
                 'name' => isset($pluginHeader['Name']) && $pluginHeader['Name'] !== '' ? $pluginHeader['Name'] : (string) $pluginDefinition['name'],
-                'description' => (string) $pluginDefinition['description'],
+                'description' => static::formatDescription((string) $pluginDefinition['description']),
+                'officialLabel' => static::getOfficialLabel((bool) ($pluginDefinition['isOfficial'] ?? false)),
                 'pluginFile' => $pluginFile,
                 'status' => $pluginStatus,
                 'statusLabel' => static::getStatusLabel($pluginStatus),
@@ -395,8 +407,20 @@ class RecommendedPlugins
                 'slug' => PodcastPluginConstant::PLUGIN_SLUG,
                 'name' => PodcastPluginConstant::PLUGIN_NAME,
                 'description' => __('Podcast features for the A Ripple Song theme, including episode management and podcast feed support.', 'a-ripple-song'),
+                'isOfficial' => true,
             ],
         ];
+    }
+
+    /**
+     * Return the official label for a recommended plugin row.
+     *
+     * @param bool $isOfficial Whether the item is an official ARS package.
+     * @return string
+     */
+    protected static function getOfficialLabel(bool $isOfficial): string
+    {
+        return $isOfficial ? __('Yes', 'a-ripple-song') : __('No', 'a-ripple-song');
     }
 
     /**
@@ -416,6 +440,20 @@ class RecommendedPlugins
         }
 
         return __('Not Installed', 'a-ripple-song');
+    }
+
+    /**
+     * Format the plugin description markup for the recommended plugins table.
+     *
+     * @param string $description Raw plugin description text.
+     * @return string
+     */
+    protected static function formatDescription(string $description): string
+    {
+        /** @var string $themeName Theme name that should be highlighted inside the description text. */
+        $themeName = 'A Ripple Song';
+
+        return str_replace($themeName, '<code>' . esc_html($themeName) . '</code>', esc_html($description));
     }
 
     /**

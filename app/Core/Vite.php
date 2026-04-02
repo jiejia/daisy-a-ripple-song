@@ -852,7 +852,7 @@ class Vite
                 return;
             }
 
-            const matchingFrame = Array.from(document.querySelectorAll('iframe[title="Legacy Widget Preview"]')).find((frameElement) => {
+            const matchingFrame = getLegacyWidgetPreviewFrames().find((frameElement) => {
                 try {
                     return frameElement.contentWindow === event.source;
                 } catch (error) {
@@ -891,6 +891,36 @@ class Vite
         `;
 
         document.head.appendChild(styleElement);
+    }
+
+    /**
+     * Return whether an iframe looks like a legacy widget preview frame.
+     *
+     * This must not depend on localized attributes such as the iframe title.
+     *
+     * @param {HTMLIFrameElement} frameElement The iframe candidate.
+     * @return {boolean}
+     */
+    function isLegacyWidgetPreviewFrame(frameElement) {
+        if (!(frameElement instanceof HTMLIFrameElement)) {
+            return false;
+        }
+
+        const frameClassName = String(frameElement.className || '');
+        const frameSource = String(frameElement.getAttribute('src') || '');
+
+        return frameClassName.includes('wp-block-legacy-widget__edit-preview-iframe')
+            || frameSource.includes('legacy-widget-preview')
+            || (frameSource.includes('/wp/v2/widget-types/') && frameSource.includes('/render'));
+    }
+
+    /**
+     * Return all legacy widget preview iframes currently rendered in the editor.
+     *
+     * @return {HTMLIFrameElement[]}
+     */
+    function getLegacyWidgetPreviewFrames() {
+        return Array.from(document.querySelectorAll('iframe')).filter((frameElement) => isLegacyWidgetPreviewFrame(frameElement));
     }
 
     /**
@@ -933,7 +963,7 @@ class Vite
     function applyThemeEverywhere() {
         ensureWidgetEditorShellStyles();
 
-        document.querySelectorAll('iframe[title="Legacy Widget Preview"]').forEach((frameElement) => {
+        getLegacyWidgetPreviewFrames().forEach((frameElement) => {
             applyThemeToFrame(frameElement);
         });
     }

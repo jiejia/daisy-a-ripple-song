@@ -339,7 +339,7 @@ msgid "You are not allowed to manage plugins on this site."
 msgstr ""
 
 #: app/ThemeOptions/RecommendedPlugins.php:80
-msgid "These plugins are recommended for the A Ripple Song theme."
+msgid "Plugins recommended for the A Ripple Song theme."
 msgstr ""
 
 #: app/ThemeOptions/RecommendedPlugins.php:85
@@ -356,6 +356,18 @@ msgstr ""
 
 #: app/ThemeOptions/RecommendedPlugins.php:88
 msgid "Option"
+msgstr ""
+
+#: app/ThemeOptions/RecommendedPlugins.php:109
+msgid "ARS Official"
+msgstr ""
+
+#: app/ThemeOptions/RecommendedPlugins.php:399
+msgid "Yes"
+msgstr ""
+
+#: app/ThemeOptions/RecommendedPlugins.php:399
+msgid "No"
 msgstr ""
 
 #: app/ThemeOptions/RecommendedPlugins.php:102

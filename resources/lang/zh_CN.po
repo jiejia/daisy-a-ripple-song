@@ -776,7 +776,7 @@ msgstr ""
 #: app/Core/Helper.php:609
 #: app/ThemeOptions/RecommendedPlugins.php:84
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #: app/Core/Helper.php:611
 msgid "Email"
@@ -883,8 +883,8 @@ msgid "You are not allowed to manage plugins on this site."
 msgstr "您无权管理此站点上的插件。"
 
 #: app/ThemeOptions/RecommendedPlugins.php:80
-msgid "These plugins are recommended for the A Ripple Song theme."
-msgstr "这些插件是 A Ripple Song 主题推荐使用的插件。"
+msgid "Plugins recommended for the A Ripple Song theme."
+msgstr "A Ripple Song 主题推荐使用的插件"
 
 #: app/ThemeOptions/RecommendedPlugins.php:85
 msgid "Slug"
@@ -991,3 +991,15 @@ msgstr "该插件已成功停用。"
 #: app/ThemeOptions/RecommendedPlugins.php:88
 msgid "Option"
 msgstr "操作"
+
+#: app/ThemeOptions/RecommendedPlugins.php:109
+msgid "ARS Official"
+msgstr "ARS 官方"
+
+#: app/ThemeOptions/RecommendedPlugins.php:399
+msgid "Yes"
+msgstr "是"
+
+#: app/ThemeOptions/RecommendedPlugins.php:399
+msgid "No"
+msgstr "否"

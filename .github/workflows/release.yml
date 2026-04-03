@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
     permissions:
       contents: write
 
@@ -27,6 +30,7 @@ jobs:
         with:
           node-version: "22"
           cache: npm
+          cache-dependency-path: package-lock.json
 
       - name: Install PHP dependencies
         run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader

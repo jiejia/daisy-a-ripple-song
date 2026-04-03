@@ -2,7 +2,7 @@
 
 namespace App\ThemeOptions;
 
-use App\Core\CarbonCompat;
+use App\Core\Carbon;
 
 /**
  * Social links option helper.
@@ -79,7 +79,7 @@ class SocialLinks
 
         foreach (static::getPlatforms() as $platformKey => $platformData) {
             /** @var string $platformUrl Raw saved URL for the current platform. */
-            $platformUrl = trim((string) CarbonCompat::getThemeOption(static::SETTING_PREFIX . $platformKey));
+            $platformUrl = trim((string) Carbon::getThemeOption(static::SETTING_PREFIX . $platformKey));
 
             if ($platformUrl === '') {
                 continue;

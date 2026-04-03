@@ -24,8 +24,7 @@ if (file_exists($scoperAutoload)) {
 }
 
 require_once __DIR__ . '/app/Core/Helper.php';
-require_once __DIR__ . '/app/Core/CarbonCompat.php';
-require_once __DIR__ . '/app/Core/CarbonFieldsI18n.php';
+require_once __DIR__ . '/app/Core/Carbon.php';
 require_once __DIR__ . '/app/Core/Vite.php';
 require_once __DIR__ . '/app/Core/Widget.php';
 require_once __DIR__ . '/app/Core/Setup.php';
@@ -40,7 +39,7 @@ add_action('wp_enqueue_scripts', [$vite, 'enqueueAssets']);
 add_action('admin_enqueue_scripts', [$vite, 'enqueueWidgetEditorAssets']);
 add_action('enqueue_block_assets', [$vite, 'enqueueWidgetEditorAssets']);
 
-/** @var App\Core\CarbonFieldsI18n $carbonFieldsI18n Carbon Fields PHP translation loader. */
-$carbonFieldsI18n = new App\Core\CarbonFieldsI18n();
+/** @var App\Core\Carbon $carbonFieldsI18n Carbon Fields runtime bridge and PHP translation loader. */
+$carbonFieldsI18n = new App\Core\Carbon();
 
 add_action('admin_init', [$carbonFieldsI18n, 'loadPhpTextdomain']);

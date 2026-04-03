@@ -4,7 +4,7 @@ namespace App\ThemeOptions;
 
 use App\Constants\PodcastPluginConstant;
 use App\Constants\ThemeConstant;
-use App\Core\CarbonCompat;
+use App\Core\Carbon;
 
 /**
  * Theme general options powered by Carbon Fields.
@@ -59,7 +59,7 @@ class General
             return;
         }
 
-        CarbonCompat::bootCarbonFields();
+        Carbon::bootCarbonFields();
     }
 
     /**
@@ -70,10 +70,10 @@ class General
     public static function registerFields(): void
     {
         /** @var null|string $containerClass Carbon Fields container class resolved for scoped or unscoped builds. */
-        $containerClass = CarbonCompat::getContainerClass();
+        $containerClass = Carbon::getContainerClass();
 
         /** @var null|string $fieldClass Carbon Fields field class resolved for scoped or unscoped builds. */
-        $fieldClass = CarbonCompat::getFieldClass();
+        $fieldClass = Carbon::getFieldClass();
 
         if ($containerClass === null || $fieldClass === null) {
             return;
@@ -260,7 +260,7 @@ class General
     public static function getThemeOption(string $key, string $default = ''): string
     {
         /** @var mixed $optionValue Raw Carbon Fields option value. */
-        $optionValue = CarbonCompat::getThemeOption($key);
+        $optionValue = Carbon::getThemeOption($key);
 
         return is_string($optionValue) && $optionValue !== '' ? $optionValue : $default;
     }
@@ -1004,7 +1004,7 @@ class General
         /** @var string $logoUrl Sanitized logo URL from the custom uploader field. */
         $logoUrl = esc_url_raw(wp_unslash((string) $_POST['_crb_site_logo']));
 
-        CarbonCompat::setThemeOption('crb_site_logo', $logoUrl);
+        Carbon::setThemeOption('crb_site_logo', $logoUrl);
     }
 
     /**
@@ -1045,7 +1045,7 @@ class General
     protected static function getSocialLinkFields(): array
     {
         /** @var null|string $fieldClass Carbon Fields field class resolved for scoped or unscoped builds. */
-        $fieldClass = CarbonCompat::getFieldClass();
+        $fieldClass = Carbon::getFieldClass();
 
         if ($fieldClass === null) {
             return [];

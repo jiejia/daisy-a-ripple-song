@@ -8,6 +8,7 @@ namespace App\Core;
 class CarbonCompat
 {
     /** @var string $scopedPrefix Namespace prefix used by PHP-Scoper in release builds. */
+    protected const SHARED_PREFIX = '\\A_Ripple_Song_Podcast\\Vendor\\';
     protected const SCOPED_PREFIX = '\\A_Ripple_Song_Theme\\Vendor\\';
 
     /**
@@ -18,7 +19,11 @@ class CarbonCompat
     public static function bootCarbonFields(): void
     {
         /** @var null|string $carbonClass Bootable Carbon Fields root class. */
-        $carbonClass = static::resolveClass('\\Carbon_Fields\\Carbon_Fields', static::SCOPED_PREFIX . 'Carbon_Fields\\Carbon_Fields');
+        $carbonClass = static::resolveClass(
+            '\\Carbon_Fields\\Carbon_Fields',
+            static::SHARED_PREFIX . 'Carbon_Fields\\Carbon_Fields',
+            static::SCOPED_PREFIX . 'Carbon_Fields\\Carbon_Fields'
+        );
 
         if ($carbonClass !== null && method_exists($carbonClass, 'boot')) {
             $carbonClass::boot();
@@ -32,7 +37,11 @@ class CarbonCompat
      */
     public static function getContainerClass(): ?string
     {
-        return static::resolveClass('\\Carbon_Fields\\Container', static::SCOPED_PREFIX . 'Carbon_Fields\\Container');
+        return static::resolveClass(
+            '\\Carbon_Fields\\Container',
+            static::SHARED_PREFIX . 'Carbon_Fields\\Container',
+            static::SCOPED_PREFIX . 'Carbon_Fields\\Container'
+        );
     }
 
     /**
@@ -42,7 +51,11 @@ class CarbonCompat
      */
     public static function getFieldClass(): ?string
     {
-        return static::resolveClass('\\Carbon_Fields\\Field', static::SCOPED_PREFIX . 'Carbon_Fields\\Field');
+        return static::resolveClass(
+            '\\Carbon_Fields\\Field',
+            static::SHARED_PREFIX . 'Carbon_Fields\\Field',
+            static::SCOPED_PREFIX . 'Carbon_Fields\\Field'
+        );
     }
 
     /**
@@ -52,7 +65,11 @@ class CarbonCompat
      */
     protected static function getHelperClass(): ?string
     {
-        return static::resolveClass('\\Carbon_Fields\\Helper\\Helper', static::SCOPED_PREFIX . 'Carbon_Fields\\Helper\\Helper');
+        return static::resolveClass(
+            '\\Carbon_Fields\\Helper\\Helper',
+            static::SHARED_PREFIX . 'Carbon_Fields\\Helper\\Helper',
+            static::SCOPED_PREFIX . 'Carbon_Fields\\Helper\\Helper'
+        );
     }
 
     /**
@@ -107,20 +124,17 @@ class CarbonCompat
     }
 
     /**
-     * Resolve a class that may exist in scoped or unscoped form.
+     * Resolve a class that may exist in unscoped or scoped form.
      *
-     * @param string $unscoped Unscoped class name.
-     * @param string $scoped Scoped class name.
+     * @param string ...$candidates Class names in descending priority order.
      * @return null|string
      */
-    protected static function resolveClass(string $unscoped, string $scoped): ?string
+    protected static function resolveClass(string ...$candidates): ?string
     {
-        if ($scoped !== '' && class_exists($scoped)) {
-            return $scoped;
-        }
-
-        if ($unscoped !== '' && class_exists($unscoped)) {
-            return $unscoped;
+        foreach ($candidates as $candidate) {
+            if ($candidate !== '' && class_exists($candidate)) {
+                return $candidate;
+            }
         }
 
         return null;

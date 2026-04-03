@@ -36,7 +36,7 @@ class General
      */
     public static function boot(): void
     {
-        add_action('after_setup_theme', [static::class, 'bootCarbon'], 5);
+        add_action('after_setup_theme', [static::class, 'bootCarbon'], 15);
         add_action('carbon_fields_register_fields', [static::class, 'registerFields']);
         add_action('admin_menu', [static::class, 'renameGeneralSubmenu'], 1000);
         add_action('admin_enqueue_scripts', [static::class, 'enqueueAdminAssets']);

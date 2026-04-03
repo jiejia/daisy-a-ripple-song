@@ -1,4 +1,4 @@
-<div class="rounded-lg bg-base-100 p-4">
+<div class="">
     <?php if ($showMembers && !empty($members)): ?>
         <h2 class="text-lg font-bold"><?php echo esc_html($membersTitle); ?></h2>
         <div class="mt-4 grid grid-flow-row gap-2">

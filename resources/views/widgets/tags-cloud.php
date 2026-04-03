@@ -7,7 +7,7 @@
  * @var \WP_Term[] $tags
  */
 ?>
-<div class="rounded-lg bg-base-100 p-4">
+<div class="">
     <h2 class="text-lg font-bold"><?php echo esc_html($title); ?></h2>
     <?php if (empty($tags)): ?>
         <div class="py-8 text-center">

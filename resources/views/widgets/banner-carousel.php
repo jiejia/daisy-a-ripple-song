@@ -7,7 +7,7 @@
  */
 ?>
 <?php if (empty($slides)): ?>
-    <div class="w-full rounded-lg bg-base-100 p-4">
+    <div class="w-full">
         <div class="flex h-48 items-center justify-center rounded-lg bg-base-200">
             <div class="text-center text-base-content/50">
                 <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-2 h-12 w-12 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -19,7 +19,7 @@
         </div>
     </div>
 <?php else: ?>
-    <div class="w-full rounded-lg bg-base-100 p-4">
+    <div class="w-full">
         <div class="relative">
             <div id="<?php echo esc_attr($carouselId); ?>" class="ars-banner-carousel-track flex w-full snap-x snap-mandatory gap-0 overflow-x-auto rounded-lg scroll-smooth">
                 <?php foreach ($slides as $slide): ?>

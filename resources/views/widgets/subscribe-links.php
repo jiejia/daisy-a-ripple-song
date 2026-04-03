@@ -8,7 +8,7 @@
  */
 ?>
 <?php if (!empty(array_filter($links))): ?>
-    <div class="rounded-lg bg-base-100 p-4">
+    <div class="">
         <h2 class="text-lg font-bold"><?php echo esc_html($title); ?></h2>
         <div class="mt-2 grid grid-flow-row gap-2">
             <?php if (!empty($links['apple'])): ?>

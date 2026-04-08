@@ -170,6 +170,15 @@ class Carbon
             }
 
             if (strpos($candidate, '\\Carbon_Fields\\') === 0) {
+                /**
+                 * Allow unscoped Carbon Fields autoloading only when no scoped build
+                 * has been booted yet. Source checkouts depend on the Composer-loaded
+                 * unscoped classes, while scoped releases must avoid probing them.
+                 */
+                if (!$sharedBooted && !$themeBooted && class_exists($candidate)) {
+                    return $candidate;
+                }
+
                 continue;
             }
 

@@ -1,17 +1,17 @@
 # A Ripple Song
 
-A Ripple Song é um tema clássico para WordPress com player de áudio, páginas de podcast e widgets integrados. Em conjunto com o [plugin de podcast](https://github.com/jiejia/a-ripple-song-podcast), ele permite publicar e gerenciar podcasts, além de gerar o RSS do podcast para sincronização com as principais plataformas.
+A Ripple Song é um tema clássico para WordPress. Depois de instalar o [plugin de podcast complementar](https://github.com/jiejia/a-ripple-song-podcast), você pode ativar o player de áudio, os widgets de podcast e outros recursos relacionados.
 
 <img width="" src="../screenshot.png"/>
 
 ## Recursos
 
 - 56 esquemas de cores bem elaborados (26 temas claros e 26 temas escuros)
-- Player de áudio imersivo
 - Suporte à internacionalização
 - Rastreamento de dados
 - Transições de página fluidas com Swup
-- Vários widgets alinhados ao estilo do tema
+- Vários widgets alinhados ao estilo do tema (alguns recursos exigem o plugin de podcast)
+- Player de áudio imersivo (exige o plugin de podcast)
 
 ## Links
 

@@ -1,17 +1,17 @@
 # A Ripple Song
 
-A Ripple Song은 오디오 플레이어, 팟캐스트 페이지, 위젯을 기본 제공하는 클래식 WordPress 테마입니다. [팟캐스트 플러그인](https://github.com/jiejia/a-ripple-song-podcast)과 함께 사용하면 팟캐스트 발행과 관리, 그리고 주요 팟캐스트 플랫폼에 배포할 Podcast RSS 생성까지 지원합니다.
+A Ripple Song은 클래식 WordPress 테마입니다. 전용 [팟캐스트 플러그인](https://github.com/jiejia/a-ripple-song-podcast)을 설치하면 오디오 플레이어와 팟캐스트 위젯 등 관련 기능을 사용할 수 있습니다.
 
 <img width="" src="../screenshot.png"/>
 
 ## 특징
 
 - 56가지의 세련된 테마 색상 조합(26가지 라이트 테마와 26가지 다크 테마)
-- 몰입감 있는 오디오 플레이어
 - 국제화 지원
 - 데이터 추적
 - Swup 기반의 매끄러운 페이지 전환
-- 테마 스타일에 어울리는 다양한 위젯
+- 테마 스타일에 어울리는 다양한 위젯(일부 기능은 팟캐스트 플러그인 필요)
+- 몰입감 있는 오디오 플레이어(팟캐스트 플러그인 필요)
 
 ## 링크
 

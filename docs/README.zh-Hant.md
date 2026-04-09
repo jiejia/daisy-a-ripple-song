@@ -1,17 +1,17 @@
 # A Ripple Song
 
-A Ripple Song 是一款經典 WordPress 佈景主題，內建音訊播放器、播客頁面與小工具，搭配[播客外掛](https://github.com/jiejia/a-ripple-song-podcast)可實現播客的發佈與管理，並產生播客 RSS 同步到各大播客平台。
+A Ripple Song 是一款經典 WordPress 佈景主題，安裝配套[播客外掛](https://github.com/jiejia/a-ripple-song-podcast)後，即可啟用音訊播放器、播客小工具等功能。
 
 <img width="" src="../screenshot.png"/>
 
 ## 特性
 
 - 56 套精美主題配色（26 套亮色主題和 26 套暗色主題）
-- 沉浸式音訊播放器
 - 國際化支援
 - 數據追蹤
 - 基於 Swup 的無刷新頁面切換技術
-- 多個符合主題風格的小工具
+- 多個符合主題風格的小工具（部分功能需安裝播客外掛）
+- 沉浸式音訊播放器（需安裝播客外掛）
 
 ## 連結
 

@@ -1,6 +1,6 @@
-# 脈動之音
+# A Ripple Song
 
-脈動之音是一款經典 WordPress 佈景主題，內建音訊播放器、播客頁面與小工具，搭配[播客外掛](https://github.com/jiejia/a-ripple-song-podcast)可實現播客的發佈與管理，並產生播客 RSS 同步到各大播客平台。
+A Ripple Song 是一款經典 WordPress 佈景主題，內建音訊播放器、播客頁面與小工具，搭配[播客外掛](https://github.com/jiejia/a-ripple-song-podcast)可實現播客的發佈與管理，並產生播客 RSS 同步到各大播客平台。
 
 <img width="" src="../screenshot.png"/>
 

@@ -1,6 +1,6 @@
 # A Ripple Song
 
-A Ripple Song は、オーディオプレーヤー、ポッドキャストページ、ウィジェットを標準搭載したクラシックな WordPress テーマです。[ポッドキャストプラグイン](https://github.com/jiejia/a-ripple-song-podcast)と組み合わせることで、ポッドキャストの公開と管理、さらに主要なポッドキャストプラットフォーム向けの Podcast RSS 生成まで行えます。
+A Ripple Song は、オーディオプレーヤー、ポッドキャストページ、ウィジェットを備えたクラシックな WordPress テーマです。[ポッドキャストプラグイン](https://github.com/jiejia/a-ripple-song-podcast)と組み合わせることで、ポッドキャストの公開と管理、さらに主要なポッドキャストプラットフォーム向けの Podcast RSS 生成まで行えます。
 
 <img width="" src="../screenshot.png"/>
 

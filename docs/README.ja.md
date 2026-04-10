@@ -13,6 +13,20 @@ A Ripple Song はクラシックな WordPress テーマです。対応する[ポ
 - テーマのスタイルに合わせた複数のウィジェット（一部機能はポッドキャストプラグインが必要）
 - 没入感のあるオーディオプレーヤー（ポッドキャストプラグインが必要）
 
+## 技術スタック
+
+- [Vite](https://github.com/vitejs/vite) - フロントエンド開発とビルドのためのツール
+- [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss) - ユーティリティファーストな CSS フレームワーク
+- [daisyUI](https://github.com/saadeghi/daisyui) - Tailwind CSS ベースの UI コンポーネントライブラリ
+- [Alpine.js](https://github.com/alpinejs/alpine) - 軽量なフロントエンドインタラクションフレームワーク
+- [Lucide](https://github.com/lucide-icons/lucide) - オープンソースのアイコンライブラリ
+- [Simple Icons](https://github.com/simple-icons/simple-icons) - ブランドアイコンライブラリ
+- [Swup](https://github.com/swup/swup) - ページ遷移ライブラリ
+- [Howler.js](https://github.com/goldfire/howler.js) - 音声再生ライブラリ
+- [audioMotion-analyzer](https://github.com/hvianna/audioMotion-analyzer) - 音声スペクトラム可視化ライブラリ
+- [Carbon Fields](https://github.com/htmlburger/carbon-fields) - WordPress 用カスタムフィールドフレームワーク
+- [PHP-Scoper](https://github.com/humbug/php-scoper) - PHP 名前空間分離ツール
+
 ## リンク
 
 - [公式サイト](https://doc-podcast.aripplesong.me/)

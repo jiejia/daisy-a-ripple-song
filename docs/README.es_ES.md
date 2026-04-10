@@ -13,6 +13,20 @@ A Ripple Song es un tema clásico de WordPress. Después de instalar el [plugin 
 - Varios widgets adaptados al estilo del tema (algunas funciones requieren el plugin de podcast)
 - Reproductor de audio inmersivo (requiere el plugin de podcast)
 
+## Stack Técnico
+
+- [Vite](https://github.com/vitejs/vite) - Herramienta de desarrollo y compilación frontend
+- [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss) - Framework CSS de utilidades
+- [daisyUI](https://github.com/saadeghi/daisyui) - Biblioteca de componentes UI basada en Tailwind CSS
+- [Alpine.js](https://github.com/alpinejs/alpine) - Framework ligero de interacción frontend
+- [Lucide](https://github.com/lucide-icons/lucide) - Biblioteca de iconos open source
+- [Simple Icons](https://github.com/simple-icons/simple-icons) - Biblioteca de iconos de marcas
+- [Swup](https://github.com/swup/swup) - Biblioteca de transiciones de página
+- [Howler.js](https://github.com/goldfire/howler.js) - Biblioteca de reproducción de audio
+- [audioMotion-analyzer](https://github.com/hvianna/audioMotion-analyzer) - Biblioteca de visualización del espectro de audio
+- [Carbon Fields](https://github.com/htmlburger/carbon-fields) - Framework de campos personalizados para WordPress
+- [PHP-Scoper](https://github.com/humbug/php-scoper) - Herramienta de aislamiento de espacios de nombres PHP
+
 ## Enlaces
 
 - [Sitio oficial](https://doc-podcast.aripplesong.me/)

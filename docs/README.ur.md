@@ -13,6 +13,20 @@ A Ripple Song ایک کلاسک WordPress تھیم ہے۔ معاون [پوڈکا
 - تھیم کے انداز سے مطابقت رکھنے والے متعدد ویجٹس (کچھ فیچرز کے لیے پوڈکاسٹ پلگ ان درکار ہے)
 - غرق کر دینے والا آڈیو پلیئر (پوڈکاسٹ پلگ ان درکار ہے)
 
+## ٹیکنالوجی اسٹیک
+
+- [Vite](https://github.com/vitejs/vite) - فرنٹ اینڈ ڈویلپمنٹ اور بلڈ ٹول
+- [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss) - یوٹیلٹی فرسٹ CSS فریم ورک
+- [daisyUI](https://github.com/saadeghi/daisyui) - Tailwind CSS پر مبنی UI کمپوننٹ لائبریری
+- [Alpine.js](https://github.com/alpinejs/alpine) - ہلکا فرنٹ اینڈ انٹریکشن فریم ورک
+- [Lucide](https://github.com/lucide-icons/lucide) - اوپن سورس آئیکن لائبریری
+- [Simple Icons](https://github.com/simple-icons/simple-icons) - برانڈ آئیکن لائبریری
+- [Swup](https://github.com/swup/swup) - صفحہ منتقلی کی لائبریری
+- [Howler.js](https://github.com/goldfire/howler.js) - آڈیو پلے بیک لائبریری
+- [audioMotion-analyzer](https://github.com/hvianna/audioMotion-analyzer) - آڈیو اسپیکٹرم ویژولائزیشن لائبریری
+- [Carbon Fields](https://github.com/htmlburger/carbon-fields) - WordPress کسٹم فیلڈ فریم ورک
+- [PHP-Scoper](https://github.com/humbug/php-scoper) - PHP نیم اسپیس آئسولیشن ٹول
+
 ## روابط
 
 - [آفیشل ویب سائٹ](https://doc-podcast.aripplesong.me/)

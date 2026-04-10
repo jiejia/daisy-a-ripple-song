@@ -13,6 +13,18 @@ A Ripple Song 是一个经典 WordPress 主题，安装[播客插件](https://gi
 - 多个适配主题风格的 widgets(部分功能需安装播客插件)
 - 沉浸式音频播放器(需安装播客插件)
 
+## 技术栈
+- [Vite](https://github.com/vitejs/vite) - 前端开发与构建工具
+- [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss) - 原子化 CSS 框架
+- [daisyUI](https://github.com/saadeghi/daisyui) - 基于 Tailwind CSS 的 UI 组件库
+- [Alpine.js](https://github.com/alpinejs/alpine) - 轻量级前端交互框架
+- [Lucide](https://github.com/lucide-icons/lucide) - 开源图标库
+- [Simple Icons](https://github.com/simple-icons/simple-icons) - 品牌图标库
+- [Swup](https://github.com/swup/swup) - 无刷新页面切换库
+- [Howler.js](https://github.com/goldfire/howler.js) - 音频播放库
+- [audioMotion-analyzer](https://github.com/hvianna/audioMotion-analyzer) - 音频频谱可视化库
+- [Carbon Fields](https://github.com/htmlburger/carbon-fields) - WordPress 自定义字段框架
+- [PHP-Scoper](https://github.com/humbug/php-scoper) - PHP 命名空间隔离工具
 
 ## 链接
 - [官网](https://doc-podcast.aripplesong.me/)

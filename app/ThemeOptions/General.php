@@ -76,7 +76,7 @@ class General
         }
 
         /** @var \Carbon_Fields\Container\Container $themeContainer General settings container. */
-        $themeContainer = $containerClass::make('theme_options', __('Theme Settings', 'a-ripple-song'))
+        $themeContainer = $containerClass::make('theme_options', __('General', 'a-ripple-song'))
             ->set_page_file(static::GENERAL_PAGE_FILE)
             ->set_page_menu_title(__('Theme Settings', 'a-ripple-song'))
             ->set_icon('dashicons-admin-settings')

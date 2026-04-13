@@ -2,7 +2,6 @@
 
 namespace App\ThemeOptions;
 
-use App\Constants\PodcastPluginConstant;
 use App\Constants\ThemeConstant;
 use App\Core\Carbon;
 
@@ -11,9 +10,6 @@ use App\Core\Carbon;
  */
 class General
 {
-    /** @var string $pluginSettingsPageFile Existing plugin settings landing page file. */
-    protected const PLUGIN_SETTINGS_PAGE_FILE = 'ars_settings.php';
-
     /** @var string $generalPageFile Theme general settings page file. */
     protected const GENERAL_PAGE_FILE = 'ars_theme_general.php';
 
@@ -82,16 +78,9 @@ class General
         /** @var \Carbon_Fields\Container\Container $themeContainer General settings container. */
         $themeContainer = $containerClass::make('theme_options', __('Theme Settings', 'a-ripple-song'))
             ->set_page_file(static::GENERAL_PAGE_FILE)
-            ->set_page_menu_title(__('General', 'a-ripple-song'));
-
-        if (static::hasPluginSettingsMenu()) {
-            $themeContainer->set_page_parent(static::PLUGIN_SETTINGS_PAGE_FILE);
-        } else {
-            $themeContainer
-                ->set_page_menu_title(__('A Ripple Song', 'a-ripple-song'))
-                ->set_icon('dashicons-admin-settings')
-                ->set_page_menu_position(60);
-        }
+            ->set_page_menu_title(__('Theme Settings', 'a-ripple-song'))
+            ->set_icon('dashicons-admin-settings')
+            ->set_page_menu_position(60);
 
         $themeContainer->add_fields([
             $fieldClass::make('html', 'crb_site_logo_uploader', __('Site Logo', 'a-ripple-song'))
@@ -145,7 +134,7 @@ class General
 
         $containerClass::make('theme_options', __('Social Links', 'a-ripple-song'))
             ->set_page_file(static::SOCIAL_PAGE_FILE)
-            ->set_page_parent(static::getSettingsParent())
+            ->set_page_parent($themeContainer)
             ->add_fields(static::getSocialLinkFields());
     }
 
@@ -156,7 +145,7 @@ class General
      */
     public static function renameGeneralSubmenu(): void
     {
-        if (static::hasPluginSettingsMenu() || !static::$themeContainer) {
+        if (!static::$themeContainer) {
             return;
         }
 
@@ -196,16 +185,6 @@ class General
     }
 
     /**
-     * Return whether the podcast plugin already provides the shared settings menu.
-     *
-     * @return bool
-     */
-    public static function hasPluginSettingsMenu(): bool
-    {
-        return IS_PODCAST_PLUGIN_ACTIVATED;
-    }
-
-    /**
      * Return whether the current admin request targets the theme general settings page.
      *
      * @return bool
@@ -220,34 +199,6 @@ class General
         $page = isset($_GET['page']) ? sanitize_text_field(wp_unslash((string) $_GET['page'])) : '';
 
         return $page === static::GENERAL_PAGE_FILE;
-    }
-
-    /**
-     * Return the effective parent settings page.
-     *
-     * @return string|\Carbon_Fields\Container\Container
-     */
-    public static function getSettingsParent()
-    {
-        if (static::hasPluginSettingsMenu()) {
-            return static::PLUGIN_SETTINGS_PAGE_FILE;
-        }
-
-        return static::$themeContainer ?: static::GENERAL_PAGE_FILE;
-    }
-
-    /**
-     * Return the admin menu parent slug for custom theme submenu pages.
-     *
-     * @return string
-     */
-    public static function getAdminMenuParentFile(): string
-    {
-        if (static::hasPluginSettingsMenu()) {
-            return static::PLUGIN_SETTINGS_PAGE_FILE;
-        }
-
-        return static::GENERAL_PAGE_FILE;
     }
 
     /**

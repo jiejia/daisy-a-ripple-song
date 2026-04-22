@@ -23,22 +23,22 @@ if (file_exists($scoperAutoload)) {
     require_once $autoload;
 }
 
-require_once __DIR__ . '/app/Core/Helper.php';
-require_once __DIR__ . '/app/Core/Carbon.php';
-require_once __DIR__ . '/app/Core/Vite.php';
-require_once __DIR__ . '/app/Core/Widget.php';
-require_once __DIR__ . '/app/Core/Setup.php';
+require_once __DIR__ . '/src/Core/Helper.php';
+require_once __DIR__ . '/src/Core/Carbon.php';
+require_once __DIR__ . '/src/Core/Vite.php';
+require_once __DIR__ . '/src/Core/Widget.php';
+require_once __DIR__ . '/src/Core/Setup.php';
 
-App\ThemeOptions\General::boot();
+ARippleSong\Themes\Daisy\ThemeOptions\General::boot();
 
-/** @var App\Core\Vite $vite Theme asset loader shared across frontend and editor preview hooks. */
-$vite = new App\Core\Vite();
+/** @var ARippleSong\Themes\Daisy\Core\Vite $vite Theme asset loader shared across frontend and editor preview hooks. */
+$vite = new ARippleSong\Themes\Daisy\Core\Vite();
 
 add_action('wp_enqueue_scripts', [$vite, 'enqueueAssets']);
 add_action('admin_enqueue_scripts', [$vite, 'enqueueWidgetEditorAssets']);
 add_action('enqueue_block_assets', [$vite, 'enqueueWidgetEditorAssets']);
 
-/** @var App\Core\Carbon $carbonFieldsI18n Carbon Fields runtime bridge and PHP translation loader. */
-$carbonFieldsI18n = new App\Core\Carbon();
+/** @var ARippleSong\Themes\Daisy\Core\Carbon $carbonFieldsI18n Carbon Fields runtime bridge and PHP translation loader. */
+$carbonFieldsI18n = new ARippleSong\Themes\Daisy\Core\Carbon();
 
 add_action('admin_init', [$carbonFieldsI18n, 'loadPhpTextdomain']);

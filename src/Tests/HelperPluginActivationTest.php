@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests;
+namespace ARippleSong\Themes\Daisy\Tests;
 
-use App\Constants\PodcastPluginConstant;
-use App\Core\Helper;
+use ARippleSong\Themes\Daisy\Constants\PodcastPluginConstant;
+use ARippleSong\Themes\Daisy\Core\Helper;
 use PHPUnit\Framework\TestCase;
 
 /**

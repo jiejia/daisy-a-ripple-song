@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Widgets;
+namespace ARippleSong\Themes\Daisy\Widgets;
 
-use App\Constants\PodcastPluginConstant;
-use App\Core\Widget as WidgetCore;
+use ARippleSong\Themes\Daisy\Constants\PodcastPluginConstant;
+use ARippleSong\Themes\Daisy\Core\Widget as WidgetCore;
 
 /**
  * Authors Widget
@@ -228,8 +228,8 @@ class AuthorsWidget extends \WP_Widget
                 + (int) ($episodeCountsByUser[$user->ID] ?? 0);
 
             /** @var int $participatedCount Number of podcast appearances linked through helper data. */
-            $participatedCount = is_callable([\App\Core\Helper::class, 'getParticipatedPodcastIds'])
-                ? count(\App\Core\Helper::getParticipatedPodcastIds($user->ID))
+            $participatedCount = is_callable([\ARippleSong\Themes\Daisy\Core\Helper::class, 'getParticipatedPodcastIds'])
+                ? count(\ARippleSong\Themes\Daisy\Core\Helper::getParticipatedPodcastIds($user->ID))
                 : 0;
 
             /** @var int $postCount Total content count displayed next to the user name. */

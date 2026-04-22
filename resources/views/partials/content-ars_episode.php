@@ -28,7 +28,7 @@ $audioFile = (string) get_post_meta($postId, '_audio_file', true);
  *
  * @var array<string, mixed> $episodeData
  */
-$episodeData = \App\Core\Helper::getEpisodeData($postId);
+$episodeData = \ARippleSong\Themes\Daisy\Core\Helper::getEpisodeData($postId);
 
 /**
  * Resolve the title shown in the episode card.

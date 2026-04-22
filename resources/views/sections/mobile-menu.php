@@ -11,7 +11,7 @@
       <ul class="menu p-4 w-full">
         <?php
         /** Fetch the structured menu tree used by the mobile navigation. */
-        $menuItems = \App\Core\Helper::getMenuItems();
+        $menuItems = \ARippleSong\Themes\Daisy\Core\Helper::getMenuItems();
 
         /** Resolve the current absolute URL for active-state comparison. */
         $currentUrl = home_url(wp_unslash($_SERVER['REQUEST_URI'] ?? '/'));
@@ -26,7 +26,7 @@
 
           /** Determine the active and current-page state for the menu node. */
           $isCurrentPage = $item->url === $currentUrl;
-          $isActive = \App\Core\Helper::isMenuItemActive($item, $children, $currentUrl);
+          $isActive = \ARippleSong\Themes\Daisy\Core\Helper::isMenuItemActive($item, $children, $currentUrl);
           $activeClass = $isActive ? 'active font-semibold' : '';
           ?>
 
@@ -48,7 +48,7 @@
 
                     /** Determine the active and current-page state for the child node. */
                     $childIsCurrentPage = $child->url === $currentUrl;
-                    $childIsActive = \App\Core\Helper::isMenuItemActive($child, $grandchildren, $currentUrl);
+                    $childIsActive = \ARippleSong\Themes\Daisy\Core\Helper::isMenuItemActive($child, $grandchildren, $currentUrl);
                     $childActiveClass = $childIsActive ? 'active font-semibold' : '';
                     ?>
 

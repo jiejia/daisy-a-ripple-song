@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Core;
+namespace ARippleSong\Themes\Daisy\Core;
 
-use App\Constants\PodcastPluginConstant;
-use App\ThemeOptions\General;
+use ARippleSong\Themes\Daisy\Constants\PodcastPluginConstant;
+use ARippleSong\Themes\Daisy\ThemeOptions\General;
 
 /**
  * Vite
@@ -457,13 +457,13 @@ class Vite
     private function getWidgetEditorThemeScript(): string
     {
         /** @var string $lightTheme Default light theme configured for the site. */
-        $lightTheme = class_exists(\App\ThemeOptions\General::class)
-            ? \App\ThemeOptions\General::getLightTheme()
+        $lightTheme = class_exists(\ARippleSong\Themes\Daisy\ThemeOptions\General::class)
+            ? \ARippleSong\Themes\Daisy\ThemeOptions\General::getLightTheme()
             : 'retro';
 
         /** @var string $darkTheme Default dark theme configured for the site. */
-        $darkTheme = class_exists(\App\ThemeOptions\General::class)
-            ? \App\ThemeOptions\General::getDarkTheme()
+        $darkTheme = class_exists(\ARippleSong\Themes\Daisy\ThemeOptions\General::class)
+            ? \ARippleSong\Themes\Daisy\ThemeOptions\General::getDarkTheme()
             : 'dim';
 
         /** @var string $lightThemeJson JSON-safe light theme slug for the inline script. */

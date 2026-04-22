@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Widgets;
+namespace ARippleSong\Themes\Daisy\Widgets;
 
-use App\Constants\PodcastPluginConstant;
-use App\Core\Widget as WidgetCore;
+use ARippleSong\Themes\Daisy\Constants\PodcastPluginConstant;
+use ARippleSong\Themes\Daisy\Core\Widget as WidgetCore;
 
 /**
  * Podcast List Widget

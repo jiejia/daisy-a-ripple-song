@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Widgets;
+namespace ARippleSong\Themes\Daisy\Widgets;
 
-use App\Core\Widget as WidgetCore;
+use ARippleSong\Themes\Daisy\Core\Widget as WidgetCore;
 
 /**
  * Subscribe Links Widget

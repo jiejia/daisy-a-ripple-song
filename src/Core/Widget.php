@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace ARippleSong\Themes\Daisy\Core;
 
 /**
  * Widget

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core;
+namespace ARippleSong\Themes\Daisy\Core;
 
-use App\Constants\PodcastPluginConstant;
+use ARippleSong\Themes\Daisy\Constants\PodcastPluginConstant;
 
 /**
  * Helper

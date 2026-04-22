@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core;
+namespace ARippleSong\Themes\Daisy\Core;
 
-use App\Constants\PodcastPluginConstant;
+use ARippleSong\Themes\Daisy\Constants\PodcastPluginConstant;
 
 define('IS_PODCAST_PLUGIN_ACTIVATED', Helper::isPluginActivated(PodcastPluginConstant::PLUGIN_SLUG));
 
@@ -82,15 +82,15 @@ add_action('init', function (): void {
 add_action('widgets_init', function (): void {
 
     /** Register the custom theme widgets for use in widget areas. */
-    register_widget(\App\Widgets\BannerCarouselWidget::class);
-    register_widget(\App\Widgets\BlogListWidget::class);
-    register_widget(\App\Widgets\AuthorsWidget::class);
-    register_widget(\App\Widgets\FooterLinksWidget::class);
-    register_widget(\App\Widgets\TagsCloudWidget::class);
+    register_widget(\ARippleSong\Themes\Daisy\Widgets\BannerCarouselWidget::class);
+    register_widget(\ARippleSong\Themes\Daisy\Widgets\BlogListWidget::class);
+    register_widget(\ARippleSong\Themes\Daisy\Widgets\AuthorsWidget::class);
+    register_widget(\ARippleSong\Themes\Daisy\Widgets\FooterLinksWidget::class);
+    register_widget(\ARippleSong\Themes\Daisy\Widgets\TagsCloudWidget::class);
 
     if (IS_PODCAST_PLUGIN_ACTIVATED) {
-        register_widget(\App\Widgets\PodcastListWidget::class);
-        register_widget(\App\Widgets\SubscribeLinksWidget::class);
+        register_widget(\ARippleSong\Themes\Daisy\Widgets\PodcastListWidget::class);
+        register_widget(\ARippleSong\Themes\Daisy\Widgets\SubscribeLinksWidget::class);
     }
 
     /**

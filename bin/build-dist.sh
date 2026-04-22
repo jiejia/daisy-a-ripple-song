@@ -37,7 +37,7 @@ rsync -a --delete \
   --exclude "/.gitignore" \
   --exclude "/.idea/" \
   --exclude "/.phpunit.cache/" \
-  --exclude "/app/Tests/" \
+  --exclude "/src/Tests/" \
   --exclude "/bin/" \
   --exclude "/build/" \
   --exclude "/composer.json" \
@@ -61,7 +61,7 @@ cat > "${DIST_THEME_DIR}/vendor/scoper-autoload.php" <<'PHP'
 
 $loader = require __DIR__ . '/autoload.php';
 
-$prefix = 'A_Ripple_Song_Theme\\Vendor\\';
+$prefix = 'ARippleSong\\Themes\\Daisy\\Vendor\\';
 $prefixLength = strlen($prefix);
 
 spl_autoload_register(

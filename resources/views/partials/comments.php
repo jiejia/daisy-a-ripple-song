@@ -74,7 +74,7 @@ $isClosed = !comments_open() && $commentsNumber > 0;
         wp_list_comments([
           'style' => 'ol',
           'short_ping' => true,
-          'callback' => [\App\Core\Helper::class, 'renderComment'],
+          'callback' => [\ARippleSong\Themes\Daisy\Core\Helper::class, 'renderComment'],
           'avatar_size' => 24,
         ]);
         ?>

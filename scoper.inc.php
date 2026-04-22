@@ -30,26 +30,8 @@ $arsExcludedFiles = array_merge(
     )
 );
 
-/** @var string $arsCarbonTemplatesDir Carbon Fields templates that cannot be safely prefixed. */
-$arsCarbonTemplatesDir = $arsInputVendorDir . '/htmlburger/carbon-fields/templates';
-if (is_dir($arsCarbonTemplatesDir)) {
-    $arsExcludedFiles = array_merge(
-        $arsExcludedFiles,
-        array_map(
-            static fn (SplFileInfo $fileInfo): string => $fileInfo->getPathname(),
-            iterator_to_array(
-                $arsFinder::create()
-                    ->files()
-                    ->in($arsCarbonTemplatesDir)
-                    ->name('*.php'),
-                false
-            )
-        )
-    );
-}
-
 return [
-    'prefix' => 'A_Ripple_Song_Theme\\Vendor',
+    'prefix' => 'ARippleSong\\Themes\\Daisy\\Vendor',
     'output-dir' => __DIR__ . '/build/scoped',
     'finders' => [
         $arsFinder::create()

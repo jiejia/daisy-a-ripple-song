@@ -12,7 +12,7 @@ $theme_mode_labels = [
 ];
 ?>
 <!DOCTYPE html>
-<html <?php language_attributes(); ?> class="bg-base-200" data-theme="<?php echo esc_attr(\App\ThemeOptions\General::getLightTheme()); ?>" x-data x-init="$store.theme.init()" :data-theme="$store.theme.current">
+<html <?php language_attributes(); ?> class="bg-base-200" data-theme="<?php echo esc_attr(\ARippleSong\Themes\Daisy\ThemeOptions\General::getLightTheme()); ?>" x-data x-init="$store.theme.init()" :data-theme="$store.theme.current">
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
@@ -28,9 +28,9 @@ $theme_mode_labels = [
                 <div class="xl:px-0 px-4 py-3">
                     <div class="grid xl:grid-cols-[220px_1fr_300px] grid-cols-[220px_1fr] gap-4">
                         <h1 class="text-2xl font-bold text-center">
-                            <?php if (\App\ThemeOptions\General::getSiteLogoUrl() !== ''): ?>
+                            <?php if (\ARippleSong\Themes\Daisy\ThemeOptions\General::getSiteLogoUrl() !== ''): ?>
                                 <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-2" title="<?php bloginfo('description'); ?>">
-                                    <img src="<?php echo esc_url(\App\ThemeOptions\General::getSiteLogoUrl()); ?>" alt="<?php bloginfo('name'); ?>" class="h-8 w-auto max-w-[220px] object-contain">
+                                    <img src="<?php echo esc_url(\ARippleSong\Themes\Daisy\ThemeOptions\General::getSiteLogoUrl()); ?>" alt="<?php bloginfo('name'); ?>" class="h-8 w-auto max-w-[220px] object-contain">
                                 </a>
                             <?php else: ?>
                                 <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-2" title="<?php bloginfo('description'); ?>">

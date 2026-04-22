@@ -1,5 +1,5 @@
 <?php
-namespace App\Constants;
+namespace ARippleSong\Themes\Daisy\Constants;
 
 
 class PodcastPluginConstant

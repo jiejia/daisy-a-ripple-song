@@ -49,8 +49,8 @@ class General
     public static function registerPages(): void
     {
         add_menu_page(
-            __('Theme Settings', 'a-ripple-song'),
-            __('Theme Settings', 'a-ripple-song'),
+            __('General', 'a-ripple-song'),
+            __('General', 'a-ripple-song'),
             'edit_theme_options',
             static::GENERAL_PAGE_FILE,
             [static::class, 'renderGeneralPage'],
@@ -60,7 +60,7 @@ class General
 
         add_submenu_page(
             static::GENERAL_PAGE_FILE,
-            __('Theme Settings', 'a-ripple-song'),
+            __('Social Links', 'a-ripple-song'),
             __('Social Links', 'a-ripple-song'),
             'edit_theme_options',
             static::SOCIAL_PAGE_FILE,
@@ -156,7 +156,7 @@ class General
     public static function renderGeneralPage(): void
     {
         echo '<div class="wrap">';
-        echo '<h1>' . esc_html__('Theme Settings', 'a-ripple-song') . '</h1>';
+        echo '<h1>' . esc_html__('General', 'a-ripple-song') . '</h1>';
         settings_errors();
         echo '<form method="post" action="options.php">';
         settings_fields(static::OPTION_GROUP);
@@ -570,15 +570,16 @@ class General
                 position: relative;
                 display: block;
                 width: 100%;
-                min-height: 104px;
-                padding: 12px;
+                padding: 0;
                 cursor: pointer;
                 text-align: left;
                 border: 1px solid #c3c4c7;
                 border-radius: 10px;
                 background: var(--ars-base-100);
                 color: var(--ars-base-content);
+                overflow: hidden;
                 box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+                transition: border-color 0.2s, box-shadow 0.2s;
             }
 
             .ars-theme-card:hover,
@@ -604,23 +605,63 @@ class General
                 background: #2271b1;
             }
 
+            .ars-theme-card__preview {
+                display: grid;
+                grid-template-columns: 1fr 4fr;
+                grid-template-rows: 1fr;
+                height: 100%;
+                min-height: 72px;
+                background: var(--ars-base-100);
+            }
+
+            .ars-theme-card__sidebar {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .ars-theme-card__sidebar-top {
+                flex: 2;
+                background: var(--ars-base-200);
+            }
+
+            .ars-theme-card__sidebar-bottom {
+                flex: 1;
+                background: var(--ars-base-300);
+            }
+
+            .ars-theme-card__content {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                padding: 12px;
+            }
+
             .ars-theme-card__name {
                 display: block;
-                margin-bottom: 12px;
                 font-weight: 600;
+                font-size: 13px;
+                line-height: 1;
             }
 
             .ars-theme-card__swatches {
-                display: grid;
-                grid-template-columns: repeat(5, minmax(0, 1fr));
+                display: flex;
+                flex-wrap: wrap;
                 gap: 4px;
             }
 
             .ars-theme-card__swatch {
-                height: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 20px;
+                height: 20px;
                 border-radius: 4px;
                 background: var(--ars-swatch);
-                box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+                color: var(--ars-swatch-content);
+                font-size: 11px;
+                font-weight: 700;
+                line-height: 1;
+                font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
             }
 
             .ars-theme-select {
@@ -743,10 +784,12 @@ class General
             $colors = $themePalette[$themeSlug] ?? [];
 
             $markup[] = sprintf(
-                '<button type="button" class="ars-theme-card%1$s" data-theme-value="%2$s" style="--ars-base-100:%3$s;--ars-base-content:%4$s;"><span class="ars-theme-card__name">%5$s</span><span class="ars-theme-card__swatches" aria-hidden="true">%6$s</span></button>',
+                '<button type="button" class="ars-theme-card%1$s" data-theme-value="%2$s" style="--ars-base-100:%3$s;--ars-base-200:%4$s;--ars-base-300:%5$s;--ars-base-content:%6$s;"><div class="ars-theme-card__preview"><div class="ars-theme-card__sidebar"><div class="ars-theme-card__sidebar-top"></div><div class="ars-theme-card__sidebar-bottom"></div></div><div class="ars-theme-card__content"><span class="ars-theme-card__name">%7$s</span><span class="ars-theme-card__swatches" aria-hidden="true">%8$s</span></div></div></button>',
                 $value === $themeSlug ? ' is-active' : '',
                 esc_attr($themeSlug),
                 esc_attr($colors['base100'] ?? '#f3f4f6'),
+                esc_attr($colors['base200'] ?? '#e5e7eb'),
+                esc_attr($colors['base300'] ?? '#d1d5db'),
                 esc_attr($colors['baseContent'] ?? '#111827'),
                 esc_html($themeLabel),
                 static::renderThemeSwatches($colors)
@@ -766,14 +809,23 @@ class General
      */
     protected static function renderThemeSwatches(array $colors): string
     {
-        /** @var array<int, string> $swatchKeys Palette keys shown in the card. */
-        $swatchKeys = ['primary', 'secondary', 'accent', 'neutral', 'base200'];
+        /** @var array<string, string> $swatchKeys Palette keys shown in the card. */
+        $swatchKeys = [
+            'primary' => 'primaryContent',
+            'secondary' => 'secondaryContent',
+            'accent' => 'accentContent',
+            'neutral' => 'neutralContent',
+        ];
 
         /** @var array<int, string> $markup Generated swatch fragments. */
         $markup = [];
 
-        foreach ($swatchKeys as $swatchKey) {
-            $markup[] = '<span class="ars-theme-card__swatch" style="--ars-swatch:' . esc_attr($colors[$swatchKey] ?? '#d1d5db') . ';"></span>';
+        foreach ($swatchKeys as $swatchKey => $contentKey) {
+            $markup[] = sprintf(
+                '<span class="ars-theme-card__swatch" style="--ars-swatch:%s;--ars-swatch-content:%s;">A</span>',
+                esc_attr($colors[$swatchKey] ?? '#d1d5db'),
+                esc_attr($colors[$contentKey] ?? '#ffffff')
+            );
         }
 
         return implode('', $markup);

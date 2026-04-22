@@ -30,7 +30,7 @@ require_once __DIR__ . '/src/Core/Setup.php';
 
 ARippleSong\Themes\Daisy\ThemeOptions\General::boot();
 
-/** @var App\Core\Vite $vite Theme asset loader shared across frontend and editor preview hooks. */
+/** @var ARippleSong\Themes\Daisy\Core\Vite $vite Theme asset loader shared across frontend and editor preview hooks. */
 $vite = new ARippleSong\Themes\Daisy\Core\Vite();
 
 add_action('wp_enqueue_scripts', [$vite, 'enqueueAssets']);

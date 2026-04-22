@@ -201,7 +201,11 @@ msgstr "開啟左側邊欄"
 msgid "Open Right Sidebar"
 msgstr "開啟右側邊欄"
 
-#: app/ThemeOptions/General.php:81 app/ThemeOptions/General.php:174
+#: app/ThemeOptions/General.php:52 app/ThemeOptions/General.php:53
+msgid "Theme Options"
+msgstr "主題選項"
+
+#: app/ThemeOptions/General.php:61 app/ThemeOptions/General.php:62
 msgid "General"
 msgstr "一般"
 

@@ -201,7 +201,11 @@ msgstr "Ouvrir la barre latérale gauche"
 msgid "Open Right Sidebar"
 msgstr "Ouvrir la barre latérale droite"
 
-#: app/ThemeOptions/General.php:81 app/ThemeOptions/General.php:174
+#: app/ThemeOptions/General.php:52 app/ThemeOptions/General.php:53
+msgid "Theme Options"
+msgstr "Options du thème"
+
+#: app/ThemeOptions/General.php:61 app/ThemeOptions/General.php:62
 msgid "General"
 msgstr "Général"
 

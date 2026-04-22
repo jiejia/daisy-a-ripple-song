@@ -201,7 +201,11 @@ msgstr "왼쪽 사이드바 열기"
 msgid "Open Right Sidebar"
 msgstr "오른쪽 사이드바 열기"
 
-#: app/ThemeOptions/General.php:81 app/ThemeOptions/General.php:174
+#: app/ThemeOptions/General.php:52 app/ThemeOptions/General.php:53
+msgid "Theme Options"
+msgstr "테마 옵션"
+
+#: app/ThemeOptions/General.php:61 app/ThemeOptions/General.php:62
 msgid "General"
 msgstr "일반"
 

@@ -9,6 +9,9 @@ use ARippleSong\Themes\Daisy\Constants\ThemeConstant;
  */
 class General
 {
+    /** @var string $optionsPageFile Theme options top-level menu slug. */
+    protected const OPTIONS_PAGE_FILE = 'ars_theme_options.php';
+
     /** @var string $generalPageFile Theme general settings page slug. */
     protected const GENERAL_PAGE_FILE = 'ars_theme_general.php';
 
@@ -49,17 +52,29 @@ class General
     public static function registerPages(): void
     {
         add_menu_page(
-            __('General', 'a-ripple-song'),
-            __('General', 'a-ripple-song'),
+            __('Theme Options', 'a-ripple-song'),
+            __('Theme Options', 'a-ripple-song'),
             'edit_theme_options',
-            static::GENERAL_PAGE_FILE,
+            static::OPTIONS_PAGE_FILE,
             [static::class, 'renderGeneralPage'],
             'dashicons-admin-settings',
             61
         );
 
         add_submenu_page(
+            static::OPTIONS_PAGE_FILE,
+            __('General', 'a-ripple-song'),
+            __('General', 'a-ripple-song'),
+            'edit_theme_options',
             static::GENERAL_PAGE_FILE,
+            [static::class, 'renderGeneralPage']
+        );
+
+        // Remove the auto-generated duplicate submenu so "General" becomes the first item.
+        remove_submenu_page(static::OPTIONS_PAGE_FILE, static::OPTIONS_PAGE_FILE);
+
+        add_submenu_page(
+            static::OPTIONS_PAGE_FILE,
             __('Social Links', 'a-ripple-song'),
             __('Social Links', 'a-ripple-song'),
             'edit_theme_options',
@@ -264,7 +279,7 @@ class General
         /** @var string $page Current admin page slug. */
         $page = isset($_GET['page']) ? sanitize_text_field(wp_unslash((string) $_GET['page'])) : '';
 
-        return $page === static::GENERAL_PAGE_FILE;
+        return $page === static::OPTIONS_PAGE_FILE || $page === static::GENERAL_PAGE_FILE;
     }
 
     /**

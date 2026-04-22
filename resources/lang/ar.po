@@ -201,7 +201,11 @@ msgstr "فتح الشريط الجانبي الأيسر"
 msgid "Open Right Sidebar"
 msgstr "فتح الشريط الجانبي الأيمن"
 
-#: app/ThemeOptions/General.php:81 app/ThemeOptions/General.php:174
+#: app/ThemeOptions/General.php:52 app/ThemeOptions/General.php:53
+msgid "Theme Options"
+msgstr "خيارات القالب"
+
+#: app/ThemeOptions/General.php:61 app/ThemeOptions/General.php:62
 msgid "General"
 msgstr "عام"
 

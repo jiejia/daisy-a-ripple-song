@@ -201,7 +201,11 @@ msgstr "Открыть левую боковую панель"
 msgid "Open Right Sidebar"
 msgstr "Открыть правую боковую панель"
 
-#: app/ThemeOptions/General.php:81 app/ThemeOptions/General.php:174
+#: app/ThemeOptions/General.php:52 app/ThemeOptions/General.php:53
+msgid "Theme Options"
+msgstr "Параметры темы"
+
+#: app/ThemeOptions/General.php:61 app/ThemeOptions/General.php:62
 msgid "General"
 msgstr "Общие"
 

@@ -201,9 +201,13 @@ msgstr "Open Left Sidebar"
 msgid "Open Right Sidebar"
 msgstr "Open Right Sidebar"
 
-#: app/ThemeOptions/General.php:81 app/ThemeOptions/General.php:174
+#: app/ThemeOptions/General.php:52 app/ThemeOptions/General.php:53
+msgid "Theme Options"
+msgstr "Theme Options"
+
+#: app/ThemeOptions/General.php:61 app/ThemeOptions/General.php:62
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: resources/views/widgets/banner-carousel.php:63
 #, php-format

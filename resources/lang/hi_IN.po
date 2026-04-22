@@ -201,7 +201,11 @@ msgstr "बायाँ साइडबार खोलें"
 msgid "Open Right Sidebar"
 msgstr "दायाँ साइडबार खोलें"
 
-#: app/ThemeOptions/General.php:81 app/ThemeOptions/General.php:174
+#: app/ThemeOptions/General.php:52 app/ThemeOptions/General.php:53
+msgid "Theme Options"
+msgstr "थीम विकल्प"
+
+#: app/ThemeOptions/General.php:61 app/ThemeOptions/General.php:62
 msgid "General"
 msgstr "सामान्य"
 

@@ -201,7 +201,11 @@ msgstr "左サイドバーを開く"
 msgid "Open Right Sidebar"
 msgstr "右サイドバーを開く"
 
-#: app/ThemeOptions/General.php:81 app/ThemeOptions/General.php:174
+#: app/ThemeOptions/General.php:52 app/ThemeOptions/General.php:53
+msgid "Theme Options"
+msgstr "テーマオプション"
+
+#: app/ThemeOptions/General.php:61 app/ThemeOptions/General.php:62
 msgid "General"
 msgstr "一般"
 

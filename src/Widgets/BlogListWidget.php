@@ -19,8 +19,8 @@ class BlogListWidget extends \WP_Widget
     {
         parent::__construct(
             'blog_list_widget',
-            __('aripplesong - Blog List', 'a-ripple-song'),
-            ['description' => __('Display latest blog posts list', 'a-ripple-song')]
+            __('aripplesong - Blog List', 'daisy-a-ripple-song'),
+            ['description' => __('Display latest blog posts list', 'daisy-a-ripple-song')]
         );
     }
 
@@ -36,7 +36,7 @@ class BlogListWidget extends \WP_Widget
         echo $args['before_widget'];
 
         /** @var string $title Widget title displayed above the post grid. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('BLOG', 'a-ripple-song');
+        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('BLOG', 'daisy-a-ripple-song');
 
         /** @var int $postsPerPage Number of posts to display. */
         $postsPerPage = !empty($instance['posts_per_page']) ? max(1, absint($instance['posts_per_page'])) : 6;
@@ -100,7 +100,7 @@ class BlogListWidget extends \WP_Widget
     public function form($instance)
     {
         /** @var string $title Current widget title. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('BLOG', 'a-ripple-song');
+        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('BLOG', 'daisy-a-ripple-song');
 
         /** @var int $postsPerPage Current number of posts setting. */
         $postsPerPage = !empty($instance['posts_per_page']) ? max(1, absint($instance['posts_per_page'])) : 6;
@@ -113,7 +113,7 @@ class BlogListWidget extends \WP_Widget
         ?>
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
-                <?php esc_html_e('Title:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Title:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="widefat"
                    id="<?php echo esc_attr($this->get_field_id('title')); ?>"
@@ -124,7 +124,7 @@ class BlogListWidget extends \WP_Widget
 
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('posts_per_page')); ?>">
-                <?php esc_html_e('Number of posts:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Number of posts:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="tiny-text"
                    id="<?php echo esc_attr($this->get_field_id('posts_per_page')); ?>"
@@ -138,7 +138,7 @@ class BlogListWidget extends \WP_Widget
 
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('columns')); ?>">
-                <?php esc_html_e('Number of columns:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Number of columns:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="tiny-text"
                    id="<?php echo esc_attr($this->get_field_id('columns')); ?>"
@@ -158,7 +158,7 @@ class BlogListWidget extends \WP_Widget
                    id="<?php echo esc_attr($this->get_field_id('show_see_all')); ?>"
                    name="<?php echo esc_attr($this->get_field_name('show_see_all')); ?>">
             <label for="<?php echo esc_attr($this->get_field_id('show_see_all')); ?>">
-                <?php esc_html_e('Show "See all" link', 'a-ripple-song'); ?>
+                <?php esc_html_e('Show "See all" link', 'daisy-a-ripple-song'); ?>
             </label>
         </p>
         <?php

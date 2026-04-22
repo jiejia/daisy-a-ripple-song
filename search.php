@@ -7,7 +7,7 @@
             <?php get_template_part('resources/views/partials/page-header'); ?>
             <?php if (!have_posts()): ?>
                 <div class="bg-base-100 rounded-lg p-4">
-                    <span><?php esc_html_e('Sorry, no results were found.', 'a-ripple-song'); ?></span>
+                    <span><?php esc_html_e('Sorry, no results were found.', 'daisy-a-ripple-song'); ?></span>
                 </div>
             <?php endif; ?>
 

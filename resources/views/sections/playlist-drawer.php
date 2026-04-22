@@ -1,24 +1,24 @@
 <div class="drawer drawer-end z-[101]" x-data>
   <input id="playlist-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-side">
-    <label for="playlist-drawer" aria-label="<?php echo esc_attr__('Close sidebar', 'a-ripple-song'); ?>" class="drawer-overlay"></label>
+    <label for="playlist-drawer" aria-label="<?php echo esc_attr__('Close sidebar', 'daisy-a-ripple-song'); ?>" class="drawer-overlay"></label>
     <div class="bg-base-100 text-base-content min-h-full w-96 max-w-[90vw]">
       <!-- Header -->
       <div class="sticky top-0 bg-base-100 p-4 border-b border-base-300 flex items-center justify-between z-10">
-        <h3 class="font-bold text-lg"><?php echo esc_html__('Playlist', 'a-ripple-song'); ?></h3>
+        <h3 class="font-bold text-lg"><?php echo esc_html__('Playlist', 'daisy-a-ripple-song'); ?></h3>
         <label for="playlist-drawer" class="btn btn-sm btn-circle btn-ghost">✕</label>
       </div>
       
       <!-- Playlist Content -->
       <div class="p-4">
         <div class="text-sm text-base-content/60 mb-4 flex items-center justify-between">
-          <span x-text="<?php echo esc_attr(wp_json_encode(__('Total', 'a-ripple-song'))); ?> + ' ' + $store.player.playlist.length + ' ' + <?php echo esc_attr(wp_json_encode(__('episodes', 'a-ripple-song'))); ?>"></span>
+          <span x-text="<?php echo esc_attr(wp_json_encode(__('Total', 'daisy-a-ripple-song'))); ?> + ' ' + $store.player.playlist.length + ' ' + <?php echo esc_attr(wp_json_encode(__('episodes', 'daisy-a-ripple-song'))); ?>"></span>
           <button 
-            @click="if(confirm(<?php echo esc_attr(wp_json_encode(__('Are you sure you want to clear the playlist?', 'a-ripple-song'))); ?>)) $store.player.clearPlaylist();"
+            @click="if(confirm(<?php echo esc_attr(wp_json_encode(__('Are you sure you want to clear the playlist?', 'daisy-a-ripple-song'))); ?>)) $store.player.clearPlaylist();"
             class="btn btn-ghost btn-xs"
-            title="<?php echo esc_attr__('Clear Playlist', 'a-ripple-song'); ?>">
+            title="<?php echo esc_attr__('Clear Playlist', 'daisy-a-ripple-song'); ?>">
             <i data-lucide="trash-2" class="w-3 h-3"></i>
-            <?php echo esc_html__('Clear', 'a-ripple-song'); ?>
+            <?php echo esc_html__('Clear', 'daisy-a-ripple-song'); ?>
           </button>
         </div>
         
@@ -28,8 +28,8 @@
           <template x-if="$store.player.playlist.length === 0">
             <div class="p-8 text-center text-base-content/60">
               <i data-lucide="list-music" class="w-12 h-12 mx-auto mb-3 opacity-50"></i>
-              <p><?php echo esc_html__('Playlist is empty', 'a-ripple-song'); ?></p>
-              <p class="text-sm mt-2"><?php echo esc_html__('Add some episodes to start listening', 'a-ripple-song'); ?></p>
+              <p><?php echo esc_html__('Playlist is empty', 'daisy-a-ripple-song'); ?></p>
+              <p class="text-sm mt-2"><?php echo esc_html__('Add some episodes to start listening', 'daisy-a-ripple-song'); ?></p>
             </div>
           </template>
 
@@ -79,7 +79,7 @@
                 <button 
                   @click.stop="$store.player.removeEpisode(episode.id)"
                   class="btn btn-ghost btn-sm btn-circle opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
-                  title="<?php echo esc_attr__('Remove', 'a-ripple-song'); ?>">
+                  title="<?php echo esc_attr__('Remove', 'daisy-a-ripple-song'); ?>">
                   <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
               </div>

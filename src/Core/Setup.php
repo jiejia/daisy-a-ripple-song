@@ -15,7 +15,7 @@ add_action('after_setup_theme', function (): void {
     /**
      * Load translations from the custom theme language directory.
      */
-    load_theme_textdomain('a-ripple-song', get_template_directory() . '/resources/lang');
+    load_theme_textdomain('daisy-a-ripple-song', get_template_directory() . '/resources/lang');
 
     /**
      * Register classic theme supports required by WordPress theme guidelines.
@@ -41,7 +41,7 @@ add_action('after_setup_theme', function (): void {
      * Register navigation menus.
      */
     register_nav_menus([
-        'primary_navigation' => __('Primary Navigation', 'a-ripple-song'),
+        'primary_navigation' => __('Primary Navigation', 'daisy-a-ripple-song'),
     ]);
 });
 
@@ -57,7 +57,7 @@ add_action('init', function (): void {
     if (function_exists('register_block_style')) {
         register_block_style('core/group', [
             'name' => 'ars-panel',
-            'label' => __('Panel', 'a-ripple-song'),
+            'label' => __('Panel', 'daisy-a-ripple-song'),
         ]);
     }
 
@@ -66,10 +66,10 @@ add_action('init', function (): void {
      */
     if (function_exists('register_block_pattern')) {
         register_block_pattern('a-ripple-song/intro-panel', [
-            'title' => __('Intro Panel', 'a-ripple-song'),
-            'description' => __('A rounded introduction block with heading, text, and call to action.', 'a-ripple-song'),
+            'title' => __('Intro Panel', 'daisy-a-ripple-song'),
+            'description' => __('A rounded introduction block with heading, text, and call to action.', 'daisy-a-ripple-song'),
             'categories' => ['text'],
-            'content' => '<!-- wp:group {"align":"wide","className":"is-style-ars-panel"} --><div class="wp-block-group alignwide is-style-ars-panel"><!-- wp:heading --><h2>' . esc_html__('Start your next episode here', 'a-ripple-song') . '</h2><!-- /wp:heading --><!-- wp:paragraph --><p>' . esc_html__('Use this pattern to introduce a featured story, announcement, or podcast episode.', 'a-ripple-song') . '</p><!-- /wp:paragraph --><!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#">' . esc_html__('Learn more', 'a-ripple-song') . '</a></div><!-- /wp:button --></div><!-- /wp:buttons --></div><!-- /wp:group -->',
+            'content' => '<!-- wp:group {"align":"wide","className":"is-style-ars-panel"} --><div class="wp-block-group alignwide is-style-ars-panel"><!-- wp:heading --><h2>' . esc_html__('Start your next episode here', 'daisy-a-ripple-song') . '</h2><!-- /wp:heading --><!-- wp:paragraph --><p>' . esc_html__('Use this pattern to introduce a featured story, announcement, or podcast episode.', 'daisy-a-ripple-song') . '</p><!-- /wp:paragraph --><!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#">' . esc_html__('Learn more', 'daisy-a-ripple-song') . '</a></div><!-- /wp:button --></div><!-- /wp:buttons --></div><!-- /wp:group -->',
         ]);
     }
 });
@@ -97,9 +97,9 @@ add_action('widgets_init', function (): void {
      * Register the footer links sidebar.
      */
     register_sidebar([
-        'name' => __('Footer Links', 'a-ripple-song'),
+        'name' => __('Footer Links', 'daisy-a-ripple-song'),
         'id' => 'footer-links',
-        'description' => __('Footer links area for displaying link columns', 'a-ripple-song'),
+        'description' => __('Footer links area for displaying link columns', 'daisy-a-ripple-song'),
         'before_widget' => '',
         'after_widget' => '',
         'before_title' => '',
@@ -110,9 +110,9 @@ add_action('widgets_init', function (): void {
      * Register the home main sidebar.
      */
     register_sidebar([
-        'name' => __('Home Main', 'a-ripple-song'),
+        'name' => __('Home Main', 'daisy-a-ripple-song'),
         'id' => 'home-main',
-        'description' => __('Main area of the homepage for displaying various content modules', 'a-ripple-song'),
+        'description' => __('Main area of the homepage for displaying various content modules', 'daisy-a-ripple-song'),
         'before_widget' => '<div class="widget %1$s %2$s mb-4">',
         'after_widget' => '</div>',
         'before_title' => '<h2 class="widget-title text-lg font-bold mb-2">',
@@ -123,9 +123,9 @@ add_action('widgets_init', function (): void {
      * Register the rightbar primary sidebar.
      */
     register_sidebar([
-        'name' => __('Rightbar Primary', 'a-ripple-song'),
+        'name' => __('Rightbar Primary', 'daisy-a-ripple-song'),
         'id' => 'rightbar-primary',
-        'description' => __('Primary right sidebar area for displaying various content modules', 'a-ripple-song'),
+        'description' => __('Primary right sidebar area for displaying various content modules', 'daisy-a-ripple-song'),
         'before_widget' => '<div class="widget %1$s %2$s mb-4">',
         'after_widget' => '</div>',
         'before_title' => '<h2 class="widget-title text-lg font-bold mb-2">',
@@ -136,9 +136,9 @@ add_action('widgets_init', function (): void {
      * Register the leftbar primary sidebar.
      */
     register_sidebar([
-        'name' => __('Leftbar Primary', 'a-ripple-song'),
+        'name' => __('Leftbar Primary', 'daisy-a-ripple-song'),
         'id' => 'leftbar-primary',
-        'description' => __('Primary left sidebar area for displaying various content modules', 'a-ripple-song'),
+        'description' => __('Primary left sidebar area for displaying various content modules', 'daisy-a-ripple-song'),
         'before_widget' => '<div class="widget %1$s %2$s mb-4">',
         'after_widget' => '</div>',
         'before_title' => '<h2 class="widget-title text-lg font-bold mb-2">',

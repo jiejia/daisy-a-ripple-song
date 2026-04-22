@@ -516,7 +516,7 @@ class Helper
                             </span>
 
                             <?php if ((int) $comment->user_id === (int) get_post_field('post_author', get_the_ID())): ?>
-                                <span class="badge badge-primary badge-sm"><?php esc_html_e('Author', 'a-ripple-song'); ?></span>
+                                <span class="badge badge-primary badge-sm"><?php esc_html_e('Author', 'daisy-a-ripple-song'); ?></span>
                             <?php endif; ?>
 
                             <span class="flex items-center gap-1 text-xs text-base-content/60">
@@ -525,7 +525,7 @@ class Helper
                             </span>
 
                             <?php if ((string) $comment->comment_approved === '0'): ?>
-                                <span class="badge badge-warning badge-sm"><?php esc_html_e('Pending Approval', 'a-ripple-song'); ?></span>
+                                <span class="badge badge-warning badge-sm"><?php esc_html_e('Pending Approval', 'daisy-a-ripple-song'); ?></span>
                             <?php endif; ?>
                         </div>
 
@@ -541,13 +541,13 @@ class Helper
                                 'max_depth' => $args['max_depth'],
                                 'before' => '<button class="btn btn-ghost btn-sm gap-1 text-sm">',
                                 'after' => '</button>',
-                                'reply_text' => '<i data-lucide="reply" class="h-4 w-4"></i> ' . __('Reply', 'a-ripple-song'),
+                                'reply_text' => '<i data-lucide="reply" class="h-4 w-4"></i> ' . __('Reply', 'daisy-a-ripple-song'),
                             ]));
                             ?>
 
                             <?php
                             edit_comment_link(
-                                '<i data-lucide="pencil" class="h-4 w-4"></i> ' . __('Edit', 'a-ripple-song'),
+                                '<i data-lucide="pencil" class="h-4 w-4"></i> ' . __('Edit', 'daisy-a-ripple-song'),
                                 '<button class="btn btn-ghost btn-sm gap-1 text-sm">',
                                 '</button>'
                             );
@@ -575,11 +575,11 @@ class Helper
         $defaults['cancel_reply_before'] = '<div class="text-sm">';
         $defaults['cancel_reply_after'] = '</div>';
         $defaults['cancel_reply_link'] = '<button type="button" class="btn btn-ghost btn-sm gap-1 text-sm"><i data-lucide="x" class="h-4 w-4"></i> %s</button>';
-        $defaults['comment_notes_before'] = '<p class="comment-notes text-sm text-base-content/60">' . esc_html__('Your email address will not be published.', 'a-ripple-song') . '</p>';
+        $defaults['comment_notes_before'] = '<p class="comment-notes text-sm text-base-content/60">' . esc_html__('Your email address will not be published.', 'daisy-a-ripple-song') . '</p>';
         $defaults['comment_notes_after'] = '';
         $defaults['logged_in_as'] = '<p class="logged-in-as text-sm text-base-content/60">' .
             sprintf(
-                wp_kses_post(__('Logged in as <a href="%1$s">%2$s</a>. <a href="%3$s">Log out?</a>', 'a-ripple-song')),
+                wp_kses_post(__('Logged in as <a href="%1$s">%2$s</a>. <a href="%3$s">Log out?</a>', 'daisy-a-ripple-song')),
                 esc_url((string) get_edit_user_link()),
                 esc_html(wp_get_current_user()->display_name),
                 esc_url((string) wp_logout_url(get_permalink()))
@@ -606,13 +606,13 @@ class Helper
         /** @var string $requiredAttribute HTML required attribute. */
         $requiredAttribute = $isNameEmailRequired ? ' required' : '';
 
-        $fields['author'] = '<div class="form-control"><label class="label" for="author"><span class="label-text text-sm">' . esc_html__('Name', 'a-ripple-song') . ' <span class="text-error">*</span></span></label><input type="text" id="author" name="author" value="' . esc_attr($commenter['comment_author'] ?? '') . '" class="input input-bordered w-full text-sm"' . $requiredAttribute . ' /></div>';
+        $fields['author'] = '<div class="form-control"><label class="label" for="author"><span class="label-text text-sm">' . esc_html__('Name', 'daisy-a-ripple-song') . ' <span class="text-error">*</span></span></label><input type="text" id="author" name="author" value="' . esc_attr($commenter['comment_author'] ?? '') . '" class="input input-bordered w-full text-sm"' . $requiredAttribute . ' /></div>';
 
-        $fields['email'] = '<div class="form-control"><label class="label" for="email"><span class="label-text text-sm">' . esc_html__('Email', 'a-ripple-song') . ' <span class="text-error">*</span></span></label><input type="email" id="email" name="email" value="' . esc_attr($commenter['comment_author_email'] ?? '') . '" class="input input-bordered w-full text-sm"' . $requiredAttribute . ' /></div>';
+        $fields['email'] = '<div class="form-control"><label class="label" for="email"><span class="label-text text-sm">' . esc_html__('Email', 'daisy-a-ripple-song') . ' <span class="text-error">*</span></span></label><input type="email" id="email" name="email" value="' . esc_attr($commenter['comment_author_email'] ?? '') . '" class="input input-bordered w-full text-sm"' . $requiredAttribute . ' /></div>';
 
-        $fields['url'] = '<div class="form-control"><label class="label" for="url"><span class="label-text text-sm">' . esc_html__('Website', 'a-ripple-song') . '</span></label><input type="url" id="url" name="url" value="' . esc_attr($commenter['comment_author_url'] ?? '') . '" class="input input-bordered w-full text-sm" /></div>';
+        $fields['url'] = '<div class="form-control"><label class="label" for="url"><span class="label-text text-sm">' . esc_html__('Website', 'daisy-a-ripple-song') . '</span></label><input type="url" id="url" name="url" value="' . esc_attr($commenter['comment_author_url'] ?? '') . '" class="input input-bordered w-full text-sm" /></div>';
 
-        $fields['cookies'] = '<div class="form-control"><label class="comment-form-cookies-consent flex items-start gap-2"><input type="checkbox" id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" value="yes" class="checkbox checkbox-sm mt-1" /><span class="label-text text-sm leading-relaxed">' . esc_html__('Save my name, email, and website in this browser for the next time I comment.', 'a-ripple-song') . '</span></label></div>';
+        $fields['cookies'] = '<div class="form-control"><label class="comment-form-cookies-consent flex items-start gap-2"><input type="checkbox" id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" value="yes" class="checkbox checkbox-sm mt-1" /><span class="label-text text-sm leading-relaxed">' . esc_html__('Save my name, email, and website in this browser for the next time I comment.', 'daisy-a-ripple-song') . '</span></label></div>';
 
         return $fields;
     }
@@ -625,7 +625,7 @@ class Helper
      */
     public static function filterCommentFormFieldComment(string $field): string
     {
-        return '<div class="form-control"><label class="label" for="comment"><span class="label-text text-sm">' . esc_html__('Comment', 'a-ripple-song') . ' <span class="text-error">*</span></span></label><textarea id="comment" name="comment" rows="6" class="textarea textarea-bordered w-full text-sm" required></textarea></div>';
+        return '<div class="form-control"><label class="label" for="comment"><span class="label-text text-sm">' . esc_html__('Comment', 'daisy-a-ripple-song') . ' <span class="text-error">*</span></span></label><textarea id="comment" name="comment" rows="6" class="textarea textarea-bordered w-full text-sm" required></textarea></div>';
     }
 
     /**

@@ -26,7 +26,7 @@ $commentsNumber = (int) get_comments_number();
  * @var string $commentsTitle
  */
 $commentsTitle = sprintf(
-  _nx('One response', '%1$s responses', $commentsNumber, 'comments title', 'a-ripple-song'),
+  _nx('One response', '%1$s responses', $commentsNumber, 'comments title', 'daisy-a-ripple-song'),
   number_format_i18n($commentsNumber)
 );
 
@@ -42,14 +42,14 @@ $isPaginated = get_comment_pages_count() > 1 && (bool) get_option('page_comments
  *
  * @var string $previousComments
  */
-$previousComments = get_previous_comments_link(__('Older comments', 'a-ripple-song'));
+$previousComments = get_previous_comments_link(__('Older comments', 'daisy-a-ripple-song'));
 
 /**
  * Resolve the next comments navigation markup.
  *
  * @var string $nextComments
  */
-$nextComments = get_next_comments_link(__('Newer comments', 'a-ripple-song'));
+$nextComments = get_next_comments_link(__('Newer comments', 'daisy-a-ripple-song'));
 
 /**
  * Resolve whether the comments section is closed for the current post.
@@ -81,7 +81,7 @@ $isClosed = !comments_open() && $commentsNumber > 0;
       </ol>
 
       <?php if ($isPaginated): ?>
-        <nav aria-label="<?php echo esc_attr__('Comment', 'a-ripple-song'); ?>" class="mt-4">
+        <nav aria-label="<?php echo esc_attr__('Comment', 'daisy-a-ripple-song'); ?>" class="mt-4">
           <ul class="flex justify-center gap-2 text-sm">
             <?php if ($previousComments): ?>
               <li class="previous">
@@ -108,14 +108,14 @@ $isClosed = !comments_open() && $commentsNumber > 0;
     <?php if ($isClosed): ?>
       <div class="alert alert-warning mb-6 rounded-lg text-sm">
         <i data-lucide="lock" class="h-4 w-4"></i>
-        <span><?php esc_html_e('Comments are closed.', 'a-ripple-song'); ?></span>
+        <span><?php esc_html_e('Comments are closed.', 'daisy-a-ripple-song'); ?></span>
       </div>
     <?php endif; ?>
 
     <div class="rounded-lg bg-base-200/50 p-4 mt-4">
       <h3 class="mb-4 flex items-center gap-2 text-base font-bold">
         <i data-lucide="pen-line" class="h-4 w-4"></i>
-        <?php esc_html_e('Leave a Comment', 'a-ripple-song'); ?>
+        <?php esc_html_e('Leave a Comment', 'daisy-a-ripple-song'); ?>
       </h3>
       <?php comment_form(); ?>
     </div>

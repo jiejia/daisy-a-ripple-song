@@ -45,8 +45,8 @@ if ($pageTitle === '') {
     if ($queriedPostType === 'post' && !is_archive() && !is_singular()) {
         $pageTitle = sprintf(
             /* translators: %s Archive object title. */
-            __('Archives: %s', 'a-ripple-song'),
-            __('Blog', 'a-ripple-song')
+            __('Archives: %s', 'daisy-a-ripple-song'),
+            __('Blog', 'daisy-a-ripple-song')
         );
     } elseif (is_home() && !is_front_page()) {
         /** @var int $postsPageId Configured posts page ID. */
@@ -59,12 +59,12 @@ if ($pageTitle === '') {
         $pageTitle = $postsPageId > 0 ? (string) get_the_title($postsPageId) : '';
 
         if ($pageTitle === '') {
-            $pageTitle = __('Blog', 'a-ripple-song');
+            $pageTitle = __('Blog', 'daisy-a-ripple-song');
         }
     } elseif (is_search()) {
         $pageTitle = sprintf(
             /* translators: %s Search query text. */
-            __('Search Results for: %s', 'a-ripple-song'),
+            __('Search Results for: %s', 'daisy-a-ripple-song'),
             get_search_query()
         );
     } elseif (is_archive()) {

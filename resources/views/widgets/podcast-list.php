@@ -13,15 +13,15 @@
         <h2 class="text-lg font-bold"><?php echo esc_html($title); ?></h2>
         <?php if ($showSeeAll): ?>
             <span class="text-xs text-base-content/70">
-                <a href="<?php echo esc_url($archiveUrl); ?>"><?php esc_html_e('See all', 'a-ripple-song'); ?></a>
+                <a href="<?php echo esc_url($archiveUrl); ?>"><?php esc_html_e('See all', 'daisy-a-ripple-song'); ?></a>
             </span>
         <?php endif; ?>
     </div>
 
     <ul class="mt-3 flex gap-2">
-        <li><button type="button" @click="activeTab = 'recent'" :class="activeTab === 'recent' ? 'bg-base-200' : 'bg-base-100'" class="btn btn-sm rounded-full"><?php esc_html_e('Recent', 'a-ripple-song'); ?></button></li>
-        <li><button type="button" @click="activeTab = 'popular'" :class="activeTab === 'popular' ? 'bg-base-200' : 'bg-base-100'" class="btn btn-sm rounded-full"><?php esc_html_e('Popular', 'a-ripple-song'); ?></button></li>
-        <li><button type="button" @click="activeTab = 'random'" :class="activeTab === 'random' ? 'bg-base-200' : 'bg-base-100'" class="btn btn-sm rounded-full"><?php esc_html_e('Random', 'a-ripple-song'); ?></button></li>
+        <li><button type="button" @click="activeTab = 'recent'" :class="activeTab === 'recent' ? 'bg-base-200' : 'bg-base-100'" class="btn btn-sm rounded-full"><?php esc_html_e('Recent', 'daisy-a-ripple-song'); ?></button></li>
+        <li><button type="button" @click="activeTab = 'popular'" :class="activeTab === 'popular' ? 'bg-base-200' : 'bg-base-100'" class="btn btn-sm rounded-full"><?php esc_html_e('Popular', 'daisy-a-ripple-song'); ?></button></li>
+        <li><button type="button" @click="activeTab = 'random'" :class="activeTab === 'random' ? 'bg-base-200' : 'bg-base-100'" class="btn btn-sm rounded-full"><?php esc_html_e('Random', 'daisy-a-ripple-song'); ?></button></li>
     </ul>
 
     <?php foreach ($tabs as $tabKey => $episodes): ?>
@@ -41,7 +41,7 @@
                     </li>
                 <?php endforeach; ?>
             <?php else: ?>
-                <li class="py-8 text-center text-base-content/50"><?php esc_html_e('No ARS Episode content', 'a-ripple-song'); ?></li>
+                <li class="py-8 text-center text-base-content/50"><?php esc_html_e('No ARS Episode content', 'daisy-a-ripple-song'); ?></li>
             <?php endif; ?>
         </ul>
     <?php endforeach; ?>

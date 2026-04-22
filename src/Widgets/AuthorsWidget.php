@@ -22,8 +22,8 @@ class AuthorsWidget extends \WP_Widget
     {
         parent::__construct(
             'authors_widget',
-            __('aripplesong - Authors List', 'a-ripple-song'),
-            ['description' => __('Display members and guest authors list', 'a-ripple-song')]
+            __('aripplesong - Authors List', 'daisy-a-ripple-song'),
+            ['description' => __('Display members and guest authors list', 'daisy-a-ripple-song')]
         );
     }
 
@@ -41,12 +41,12 @@ class AuthorsWidget extends \WP_Widget
         /** @var string $membersTitle Section heading for site members. */
         $membersTitle = !empty($instance['members_title'])
             ? sanitize_text_field((string) $instance['members_title'])
-            : __('Members', 'a-ripple-song');
+            : __('Members', 'daisy-a-ripple-song');
 
         /** @var string $guestsTitle Section heading for guest contributors. */
         $guestsTitle = !empty($instance['guests_title'])
             ? sanitize_text_field((string) $instance['guests_title'])
-            : __('Guests', 'a-ripple-song');
+            : __('Guests', 'daisy-a-ripple-song');
 
         /** @var bool $showMembers Whether to display the members section. */
         $showMembers = isset($instance['show_members']) ? (bool) $instance['show_members'] : true;
@@ -123,10 +123,10 @@ class AuthorsWidget extends \WP_Widget
     public function form($instance)
     {
         /** @var string $membersTitle Current members section heading value. */
-        $membersTitle = !empty($instance['members_title']) ? $instance['members_title'] : __('Members', 'a-ripple-song');
+        $membersTitle = !empty($instance['members_title']) ? $instance['members_title'] : __('Members', 'daisy-a-ripple-song');
 
         /** @var string $guestsTitle Current guests section heading value. */
-        $guestsTitle = !empty($instance['guests_title']) ? $instance['guests_title'] : __('Guests', 'a-ripple-song');
+        $guestsTitle = !empty($instance['guests_title']) ? $instance['guests_title'] : __('Guests', 'daisy-a-ripple-song');
 
         /** @var bool $showMembers Current state of the show members toggle. */
         $showMembers = isset($instance['show_members']) ? (bool) $instance['show_members'] : true;
@@ -136,7 +136,7 @@ class AuthorsWidget extends \WP_Widget
         ?>
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('members_title')); ?>">
-                <?php esc_html_e('Members Title:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Members Title:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="widefat"
                    id="<?php echo esc_attr($this->get_field_id('members_title')); ?>"
@@ -152,13 +152,13 @@ class AuthorsWidget extends \WP_Widget
                    id="<?php echo esc_attr($this->get_field_id('show_members')); ?>"
                    name="<?php echo esc_attr($this->get_field_name('show_members')); ?>">
             <label for="<?php echo esc_attr($this->get_field_id('show_members')); ?>">
-                <?php esc_html_e('Show Members (Administrators, Editors, Authors)', 'a-ripple-song'); ?>
+                <?php esc_html_e('Show Members (Administrators, Editors, Authors)', 'daisy-a-ripple-song'); ?>
             </label>
         </p>
 
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('guests_title')); ?>">
-                <?php esc_html_e('Guests Title:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Guests Title:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="widefat"
                    id="<?php echo esc_attr($this->get_field_id('guests_title')); ?>"
@@ -174,7 +174,7 @@ class AuthorsWidget extends \WP_Widget
                    id="<?php echo esc_attr($this->get_field_id('show_guests')); ?>"
                    name="<?php echo esc_attr($this->get_field_name('show_guests')); ?>">
             <label for="<?php echo esc_attr($this->get_field_id('show_guests')); ?>">
-                <?php esc_html_e('Show Guests (Contributors)', 'a-ripple-song'); ?>
+                <?php esc_html_e('Show Guests (Contributors)', 'daisy-a-ripple-song'); ?>
             </label>
         </p>
         <?php

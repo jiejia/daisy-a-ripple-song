@@ -13,8 +13,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-2 h-12 w-12 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <p class="text-sm font-medium"><?php esc_html_e('No banner yet', 'a-ripple-song'); ?></p>
-                <p class="mt-1 text-xs"><?php esc_html_e('Please add banner content in the admin panel', 'a-ripple-song'); ?></p>
+                <p class="text-sm font-medium"><?php esc_html_e('No banner yet', 'daisy-a-ripple-song'); ?></p>
+                <p class="mt-1 text-xs"><?php esc_html_e('Please add banner content in the admin panel', 'daisy-a-ripple-song'); ?></p>
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
                 <button type="button"
                         class="banner-prev absolute left-2 top-1/2 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-sm transition-colors hover:bg-black/40 md:flex"
                         data-carousel-prev="<?php echo esc_attr($carouselId); ?>"
-                        aria-label="<?php echo esc_attr__('Previous slide', 'a-ripple-song'); ?>">
+                        aria-label="<?php echo esc_attr__('Previous slide', 'daisy-a-ripple-song'); ?>">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m15 18-6-6 6-6" />
                     </svg>
@@ -48,7 +48,7 @@
                 <button type="button"
                         class="banner-next absolute right-2 top-1/2 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-sm transition-colors hover:bg-black/40 md:flex"
                         data-carousel-next="<?php echo esc_attr($carouselId); ?>"
-                        aria-label="<?php echo esc_attr__('Next slide', 'a-ripple-song'); ?>">
+                        aria-label="<?php echo esc_attr__('Next slide', 'daisy-a-ripple-song'); ?>">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m9 18 6-6-6-6" />
                     </svg>
@@ -60,7 +60,7 @@
                                 class="banner-dot <?php echo $index === 0 ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'; ?> h-2.5 w-2.5 rounded-full shadow-sm transition-all duration-300"
                                 data-carousel="<?php echo esc_attr($carouselId); ?>"
                                 data-index="<?php echo esc_attr((string) $index); ?>"
-                                aria-label="<?php echo esc_attr(sprintf(__('Go to slide %d', 'a-ripple-song'), $index + 1)); ?>">
+                                aria-label="<?php echo esc_attr(sprintf(__('Go to slide %d', 'daisy-a-ripple-song'), $index + 1)); ?>">
                         </button>
                     <?php endforeach; ?>
                 </div>

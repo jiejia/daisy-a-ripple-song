@@ -45,8 +45,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-2 h-12 w-12 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
-                <p class="text-sm font-medium"><?php esc_html_e('No authors yet', 'a-ripple-song'); ?></p>
-                <p class="mt-1 text-xs"><?php esc_html_e('Authors will appear here after adding users', 'a-ripple-song'); ?></p>
+                <p class="text-sm font-medium"><?php esc_html_e('No authors yet', 'daisy-a-ripple-song'); ?></p>
+                <p class="mt-1 text-xs"><?php esc_html_e('Authors will appear here after adding users', 'daisy-a-ripple-song'); ?></p>
             </div>
         </div>
     <?php endif; ?>

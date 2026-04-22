@@ -19,8 +19,8 @@ class BannerCarouselWidget extends \WP_Widget
     {
         parent::__construct(
             'banner_carousel_widget',
-            __('aripplesong - Banner Carousel', 'a-ripple-song'),
-            ['description' => __('Display banner carousel with images', 'a-ripple-song')]
+            __('aripplesong - Banner Carousel', 'daisy-a-ripple-song'),
+            ['description' => __('Display banner carousel with images', 'daisy-a-ripple-song')]
         );
     }
 
@@ -73,24 +73,24 @@ class BannerCarouselWidget extends \WP_Widget
         <div class="banner-carousel-widget-form"
              data-widget-id="<?php echo esc_attr($widgetId); ?>"
              data-field-prefix="<?php echo esc_attr($fieldPrefix); ?>">
-            <p><strong><?php esc_html_e('Banner Slides:', 'a-ripple-song'); ?></strong></p>
+            <p><strong><?php esc_html_e('Banner Slides:', 'daisy-a-ripple-song'); ?></strong></p>
 
             <div class="banner-slides-container" id="<?php echo esc_attr($widgetId); ?>_container">
                 <?php foreach ($slides as $index => $slide): ?>
                     <div class="banner-slide-item" style="margin-bottom: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; background: #f9f9f9;">
                         <div class="banner-image-url-row" style="margin-bottom: 8px;">
                             <label style="display: block; margin-bottom: 4px; font-weight: 600;">
-                                <?php esc_html_e('Image URL:', 'a-ripple-song'); ?>
+                                <?php esc_html_e('Image URL:', 'daisy-a-ripple-song'); ?>
                             </label>
                             <div style="display: flex; gap: 5px;">
                                 <input type="text"
                                        class="widefat banner-image-url"
                                        name="<?php echo esc_attr($this->get_field_name('slides')); ?>[<?php echo esc_attr((string) $index); ?>][image]"
                                        value="<?php echo esc_attr($slide['image']); ?>"
-                                       placeholder="<?php echo esc_attr__('Image URL', 'a-ripple-song'); ?>"
+                                       placeholder="<?php echo esc_attr__('Image URL', 'daisy-a-ripple-song'); ?>"
                                        style="flex: 1;">
                                 <button type="button" class="button banner-select-image" style="flex-shrink: 0;">
-                                    <?php esc_html_e('Select Image', 'a-ripple-song'); ?>
+                                    <?php esc_html_e('Select Image', 'daisy-a-ripple-song'); ?>
                                 </button>
                             </div>
 
@@ -103,7 +103,7 @@ class BannerCarouselWidget extends \WP_Widget
 
                         <div style="margin-bottom: 8px;">
                             <label style="display: block; margin-bottom: 4px; font-weight: 600;">
-                                <?php esc_html_e('Link URL (optional):', 'a-ripple-song'); ?>
+                                <?php esc_html_e('Link URL (optional):', 'daisy-a-ripple-song'); ?>
                             </label>
                             <input type="url"
                                    class="widefat banner-link-url"
@@ -114,33 +114,33 @@ class BannerCarouselWidget extends \WP_Widget
 
                         <div style="margin-bottom: 8px;">
                             <label style="display: block; margin-bottom: 4px; font-weight: 600;">
-                                <?php esc_html_e('Link Target:', 'a-ripple-song'); ?>
+                                <?php esc_html_e('Link Target:', 'daisy-a-ripple-song'); ?>
                             </label>
                             <select class="widefat banner-link-target"
                                     name="<?php echo esc_attr($this->get_field_name('slides')); ?>[<?php echo esc_attr((string) $index); ?>][link_target]">
                                 <option value="_self" <?php selected($slide['link_target'], '_self'); ?>>
-                                    <?php esc_html_e('Current Page', 'a-ripple-song'); ?>
+                                    <?php esc_html_e('Current Page', 'daisy-a-ripple-song'); ?>
                                 </option>
                                 <option value="_blank" <?php selected($slide['link_target'], '_blank'); ?>>
-                                    <?php esc_html_e('New Tab', 'a-ripple-song'); ?>
+                                    <?php esc_html_e('New Tab', 'daisy-a-ripple-song'); ?>
                                 </option>
                             </select>
                         </div>
 
                         <div style="margin-bottom: 8px;">
                             <label style="display: block; margin-bottom: 4px; font-weight: 600;">
-                                <?php esc_html_e('Description:', 'a-ripple-song'); ?>
+                                <?php esc_html_e('Description:', 'daisy-a-ripple-song'); ?>
                             </label>
                             <input type="text"
                                    class="widefat banner-description"
                                    name="<?php echo esc_attr($this->get_field_name('slides')); ?>[<?php echo esc_attr((string) $index); ?>][description]"
                                    value="<?php echo esc_attr($slide['description']); ?>"
-                                   placeholder="<?php echo esc_attr__('Image description', 'a-ripple-song'); ?>">
+                                   placeholder="<?php echo esc_attr__('Image description', 'daisy-a-ripple-song'); ?>">
                         </div>
 
                         <div style="text-align: right;">
                             <button type="button" class="button button-link button-link-delete banner-remove-slide" style="color: #b32d2e;">
-                                <?php esc_html_e('Delete', 'a-ripple-song'); ?>
+                                <?php esc_html_e('Delete', 'daisy-a-ripple-song'); ?>
                             </button>
                         </div>
                     </div>
@@ -151,7 +151,7 @@ class BannerCarouselWidget extends \WP_Widget
 
             <p>
                 <button type="button" class="button banner-add-slide" data-widget-id="<?php echo esc_attr($widgetId); ?>">
-                    <?php esc_html_e('+ Add Banner', 'a-ripple-song'); ?>
+                    <?php esc_html_e('+ Add Banner', 'daisy-a-ripple-song'); ?>
                 </button>
             </p>
         </div>

@@ -19,47 +19,47 @@ class SocialLinks
     {
         return [
             'facebook' => [
-                'label' => __('Facebook', 'a-ripple-song'),
+                'label' => __('Facebook', 'daisy-a-ripple-song'),
                 'icon' => 'thumbs-up',
             ],
             'twitter' => [
-                'label' => __('Twitter / X', 'a-ripple-song'),
+                'label' => __('Twitter / X', 'daisy-a-ripple-song'),
                 'icon' => 'message-circle',
             ],
             'instagram' => [
-                'label' => __('Instagram', 'a-ripple-song'),
+                'label' => __('Instagram', 'daisy-a-ripple-song'),
                 'icon' => 'camera',
             ],
             'linkedin' => [
-                'label' => __('LinkedIn', 'a-ripple-song'),
+                'label' => __('LinkedIn', 'daisy-a-ripple-song'),
                 'icon' => 'briefcase',
             ],
             'youtube' => [
-                'label' => __('YouTube', 'a-ripple-song'),
+                'label' => __('YouTube', 'daisy-a-ripple-song'),
                 'icon' => 'play-circle',
             ],
             'tiktok' => [
-                'label' => __('TikTok', 'a-ripple-song'),
+                'label' => __('TikTok', 'daisy-a-ripple-song'),
                 'icon' => 'music-2',
             ],
             'pinterest' => [
-                'label' => __('Pinterest', 'a-ripple-song'),
+                'label' => __('Pinterest', 'daisy-a-ripple-song'),
                 'icon' => 'pin',
             ],
             'threads' => [
-                'label' => __('Threads', 'a-ripple-song'),
+                'label' => __('Threads', 'daisy-a-ripple-song'),
                 'icon' => 'at-sign',
             ],
             'weibo' => [
-                'label' => __('Weibo', 'a-ripple-song'),
+                'label' => __('Weibo', 'daisy-a-ripple-song'),
                 'icon' => 'message-circle',
             ],
             'wechat' => [
-                'label' => __('WeChat', 'a-ripple-song'),
+                'label' => __('WeChat', 'daisy-a-ripple-song'),
                 'icon' => 'message-square',
             ],
             'rss' => [
-                'label' => __('RSS Feed', 'a-ripple-song'),
+                'label' => __('RSS Feed', 'daisy-a-ripple-song'),
                 'icon' => 'rss',
             ],
         ];

@@ -15,7 +15,7 @@
                 <?php dynamic_sidebar("home-main"); ?>
                 <?php else : ?>
                 <div class="rounded-lg bg-base-100 p-8 text-center text-base-content/50">
-                    <p><?php echo __('Please add widgets to "Home Main" area in Appearance > Widgets in the admin panel.', 'a-ripple-song'); ?></p>
+                    <p><?php echo __('Please add widgets to "Home Main" area in Appearance > Widgets in the admin panel.', 'daisy-a-ripple-song'); ?></p>
                 </div>
                 <?php endif; ?>
             </div>

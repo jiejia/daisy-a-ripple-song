@@ -5,10 +5,10 @@
  * @var array<string, string> $theme_mode_labels
  */
 $theme_mode_labels = [
-    'light'  => __('Light Mode', 'a-ripple-song'),
-    'dark'   => __('Dark Mode', 'a-ripple-song'),
-    'system' => __('Follow System', 'a-ripple-song'),
-    'toggle' => __('Toggle Theme', 'a-ripple-song'),
+    'light'  => __('Light Mode', 'daisy-a-ripple-song'),
+    'dark'   => __('Dark Mode', 'daisy-a-ripple-song'),
+    'system' => __('Follow System', 'daisy-a-ripple-song'),
+    'toggle' => __('Toggle Theme', 'daisy-a-ripple-song'),
 ];
 ?>
 <!DOCTYPE html>

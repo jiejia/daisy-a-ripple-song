@@ -19,8 +19,8 @@ class SubscribeLinksWidget extends \WP_Widget
     {
         parent::__construct(
             'subscribe_links_widget',
-            __('aripplesong - Subscribe Links', 'a-ripple-song'),
-            ['description' => __('Display podcast subscription platform links', 'a-ripple-song')]
+            __('aripplesong - Subscribe Links', 'daisy-a-ripple-song'),
+            ['description' => __('Display podcast subscription platform links', 'daisy-a-ripple-song')]
         );
     }
 
@@ -36,7 +36,7 @@ class SubscribeLinksWidget extends \WP_Widget
         echo $args['before_widget'];
 
         /** @var string $title Widget heading displayed above the buttons. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('SUBSCRIBE', 'a-ripple-song');
+        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('SUBSCRIBE', 'daisy-a-ripple-song');
 
         /** @var array<string, string> $links Configured platform links keyed by slug. */
         $links = [
@@ -62,7 +62,7 @@ class SubscribeLinksWidget extends \WP_Widget
     public function form($instance)
     {
         /** @var string $title Current widget title. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('SUBSCRIBE', 'a-ripple-song');
+        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('SUBSCRIBE', 'daisy-a-ripple-song');
 
         /** @var string $applePodcastUrl Apple Podcasts URL. */
         $applePodcastUrl = !empty($instance['apple_podcast_url']) ? esc_url((string) $instance['apple_podcast_url']) : '';
@@ -75,19 +75,19 @@ class SubscribeLinksWidget extends \WP_Widget
         ?>
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
-                <?php esc_html_e('Title:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Title:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="widefat"
                    id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                    name="<?php echo esc_attr($this->get_field_name('title')); ?>"
                    type="text"
                    value="<?php echo esc_attr($title); ?>"
-                   placeholder="<?php echo esc_attr__('SUBSCRIBE', 'a-ripple-song'); ?>">
+                   placeholder="<?php echo esc_attr__('SUBSCRIBE', 'daisy-a-ripple-song'); ?>">
         </p>
 
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('apple_podcast_url')); ?>">
-                <?php esc_html_e('Apple Podcast Link:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Apple Podcast Link:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="widefat"
                    id="<?php echo esc_attr($this->get_field_id('apple_podcast_url')); ?>"
@@ -95,12 +95,12 @@ class SubscribeLinksWidget extends \WP_Widget
                    type="url"
                    value="<?php echo esc_attr($applePodcastUrl); ?>"
                    placeholder="https://podcasts.apple.com/...">
-            <small class="description"><?php esc_html_e('Leave blank to hide this button', 'a-ripple-song'); ?></small>
+            <small class="description"><?php esc_html_e('Leave blank to hide this button', 'daisy-a-ripple-song'); ?></small>
         </p>
 
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('spotify_url')); ?>">
-                <?php esc_html_e('Spotify Link:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Spotify Link:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="widefat"
                    id="<?php echo esc_attr($this->get_field_id('spotify_url')); ?>"
@@ -108,12 +108,12 @@ class SubscribeLinksWidget extends \WP_Widget
                    type="url"
                    value="<?php echo esc_attr($spotifyUrl); ?>"
                    placeholder="https://open.spotify.com/...">
-            <small class="description"><?php esc_html_e('Leave blank to hide this button', 'a-ripple-song'); ?></small>
+            <small class="description"><?php esc_html_e('Leave blank to hide this button', 'daisy-a-ripple-song'); ?></small>
         </p>
 
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('youtube_music_url')); ?>">
-                <?php esc_html_e('YouTube Music Link:', 'a-ripple-song'); ?>
+                <?php esc_html_e('YouTube Music Link:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="widefat"
                    id="<?php echo esc_attr($this->get_field_id('youtube_music_url')); ?>"
@@ -121,7 +121,7 @@ class SubscribeLinksWidget extends \WP_Widget
                    type="url"
                    value="<?php echo esc_attr($youtubeMusicUrl); ?>"
                    placeholder="https://music.youtube.com/...">
-            <small class="description"><?php esc_html_e('Leave blank to hide this button', 'a-ripple-song'); ?></small>
+            <small class="description"><?php esc_html_e('Leave blank to hide this button', 'daisy-a-ripple-song'); ?></small>
         </p>
         <?php
     }

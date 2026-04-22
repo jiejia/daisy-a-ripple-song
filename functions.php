@@ -10,7 +10,7 @@ if (! file_exists($autoload) && ! file_exists($scoperAutoload)) {
         }
 
         echo '<div class="notice notice-error"><p>';
-        echo esc_html__('Theme dependencies are missing. Run "composer install" in wp-content/themes/a-ripple-song.', 'a-ripple-song');
+        echo esc_html__('Theme dependencies are missing. Run "composer install" in wp-content/themes/daisy-a-ripple-song.', 'daisy-a-ripple-song');
         echo '</p></div>';
     });
 

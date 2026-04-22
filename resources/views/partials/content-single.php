@@ -27,7 +27,7 @@
     </div>
     <?php
     wp_link_pages([
-        'before' => '<nav class="page-links mt-4 flex flex-wrap items-center gap-2 text-sm"><span class="font-semibold">' . esc_html__('Pages:', 'a-ripple-song') . '</span>',
+        'before' => '<nav class="page-links mt-4 flex flex-wrap items-center gap-2 text-sm"><span class="font-semibold">' . esc_html__('Pages:', 'daisy-a-ripple-song') . '</span>',
         'after' => '</nav>',
         'link_before' => '<span class="btn btn-xs btn-outline">',
         'link_after' => '</span>',

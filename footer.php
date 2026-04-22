@@ -19,7 +19,7 @@
                         \ARippleSong\Themes\Daisy\ThemeOptions\General::getFooterCopyright() !== ''
                             ? \ARippleSong\Themes\Daisy\ThemeOptions\General::getFooterCopyright()
                             : sprintf(
-                                __('© %1$s Powered by %2$s Theme', 'a-ripple-song'),
+                                __('© %1$s Powered by %2$s Theme', 'daisy-a-ripple-song'),
                                 wp_date('Y'),
                                 '<a href="' . esc_url((string) wp_get_theme()->get('ThemeURI')) . '" target="_blank" rel="noopener noreferrer" class="text-primary">' . esc_html((string) wp_get_theme()->get('Name')) . '</a>'
                             )
@@ -64,7 +64,7 @@
 <label
     for="leftbar-drawer"
     class="fixed left-0 top-1/2 z-[99] -translate-y-1/2 cursor-pointer rounded-r-md bg-base-300/80 px-1 py-3 text-base-content/70 shadow-sm transition-all duration-200 hover:bg-base-300 hover:px-2 hover:text-base-content lg:hidden"
-    aria-label="<?php echo esc_attr__('Open Left Sidebar', 'a-ripple-song'); ?>"
+    aria-label="<?php echo esc_attr__('Open Left Sidebar', 'daisy-a-ripple-song'); ?>"
 >
     <i data-lucide="chevron-right" class="h-3 w-3"></i>
 </label>
@@ -72,7 +72,7 @@
 <label
     for="sidebar-drawer"
     class="fixed right-0 top-1/2 z-[99] -translate-y-1/2 cursor-pointer rounded-l-md bg-base-300/80 px-1 py-3 text-base-content/70 shadow-sm transition-all duration-200 hover:bg-base-300 hover:px-2 hover:text-base-content md:hidden"
-    aria-label="<?php echo esc_attr__('Open Right Sidebar', 'a-ripple-song'); ?>"
+    aria-label="<?php echo esc_attr__('Open Right Sidebar', 'daisy-a-ripple-song'); ?>"
 >
     <i data-lucide="chevron-left" class="h-3 w-3"></i>
 </label>
@@ -89,7 +89,7 @@
     x-transition:leave-end="opacity-0 translate-y-4"
     @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
     class="btn btn-circle btn-primary fixed bottom-52 right-4 z-50 shadow-lg md:bottom-6"
-    aria-label="<?php echo esc_attr__('Back to top', 'a-ripple-song'); ?>"
+    aria-label="<?php echo esc_attr__('Back to top', 'daisy-a-ripple-song'); ?>"
 >
     <i data-lucide="arrow-up" class="h-5 w-5"></i>
 </button>

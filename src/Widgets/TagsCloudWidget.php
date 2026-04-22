@@ -19,8 +19,8 @@ class TagsCloudWidget extends \WP_Widget
     {
         parent::__construct(
             'tags_cloud_widget',
-            __('aripplesong - Tags Cloud', 'a-ripple-song'),
-            ['description' => __('Display article tags cloud', 'a-ripple-song')]
+            __('aripplesong - Tags Cloud', 'daisy-a-ripple-song'),
+            ['description' => __('Display article tags cloud', 'daisy-a-ripple-song')]
         );
     }
 
@@ -36,7 +36,7 @@ class TagsCloudWidget extends \WP_Widget
         echo $args['before_widget'];
 
         /** @var string $title Widget heading. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('TAGS', 'a-ripple-song');
+        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('TAGS', 'daisy-a-ripple-song');
 
         /** @var int $number Number of tags to show. */
         $number = !empty($instance['number']) ? max(1, absint($instance['number'])) : 20;
@@ -72,7 +72,7 @@ class TagsCloudWidget extends \WP_Widget
     public function form($instance)
     {
         /** @var string $title Current widget title. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('TAGS', 'a-ripple-song');
+        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('TAGS', 'daisy-a-ripple-song');
 
         /** @var int $number Current number of tags setting. */
         $number = !empty($instance['number']) ? max(1, absint($instance['number'])) : 20;
@@ -85,7 +85,7 @@ class TagsCloudWidget extends \WP_Widget
         ?>
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
-                <?php esc_html_e('Title:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Title:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="widefat"
                    id="<?php echo esc_attr($this->get_field_id('title')); ?>"
@@ -96,7 +96,7 @@ class TagsCloudWidget extends \WP_Widget
 
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('number')); ?>">
-                <?php esc_html_e('Number of tags:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Number of tags:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="tiny-text"
                    id="<?php echo esc_attr($this->get_field_id('number')); ?>"
@@ -106,32 +106,32 @@ class TagsCloudWidget extends \WP_Widget
                    min="1"
                    value="<?php echo esc_attr((string) $number); ?>"
                    size="3">
-            <small class="description"><?php esc_html_e('Maximum number of tags to display', 'a-ripple-song'); ?></small>
+            <small class="description"><?php esc_html_e('Maximum number of tags to display', 'daisy-a-ripple-song'); ?></small>
         </p>
 
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('orderby')); ?>">
-                <?php esc_html_e('Order by:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Order by:', 'daisy-a-ripple-song'); ?>
             </label>
             <select class="widefat"
                     id="<?php echo esc_attr($this->get_field_id('orderby')); ?>"
                     name="<?php echo esc_attr($this->get_field_name('orderby')); ?>">
-                <option value="count" <?php selected($orderby, 'count'); ?>><?php esc_html_e('Post Count', 'a-ripple-song'); ?></option>
-                <option value="name" <?php selected($orderby, 'name'); ?>><?php esc_html_e('Tag Name', 'a-ripple-song'); ?></option>
-                <option value="term_id" <?php selected($orderby, 'term_id'); ?>><?php esc_html_e('Tag ID', 'a-ripple-song'); ?></option>
-                <option value="rand" <?php selected($orderby, 'rand'); ?>><?php esc_html_e('Random', 'a-ripple-song'); ?></option>
+                <option value="count" <?php selected($orderby, 'count'); ?>><?php esc_html_e('Post Count', 'daisy-a-ripple-song'); ?></option>
+                <option value="name" <?php selected($orderby, 'name'); ?>><?php esc_html_e('Tag Name', 'daisy-a-ripple-song'); ?></option>
+                <option value="term_id" <?php selected($orderby, 'term_id'); ?>><?php esc_html_e('Tag ID', 'daisy-a-ripple-song'); ?></option>
+                <option value="rand" <?php selected($orderby, 'rand'); ?>><?php esc_html_e('Random', 'daisy-a-ripple-song'); ?></option>
             </select>
         </p>
 
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('order')); ?>">
-                <?php esc_html_e('Sort order:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Sort order:', 'daisy-a-ripple-song'); ?>
             </label>
             <select class="widefat"
                     id="<?php echo esc_attr($this->get_field_id('order')); ?>"
                     name="<?php echo esc_attr($this->get_field_name('order')); ?>">
-                <option value="DESC" <?php selected($order, 'DESC'); ?>><?php esc_html_e('Descending (High to Low/Z to A)', 'a-ripple-song'); ?></option>
-                <option value="ASC" <?php selected($order, 'ASC'); ?>><?php esc_html_e('Ascending (Low to High/A to Z)', 'a-ripple-song'); ?></option>
+                <option value="DESC" <?php selected($order, 'DESC'); ?>><?php esc_html_e('Descending (High to Low/Z to A)', 'daisy-a-ripple-song'); ?></option>
+                <option value="ASC" <?php selected($order, 'ASC'); ?>><?php esc_html_e('Ascending (Low to High/A to Z)', 'daisy-a-ripple-song'); ?></option>
             </select>
         </p>
         <?php

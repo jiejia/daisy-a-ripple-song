@@ -52,8 +52,8 @@ class General
     public static function registerPages(): void
     {
         add_menu_page(
-            __('Theme Options', 'a-ripple-song'),
-            __('Theme Options', 'a-ripple-song'),
+            __('Theme Options', 'daisy-a-ripple-song'),
+            __('Theme Options', 'daisy-a-ripple-song'),
             'edit_theme_options',
             static::OPTIONS_PAGE_FILE,
             [static::class, 'renderGeneralPage'],
@@ -63,8 +63,8 @@ class General
 
         add_submenu_page(
             static::OPTIONS_PAGE_FILE,
-            __('General', 'a-ripple-song'),
-            __('General', 'a-ripple-song'),
+            __('General', 'daisy-a-ripple-song'),
+            __('General', 'daisy-a-ripple-song'),
             'edit_theme_options',
             static::GENERAL_PAGE_FILE,
             [static::class, 'renderGeneralPage']
@@ -75,8 +75,8 @@ class General
 
         add_submenu_page(
             static::OPTIONS_PAGE_FILE,
-            __('Social Links', 'a-ripple-song'),
-            __('Social Links', 'a-ripple-song'),
+            __('Social Links', 'daisy-a-ripple-song'),
+            __('Social Links', 'daisy-a-ripple-song'),
             'edit_theme_options',
             static::SOCIAL_PAGE_FILE,
             [static::class, 'renderSocialPage']
@@ -171,7 +171,7 @@ class General
     public static function renderGeneralPage(): void
     {
         echo '<div class="wrap">';
-        echo '<h1>' . esc_html__('General', 'a-ripple-song') . '</h1>';
+        echo '<h1>' . esc_html__('General', 'daisy-a-ripple-song') . '</h1>';
         settings_errors();
         echo '<form method="post" action="options.php">';
         settings_fields(static::OPTION_GROUP);
@@ -180,37 +180,37 @@ class General
         echo static::renderLogoRow();
         echo static::renderThemePickerRow(
             'crb_light_theme',
-            __('Light Theme', 'a-ripple-song'),
+            __('Light Theme', 'daisy-a-ripple-song'),
             static::getLightThemeOptions(),
             static::getLightTheme(),
             'light',
-            __('This is the default theme used when the site is in light mode.', 'a-ripple-song')
+            __('This is the default theme used when the site is in light mode.', 'daisy-a-ripple-song')
         );
         echo static::renderThemePickerRow(
             'crb_dark_theme',
-            __('Dark Theme', 'a-ripple-song'),
+            __('Dark Theme', 'daisy-a-ripple-song'),
             static::getDarkThemeOptions(),
             static::getDarkTheme(),
             'dark',
-            __('This is the default theme used when the site is in dark mode.', 'a-ripple-song')
+            __('This is the default theme used when the site is in dark mode.', 'daisy-a-ripple-song')
         );
         echo static::renderTextareaRow(
             'crb_footer_copyright',
-            __('Footer Copyright', 'a-ripple-song'),
+            __('Footer Copyright', 'daisy-a-ripple-song'),
             static::getThemeOption('crb_footer_copyright'),
-            __('Overrides the footer copyright line. Leave empty to use the default.', 'a-ripple-song')
+            __('Overrides the footer copyright line. Leave empty to use the default.', 'daisy-a-ripple-song')
         );
         echo static::renderTextareaRow(
             'crb_header_scripts',
-            __('Header Scripts', 'a-ripple-song'),
+            __('Header Scripts', 'daisy-a-ripple-song'),
             static::getThemeOption('crb_header_scripts'),
-            __('Scripts to be added in the <head> section. You can include complete <script> tags for services like Google Analytics.', 'a-ripple-song')
+            __('Scripts to be added in the <head> section. You can include complete <script> tags for services like Google Analytics.', 'daisy-a-ripple-song')
         );
         echo static::renderTextareaRow(
             'crb_footer_scripts',
-            __('Footer Scripts', 'a-ripple-song'),
+            __('Footer Scripts', 'daisy-a-ripple-song'),
             static::getThemeOption('crb_footer_scripts'),
-            __('Scripts to be added before </body>. You can include complete <script> tags.', 'a-ripple-song')
+            __('Scripts to be added before </body>. You can include complete <script> tags.', 'daisy-a-ripple-song')
         );
         echo '</tbody>';
         echo '</table>';
@@ -227,7 +227,7 @@ class General
     public static function renderSocialPage(): void
     {
         echo '<div class="wrap">';
-        echo '<h1>' . esc_html__('Social Links', 'a-ripple-song') . '</h1>';
+        echo '<h1>' . esc_html__('Social Links', 'daisy-a-ripple-song') . '</h1>';
         settings_errors();
         echo '<form method="post" action="options.php">';
         settings_fields(static::OPTION_GROUP);
@@ -240,7 +240,7 @@ class General
                 SocialLinks::SETTING_PREFIX . $platformKey,
                 $platformData['label'],
                 SocialLinks::getConfiguredLinks()[$platformKey]['url'] ?? '',
-                __('Optional. Enter a full URL.', 'a-ripple-song')
+                __('Optional. Enter a full URL.', 'daisy-a-ripple-song')
             );
         }
 
@@ -605,7 +605,7 @@ class General
 
                     const renderPreview = (url) => {
                         preview.innerHTML = url
-                            ? '<img src="' + url + '" alt="<?php echo esc_js(__('Site Logo', 'a-ripple-song')); ?>" style="display:block;width:' + logoWidth + 'px;height:' + logoHeight + 'px;margin-top:12px;border:1px solid #dcdcde;padding:8px;background:#fff;object-fit:contain;">'
+                            ? '<img src="' + url + '" alt="<?php echo esc_js(__('Site Logo', 'daisy-a-ripple-song')); ?>" style="display:block;width:' + logoWidth + 'px;height:' + logoHeight + 'px;margin-top:12px;border:1px solid #dcdcde;padding:8px;background:#fff;object-fit:contain;">'
                             : '';
                         removeButton.disabled = url === '';
                     };
@@ -631,12 +631,12 @@ class General
 
                         const frame = wp.media({
                             button: {
-                                text: <?php echo wp_json_encode(__('Select and Crop', 'a-ripple-song')); ?>,
+                                text: <?php echo wp_json_encode(__('Select and Crop', 'daisy-a-ripple-song')); ?>,
                                 close: false
                             },
                             states: [
                                 new wp.media.controller.Library({
-                                    title: <?php echo wp_json_encode(__('Select Site Logo', 'a-ripple-song')); ?>,
+                                    title: <?php echo wp_json_encode(__('Select Site Logo', 'daisy-a-ripple-song')); ?>,
                                     library: wp.media.query({ type: 'image' }),
                                     multiple: false,
                                     date: false,
@@ -895,11 +895,11 @@ class General
         return sprintf(
             '<tr class="%1$s"><th scope="row"><label for="crb_site_logo">%2$s</label></th><td><div class="ars-logo-uploader" data-ars-logo-uploader><input type="url" class="regular-text" id="crb_site_logo" name="crb_site_logo" value="%3$s" placeholder="https://example.com/logo.svg" data-ars-logo-input><p class="description">%4$s</p><p><button type="button" class="button button-primary" data-ars-logo-select>%5$s</button> <button type="button" class="button" data-ars-logo-remove>%6$s</button></p><div class="ars-logo-preview" data-ars-logo-preview>%7$s</div></div></td></tr>',
             esc_attr($rowClass),
-            esc_html__('Site Logo', 'a-ripple-song'),
+            esc_html__('Site Logo', 'daisy-a-ripple-song'),
             esc_attr($currentLogo),
-            esc_html__('Upload a logo image (220px × 32px). You will be able to crop the image after upload.', 'a-ripple-song'),
-            esc_html__('Upload / Change Logo', 'a-ripple-song'),
-            esc_html__('Remove Logo', 'a-ripple-song'),
+            esc_html__('Upload a logo image (220px × 32px). You will be able to crop the image after upload.', 'daisy-a-ripple-song'),
+            esc_html__('Upload / Change Logo', 'daisy-a-ripple-song'),
+            esc_html__('Remove Logo', 'daisy-a-ripple-song'),
             static::renderLogoPreview($currentLogo)
         );
     }
@@ -1097,7 +1097,7 @@ class General
      */
     protected static function renderSocialIntroRow(): string
     {
-        return '<tr><td colspan="2"><p class="description">' . esc_html__('Only filled links will be used by the theme.', 'a-ripple-song') . '</p></td></tr>';
+        return '<tr><td colspan="2"><p class="description">' . esc_html__('Only filled links will be used by the theme.', 'daisy-a-ripple-song') . '</p></td></tr>';
     }
 
     /**
@@ -1135,7 +1135,7 @@ class General
         return sprintf(
             '<img src="%1$s" alt="%2$s" style="display:block;width:%3$dpx;height:%4$dpx;margin-top:12px;border:1px solid #dcdcde;padding:8px;background:#fff;object-fit:contain;">',
             esc_url($logoUrl),
-            esc_attr__('Site Logo', 'a-ripple-song'),
+            esc_attr__('Site Logo', 'daisy-a-ripple-song'),
             (int) static::LOGO_CROP_WIDTH,
             (int) static::LOGO_CROP_HEIGHT
         );

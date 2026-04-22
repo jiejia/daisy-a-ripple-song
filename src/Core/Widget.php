@@ -59,22 +59,22 @@ class Widget
     {
         /** @var string|false $labelsJson JSON encoded labels consumed by the admin script. */
         $labelsJson = wp_json_encode([
-            'imageUrl' => __('Image URL:', 'a-ripple-song'),
-            'imageUrlPlaceholder' => __('Image URL', 'a-ripple-song'),
-            'selectImage' => __('Select Image', 'a-ripple-song'),
-            'selectBannerImage' => __('Select Banner Image', 'a-ripple-song'),
-            'useThisImage' => __('Use This Image', 'a-ripple-song'),
-            'linkUrlOptional' => __('Link URL (optional):', 'a-ripple-song'),
-            'linkTarget' => __('Link Target:', 'a-ripple-song'),
-            'currentPage' => __('Current Page', 'a-ripple-song'),
-            'newTab' => __('New Tab', 'a-ripple-song'),
-            'description' => __('Description:', 'a-ripple-song'),
-            'imageDescription' => __('Image description', 'a-ripple-song'),
-            'delete' => __('Delete', 'a-ripple-song'),
-            'text' => __('Text:', 'a-ripple-song'),
-            'displayText' => __('Display text', 'a-ripple-song'),
-            'urlOptionalPlainText' => __('URL (optional - leave empty for plain text):', 'a-ripple-song'),
-            'openInNewTab' => __('Open in new tab', 'a-ripple-song'),
+            'imageUrl' => __('Image URL:', 'daisy-a-ripple-song'),
+            'imageUrlPlaceholder' => __('Image URL', 'daisy-a-ripple-song'),
+            'selectImage' => __('Select Image', 'daisy-a-ripple-song'),
+            'selectBannerImage' => __('Select Banner Image', 'daisy-a-ripple-song'),
+            'useThisImage' => __('Use This Image', 'daisy-a-ripple-song'),
+            'linkUrlOptional' => __('Link URL (optional):', 'daisy-a-ripple-song'),
+            'linkTarget' => __('Link Target:', 'daisy-a-ripple-song'),
+            'currentPage' => __('Current Page', 'daisy-a-ripple-song'),
+            'newTab' => __('New Tab', 'daisy-a-ripple-song'),
+            'description' => __('Description:', 'daisy-a-ripple-song'),
+            'imageDescription' => __('Image description', 'daisy-a-ripple-song'),
+            'delete' => __('Delete', 'daisy-a-ripple-song'),
+            'text' => __('Text:', 'daisy-a-ripple-song'),
+            'displayText' => __('Display text', 'daisy-a-ripple-song'),
+            'urlOptionalPlainText' => __('URL (optional - leave empty for plain text):', 'daisy-a-ripple-song'),
+            'openInNewTab' => __('Open in new tab', 'daisy-a-ripple-song'),
         ]);
 
         return <<<JS

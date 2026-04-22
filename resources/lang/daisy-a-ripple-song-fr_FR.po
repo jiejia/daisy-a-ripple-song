@@ -7,7 +7,7 @@ msgstr ""
 "PO-Revision-Date: 2026-03-27 12:05+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: English\n"
-"Language: ja\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,11 +19,11 @@ msgid_plural "%d posts"
 msgstr[0] "%d post"
 msgstr[1] "%d post"
 
-#: app/Widgets/BannerCarouselWidget.php:154
+#: src/Widgets/BannerCarouselWidget.php:154
 msgid "+ Add Banner"
 msgstr "+ Add Banner"
 
-#: app/Widgets/FooterLinksWidget.php:146
+#: src/Widgets/FooterLinksWidget.php:146
 msgid "+ Add Item"
 msgstr "+ Add Item"
 
@@ -34,22 +34,22 @@ msgstr "A Ripple Song"
 
 #: resources/views/sections/playlist-drawer.php:32
 msgid "Add some episodes to start listening"
-msgstr "聴き始めるにはエピソードを追加してください"
+msgstr "Ajoutez quelques épisodes pour commencer l’écoute"
 
 #: resources/views/widgets/subscribe-links.php:16
 #: resources/views/widgets/subscribe-links.php:17
 msgid "Apple Podcast"
 msgstr "Apple Podcast"
 
-#: app/Widgets/SubscribeLinksWidget.php:90
+#: src/Widgets/SubscribeLinksWidget.php:90
 msgid "Apple Podcast Link:"
 msgstr "Apple Podcast Link:"
 
 #: resources/views/sections/playlist-drawer.php:17
 msgid "Are you sure you want to clear the playlist?"
-msgstr "プレイリストを消去してもよろしいですか？"
+msgstr "Voulez-vous vraiment vider la playlist ?"
 
-#: app/Widgets/TagsCloudWidget.php:134
+#: src/Widgets/TagsCloudWidget.php:134
 msgid "Ascending (Low to High/A to Z)"
 msgstr "Ascending (Low to High/A to Z)"
 
@@ -57,270 +57,274 @@ msgstr "Ascending (Low to High/A to Z)"
 msgid "Authors will appear here after adding users"
 msgstr "Authors will appear here after adding users"
 
-#: app/Widgets/BlogListWidget.php:39 app/Widgets/BlogListWidget.php:103
+#: src/Widgets/BlogListWidget.php:39 app/Widgets/BlogListWidget.php:103
 msgid "BLOG"
 msgstr "BLOG"
 
 #: resources/views/partials/page-header.php:42
 msgid "Blog"
-msgstr "ブログ"
+msgstr "Blog"
 
-#: app/Widgets/BannerCarouselWidget.php:76
+#: src/Widgets/BannerCarouselWidget.php:76
 msgid "Banner Slides:"
 msgstr "Banner Slides:"
 
 #: resources/views/sections/autoplay-confirm.php:45
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr "Annuler"
 
 #: footer.php:92
 msgid "Back to top"
-msgstr "ページ上部へ"
+msgstr "Retour en haut"
 
 #: resources/views/sections/playlist-drawer.php:21
 msgid "Clear"
-msgstr "クリア"
+msgstr "Effacer"
 
 #: resources/views/sections/playlist-drawer.php:19
 msgid "Clear Playlist"
-msgstr "プレイリストを消去"
+msgstr "Vider la liste de lecture"
 
 #: resources/views/sections/leftbar-drawer.php:9
 #: resources/views/sections/mobile-menu.php:4
 #: resources/views/sections/playlist-drawer.php:4
 #: resources/views/sections/sidebar-drawer.php:9
 msgid "Close sidebar"
-msgstr "サイドバーを閉じる"
+msgstr "Fermer la barre latérale"
 
-#: app/ThemeOptions/General.php:123
+#: src/ThemeOptions/General.php:123
 msgid "Click any card to choose the dark theme."
-msgstr "カードをクリックしてダークテーマを選択してください。"
+msgstr "Cliquez sur une carte pour choisir le thème sombre."
 
-#: app/ThemeOptions/General.php:108
+#: src/ThemeOptions/General.php:108
 msgid "Click any card to choose the light theme."
-msgstr "カードをクリックしてライトテーマを選択してください。"
+msgstr "Cliquez sur une carte pour choisir le thème clair."
 
 #: resources/views/sections/autoplay-confirm.php:26
 msgid "Continue playing?"
-msgstr "再生を続けますか？"
+msgstr "Continuer la lecture ?"
 
-#: app/Core/Widget.php:69 app/Widgets/BannerCarouselWidget.php:122
+#: src/Core/Widget.php:69 app/Widgets/BannerCarouselWidget.php:122
 msgid "Current Page"
 msgstr "Current Page"
 
 #: header.php:9
 msgid "Dark Mode"
-msgstr "ダークモード"
+msgstr "Mode sombre"
 
-#: app/ThemeOptions/General.php:115 app/ThemeOptions/General.php:119
+#: src/ThemeOptions/General.php:115 app/ThemeOptions/General.php:119
 msgid "Dark Theme"
-msgstr "ダークテーマ"
+msgstr "Thème sombre"
 
-#: app/ThemeOptions/General.php:124
+#: src/ThemeOptions/General.php:124
 msgid "Dark Theme (fallback)"
-msgstr "ダークテーマ（予備）"
+msgstr "Thème sombre (secours)"
 
-#: app/Core/Widget.php:73 app/Widgets/BannerCarouselWidget.php:143
-#: app/Widgets/FooterLinksWidget.php:135
+#: src/Core/Widget.php:73 app/Widgets/BannerCarouselWidget.php:143
+#: src/Widgets/FooterLinksWidget.php:135
 msgid "Delete"
 msgstr "Delete"
 
-#: app/Widgets/TagsCloudWidget.php:133
+#: src/Widgets/TagsCloudWidget.php:133
 msgid "Descending (High to Low/Z to A)"
 msgstr "Descending (High to Low/Z to A)"
 
-#: app/Core/Widget.php:71 app/Widgets/BannerCarouselWidget.php:132
+#: src/Core/Widget.php:71 app/Widgets/BannerCarouselWidget.php:132
 msgid "Description:"
 msgstr "Description:"
 
-#: app/Widgets/FooterLinksWidget.php:23
+#: src/Widgets/FooterLinksWidget.php:23
 msgid "Display a list of links or text items in the footer"
 msgstr "Display a list of links or text items in the footer"
 
-#: app/Widgets/TagsCloudWidget.php:23
+#: src/Widgets/TagsCloudWidget.php:23
 msgid "Display article tags cloud"
 msgstr "Display article tags cloud"
 
-#: app/Widgets/BannerCarouselWidget.php:23
+#: src/Widgets/BannerCarouselWidget.php:23
 msgid "Display banner carousel with images"
 msgstr "Display banner carousel with images"
 
-#: app/Widgets/BlogListWidget.php:23
+#: src/Widgets/BlogListWidget.php:23
 msgid "Display latest blog posts list"
 msgstr "Display latest blog posts list"
 
-#: app/Widgets/PodcastListWidget.php:24
+#: src/Widgets/PodcastListWidget.php:24
 msgid "Display latest podcast list"
 msgstr "Display latest podcast list"
 
-#: app/Widgets/AuthorsWidget.php:26
+#: src/Widgets/AuthorsWidget.php:26
 msgid "Display members and guest authors list"
 msgstr "Display members and guest authors list"
 
-#: app/Widgets/SubscribeLinksWidget.php:23
+#: src/Widgets/SubscribeLinksWidget.php:23
 msgid "Display podcast subscription platform links"
 msgstr "Display podcast subscription platform links"
 
-#: app/Core/Widget.php:75 app/Widgets/FooterLinksWidget.php:108
+#: src/Core/Widget.php:75 app/Widgets/FooterLinksWidget.php:108
 msgid "Display text"
 msgstr "Display text"
 
-#: app/ThemeOptions/SocialLinks.php:22
+#: src/ThemeOptions/SocialLinks.php:22
 msgid "Facebook"
 msgstr ""
 
 #: header.php:10
 msgid "Follow System"
-msgstr "システムに従う"
+msgstr "Suivre le système"
 
-#: app/ThemeOptions/General.php:130
+#: src/ThemeOptions/General.php:130
 msgid "Footer Copyright"
-msgstr "フッター著作権"
+msgstr "Copyright du pied de page"
 
-#: app/Core/Setup.php:119
+#: src/Core/Setup.php:119
 msgid "Footer Links"
 msgstr "Footer Links"
 
-#: app/ThemeOptions/General.php:136
+#: src/ThemeOptions/General.php:136
 msgid "Footer Scripts"
-msgstr "フッタースクリプト"
+msgstr "Scripts de pied de page"
 
-#: app/Core/Setup.php:121
+#: src/Core/Setup.php:121
 msgid "Footer links area for displaying link columns"
 msgstr "Footer links area for displaying link columns"
 
 #: resources/views/sections/leftbar-drawer.php:12
 msgid "Left Sidebar"
-msgstr "左サイドバー"
+msgstr "Barre latérale gauche"
 
 #: footer.php:67
 msgid "Open Left Sidebar"
-msgstr "左サイドバーを開く"
+msgstr "Ouvrir la barre latérale gauche"
 
 #: footer.php:75
 msgid "Open Right Sidebar"
-msgstr "右サイドバーを開く"
+msgstr "Ouvrir la barre latérale droite"
 
-#: app/ThemeOptions/General.php:52 app/ThemeOptions/General.php:53
+#: src/ThemeOptions/General.php:52 app/ThemeOptions/General.php:53
 msgid "Theme Options"
-msgstr "テーマオプション"
+msgstr "Options du thème"
 
-#: app/ThemeOptions/General.php:61 app/ThemeOptions/General.php:62
+#: src/ThemeOptions/General.php:61 app/ThemeOptions/General.php:62
 msgid "General"
-msgstr "一般"
+msgstr "Général"
 
 #: resources/views/widgets/banner-carousel.php:63
 #, php-format
 msgid "Go to slide %d"
 msgstr "Go to slide %d"
 
-#: app/Widgets/AuthorsWidget.php:49 app/Widgets/AuthorsWidget.php:129
+#: src/Widgets/AuthorsWidget.php:49 app/Widgets/AuthorsWidget.php:129
 msgid "Guests"
 msgstr "Guests"
 
-#: app/Widgets/AuthorsWidget.php:161
+#: src/Widgets/AuthorsWidget.php:161
 msgid "Guests Title:"
 msgstr "Guests Title:"
 
-#: app/ThemeOptions/General.php:134
+#: src/ThemeOptions/General.php:134
 msgid "Header Scripts"
-msgstr "ヘッダースクリプト"
+msgstr "Scripts d’en-tête"
 
-#: app/Core/Setup.php:132
+#: src/Core/Setup.php:132
 msgid "Home Main"
 msgstr "Home Main"
 
-#: app/ThemeOptions/General.php:127
+#: src/ThemeOptions/General.php:127
 msgid "If the card picker is unavailable, use this dropdown (default: dim)."
-msgstr "カード選択が使えない場合は、このドロップダウンを使用してください（デフォルト: dim）。"
+msgstr ""
+"Si le sélecteur de cartes est indisponible, utilisez cette liste déroulante "
+"(par défaut : dim)."
 
-#: app/ThemeOptions/General.php:112
+#: src/ThemeOptions/General.php:112
 msgid "If the card picker is unavailable, use this dropdown (default: retro)."
-msgstr "カード選択が使えない場合は、このドロップダウンを使用してください（デフォルト: retro）。"
+msgstr ""
+"Si le sélecteur de cartes est indisponible, utilisez cette liste déroulante "
+"(par défaut : retro)."
 
-#: app/Core/Widget.php:63 app/Widgets/BannerCarouselWidget.php:90
+#: src/Core/Widget.php:63 app/Widgets/BannerCarouselWidget.php:90
 msgid "Image URL"
 msgstr "Image URL"
 
-#: app/Core/Widget.php:62 app/Widgets/BannerCarouselWidget.php:83
+#: src/Core/Widget.php:62 app/Widgets/BannerCarouselWidget.php:83
 msgid "Image URL:"
 msgstr "Image URL:"
 
-#: app/Core/Widget.php:72 app/Widgets/BannerCarouselWidget.php:138
+#: src/Core/Widget.php:72 app/Widgets/BannerCarouselWidget.php:138
 msgid "Image description"
 msgstr "Image description"
 
-#: app/ThemeOptions/SocialLinks.php:30
+#: src/ThemeOptions/SocialLinks.php:30
 msgid "Instagram"
 msgstr ""
 
-#: app/Widgets/FooterLinksWidget.php:94
+#: src/Widgets/FooterLinksWidget.php:94
 msgid "Items:"
 msgstr "Items:"
 
-#: app/Widgets/SubscribeLinksWidget.php:98
-#: app/Widgets/SubscribeLinksWidget.php:111
-#: app/Widgets/SubscribeLinksWidget.php:124
+#: src/Widgets/SubscribeLinksWidget.php:98
+#: src/Widgets/SubscribeLinksWidget.php:111
+#: src/Widgets/SubscribeLinksWidget.php:124
 msgid "Leave blank to hide this button"
 msgstr "Leave blank to hide this button"
 
-#: app/Core/Setup.php:158
+#: src/Core/Setup.php:158
 msgid "Leftbar Primary"
 msgstr "Leftbar Primary"
 
 #: header.php:8
 msgid "Light Mode"
-msgstr "ライトモード"
+msgstr "Mode clair"
 
-#: app/ThemeOptions/General.php:100 app/ThemeOptions/General.php:104
+#: src/ThemeOptions/General.php:100 app/ThemeOptions/General.php:104
 msgid "Light Theme"
-msgstr "ライトテーマ"
+msgstr "Thème clair"
 
-#: app/ThemeOptions/General.php:109
+#: src/ThemeOptions/General.php:109
 msgid "Light Theme (fallback)"
-msgstr "ライトテーマ（予備）"
+msgstr "Thème clair (secours)"
 
-#: app/Core/Widget.php:68 app/Widgets/BannerCarouselWidget.php:117
+#: src/Core/Widget.php:68 app/Widgets/BannerCarouselWidget.php:117
 msgid "Link Target:"
 msgstr "Link Target:"
 
-#: app/Core/Widget.php:67 app/Widgets/BannerCarouselWidget.php:106
+#: src/Core/Widget.php:67 app/Widgets/BannerCarouselWidget.php:106
 msgid "Link URL (optional):"
 msgstr "Link URL (optional):"
 
-#: app/ThemeOptions/SocialLinks.php:34
+#: src/ThemeOptions/SocialLinks.php:34
 msgid "LinkedIn"
 msgstr ""
 
 #: resources/views/sections/player.php:51
 msgid "Loading audio"
-msgstr "音声を読み込み中"
+msgstr "Chargement de l’audio"
 
-#: app/Core/Setup.php:134
+#: src/Core/Setup.php:134
 msgid "Main area of the homepage for displaying various content modules"
 msgstr "Main area of the homepage for displaying various content modules"
 
-#: app/Widgets/TagsCloudWidget.php:109
+#: src/Widgets/TagsCloudWidget.php:109
 msgid "Maximum number of tags to display"
 msgstr "Maximum number of tags to display"
 
-#: app/Widgets/AuthorsWidget.php:44 app/Widgets/AuthorsWidget.php:126
+#: src/Widgets/AuthorsWidget.php:44 app/Widgets/AuthorsWidget.php:126
 msgid "Members"
 msgstr "Members"
 
-#: app/Widgets/AuthorsWidget.php:139
+#: src/Widgets/AuthorsWidget.php:139
 msgid "Members Title:"
 msgstr "Members Title:"
 
 #: resources/views/sections/mobile-menu.php:7
 msgid "Menu"
-msgstr "メニュー"
+msgstr "Menu"
 
 #: resources/views/sections/player.php:8
 msgid "NOW PLAYING"
-msgstr "再生中"
+msgstr "EN LECTURE"
 
-#: app/Core/Widget.php:70 app/Widgets/BannerCarouselWidget.php:125
+#: src/Core/Widget.php:70 app/Widgets/BannerCarouselWidget.php:125
 msgid "New Tab"
 msgstr "New Tab"
 
@@ -336,7 +340,7 @@ msgstr "No ARS Episode content"
 #: resources/views/sections/player.php:31
 #: resources/views/sections/player.php:32
 msgid "No Episode Playing"
-msgstr "再生中のエピソードはありません"
+msgstr "Aucun épisode en cours"
 
 #: resources/views/widgets/authors.php:48
 msgid "No authors yet"
@@ -354,43 +358,43 @@ msgstr "No blog posts yet"
 msgid "No tags yet"
 msgstr "No tags yet"
 
-#: app/Widgets/BlogListWidget.php:141
+#: src/Widgets/BlogListWidget.php:141
 msgid "Number of columns:"
 msgstr "Number of columns:"
 
-#: app/Widgets/PodcastListWidget.php:98
+#: src/Widgets/PodcastListWidget.php:98
 msgid "Number of episodes:"
 msgstr "Number of episodes:"
 
-#: app/Widgets/BlogListWidget.php:127
+#: src/Widgets/BlogListWidget.php:127
 msgid "Number of posts:"
 msgstr "Number of posts:"
 
-#: app/Widgets/TagsCloudWidget.php:99
+#: src/Widgets/TagsCloudWidget.php:99
 msgid "Number of tags:"
 msgstr "Number of tags:"
 
-#: app/ThemeOptions/General.php:1013
+#: src/ThemeOptions/General.php:1013
 msgid "Only filled links will be used by the theme."
-msgstr "入力したリンクのみテーマで使用されます。"
+msgstr "Seuls les liens renseignés seront utilisés par le thème."
 
-#: app/Core/Widget.php:77 app/Widgets/FooterLinksWidget.php:129
+#: src/Core/Widget.php:77 app/Widgets/FooterLinksWidget.php:129
 msgid "Open in new tab"
 msgstr "Open in new tab"
 
-#: app/ThemeOptions/General.php:1018
+#: src/ThemeOptions/General.php:1018
 msgid "Optional. Enter a full URL."
-msgstr "任意です。完全な URL を入力してください。"
+msgstr "Facultatif. Saisissez une URL complète."
 
-#: app/Widgets/TagsCloudWidget.php:114
+#: src/Widgets/TagsCloudWidget.php:114
 msgid "Order by:"
 msgstr "Order by:"
 
-#: app/ThemeOptions/General.php:133
+#: src/ThemeOptions/General.php:133
 msgid "Overrides the footer copyright line. Leave empty to use the default."
-msgstr "フッターの著作権表記を上書きします。空欄の場合はデフォルトを使用します。"
+msgstr ""
 
-#: app/Widgets/PodcastListWidget.php:154
+#: src/Widgets/PodcastListWidget.php:154
 msgid "PODCASTS"
 msgstr "PODCASTS"
 
@@ -398,7 +402,7 @@ msgstr "PODCASTS"
 msgid "Pause"
 msgstr "Pause"
 
-#: app/ThemeOptions/SocialLinks.php:46
+#: src/ThemeOptions/SocialLinks.php:46
 msgid "Pinterest"
 msgstr ""
 
@@ -409,11 +413,11 @@ msgstr "Play"
 
 #: resources/views/sections/playlist-drawer.php:8
 msgid "Playlist"
-msgstr "プレイリスト"
+msgstr "Liste de lecture"
 
 #: resources/views/sections/playlist-drawer.php:31
 msgid "Playlist is empty"
-msgstr "プレイリストは空です"
+msgstr "La liste de lecture est vide"
 
 #: resources/views/widgets/banner-carousel.php:17
 msgid "Please add banner content in the admin panel"
@@ -444,13 +448,13 @@ msgstr ""
 
 #: resources/views/widgets/podcast-list.php:23
 msgid "Popular"
-msgstr "人気"
+msgstr "Populaire"
 
-#: app/Widgets/TagsCloudWidget.php:119
+#: src/Widgets/TagsCloudWidget.php:119
 msgid "Post Count"
 msgstr "Post Count"
 
-#: app/ThemeOptions/General.php:132
+#: src/ThemeOptions/General.php:132
 msgid "Powered by A Ripple Song Theme"
 msgstr ""
 
@@ -458,100 +462,99 @@ msgstr ""
 msgid "Previous slide"
 msgstr "Previous slide"
 
-#: app/Core/Setup.php:63
+#: src/Core/Setup.php:63
 msgid "Primary Navigation"
 msgstr "Primary Navigation"
 
-#: app/Core/Setup.php:160
+#: src/Core/Setup.php:160
 msgid "Primary left sidebar area for displaying various content modules"
 msgstr "Primary left sidebar area for displaying various content modules"
 
-#: app/Core/Setup.php:147
+#: src/Core/Setup.php:147
 msgid "Primary right sidebar area for displaying various content modules"
 msgstr ""
 
-#: app/ThemeOptions/SocialLinks.php:62
+#: src/ThemeOptions/SocialLinks.php:62
 msgid "RSS Feed"
 msgstr ""
 
-#: app/Widgets/TagsCloudWidget.php:122
+#: src/Widgets/TagsCloudWidget.php:122
 #: resources/views/widgets/podcast-list.php:24
 msgid "Random"
-msgstr "ランダム"
+msgstr "Aléatoire"
 
 #: resources/views/widgets/podcast-list.php:22
 msgid "Recent"
-msgstr "最新"
+msgstr "Récent"
 
 #: resources/views/sections/playlist-drawer.php:82
 msgid "Remove"
-msgstr "削除"
+msgstr "Supprimer"
 
-#: app/ThemeOptions/General.php:449
+#: src/ThemeOptions/General.php:449
 msgid "Remove Logo"
-msgstr "ロゴを削除"
+msgstr "Supprimer le logo"
 
-#: app/Core/Setup.php:145
+#: src/Core/Setup.php:145
 msgid "Rightbar Primary"
 msgstr ""
 
 #: resources/views/sections/sidebar-drawer.php:12
 msgid "Right Sidebar"
-msgstr "右サイドバー"
+msgstr "Barre latérale droite"
 
-#: app/Widgets/SubscribeLinksWidget.php:39
-#: app/Widgets/SubscribeLinksWidget.php:65
-#: app/Widgets/SubscribeLinksWidget.php:85
+#: src/Widgets/SubscribeLinksWidget.php:39
+#: src/Widgets/SubscribeLinksWidget.php:65
+#: src/Widgets/SubscribeLinksWidget.php:85
 msgid "SUBSCRIBE"
 msgstr "SUBSCRIBE"
 
-#: app/ThemeOptions/General.php:137
+#: src/ThemeOptions/General.php:137
 msgid ""
 "Scripts to be added before </body>. You can include complete <script> tags."
-msgstr "</body> の前に追加するスクリプトです。完全な <script> タグを含められます。"
+msgstr ""
 
-#: app/ThemeOptions/General.php:135
+#: src/ThemeOptions/General.php:135
 msgid ""
 "Scripts to be added in the <head> section. You can include complete <script>"
 " tags for services like Google Analytics."
 msgstr ""
-"<head> セクションに追加するスクリプトです。Google Analytics などのサービス用に完全な <script> タグを含められます。"
 
 #: resources/views/widgets/blog-list.php:18
 #: resources/views/widgets/podcast-list.php:16
 msgid "See all"
-msgstr "すべて見る"
+msgstr "Voir tout"
 
-#: app/Core/Widget.php:65
+#: src/Core/Widget.php:65
 msgid "Select Banner Image"
 msgstr "Select Banner Image"
 
-#: app/Core/Widget.php:64 app/Widgets/BannerCarouselWidget.php:93
+#: src/Core/Widget.php:64 app/Widgets/BannerCarouselWidget.php:93
 msgid "Select Image"
 msgstr "Select Image"
 
-#: app/Widgets/BlogListWidget.php:161 app/Widgets/PodcastListWidget.php:117
+#: src/Widgets/BlogListWidget.php:161 app/Widgets/PodcastListWidget.php:117
 msgid "Show \"See all\" link"
 msgstr "Show \"See all\" link"
 
-#: app/Widgets/AuthorsWidget.php:177
+#: src/Widgets/AuthorsWidget.php:177
 msgid "Show Guests (Contributors)"
 msgstr "Show Guests (Contributors)"
 
-#: app/Widgets/AuthorsWidget.php:155
+#: src/Widgets/AuthorsWidget.php:155
 msgid "Show Members (Administrators, Editors, Authors)"
 msgstr "Show Members (Administrators, Editors, Authors)"
 
-#: app/ThemeOptions/General.php:93 app/ThemeOptions/General.php:439
-#: app/ThemeOptions/General.php:795
+#: src/ThemeOptions/General.php:93 app/ThemeOptions/General.php:439
+#: src/ThemeOptions/General.php:795
 msgid "Site Logo"
-msgstr "サイトロゴ"
+msgstr "Logo du site"
 
-#: app/ThemeOptions/General.php:142 app/ThemeOptions/General.php:1012
+#: src/ThemeOptions/General.php:142 app/ThemeOptions/General.php:1012
 msgid "Social Links"
-msgstr "ソーシャルリンク"
+msgstr "Liens sociaux"
 
-#: app/Widgets/TagsCloudWidget.php:128
+#: src/Widgets/TagsCloudWidget.php:128
 msgid "Sort order:"
 msgstr "Sort order:"
 
@@ -560,19 +563,19 @@ msgstr "Sort order:"
 msgid "Spotify"
 msgstr "Spotify"
 
-#: app/Widgets/SubscribeLinksWidget.php:103
+#: src/Widgets/SubscribeLinksWidget.php:103
 msgid "Spotify Link:"
 msgstr "Spotify Link:"
 
-#: app/Widgets/TagsCloudWidget.php:39 app/Widgets/TagsCloudWidget.php:75
+#: src/Widgets/TagsCloudWidget.php:39 app/Widgets/TagsCloudWidget.php:75
 msgid "TAGS"
 msgstr "TAGS"
 
-#: app/Widgets/TagsCloudWidget.php:121
+#: src/Widgets/TagsCloudWidget.php:121
 msgid "Tag ID"
 msgstr "Tag ID"
 
-#: app/Widgets/TagsCloudWidget.php:120
+#: src/Widgets/TagsCloudWidget.php:120
 msgid "Tag Name"
 msgstr "Tag Name"
 
@@ -580,79 +583,81 @@ msgstr "Tag Name"
 msgid "Tags will appear here after publishing articles with tags"
 msgstr "Tags will appear here after publishing articles with tags"
 
-#: app/Core/Widget.php:74 app/Widgets/FooterLinksWidget.php:102
+#: src/Core/Widget.php:74 app/Widgets/FooterLinksWidget.php:102
 msgid "Text:"
 msgstr "Text:"
 
-#: app/ThemeOptions/General.php:79
+#: src/ThemeOptions/General.php:79
 msgid "Theme Settings"
-msgstr "テーマ設定"
+msgstr "Réglages du thème"
 
 #: functions.php:12
 msgid ""
 "Theme dependencies are missing. Run \"composer install\" in wp-"
-"content/themes/a-ripple-song."
+"content/themes/daisy-a-ripple-song."
 msgstr ""
 "Theme dependencies are missing. Run \"composer install\" in wp-"
-"content/themes/a-ripple-song."
+"content/themes/daisy-a-ripple-song."
 
-#: app/ThemeOptions/SocialLinks.php:50
+#: src/ThemeOptions/SocialLinks.php:50
 msgid "Threads"
 msgstr ""
 
-#: app/ThemeOptions/SocialLinks.php:42
+#: src/ThemeOptions/SocialLinks.php:42
 msgid "TikTok"
 msgstr ""
 
-#: app/Widgets/BlogListWidget.php:116 app/Widgets/FooterLinksWidget.php:83
-#: app/Widgets/PodcastListWidget.php:87
-#: app/Widgets/SubscribeLinksWidget.php:78 app/Widgets/TagsCloudWidget.php:88
+#: src/Widgets/BlogListWidget.php:116 app/Widgets/FooterLinksWidget.php:83
+#: src/Widgets/PodcastListWidget.php:87
+#: src/Widgets/SubscribeLinksWidget.php:78 app/Widgets/TagsCloudWidget.php:88
 msgid "Title:"
 msgstr "Title:"
 
 #: header.php:11
 msgid "Toggle Theme"
-msgstr "テーマ切替"
+msgstr "Changer de thème"
 
 #: resources/views/sections/playlist-drawer.php:15
 msgid "Total"
-msgstr "合計"
+msgstr "Total"
 
-#: app/ThemeOptions/SocialLinks.php:26
+#: src/ThemeOptions/SocialLinks.php:26
 msgid "Twitter / X"
 msgstr ""
 
-#: app/Core/Widget.php:76 app/Widgets/FooterLinksWidget.php:113
+#: src/Core/Widget.php:76 app/Widgets/FooterLinksWidget.php:113
 msgid "URL (optional - leave empty for plain text):"
 msgstr "URL (optional - leave empty for plain text):"
 
 #: resources/views/sections/autoplay-confirm.php:29
 msgid "Unknown episode"
-msgstr "不明なエピソード"
+msgstr "Épisode inconnu"
 
-#: app/ThemeOptions/General.php:447
+#: src/ThemeOptions/General.php:447
 msgid "Upload / Change Logo"
-msgstr "ロゴをアップロード / 変更"
+msgstr "Téléverser / modifier le logo"
 
-#: app/ThemeOptions/General.php:95
+#: src/ThemeOptions/General.php:95
 msgid ""
 "Upload a logo image (220px × 32px). You will be able to crop the image after"
 " upload."
-msgstr "ロゴ画像（220px × 32px）をアップロードしてください。アップロード後に画像をトリミングできます。"
+msgstr ""
+"Téléversez une image de logo (220 px × 32 px). Vous pourrez la rogner après "
+"le téléversement."
 
-#: app/Core/Widget.php:66
+#: src/Core/Widget.php:66
 msgid "Use This Image"
 msgstr "Use This Image"
 
-#: app/ThemeOptions/SocialLinks.php:58
+#: src/ThemeOptions/SocialLinks.php:58
 msgid "WeChat"
 msgstr ""
 
-#: app/ThemeOptions/SocialLinks.php:54
+#: src/ThemeOptions/SocialLinks.php:54
 msgid "Weibo"
 msgstr ""
 
-#: app/ThemeOptions/SocialLinks.php:38
+#: src/ThemeOptions/SocialLinks.php:38
 msgid "YouTube"
 msgstr ""
 
@@ -661,45 +666,45 @@ msgstr ""
 msgid "YouTube Music"
 msgstr "YouTube Music"
 
-#: app/Widgets/SubscribeLinksWidget.php:116
+#: src/Widgets/SubscribeLinksWidget.php:116
 msgid "YouTube Music Link:"
 msgstr "YouTube Music Link:"
 
-#: app/Widgets/AuthorsWidget.php:25
+#: src/Widgets/AuthorsWidget.php:25
 msgid "aripplesong - Authors List"
 msgstr "aripplesong - Authors List"
 
-#: app/Widgets/BannerCarouselWidget.php:22
+#: src/Widgets/BannerCarouselWidget.php:22
 msgid "aripplesong - Banner Carousel"
 msgstr "aripplesong - Banner Carousel"
 
-#: app/Widgets/BlogListWidget.php:22
+#: src/Widgets/BlogListWidget.php:22
 msgid "aripplesong - Blog List"
 msgstr "aripplesong - Blog List"
 
-#: app/Widgets/FooterLinksWidget.php:22
+#: src/Widgets/FooterLinksWidget.php:22
 msgid "aripplesong - Footer Links"
 msgstr "aripplesong - Footer Links"
 
-#: app/Widgets/PodcastListWidget.php:23
+#: src/Widgets/PodcastListWidget.php:23
 msgid "aripplesong - Podcast List"
 msgstr "aripplesong - Podcast List"
 
-#: app/Widgets/SubscribeLinksWidget.php:22
+#: src/Widgets/SubscribeLinksWidget.php:22
 msgid "aripplesong - Subscribe Links"
 msgstr "aripplesong - Subscribe Links"
 
-#: app/Widgets/TagsCloudWidget.php:22
+#: src/Widgets/TagsCloudWidget.php:22
 msgid "aripplesong - Tags Cloud"
 msgstr "aripplesong - Tags Cloud"
 
-#: app/Widgets/FooterLinksWidget.php:90
+#: src/Widgets/FooterLinksWidget.php:90
 msgid "e.g., Contact, Navigate, Support"
 msgstr "e.g., Contact, Navigate, Support"
 
 #: resources/views/sections/playlist-drawer.php:15
 msgid "episodes"
-msgstr "エピソード"
+msgstr "épisodes"
 
 #: resources/views/partials/entry-meta.php:19
 msgid "plays"
@@ -709,23 +714,23 @@ msgstr "plays"
 msgid "views"
 msgstr "views"
 
-#: app/Core/Setup.php:79
+#: src/Core/Setup.php:79
 msgid "Panel"
 msgstr "Panel"
 
-#: app/Core/Setup.php:88
+#: src/Core/Setup.php:88
 msgid "Intro Panel"
 msgstr "Intro Panel"
 
-#: app/Core/Setup.php:89
+#: src/Core/Setup.php:89
 msgid "A rounded introduction block with heading, text, and call to action."
 msgstr "A rounded introduction block with heading, text, and call to action."
 
-#: app/Core/Setup.php:91
+#: src/Core/Setup.php:91
 msgid "Start your next episode here"
 msgstr "Start your next episode here"
 
-#: app/Core/Setup.php:91
+#: src/Core/Setup.php:91
 msgid ""
 "Use this pattern to introduce a featured story, announcement, or podcast "
 "episode."
@@ -733,7 +738,7 @@ msgstr ""
 "Use this pattern to introduce a featured story, announcement, or podcast "
 "episode."
 
-#: app/Core/Setup.php:91
+#: src/Core/Setup.php:91
 msgid "Learn more"
 msgstr "Learn more"
 
@@ -749,50 +754,50 @@ msgstr "Pages:"
 msgid "Archives: %s"
 msgstr "Archives: %s"
 
-#: app/Core/Helper.php:519
+#: src/Core/Helper.php:519
 msgid "Author"
 msgstr ""
 
-#: app/Core/Helper.php:528
+#: src/Core/Helper.php:528
 msgid "Pending Approval"
 msgstr ""
 
-#: app/Core/Helper.php:544
+#: src/Core/Helper.php:544
 msgid "Reply"
 msgstr ""
 
-#: app/Core/Helper.php:550
+#: src/Core/Helper.php:550
 msgid "Edit"
 msgstr ""
 
-#: app/Core/Helper.php:578
+#: src/Core/Helper.php:578
 msgid "Your email address will not be published."
 msgstr ""
 
-#: app/Core/Helper.php:582
+#: src/Core/Helper.php:582
 #, php-format
 msgid "Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\">Log out?</a>"
 msgstr ""
 
-#: app/Core/Helper.php:609 app/ThemeOptions/RecommendedPlugins.php:84
+#: src/Core/Helper.php:609 app/ThemeOptions/RecommendedPlugins.php:84
 msgid "Name"
-msgstr "名前"
+msgstr "Nom"
 
-#: app/Core/Helper.php:611
+#: src/Core/Helper.php:611
 msgid "Email"
 msgstr ""
 
-#: app/Core/Helper.php:613
+#: src/Core/Helper.php:613
 msgid "Website"
 msgstr ""
 
-#: app/Core/Helper.php:615
+#: src/Core/Helper.php:615
 msgid ""
 "Save my name, email, and website in this browser for the next time I "
 "comment."
 msgstr ""
 
-#: app/Core/Helper.php:628 resources/views/partials/comments.php:84
+#: src/Core/Helper.php:628 resources/views/partials/comments.php:84
 msgid "Comment"
 msgstr ""
 
@@ -860,7 +865,7 @@ msgstr ""
 
 #. Theme URI of the theme
 #: style.css
-msgid "https://github.com/jiejia/a-ripple-song"
+msgid "https://github.com/jiejia/daisy-a-ripple-song"
 msgstr ""
 
 #. Description of the theme
@@ -878,127 +883,131 @@ msgstr ""
 msgid "https://github.com/jiejia"
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:72
+#: src/ThemeOptions/RecommendedPlugins.php:72
 msgid "You are not allowed to manage plugins on this site."
-msgstr "このサイトでプラグインを管理する権限がありません。"
+msgstr "You are not allowed to manage plugins on this site."
 
-#: app/ThemeOptions/RecommendedPlugins.php:80
+#: src/ThemeOptions/RecommendedPlugins.php:80
 msgid "Plugins recommended for the A Ripple Song theme."
-msgstr "A Ripple Song テーマに推奨されるプラグイン"
+msgstr "Extensions recommandées pour le thème A Ripple Song"
 
-#: app/ThemeOptions/RecommendedPlugins.php:85
+#: src/ThemeOptions/RecommendedPlugins.php:85
 msgid "Slug"
-msgstr "スラッグ"
+msgstr "Slug"
 
-#: app/ThemeOptions/RecommendedPlugins.php:86
+#: src/ThemeOptions/RecommendedPlugins.php:86
 msgid "Description"
-msgstr "説明"
+msgstr "Description"
 
-#: app/ThemeOptions/RecommendedPlugins.php:87
+#: src/ThemeOptions/RecommendedPlugins.php:87
 msgid "Status"
-msgstr "ステータス"
+msgstr "Statut"
 
-#: app/ThemeOptions/RecommendedPlugins.php:108
+#: src/ThemeOptions/RecommendedPlugins.php:108
 msgid "Activate"
-msgstr "有効化"
+msgstr "Activer"
 
-#: app/ThemeOptions/RecommendedPlugins.php:114
+#: src/ThemeOptions/RecommendedPlugins.php:114
 msgid "Install"
-msgstr "インストール"
+msgstr "Installer"
 
-#: app/ThemeOptions/RecommendedPlugins.php:119
+#: src/ThemeOptions/RecommendedPlugins.php:119
 msgid ""
 "This plugin will be installable after it is published on WordPress.org."
-msgstr "このプラグインは WordPress.org に公開された後にインストールできるようになります。"
+msgstr ""
+"This plugin will be installable after it is published on WordPress.org."
 
-#: app/ThemeOptions/RecommendedPlugins.php:141
+#: src/ThemeOptions/RecommendedPlugins.php:141
 msgid "You are not allowed to activate plugins on this site."
-msgstr "このサイトでプラグインを有効化する権限がありません。"
+msgstr "You are not allowed to activate plugins on this site."
 
-#: app/ThemeOptions/RecommendedPlugins.php:218
+#: src/ThemeOptions/RecommendedPlugins.php:218
 msgid "You are not allowed to install plugins on this site."
-msgstr "このサイトでプラグインをインストールする権限がありません。"
+msgstr "You are not allowed to install plugins on this site."
 
-#: app/ThemeOptions/RecommendedPlugins.php:363
+#: src/ThemeOptions/RecommendedPlugins.php:363
 msgid ""
 "Podcast features for the A Ripple Song theme, including episode management "
 "and podcast feed support."
-msgstr "A Ripple Song テーマ向けのポッドキャスト機能。エピソード管理とポッドキャストフィード対応を含みます。"
+msgstr ""
+"Fonctionnalités de podcast pour le thème A Ripple Song, y compris la gestion"
+" des épisodes et la prise en charge du flux podcast."
 
-#: app/ThemeOptions/RecommendedPlugins.php:377
+#: src/ThemeOptions/RecommendedPlugins.php:377
 msgid "Active"
-msgstr "有効"
+msgstr "Actif"
 
-#: app/ThemeOptions/RecommendedPlugins.php:381
+#: src/ThemeOptions/RecommendedPlugins.php:381
 msgid "Installed but Inactive"
-msgstr "インストール済みだが無効"
+msgstr "Installé mais inactif"
 
-#: app/ThemeOptions/RecommendedPlugins.php:384
+#: src/ThemeOptions/RecommendedPlugins.php:384
 msgid "Not Installed"
-msgstr "未インストール"
+msgstr "Non installé"
 
-#: app/ThemeOptions/RecommendedPlugins.php:559
+#: src/ThemeOptions/RecommendedPlugins.php:559
 msgid "The requested recommended plugin could not be found."
-msgstr "要求された推奨プラグインが見つかりませんでした。"
+msgstr "The requested recommended plugin could not be found."
 
-#: app/ThemeOptions/RecommendedPlugins.php:560
+#: src/ThemeOptions/RecommendedPlugins.php:560
 msgid "The selected plugin is not installed on this site."
-msgstr "選択したプラグインはこのサイトにインストールされていません。"
+msgstr "The selected plugin is not installed on this site."
 
-#: app/ThemeOptions/RecommendedPlugins.php:561
+#: src/ThemeOptions/RecommendedPlugins.php:561
 msgid "The plugin could not be activated."
-msgstr "プラグインを有効化できませんでした。"
+msgstr "L’extension n’a pas pu être activée."
 
-#: app/ThemeOptions/RecommendedPlugins.php:562
+#: src/ThemeOptions/RecommendedPlugins.php:562
 msgid "The plugin was activated successfully."
-msgstr "プラグインを有効化しました。"
+msgstr "L’extension a été activée avec succès."
 
-#: app/ThemeOptions/RecommendedPlugins.php:565
+#: src/ThemeOptions/RecommendedPlugins.php:565
 msgid "The plugin is not yet available for installation from WordPress.org."
-msgstr "このプラグインはまだ WordPress.org からインストールできません。"
+msgstr "The plugin is not yet available for installation from WordPress.org."
 
-#: app/ThemeOptions/RecommendedPlugins.php:566
+#: src/ThemeOptions/RecommendedPlugins.php:566
 msgid "The plugin could not be installed."
-msgstr "プラグインをインストールできませんでした。"
+msgstr "L’extension n’a pas pu être installée."
 
-#: app/ThemeOptions/RecommendedPlugins.php:567
+#: src/ThemeOptions/RecommendedPlugins.php:567
 msgid "The plugin was installed successfully. You can activate it now."
-msgstr "プラグインのインストールに成功しました。今すぐ有効化できます。"
+msgstr ""
+"L’extension a été installée avec succès. Vous pouvez l’activer maintenant."
 
 #. Template Name of the theme
 msgid "Home Template"
 msgstr ""
 
-#: app/ThemeOptions/RecommendedPlugins.php:56
-#: app/ThemeOptions/RecommendedPlugins.php:57
-#: app/ThemeOptions/RecommendedPlugins.php:79
+#: src/ThemeOptions/RecommendedPlugins.php:56
+#: src/ThemeOptions/RecommendedPlugins.php:57
+#: src/ThemeOptions/RecommendedPlugins.php:79
 msgid "ARS Plugins"
-msgstr "ARS プラグイン"
+msgstr "Extensions ARS"
 
-#: app/ThemeOptions/RecommendedPlugins.php:102
+#: src/ThemeOptions/RecommendedPlugins.php:102
 msgid "Deactivate"
-msgstr "無効化"
+msgstr "Désactiver"
 
-#: app/ThemeOptions/RecommendedPlugins.php:180
+#: src/ThemeOptions/RecommendedPlugins.php:180
 msgid "You are not allowed to deactivate plugins on this site."
-msgstr "このサイトでプラグインを無効化する権限がありません。"
+msgstr "You are not allowed to deactivate plugins on this site."
 
-#: app/ThemeOptions/RecommendedPlugins.php:563
+#: src/ThemeOptions/RecommendedPlugins.php:563
 msgid "The plugin could not be deactivated."
-msgstr "プラグインを無効化できませんでした。"
+msgstr "The plugin could not be deactivated."
 
-#: app/ThemeOptions/RecommendedPlugins.php:564
+#: src/ThemeOptions/RecommendedPlugins.php:564
 msgid "The plugin was deactivated successfully."
-msgstr "プラグインを無効化しました。"
+msgstr "The plugin was deactivated successfully."
 
-#: app/ThemeOptions/RecommendedPlugins.php:88
+#: src/ThemeOptions/RecommendedPlugins.php:88
 msgid "Option"
-msgstr "オプション"
+msgstr "Option"
 
-#: app/ThemeOptions/General.php:614
+#: src/ThemeOptions/General.php:614
 msgid "Select Site Logo"
-msgstr "サイトロゴを選択"
+msgstr "Sélectionner le logo du site"
 
-#: app/ThemeOptions/General.php:611
+#: src/ThemeOptions/General.php:611
 msgid "Select and Crop"
-msgstr "選択してトリミング"
+msgstr "Sélectionner et rogner"

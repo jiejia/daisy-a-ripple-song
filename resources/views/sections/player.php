@@ -5,14 +5,14 @@
 ?>
 <div class="card md:bg-base-100 bg-base-300/90 md:static md:mt-5 fixed bottom-0 left-0 right-0 z-100" x-data>
     <div class="card-body md:p-4 py-2 px-4">
-        <h2 class="md:text-lg text-md font-bold"><?php echo esc_html__('NOW PLAYING', 'a-ripple-song'); ?></h2>
+        <h2 class="md:text-lg text-md font-bold"><?php echo esc_html__('NOW PLAYING', 'daisy-a-ripple-song'); ?></h2>
         <div
             class="grid grid-cols-[60px_1fr] gap-4 items-center md:bg-base-300/50 bg-base-100/75 md:p-4 py-2 px-4 rounded-lg">
             <div class="md:w-15 md:h-15 w-10 h-10">
                 <template x-if="$store.player.currentEpisode?.featuredImage">
                     <div class="relative md:w-15 md:h-15 w-10 h-10">
                         <img :src="$store.player.currentEpisode?.featuredImage"
-                            :alt="$store.player.currentEpisode?.title || <?php echo esc_attr(wp_json_encode(__('No Episode Playing', 'a-ripple-song'))); ?>"
+                            :alt="$store.player.currentEpisode?.title || <?php echo esc_attr(wp_json_encode(__('No Episode Playing', 'daisy-a-ripple-song'))); ?>"
                             class="md:w-15 md:h-15 w-10 h-10 rounded-md object-cover" />
                         <div
                             class="pointer-events-none absolute inset-0 bg-base-900/30 flex items-center justify-center rounded-md">
@@ -28,11 +28,11 @@
             </div>
             <div>
                 <h4 class="text-md font-bold line-clamp-2"
-                    x-text="$store.player.currentEpisode?.title || <?php echo esc_attr(wp_json_encode(__('No Episode Playing', 'a-ripple-song'))); ?>">
-                    <?php esc_html_e('No Episode Playing', 'a-ripple-song'); ?>
+                    x-text="$store.player.currentEpisode?.title || <?php echo esc_attr(wp_json_encode(__('No Episode Playing', 'daisy-a-ripple-song'))); ?>">
+                    <?php esc_html_e('No Episode Playing', 'daisy-a-ripple-song'); ?>
                 </h4>
                 <p class="text-xs text-base-content/80">
-                    <span x-text="$store.player.currentEpisodePublishDate"><?php esc_html_e('No publish date', 'a-ripple-song'); ?></span>
+                    <span x-text="$store.player.currentEpisodePublishDate"><?php esc_html_e('No publish date', 'daisy-a-ripple-song'); ?></span>
                 </p>
                 <!-- <p class="text-xs text-base-content/50" x-show="$store.player.currentEpisode?.description">
                     <span x-text="$store.player.currentEpisode?.description" class="line-clamp-1">142k views</span>
@@ -48,7 +48,7 @@
                     x-transition:leave-end="opacity-0"
                     class="absolute inset-0 flex items-center justify-center gap-2 text-base-content/60">
                     <span class="loading loading-ring loading-lg text-base-content"></span>
-                    <span class="text-xs text-base-content/75"><?php echo esc_html__('Loading audio', 'a-ripple-song'); ?></span>
+                    <span class="text-xs text-base-content/75"><?php echo esc_html__('Loading audio', 'daisy-a-ripple-song'); ?></span>
                 </div>
             </div>
             <div class="mt-0 w-full">

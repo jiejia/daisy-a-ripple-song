@@ -23,7 +23,7 @@
       <?php endif; ?>
       <a href="<?php echo esc_url((string) wp_get_attachment_url((int) ($args['post_id'] ?? get_the_ID()))); ?>" download class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer">
         <i data-lucide="download" class="w-4 h-4"></i>
-        <?php esc_html_e('Download', 'a-ripple-song'); ?>
+        <?php esc_html_e('Download', 'daisy-a-ripple-song'); ?>
       </a>
     </div>
     <?php get_template_part('resources/views/partials/entry-authors', null, ['post_id' => (int) ($args['post_id'] ?? get_the_ID())]); ?>

@@ -67,7 +67,7 @@
                             }
                         "
                         class="cursor-pointer transition-colors hover:text-primary"
-                        :title="$store.player.currentEpisode && $store.player.currentEpisode.id === episode.id && $store.player.isPlaying ? '<?php echo esc_js(__('Pause', 'a-ripple-song')); ?>' : '<?php echo esc_js(__('Play', 'a-ripple-song')); ?>'">
+                        :title="$store.player.currentEpisode && $store.player.currentEpisode.id === episode.id && $store.player.isPlaying ? '<?php echo esc_js(__('Pause', 'daisy-a-ripple-song')); ?>' : '<?php echo esc_js(__('Play', 'daisy-a-ripple-song')); ?>'">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          class="h-4 text-xs"
                          viewBox="0 0 24 24"

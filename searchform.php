@@ -12,7 +12,7 @@
           <path d="m21 21-4.3-4.3"></path>
         </g>
       </svg>
-      <input type="search" placeholder="<?php echo esc_attr_x('Search &hellip;', 'placeholder', 'a-ripple-song'); ?>"
+      <input type="search" placeholder="<?php echo esc_attr_x('Search &hellip;', 'placeholder', 'daisy-a-ripple-song'); ?>"
         value="<?php echo esc_attr(get_search_query()); ?>" name="s">
     </label>
     <a class="btn btn-square bg-base-200" href="<?php echo esc_url(get_feed_link()); ?>" target="_blank">

@@ -15,7 +15,7 @@
         <h2 class="text-lg font-bold"><?php echo esc_html($title); ?></h2>
         <?php if ($showSeeAll): ?>
             <span class="text-xs text-base-content/70">
-                <a href="<?php echo esc_url($archiveUrl); ?>"><?php esc_html_e('See all', 'a-ripple-song'); ?></a>
+                <a href="<?php echo esc_url($archiveUrl); ?>"><?php esc_html_e('See all', 'daisy-a-ripple-song'); ?></a>
             </span>
         <?php endif; ?>
     </div>
@@ -34,7 +34,7 @@
                 </li>
             <?php endforeach; ?>
         <?php else: ?>
-            <li class="rounded-lg py-8 text-center text-base-content/50"><?php esc_html_e('No blog posts yet', 'a-ripple-song'); ?></li>
+            <li class="rounded-lg py-8 text-center text-base-content/50"><?php esc_html_e('No blog posts yet', 'daisy-a-ripple-song'); ?></li>
         <?php endif; ?>
     </ul>
 </div>

@@ -41,7 +41,7 @@ class Vite
         string $devServerUrl = 'http://127.0.0.1:5173',
         string $scriptEntry = 'resources/js/main.js',
         string $styleEntry = 'resources/css/main.css',
-        string $handlePrefix = 'a-ripple-song'
+        string $handlePrefix = 'daisy-a-ripple-song'
     ) {
         $this->devServerUrl = $devServerUrl;
         $this->scriptEntry = $scriptEntry;

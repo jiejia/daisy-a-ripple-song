@@ -20,8 +20,8 @@ class PodcastListWidget extends \WP_Widget
     {
         parent::__construct(
             'podcast_list_widget',
-            __('aripplesong - Podcast List', 'a-ripple-song'),
-            ['description' => __('Display latest podcast list', 'a-ripple-song')]
+            __('aripplesong - Podcast List', 'daisy-a-ripple-song'),
+            ['description' => __('Display latest podcast list', 'daisy-a-ripple-song')]
         );
     }
 
@@ -84,7 +84,7 @@ class PodcastListWidget extends \WP_Widget
         ?>
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
-                <?php esc_html_e('Title:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Title:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="widefat"
                    id="<?php echo esc_attr($this->get_field_id('title')); ?>"
@@ -95,7 +95,7 @@ class PodcastListWidget extends \WP_Widget
 
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('posts_per_page')); ?>">
-                <?php esc_html_e('Number of episodes:', 'a-ripple-song'); ?>
+                <?php esc_html_e('Number of episodes:', 'daisy-a-ripple-song'); ?>
             </label>
             <input class="tiny-text"
                    id="<?php echo esc_attr($this->get_field_id('posts_per_page')); ?>"
@@ -114,7 +114,7 @@ class PodcastListWidget extends \WP_Widget
                    id="<?php echo esc_attr($this->get_field_id('show_see_all')); ?>"
                    name="<?php echo esc_attr($this->get_field_name('show_see_all')); ?>">
             <label for="<?php echo esc_attr($this->get_field_id('show_see_all')); ?>">
-                <?php esc_html_e('Show "See all" link', 'a-ripple-song'); ?>
+                <?php esc_html_e('Show "See all" link', 'daisy-a-ripple-song'); ?>
             </label>
         </p>
         <?php
@@ -151,7 +151,7 @@ class PodcastListWidget extends \WP_Widget
         $savedTitle = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : '';
 
         if ($savedTitle === '' || $savedTitle === 'ARS EPISODES') {
-            return __('PODCASTS', 'a-ripple-song');
+            return __('PODCASTS', 'daisy-a-ripple-song');
         }
 
         return $savedTitle;

@@ -19,7 +19,7 @@
              */
             $authorName = is_object($author) && isset($author->display_name) ? (string) $author->display_name : '';
             ?>
-            <?php get_template_part('resources/views/partials/page-header', null, ['title' => __('Author:', 'a-ripple-song') . ' ' . $authorName]); ?>
+            <?php get_template_part('resources/views/partials/page-header', null, ['title' => __('Author:', 'daisy-a-ripple-song') . ' ' . $authorName]); ?>
 
             <?php if (have_posts()): ?>
                 <?php while (have_posts()): ?>
@@ -47,7 +47,7 @@
                 <?php the_posts_pagination(); ?>
             <?php else: ?>
                 <div class="alert alert-warning">
-                    <span><?php esc_html_e('Sorry, no results were found.', 'a-ripple-song'); ?></span>
+                    <span><?php esc_html_e('Sorry, no results were found.', 'daisy-a-ripple-song'); ?></span>
                 </div>
             <?php endif; ?>
         </main>

@@ -995,3 +995,11 @@ msgstr "The plugin was deactivated successfully."
 #: app/ThemeOptions/RecommendedPlugins.php:88
 msgid "Option"
 msgstr "विकल्प"
+
+#: app/ThemeOptions/General.php:614
+msgid "Select Site Logo"
+msgstr "साइट लोगो चुनें"
+
+#: app/ThemeOptions/General.php:611
+msgid "Select and Crop"
+msgstr "चुनें और क्रॉप करें"

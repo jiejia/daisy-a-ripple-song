@@ -993,3 +993,11 @@ msgstr "是"
 #: app/ThemeOptions/RecommendedPlugins.php:399
 msgid "No"
 msgstr "否"
+
+#: app/ThemeOptions/General.php:614
+msgid "Select Site Logo"
+msgstr "选择网站 Logo"
+
+#: app/ThemeOptions/General.php:611
+msgid "Select and Crop"
+msgstr "选择并裁切"

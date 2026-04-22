@@ -994,3 +994,11 @@ msgstr "The plugin was deactivated successfully."
 #: app/ThemeOptions/RecommendedPlugins.php:88
 msgid "Option"
 msgstr "বিকল্প"
+
+#: app/ThemeOptions/General.php:614
+msgid "Select Site Logo"
+msgstr "সাইট লোগো নির্বাচন করুন"
+
+#: app/ThemeOptions/General.php:611
+msgid "Select and Crop"
+msgstr "নির্বাচন ও ক্রপ"

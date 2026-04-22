@@ -990,3 +990,11 @@ msgstr "プラグインを無効化しました。"
 #: app/ThemeOptions/RecommendedPlugins.php:88
 msgid "Option"
 msgstr "オプション"
+
+#: app/ThemeOptions/General.php:614
+msgid "Select Site Logo"
+msgstr "サイトロゴを選択"
+
+#: app/ThemeOptions/General.php:611
+msgid "Select and Crop"
+msgstr "選択してトリミング"

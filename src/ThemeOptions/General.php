@@ -469,6 +469,107 @@ class General
         ?>
         <script>
             (() => {
+                /** @const {number} logoWidth Target logo width in pixels. */
+                const logoWidth = <?php echo (int) static::LOGO_CROP_WIDTH; ?>;
+                /** @const {number} logoHeight Target logo height in pixels. */
+                const logoHeight = <?php echo (int) static::LOGO_CROP_HEIGHT; ?>;
+
+                /**
+                 * Decide whether the attachment must be cropped to the target size.
+                 *
+                 * @param {number} imgWidth Original attachment width.
+                 * @param {number} imgHeight Original attachment height.
+                 * @returns {boolean}
+                 */
+                const mustBeCropped = (imgWidth, imgHeight) => {
+                    if (imgWidth === logoWidth && imgHeight === logoHeight) {
+                        return false;
+                    }
+
+                    if (imgWidth <= logoWidth || imgHeight <= logoHeight) {
+                        return false;
+                    }
+
+                    return true;
+                };
+
+                /**
+                 * Build imgSelect options that lock the crop box to the target aspect ratio.
+                 *
+                 * @param {Object} attachment Media library attachment model.
+                 * @param {Object} controller Cropper state controller.
+                 * @returns {Object}
+                 */
+                const calculateImageSelectOptions = (attachment, controller) => {
+                    const realWidth = parseInt(attachment.get('width'), 10) || 0;
+                    const realHeight = parseInt(attachment.get('height'), 10) || 0;
+                    const ratio = logoWidth / logoHeight;
+
+                    let xInit = logoWidth;
+                    let yInit = logoHeight;
+
+                    if (realWidth / realHeight > ratio) {
+                        yInit = realHeight;
+                        xInit = yInit * ratio;
+                    } else {
+                        xInit = realWidth;
+                        yInit = xInit / ratio;
+                    }
+
+                    const x1 = (realWidth - xInit) / 2;
+                    const y1 = (realHeight - yInit) / 2;
+
+                    controller.set('canSkipCrop', !mustBeCropped(realWidth, realHeight));
+
+                    return {
+                        handles: true,
+                        keys: true,
+                        instance: true,
+                        persistent: true,
+                        imageWidth: realWidth,
+                        imageHeight: realHeight,
+                        minWidth: logoWidth > xInit ? xInit : logoWidth,
+                        minHeight: logoHeight > yInit ? yInit : logoHeight,
+                        x1: x1,
+                        y1: y1,
+                        x2: xInit + x1,
+                        y2: yInit + y1,
+                        aspectRatio: logoWidth + ':' + logoHeight
+                    };
+                };
+
+                /** @type {?Function} Cached cropper state constructor. */
+                let ArsLogoCropper = null;
+
+                /**
+                 * Lazily build the cropper state constructor, forcing a fixed output size.
+                 *
+                 * @returns {Function}
+                 */
+                const getLogoCropperCtor = () => {
+                    if (ArsLogoCropper) {
+                        return ArsLogoCropper;
+                    }
+
+                    ArsLogoCropper = wp.media.controller.Cropper.extend({
+                        doCrop: function(attachment) {
+                            const cropDetails = attachment.get('cropDetails');
+                            cropDetails.dst_width = logoWidth;
+                            cropDetails.dst_height = logoHeight;
+                            attachment.set('cropDetails', cropDetails);
+
+                            return wp.ajax.post('crop-image', {
+                                nonce: attachment.get('nonces').edit,
+                                id: attachment.get('id'),
+                                context: 'ars-site-logo',
+                                cropDetails: cropDetails
+                            });
+                        }
+                    });
+
+                    return ArsLogoCropper;
+                };
+
                 const bindLogoUploader = () => {
                     const wrapper = document.querySelector('[data-ars-logo-uploader]');
 
@@ -489,7 +590,7 @@ class General
 
                     const renderPreview = (url) => {
                         preview.innerHTML = url
-                            ? '<img src="' + url + '" alt="<?php echo esc_js(__('Site Logo', 'a-ripple-song')); ?>" style="display:block;max-width:220px;height:auto;margin-top:12px;border:1px solid #dcdcde;padding:8px;background:#fff;">'
+                            ? '<img src="' + url + '" alt="<?php echo esc_js(__('Site Logo', 'a-ripple-song')); ?>" style="display:block;width:' + logoWidth + 'px;height:' + logoHeight + 'px;margin-top:12px;border:1px solid #dcdcde;padding:8px;background:#fff;object-fit:contain;">'
                             : '';
                         removeButton.disabled = url === '';
                     };
@@ -504,29 +605,78 @@ class General
                     selectButton.addEventListener('click', (event) => {
                         event.preventDefault();
 
-                        if (!window.wp || !wp.media) {
+                        if (!window.wp || !wp.media || !wp.media.controller || !wp.media.controller.Cropper) {
                             return;
                         }
 
-                        const frame = wp.media({
-                            title: <?php echo wp_json_encode(__('Select Site Logo', 'a-ripple-song')); ?>,
-                            button: {
-                                text: <?php echo wp_json_encode(__('Use this image', 'a-ripple-song')); ?>
-                            },
-                            library: {
-                                type: 'image'
-                            },
-                            multiple: false
+                        const CropperCtor = getLogoCropperCtor();
+                        const cropperState = new CropperCtor({
+                            imgSelectOptions: calculateImageSelectOptions
                         });
 
+                        const frame = wp.media({
+                            button: {
+                                text: <?php echo wp_json_encode(__('Select and Crop', 'a-ripple-song')); ?>,
+                                close: false
+                            },
+                            states: [
+                                new wp.media.controller.Library({
+                                    title: <?php echo wp_json_encode(__('Select Site Logo', 'a-ripple-song')); ?>,
+                                    library: wp.media.query({ type: 'image' }),
+                                    multiple: false,
+                                    date: false,
+                                    priority: 20,
+                                    suggestedWidth: logoWidth,
+                                    suggestedHeight: logoHeight
+                                }),
+                                cropperState
+                            ]
+                        });
+
+                        const handleSkippedCrop = (selection) => {
+                            const url = String(selection.get('url') || '').trim();
+
+                            if (url !== '') {
+                                syncValue(url);
+                            }
+                        };
+
                         frame.on('select', () => {
-                            const attachment = frame.state().get('selection').first().toJSON();
-                            const url = String(attachment.url || '').trim();
+                            const selection = frame.state().get('selection');
+
+                            if (!selection) {
+                                return;
+                            }
+
+                            const attachment = selection.first();
+                            const mime = String(attachment.get('mime') || '');
+                            const realWidth = parseInt(attachment.get('width'), 10) || 0;
+                            const realHeight = parseInt(attachment.get('height'), 10) || 0;
+
+                            if (mime === 'image/svg+xml' || realWidth === 0 || realHeight === 0) {
+                                const url = String(attachment.get('url') || '').trim();
+
+                                if (url !== '') {
+                                    syncValue(url);
+                                }
+
+                                frame.close();
+                                return;
+                            }
+
+                            frame.setState('cropper');
+                        });
+
+                        frame.on('cropped', (croppedImage) => {
+                            const url = String(croppedImage.url || '').trim();
 
                             if (url !== '') {
                                 syncValue(url);
                             }
                         });
+
+                        frame.on('skippedcrop', handleSkippedCrop);
+                        cropperState.on('skippedcrop', handleSkippedCrop);
 
                         frame.open();
                     });
@@ -558,6 +708,10 @@ class General
 
         ?>
         <style>
+            .ars-logo-uploader [data-ars-logo-input] {
+                display: none;
+            }
+
             .ars-theme-picker {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
@@ -665,7 +819,7 @@ class General
             }
 
             .ars-theme-select {
-                min-width: 220px;
+                display: none;
             }
         </style>
         <script>
@@ -715,18 +869,20 @@ class General
     /**
      * Render the native logo field row.
      *
+     * @param string $rowClass Optional extra CSS classes for the table row.
      * @return string
      */
-    protected static function renderLogoRow(): string
+    protected static function renderLogoRow(string $rowClass = ''): string
     {
         /** @var string $currentLogo Saved logo URL. */
         $currentLogo = static::getThemeOption('crb_site_logo');
 
         return sprintf(
-            '<tr><th scope="row"><label for="crb_site_logo">%1$s</label></th><td><div class="ars-logo-uploader" data-ars-logo-uploader><input type="url" class="regular-text" id="crb_site_logo" name="crb_site_logo" value="%2$s" placeholder="https://example.com/logo.svg" data-ars-logo-input><p class="description">%3$s</p><p><button type="button" class="button button-primary" data-ars-logo-select>%4$s</button> <button type="button" class="button" data-ars-logo-remove>%5$s</button></p><div class="ars-logo-preview" data-ars-logo-preview>%6$s</div></div></td></tr>',
+            '<tr class="%1$s"><th scope="row"><label for="crb_site_logo">%2$s</label></th><td><div class="ars-logo-uploader" data-ars-logo-uploader><input type="url" class="regular-text" id="crb_site_logo" name="crb_site_logo" value="%3$s" placeholder="https://example.com/logo.svg" data-ars-logo-input><p class="description">%4$s</p><p><button type="button" class="button button-primary" data-ars-logo-select>%5$s</button> <button type="button" class="button" data-ars-logo-remove>%6$s</button></p><div class="ars-logo-preview" data-ars-logo-preview>%7$s</div></div></td></tr>',
+            esc_attr($rowClass),
             esc_html__('Site Logo', 'a-ripple-song'),
             esc_attr($currentLogo),
-            esc_html__('Upload a logo image (220px × 32px).', 'a-ripple-song'),
+            esc_html__('Upload a logo image (220px × 32px). You will be able to crop the image after upload.', 'a-ripple-song'),
             esc_html__('Upload / Change Logo', 'a-ripple-song'),
             esc_html__('Remove Logo', 'a-ripple-song'),
             static::renderLogoPreview($currentLogo)
@@ -742,6 +898,7 @@ class General
      * @param string $value Current value.
      * @param string $mode Theme mode identifier.
      * @param string $description Field description.
+     * @param string $rowClass Optional extra CSS classes for the table row.
      * @return string
      */
     protected static function renderThemePickerRow(
@@ -750,10 +907,12 @@ class General
         array $options,
         string $value,
         string $mode,
-        string $description
+        string $description,
+        string $rowClass = ''
     ): string {
         return sprintf(
-            '<tr><th scope="row"><label for="%1$s">%2$s</label></th><td>%3$s%4$s<p class="description">%5$s</p></td></tr>',
+            '<tr class="%1$s"><th scope="row"><label for="%2$s">%3$s</label></th><td>%4$s%5$s<p class="description">%6$s</p></td></tr>',
+            esc_attr($rowClass),
             esc_attr($optionKey),
             esc_html($label),
             static::renderDaisyUiThemePicker($mode, $options, $value),
@@ -959,9 +1118,11 @@ class General
         }
 
         return sprintf(
-            '<img src="%1$s" alt="%2$s" style="display:block;max-width:220px;height:auto;margin-top:12px;border:1px solid #dcdcde;padding:8px;background:#fff;">',
+            '<img src="%1$s" alt="%2$s" style="display:block;width:%3$dpx;height:%4$dpx;margin-top:12px;border:1px solid #dcdcde;padding:8px;background:#fff;object-fit:contain;">',
             esc_url($logoUrl),
-            esc_attr__('Site Logo', 'a-ripple-song')
+            esc_attr__('Site Logo', 'a-ripple-song'),
+            (int) static::LOGO_CROP_WIDTH,
+            (int) static::LOGO_CROP_HEIGHT
         );
     }
 

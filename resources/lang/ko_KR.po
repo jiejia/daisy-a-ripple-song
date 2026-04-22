@@ -990,3 +990,11 @@ msgstr "The plugin was deactivated successfully."
 #: app/ThemeOptions/RecommendedPlugins.php:88
 msgid "Option"
 msgstr "옵션"
+
+#: app/ThemeOptions/General.php:614
+msgid "Select Site Logo"
+msgstr "사이트 로고 선택"
+
+#: app/ThemeOptions/General.php:611
+msgid "Select and Crop"
+msgstr "선택 후 자르기"

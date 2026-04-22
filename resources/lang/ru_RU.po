@@ -998,3 +998,11 @@ msgstr "The plugin was deactivated successfully."
 #: app/ThemeOptions/RecommendedPlugins.php:88
 msgid "Option"
 msgstr "Опция"
+
+#: app/ThemeOptions/General.php:614
+msgid "Select Site Logo"
+msgstr "Выберите логотип сайта"
+
+#: app/ThemeOptions/General.php:611
+msgid "Select and Crop"
+msgstr "Выбрать и обрезать"

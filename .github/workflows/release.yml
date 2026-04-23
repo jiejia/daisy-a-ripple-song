@@ -4,7 +4,15 @@ on:
   push:
     tags:
       - "*"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release tag to publish or clean, e.g. v0.5.0."
+        required: false
+        type: string
+
+env:
+  RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
 
 jobs:
   build:
@@ -50,7 +58,7 @@ jobs:
           find src -name '*.php' -print0 | xargs -0 -n1 php -l
 
       - name: Build theme zip
-        run: ARS_DIST_ZIP_NAME="daisy-a-ripple-song.zip" composer run -n build:dist -- "${GITHUB_REF_NAME}"
+        run: ARS_DIST_ZIP_NAME="daisy-a-ripple-song.zip" composer run -n build:dist -- "${RELEASE_TAG}"
 
       - name: Remove old versioned zips
         uses: actions/github-script@v8
@@ -58,7 +66,7 @@ jobs:
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            const tag = context.ref.replace('refs/tags/', '');
+            const tag = process.env.RELEASE_TAG;
 
             try {
               const { data: release } = await github.rest.repos.getReleaseByTag({ owner, repo, tag });
@@ -81,5 +89,25 @@ jobs:
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v3
         with:
+          tag_name: ${{ inputs.release_tag || github.ref_name }}
           files: build/daisy-a-ripple-song.zip
-          prerelease: ${{ startsWith(github.ref, 'refs/tags/') && contains(github.ref_name, '-') }}
+          prerelease: ${{ contains(inputs.release_tag || github.ref_name, '-') }}
+
+      - name: Remove obsolete release assets
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const tag = process.env.RELEASE_TAG;
+            const { data: release } = await github.rest.repos.getReleaseByTag({ owner, repo, tag });
+
+            for (const asset of release.assets ?? []) {
+              if (
+                asset.name === 'a-ripple-song.zip'
+                || (asset.name.startsWith('a-ripple-song-') && asset.name.endsWith('.zip'))
+              ) {
+                core.info(`Deleting obsolete asset: ${asset.name}`);
+                await github.rest.repos.deleteReleaseAsset({ owner, repo, asset_id: asset.id });
+              }
+            }

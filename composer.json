@@ -1,6 +1,6 @@
 {
-  "name": "aripplesong/daisy-a-ripple-song",
-  "description": "Composer support for the a-ripple-song WordPress theme",
+  "name": "jiejia/daisy-a-ripple-song",
+  "description": "Composer support for the daisy-a-ripple-song theme",
   "license": "GPL-3.0-or-later",
   "type": "wordpress-theme",
   "require": {

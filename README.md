@@ -1,14 +1,18 @@
-# A Ripple Song
+# Daisy A Ripple Song
 
-A Ripple Song is a classic WordPress theme. After installing the companion [podcast plugin](https://github.com/jiejia/a-ripple-song-podcast), you can enable the audio player, podcast widgets, and related features.
+Daisy A Ripple Song is a classic WordPress theme. After installing the [podcast plugin](https://github.com/jiejia/a-ripple-song), you can use the audio player, podcast widgets, and related features.
 
 <img width="" src="screenshot.png"/>
+
+## Demo
+
+[https://podcast.aripplesong.me/](https://podcast.aripplesong.me/)
 
 ## Features
 
 - 56 beautifully crafted theme color schemes (26 light themes and 26 dark themes)
 - Internationalization support
-- Analytics tracking
+- Data tracking
 - Seamless page transitions powered by Swup
 - Multiple widgets tailored to the theme style (some features require the podcast plugin)
 - Immersive audio player (requires the podcast plugin)
@@ -36,7 +40,6 @@ A Ripple Song is a classic WordPress theme. After installing the companion [podc
 - [English](README.md)
 - [简体中文](docs/README.zh_CN.md)
 - [繁體中文](docs/README.zh-Hant.md)
-- [日本語](docs/README.ja.md)
 - [한국어](docs/README.ko_KR.md)
 - [Français](docs/README.fr_FR.md)
 - [Español](docs/README.es_ES.md)

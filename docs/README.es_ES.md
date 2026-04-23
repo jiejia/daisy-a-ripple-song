@@ -1,8 +1,12 @@
-# A Ripple Song
+# Daisy A Ripple Song
 
-A Ripple Song es un tema clásico de WordPress. Después de instalar el [plugin de podcast complementario](https://github.com/jiejia/a-ripple-song-podcast), puedes activar el reproductor de audio, los widgets de podcast y otras funciones relacionadas.
+Daisy A Ripple Song es un tema clásico de WordPress. Después de instalar el [plugin de podcast](https://github.com/jiejia/a-ripple-song), puedes usar el reproductor de audio, los widgets de podcast y otras funciones relacionadas.
 
 <img width="" src="../screenshot.png"/>
+
+## Demo
+
+[https://podcast.aripplesong.me/](https://podcast.aripplesong.me/)
 
 ## Características
 
@@ -36,7 +40,6 @@ A Ripple Song es un tema clásico de WordPress. Después de instalar el [plugin 
 - [English](../README.md)
 - [简体中文](README.zh_CN.md)
 - [繁體中文](README.zh-Hant.md)
-- [日本語](README.ja.md)
 - [한국어](README.ko_KR.md)
 - [Français](README.fr_FR.md)
 - [Español](README.es_ES.md)

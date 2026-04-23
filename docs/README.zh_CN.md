@@ -1,8 +1,11 @@
-# A Ripple Song
+# Daisy A Ripple Song
 
-A Ripple Song 是一个经典 WordPress 主题，安装[播客插件](https://github.com/jiejia/a-ripple-song-podcast)后可使用音频播放器和播客 widget 等功能。
+Daisy A Ripple Song 是一个经典 WordPress 主题，安装[播客插件](https://github.com/jiejia/a-ripple-song)后可使用音频播放器和播客 widget 等功能。
 
 <img width="" src="../screenshot.png"/>
+
+## Demo
+[https://podcast.aripplesong.me/](https://podcast.aripplesong.me/)
 
 ## 特性
 
@@ -34,7 +37,6 @@ A Ripple Song 是一个经典 WordPress 主题，安装[播客插件](https://gi
 - [English](../README.md)
 - [简体中文](README.zh_CN.md)
 - [繁體中文](README.zh-Hant.md)
-- [日本語](README.ja.md)
 - [한국어](README.ko_KR.md)
 - [Français](README.fr_FR.md)
 - [Español](README.es_ES.md)

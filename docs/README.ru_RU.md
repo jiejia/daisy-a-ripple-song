@@ -1,8 +1,12 @@
-# A Ripple Song
+# Daisy A Ripple Song
 
-A Ripple Song — это классическая тема WordPress. После установки [плагина для подкастов](https://github.com/jiejia/a-ripple-song-podcast) в теме становятся доступны аудиоплеер, подкаст-виджеты и связанные функции.
+Daisy A Ripple Song — это классическая тема WordPress. После установки [плагина подкастов](https://github.com/jiejia/a-ripple-song) можно использовать аудиоплеер, подкаст-виджеты и связанные функции.
 
 <img width="" src="../screenshot.png"/>
+
+## Demo
+
+[https://podcast.aripplesong.me/](https://podcast.aripplesong.me/)
 
 ## Особенности
 
@@ -36,7 +40,6 @@ A Ripple Song — это классическая тема WordPress. После
 - [English](../README.md)
 - [简体中文](README.zh_CN.md)
 - [繁體中文](README.zh-Hant.md)
-- [日本語](README.ja.md)
 - [한국어](README.ko_KR.md)
 - [Français](README.fr_FR.md)
 - [Español](README.es_ES.md)

@@ -2,6 +2,7 @@
 
 namespace ARippleSong\Themes\Daisy\Core;
 
+use ARippleSong\Themes\Daisy\Constants\BaseConstant;
 use ARippleSong\Themes\Daisy\Constants\PodcastPluginConstant;
 
 define('IS_PODCAST_PLUGIN_ACTIVATED', Helper::isPluginActivated(PodcastPluginConstant::PLUGIN_SLUG));
@@ -15,7 +16,7 @@ add_action('after_setup_theme', function (): void {
     /**
      * Load translations from the custom theme language directory.
      */
-    load_theme_textdomain('daisy-a-ripple-song', get_template_directory() . '/resources/lang');
+    load_theme_textdomain(BaseConstant::THEME_SLUG, get_template_directory() . '/resources/lang');
 
     /**
      * Register classic theme supports required by WordPress theme guidelines.

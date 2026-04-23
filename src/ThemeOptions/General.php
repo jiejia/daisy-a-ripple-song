@@ -2,6 +2,7 @@
 
 namespace ARippleSong\Themes\Daisy\ThemeOptions;
 
+use ARippleSong\Themes\Daisy\Constants\BaseConstant;
 use ARippleSong\Themes\Daisy\Constants\ThemeConstant;
 
 /**
@@ -10,16 +11,25 @@ use ARippleSong\Themes\Daisy\Constants\ThemeConstant;
 class General
 {
     /** @var string $optionsPageFile Theme options top-level menu slug. */
-    protected const OPTIONS_PAGE_FILE = 'ars_theme_options.php';
+    protected const OPTIONS_PAGE_FILE = BaseConstant::PREFIX . '_theme_options';
 
     /** @var string $generalPageFile Theme general settings page slug. */
-    protected const GENERAL_PAGE_FILE = 'ars_theme_general.php';
+    protected const GENERAL_PAGE_FILE = BaseConstant::PREFIX . '_theme_general';
 
     /** @var string $socialPageFile Social links settings page slug. */
-    protected const SOCIAL_PAGE_FILE = 'ars_theme_social_links.php';
+    protected const SOCIAL_PAGE_FILE = BaseConstant::PREFIX . '_theme_social_links';
 
-    /** @var string $optionGroup Shared settings group used by both settings pages. */
-    protected const OPTION_GROUP = 'aripplesong_theme_options';
+    /** @var string $generalOptionGroup Settings group used by the general settings page. */
+    protected const GENERAL_OPTION_GROUP = BaseConstant::PREFIX . '_general_options_group';
+
+    /** @var string $socialOptionGroup Settings group used by the social links settings page. */
+    protected const SOCIAL_OPTION_GROUP = BaseConstant::PREFIX . '_social_links_group';
+
+    /** @var string $generalOptionName Serialized option name for general settings. */
+    public const GENERAL_OPTION_NAME = BaseConstant::PREFIX . '_general_options';
+
+    /** @var string $socialOptionName Serialized option name for social links. */
+    public const SOCIAL_OPTION_NAME = BaseConstant::PREFIX . '_social_links';
 
     /** @var int $logoCropWidth Preferred site logo width. */
     protected const LOGO_CROP_WIDTH = 220;
@@ -91,76 +101,24 @@ class General
     public static function registerSettings(): void
     {
         register_setting(
-            static::OPTION_GROUP,
-            'crb_site_logo',
+            static::GENERAL_OPTION_GROUP,
+            static::GENERAL_OPTION_NAME,
             [
-                'type' => 'string',
-                'sanitize_callback' => [static::class, 'sanitizeUrlOption'],
-                'default' => '',
+                'type' => 'array',
+                'sanitize_callback' => [static::class, 'sanitizeGeneralOptions'],
+                'default' => static::getDefaultGeneralOptions(),
             ]
         );
 
         register_setting(
-            static::OPTION_GROUP,
-            'crb_light_theme',
+            static::SOCIAL_OPTION_GROUP,
+            static::SOCIAL_OPTION_NAME,
             [
-                'type' => 'string',
-                'sanitize_callback' => [static::class, 'sanitizeLightTheme'],
-                'default' => 'retro',
+                'type' => 'array',
+                'sanitize_callback' => [static::class, 'sanitizeSocialLinksOptions'],
+                'default' => [],
             ]
         );
-
-        register_setting(
-            static::OPTION_GROUP,
-            'crb_dark_theme',
-            [
-                'type' => 'string',
-                'sanitize_callback' => [static::class, 'sanitizeDarkTheme'],
-                'default' => 'dim',
-            ]
-        );
-
-        register_setting(
-            static::OPTION_GROUP,
-            'crb_footer_copyright',
-            [
-                'type' => 'string',
-                'sanitize_callback' => [static::class, 'sanitizeHtmlOption'],
-                'default' => '',
-            ]
-        );
-
-        register_setting(
-            static::OPTION_GROUP,
-            'crb_header_scripts',
-            [
-                'type' => 'string',
-                'sanitize_callback' => [static::class, 'sanitizeRawCode'],
-                'default' => '',
-            ]
-        );
-
-        register_setting(
-            static::OPTION_GROUP,
-            'crb_footer_scripts',
-            [
-                'type' => 'string',
-                'sanitize_callback' => [static::class, 'sanitizeRawCode'],
-                'default' => '',
-            ]
-        );
-
-        foreach (SocialLinks::getPlatforms() as $platformKey => $platformData) {
-            register_setting(
-                static::OPTION_GROUP,
-                SocialLinks::SETTING_PREFIX . $platformKey,
-                [
-                    'type' => 'string',
-                    'sanitize_callback' => [static::class, 'sanitizeUrlOption'],
-                    'default' => '',
-                ]
-            );
-        }
     }
 
     /**
@@ -170,53 +128,11 @@ class General
      */
     public static function renderGeneralPage(): void
     {
-        echo '<div class="wrap">';
-        echo '<h1>' . esc_html__('General', 'daisy-a-ripple-song') . '</h1>';
-        settings_errors();
-        echo '<form method="post" action="options.php">';
-        settings_fields(static::OPTION_GROUP);
-        echo '<table class="form-table" role="presentation">';
-        echo '<tbody>';
-        echo static::renderLogoRow();
-        echo static::renderThemePickerRow(
-            'crb_light_theme',
-            __('Light Theme', 'daisy-a-ripple-song'),
-            static::getLightThemeOptions(),
-            static::getLightTheme(),
-            'light',
-            __('This is the default theme used when the site is in light mode.', 'daisy-a-ripple-song')
+        static::renderSettingsPage(
+            __('General', 'daisy-a-ripple-song'),
+            static::GENERAL_OPTION_GROUP,
+            static::getGeneralFields()
         );
-        echo static::renderThemePickerRow(
-            'crb_dark_theme',
-            __('Dark Theme', 'daisy-a-ripple-song'),
-            static::getDarkThemeOptions(),
-            static::getDarkTheme(),
-            'dark',
-            __('This is the default theme used when the site is in dark mode.', 'daisy-a-ripple-song')
-        );
-        echo static::renderTextareaRow(
-            'crb_footer_copyright',
-            __('Footer Copyright', 'daisy-a-ripple-song'),
-            static::getThemeOption('crb_footer_copyright'),
-            __('Overrides the footer copyright line. Leave empty to use the default.', 'daisy-a-ripple-song')
-        );
-        echo static::renderTextareaRow(
-            'crb_header_scripts',
-            __('Header Scripts', 'daisy-a-ripple-song'),
-            static::getThemeOption('crb_header_scripts'),
-            __('Scripts to be added in the <head> section. You can include complete <script> tags for services like Google Analytics.', 'daisy-a-ripple-song')
-        );
-        echo static::renderTextareaRow(
-            'crb_footer_scripts',
-            __('Footer Scripts', 'daisy-a-ripple-song'),
-            static::getThemeOption('crb_footer_scripts'),
-            __('Scripts to be added before </body>. You can include complete <script> tags.', 'daisy-a-ripple-song')
-        );
-        echo '</tbody>';
-        echo '</table>';
-        submit_button();
-        echo '</form>';
-        echo '</div>';
     }
 
     /**
@@ -226,29 +142,99 @@ class General
      */
     public static function renderSocialPage(): void
     {
-        echo '<div class="wrap">';
-        echo '<h1>' . esc_html__('Social Links', 'daisy-a-ripple-song') . '</h1>';
-        settings_errors();
-        echo '<form method="post" action="options.php">';
-        settings_fields(static::OPTION_GROUP);
-        echo '<table class="form-table" role="presentation">';
-        echo '<tbody>';
-        echo static::renderSocialIntroRow();
+        static::renderSettingsPage(
+            __('Social Links', 'daisy-a-ripple-song'),
+            static::SOCIAL_OPTION_GROUP,
+            SocialLinks::getSettingsFields(),
+            __('Only filled links will be used by the theme.', 'daisy-a-ripple-song')
+        );
+    }
 
-        foreach (SocialLinks::getPlatforms() as $platformKey => $platformData) {
-            echo static::renderUrlRow(
-                SocialLinks::SETTING_PREFIX . $platformKey,
-                $platformData['label'],
-                SocialLinks::getConfiguredLinks()[$platformKey]['url'] ?? '',
-                __('Optional. Enter a full URL.', 'daisy-a-ripple-song')
-            );
+    /**
+     * Render a native WordPress settings page.
+     *
+     * @param string $title Page title.
+     * @param string $optionGroup Settings API option group.
+     * @param array<int, array<string, mixed>> $fields Field definitions.
+     * @param string $description Optional page description.
+     * @return void
+     */
+    protected static function renderSettingsPage(string $title, string $optionGroup, array $fields, string $description = ''): void
+    {
+        echo '<div class="wrap">';
+        echo '<h1>' . esc_html($title) . '</h1>';
+
+        if ($description !== '') {
+            echo '<p class="description">' . esc_html($description) . '</p>';
         }
 
+        settings_errors();
+        echo '<form method="post" action="options.php">';
+        settings_fields($optionGroup);
+        echo '<table class="form-table" role="presentation">';
+        echo '<tbody>';
+        echo static::renderSettingsFields($fields);
         echo '</tbody>';
         echo '</table>';
         submit_button();
         echo '</form>';
         echo '</div>';
+    }
+
+    /**
+     * Return field definitions for the general settings page.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    protected static function getGeneralFields(): array
+    {
+        return [
+            [
+                'type' => 'logo',
+            ],
+            [
+                'type' => 'theme_picker',
+                'key' => 'light_theme',
+                'label' => __('Light Theme', 'daisy-a-ripple-song'),
+                'options' => static::getLightThemeOptions(),
+                'value' => static::getLightTheme(),
+                'mode' => 'light',
+                'description' => __('This is the default theme used when the site is in light mode.', 'daisy-a-ripple-song'),
+            ],
+            [
+                'type' => 'theme_picker',
+                'key' => 'dark_theme',
+                'label' => __('Dark Theme', 'daisy-a-ripple-song'),
+                'options' => static::getDarkThemeOptions(),
+                'value' => static::getDarkTheme(),
+                'mode' => 'dark',
+                'description' => __('This is the default theme used when the site is in dark mode.', 'daisy-a-ripple-song'),
+            ],
+            [
+                'type' => 'textarea',
+                'key' => 'footer_copyright',
+                'label' => __('Footer Copyright', 'daisy-a-ripple-song'),
+                'value' => static::getThemeOption('footer_copyright'),
+                'description' => __('Overrides the footer copyright line. Leave empty to use the default.', 'daisy-a-ripple-song'),
+                'optionName' => static::GENERAL_OPTION_NAME,
+            ],
+            [
+                'type' => 'textarea',
+                'key' => 'header_scripts',
+                'label' => __('Header Scripts', 'daisy-a-ripple-song'),
+                'value' => static::getThemeOption('header_scripts'),
+                'description' => __('Scripts to be added in the <head> section. You can include complete <script> tags for services like Google Analytics.', 'daisy-a-ripple-song'),
+                'optionName' => static::GENERAL_OPTION_NAME,
+            ],
+            [
+                'type' => 'textarea',
+                'key' => 'footer_scripts',
+                'label' => __('Footer Scripts', 'daisy-a-ripple-song'),
+                'value' => static::getThemeOption('footer_scripts'),
+                'description' => __('Scripts to be added before </body>. You can include complete <script> tags.', 'daisy-a-ripple-song'),
+                'optionName' => static::GENERAL_OPTION_NAME,
+            ],
+        ];
     }
 
     /**
@@ -283,37 +269,105 @@ class General
     }
 
     /**
-     * Return the saved theme option value.
+     * Return default values for the serialized general option.
      *
-     * @param string $key Theme option key.
+     * @return array<string, string>
+     */
+    public static function getDefaultGeneralOptions(): array
+    {
+        return [
+            'site_logo' => '',
+            'light_theme' => 'retro',
+            'dark_theme' => 'dim',
+            'footer_copyright' => '',
+            'header_scripts' => '',
+            'footer_scripts' => '',
+        ];
+    }
+
+    /**
+     * Return all saved general settings merged with defaults.
+     *
+     * @return array<string, string>
+     */
+    public static function getGeneralOptions(): array
+    {
+        /** @var mixed $savedOptions Raw serialized option from WordPress. */
+        $savedOptions = get_option(static::GENERAL_OPTION_NAME, []);
+
+        if (!is_array($savedOptions)) {
+            $savedOptions = [];
+        }
+
+        /** @var array<string, string> $normalizedOptions Normalized option values. */
+        $normalizedOptions = [];
+
+        foreach ($savedOptions as $optionKey => $optionValue) {
+            if (!is_string($optionKey) || !is_scalar($optionValue)) {
+                continue;
+            }
+
+            $normalizedOptions[$optionKey] = (string) $optionValue;
+        }
+
+        return array_merge(static::getDefaultGeneralOptions(), $normalizedOptions);
+    }
+
+    /**
+     * Return all saved social links.
+     *
+     * @return array<string, string>
+     */
+    public static function getSocialLinksOptions(): array
+    {
+        /** @var mixed $savedOptions Raw serialized option from WordPress. */
+        $savedOptions = get_option(static::SOCIAL_OPTION_NAME, []);
+
+        if (!is_array($savedOptions)) {
+            return [];
+        }
+
+        /** @var array<string, string> $normalizedOptions Normalized social link values. */
+        $normalizedOptions = [];
+
+        foreach ($savedOptions as $platformKey => $platformUrl) {
+            if (!is_string($platformKey) || !is_scalar($platformUrl)) {
+                continue;
+            }
+
+            $normalizedOptions[$platformKey] = (string) $platformUrl;
+        }
+
+        return $normalizedOptions;
+    }
+
+    /**
+     * Return the saved general option value.
+     *
+     * @param string $key General option key.
      * @param string $default Fallback value.
      * @return string
      */
     public static function getThemeOption(string $key, string $default = ''): string
     {
-        /** @var mixed $optionValue Raw option value from the WordPress options table. */
-        $optionValue = get_option($key, $default);
+        /** @var array<string, string> $options Saved general settings. */
+        $options = static::getGeneralOptions();
 
-        if (is_string($optionValue) && $optionValue !== '') {
-            return $optionValue;
-        }
+        return array_key_exists($key, $options) ? $options[$key] : $default;
+    }
 
-        if ($optionValue === 0 || $optionValue === '0') {
-            return '0';
-        }
+    /**
+     * Return the saved URL for a social platform.
+     *
+     * @param string $platformKey Social platform key.
+     * @return string
+     */
+    public static function getSocialLinkOption(string $platformKey): string
+    {
+        /** @var array<string, string> $options Saved social link settings. */
+        $options = static::getSocialLinksOptions();
 
-        /** @var mixed $legacyOptionValue Raw value from Carbon Fields prefixed option keys. */
-        $legacyOptionValue = get_option('_' . $key, null);
-
-        if (is_string($legacyOptionValue) && $legacyOptionValue !== '') {
-            return $legacyOptionValue;
-        }
-
-        if ($legacyOptionValue === 0 || $legacyOptionValue === '0') {
-            return '0';
-        }
-
-        return $default;
+        return trim($options[$platformKey] ?? '');
     }
 
     /**
@@ -323,7 +377,7 @@ class General
      */
     public static function getSiteLogoUrl(): string
     {
-        return esc_url(static::getThemeOption('crb_site_logo'));
+        return esc_url(static::getThemeOption('site_logo'));
     }
 
     /**
@@ -334,7 +388,7 @@ class General
     public static function getLightTheme(): string
     {
         /** @var string $themeSlug Saved light theme slug. */
-        $themeSlug = static::getThemeOption('crb_light_theme', 'retro');
+        $themeSlug = static::getThemeOption('light_theme', 'retro');
 
         return array_key_exists($themeSlug, static::getLightThemeOptions()) ? $themeSlug : 'retro';
     }
@@ -347,7 +401,7 @@ class General
     public static function getDarkTheme(): string
     {
         /** @var string $themeSlug Saved dark theme slug. */
-        $themeSlug = static::getThemeOption('crb_dark_theme', 'dim');
+        $themeSlug = static::getThemeOption('dark_theme', 'dim');
 
         return array_key_exists($themeSlug, static::getDarkThemeOptions()) ? $themeSlug : 'dim';
     }
@@ -425,7 +479,7 @@ class General
      */
     public static function getFooterCopyright(): string
     {
-        return trim(static::getThemeOption('crb_footer_copyright'));
+        return trim(static::getThemeOption('footer_copyright'));
     }
 
     /**
@@ -440,7 +494,7 @@ class General
         }
 
         /** @var string $headerScripts Saved header scripts. */
-        $headerScripts = static::getThemeOption('crb_header_scripts');
+        $headerScripts = static::getThemeOption('header_scripts');
 
         if ($headerScripts === '') {
             return;
@@ -461,7 +515,7 @@ class General
         }
 
         /** @var string $footerScripts Saved footer scripts. */
-        $footerScripts = static::getThemeOption('crb_footer_scripts');
+        $footerScripts = static::getThemeOption('footer_scripts');
 
         if ($footerScripts === '') {
             return;
@@ -890,18 +944,94 @@ class General
     protected static function renderLogoRow(string $rowClass = ''): string
     {
         /** @var string $currentLogo Saved logo URL. */
-        $currentLogo = static::getThemeOption('crb_site_logo');
+        $currentLogo = static::getThemeOption('site_logo');
 
         return sprintf(
-            '<tr class="%1$s"><th scope="row"><label for="crb_site_logo">%2$s</label></th><td><div class="ars-logo-uploader" data-ars-logo-uploader><input type="url" class="regular-text" id="crb_site_logo" name="crb_site_logo" value="%3$s" placeholder="https://example.com/logo.svg" data-ars-logo-input><p class="description">%4$s</p><p><button type="button" class="button button-primary" data-ars-logo-select>%5$s</button> <button type="button" class="button" data-ars-logo-remove>%6$s</button></p><div class="ars-logo-preview" data-ars-logo-preview>%7$s</div></div></td></tr>',
+            '<tr class="%1$s"><th scope="row"><label for="site_logo">%2$s</label></th><td><div class="ars-logo-uploader" data-ars-logo-uploader><input type="url" class="regular-text" id="site_logo" name="%8$s[site_logo]" value="%3$s" placeholder="https://example.com/logo.svg" data-ars-logo-input><p class="description">%4$s</p><p><button type="button" class="button button-primary" data-ars-logo-select>%5$s</button> <button type="button" class="button" data-ars-logo-remove>%6$s</button></p><div class="ars-logo-preview" data-ars-logo-preview>%7$s</div></div></td></tr>',
             esc_attr($rowClass),
             esc_html__('Site Logo', 'daisy-a-ripple-song'),
             esc_attr($currentLogo),
             esc_html__('Upload a logo image (220px × 32px). You will be able to crop the image after upload.', 'daisy-a-ripple-song'),
             esc_html__('Upload / Change Logo', 'daisy-a-ripple-song'),
             esc_html__('Remove Logo', 'daisy-a-ripple-song'),
-            static::renderLogoPreview($currentLogo)
+            static::renderLogoPreview($currentLogo),
+            esc_attr(static::GENERAL_OPTION_NAME)
         );
+    }
+
+    /**
+     * Render a list of settings fields from definitions.
+     *
+     * @param array<int, array<string, mixed>> $fields Field definitions.
+     * @return string
+     */
+    protected static function renderSettingsFields(array $fields): string
+    {
+        /** @var array<int, string> $markup Generated field rows. */
+        $markup = [];
+
+        foreach ($fields as $field) {
+            $markup[] = static::renderSettingsField($field);
+        }
+
+        return implode('', $markup);
+    }
+
+    /**
+     * Render one settings field from a definition.
+     *
+     * @param array<string, mixed> $field Field definition.
+     * @return string
+     */
+    protected static function renderSettingsField(array $field): string
+    {
+        /** @var string $type Field renderer type. */
+        $type = is_string($field['type'] ?? null) ? $field['type'] : '';
+
+        if ($type === 'logo') {
+            return static::renderLogoRow((string) ($field['rowClass'] ?? ''));
+        }
+
+        /** @var string $optionKey Field key inside the serialized option. */
+        $optionKey = is_string($field['key'] ?? null) ? $field['key'] : '';
+        if ($optionKey === '') {
+            return '';
+        }
+
+        /** @var string $label Field label. */
+        $label = is_string($field['label'] ?? null) ? $field['label'] : '';
+        /** @var string $value Current field value. */
+        $value = is_scalar($field['value'] ?? null) ? (string) $field['value'] : '';
+        /** @var string $description Field help text. */
+        $description = is_string($field['description'] ?? null) ? $field['description'] : '';
+        /** @var string $optionName Serialized option name. */
+        $optionName = is_string($field['optionName'] ?? null) ? $field['optionName'] : static::GENERAL_OPTION_NAME;
+
+        if ($type === 'theme_picker') {
+            /** @var array<string, string> $options Theme picker options. */
+            $options = is_array($field['options'] ?? null) ? $field['options'] : [];
+            /** @var string $mode Theme mode identifier. */
+            $mode = is_string($field['mode'] ?? null) ? $field['mode'] : $optionKey;
+
+            return static::renderThemePickerRow($optionKey, $label, $options, $value, $mode, $description);
+        }
+
+        if ($type === 'select') {
+            /** @var array<string, string> $options Select options. */
+            $options = is_array($field['options'] ?? null) ? $field['options'] : [];
+
+            return static::renderSelectRow($optionKey, $label, $options, $value, $description, $optionName);
+        }
+
+        if ($type === 'url') {
+            return static::renderUrlRow($optionKey, $label, $value, $description, $optionName);
+        }
+
+        if ($type === 'textarea') {
+            return static::renderTextareaRow($optionKey, $label, $value, $description, $optionName);
+        }
+
+        return '';
     }
 
     /**
@@ -1018,7 +1148,7 @@ class General
     {
         /** @var array<int, string> $markup Generated select fragments. */
         $markup = [];
-        $markup[] = '<select class="ars-theme-select" id="' . esc_attr($optionKey) . '" name="' . esc_attr($optionKey) . '" data-theme-target="' . esc_attr($mode) . '">';
+        $markup[] = '<select class="ars-theme-select" id="' . esc_attr($optionKey) . '" name="' . esc_attr(static::GENERAL_OPTION_NAME) . '[' . esc_attr($optionKey) . ']" data-theme-target="' . esc_attr($mode) . '">';
 
         foreach ($options as $optionValue => $optionLabel) {
             $markup[] = sprintf(
@@ -1044,14 +1174,14 @@ class General
      * @param string $description Field description.
      * @return string
      */
-    protected static function renderSelectRow(string $optionKey, string $label, array $options, string $value, string $description): string
+    protected static function renderSelectRow(string $optionKey, string $label, array $options, string $value, string $description, string $optionName = self::GENERAL_OPTION_NAME): string
     {
         /** @var array<int, string> $markup Generated row fragments. */
         $markup = [];
         $markup[] = '<tr>';
         $markup[] = '<th scope="row"><label for="' . esc_attr($optionKey) . '">' . esc_html($label) . '</label></th>';
         $markup[] = '<td>';
-        $markup[] = '<select id="' . esc_attr($optionKey) . '" name="' . esc_attr($optionKey) . '">';
+        $markup[] = '<select id="' . esc_attr($optionKey) . '" name="' . esc_attr($optionName) . '[' . esc_attr($optionKey) . ']">';
 
         foreach ($options as $optionValue => $optionLabel) {
             $markup[] = sprintf(
@@ -1079,25 +1209,16 @@ class General
      * @param string $description Field description.
      * @return string
      */
-    protected static function renderTextareaRow(string $optionKey, string $label, string $value, string $description): string
+    protected static function renderTextareaRow(string $optionKey, string $label, string $value, string $description, string $optionName = self::GENERAL_OPTION_NAME): string
     {
         return sprintf(
-            '<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><textarea id="%1$s" name="%1$s" class="large-text code" rows="5">%3$s</textarea><p class="description">%4$s</p></td></tr>',
+            '<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><textarea id="%1$s" name="%5$s[%1$s]" class="large-text code" rows="5">%3$s</textarea><p class="description">%4$s</p></td></tr>',
             esc_attr($optionKey),
             esc_html($label),
             esc_textarea($value),
-            esc_html($description)
+            esc_html($description),
+            esc_attr($optionName)
         );
-    }
-
-    /**
-     * Render the social links intro row.
-     *
-     * @return string
-     */
-    protected static function renderSocialIntroRow(): string
-    {
-        return '<tr><td colspan="2"><p class="description">' . esc_html__('Only filled links will be used by the theme.', 'daisy-a-ripple-song') . '</p></td></tr>';
     }
 
     /**
@@ -1109,15 +1230,81 @@ class General
      * @param string $description Field description.
      * @return string
      */
-    protected static function renderUrlRow(string $optionKey, string $label, string $value, string $description): string
+    protected static function renderUrlRow(string $optionKey, string $label, string $value, string $description, string $optionName = self::SOCIAL_OPTION_NAME): string
     {
         return sprintf(
-            '<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><input type="url" id="%1$s" name="%1$s" class="regular-text" value="%3$s" placeholder="https://example.com"><p class="description">%4$s</p></td></tr>',
+            '<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><input type="url" id="%1$s" name="%5$s[%1$s]" class="regular-text" value="%3$s" placeholder="https://example.com"><p class="description">%4$s</p></td></tr>',
             esc_attr($optionKey),
             esc_html($label),
             esc_attr($value),
-            esc_html($description)
+            esc_html($description),
+            esc_attr($optionName)
         );
+    }
+
+    /**
+     * Sanitize the serialized general options array.
+     *
+     * @param mixed $value Raw option value.
+     * @return array<string, string>
+     */
+    public static function sanitizeGeneralOptions($value): array
+    {
+        /** @var array<string, mixed> $input Submitted general settings. */
+        $input = is_array($value) ? $value : [];
+        /** @var array<string, string> $sanitizedOptions Sanitized general settings. */
+        $sanitizedOptions = [];
+
+        foreach (static::getGeneralSanitizers() as $optionKey => $sanitizeCallback) {
+            $sanitizedOptions[$optionKey] = (string) call_user_func([static::class, $sanitizeCallback], $input[$optionKey] ?? '');
+        }
+
+        return $sanitizedOptions;
+    }
+
+    /**
+     * Return sanitizers for the serialized general option.
+     *
+     * @return array<string, string>
+     */
+    protected static function getGeneralSanitizers(): array
+    {
+        return [
+            'site_logo' => 'sanitizeUrlOption',
+            'light_theme' => 'sanitizeLightTheme',
+            'dark_theme' => 'sanitizeDarkTheme',
+            'footer_copyright' => 'sanitizeHtmlOption',
+            'header_scripts' => 'sanitizeRawCode',
+            'footer_scripts' => 'sanitizeRawCode',
+        ];
+    }
+
+    /**
+     * Sanitize the serialized social links options array.
+     *
+     * @param mixed $value Raw option value.
+     * @return array<string, string>
+     */
+    public static function sanitizeSocialLinksOptions($value): array
+    {
+        /** @var array<string, mixed> $input Submitted social link settings. */
+        $input = is_array($value) ? $value : [];
+
+        /** @var array<string, string> $sanitizedOptions Sanitized social link settings. */
+        $sanitizedOptions = [];
+
+        foreach (SocialLinks::getPlatforms() as $platformKey => $platformData) {
+            /** @var string $platformUrl Sanitized platform URL. */
+            $platformUrl = static::sanitizeUrlOption($input[$platformKey] ?? '');
+
+            if ($platformUrl === '') {
+                continue;
+            }
+
+            $sanitizedOptions[$platformKey] = $platformUrl;
+        }
+
+        return $sanitizedOptions;
     }
 
     /**
@@ -1149,6 +1336,10 @@ class General
      */
     public static function sanitizeUrlOption($value): string
     {
+        if (!is_scalar($value)) {
+            return '';
+        }
+
         return esc_url_raw(trim((string) wp_unslash($value)));
     }
 
@@ -1160,6 +1351,10 @@ class General
      */
     public static function sanitizeHtmlOption($value): string
     {
+        if (!is_scalar($value)) {
+            return '';
+        }
+
         return wp_kses_post((string) wp_unslash($value));
     }
 
@@ -1171,6 +1366,10 @@ class General
      */
     public static function sanitizeRawCode($value): string
     {
+        if (!is_scalar($value)) {
+            return '';
+        }
+
         return trim((string) wp_unslash($value));
     }
 
@@ -1182,7 +1381,7 @@ class General
      */
     public static function sanitizeLightTheme($value): string
     {
-        return static::sanitizeThemeSlug((string) $value, static::getLightThemeOptions(), 'retro');
+        return static::sanitizeThemeSlug(is_scalar($value) ? (string) $value : '', static::getLightThemeOptions(), 'retro');
     }
 
     /**
@@ -1193,7 +1392,7 @@ class General
      */
     public static function sanitizeDarkTheme($value): string
     {
-        return static::sanitizeThemeSlug((string) $value, static::getDarkThemeOptions(), 'dim');
+        return static::sanitizeThemeSlug(is_scalar($value) ? (string) $value : '', static::getDarkThemeOptions(), 'dim');
     }
 
     /**

@@ -7,9 +7,6 @@ namespace ARippleSong\Themes\Daisy\ThemeOptions;
  */
 class SocialLinks
 {
-    /** @var string $settingPrefix Option key prefix for social links. */
-    public const SETTING_PREFIX = 'crb_social_';
-
     /**
      * Return all supported social platforms.
      *
@@ -66,6 +63,30 @@ class SocialLinks
     }
 
     /**
+     * Return field definitions for the social links settings page.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public static function getSettingsFields(): array
+    {
+        /** @var array<int, array<string, mixed>> $fields Social link field definitions. */
+        $fields = [];
+
+        foreach (static::getPlatforms() as $platformKey => $platformData) {
+            $fields[] = [
+                'type' => 'url',
+                'key' => $platformKey,
+                'label' => $platformData['label'],
+                'value' => General::getSocialLinkOption($platformKey),
+                'description' => __('Optional. Enter a full URL.', 'daisy-a-ripple-song'),
+                'optionName' => General::SOCIAL_OPTION_NAME,
+            ];
+        }
+
+        return $fields;
+    }
+
+    /**
      * Return configured social links only.
      *
      * @return array<string, array<string, string>>
@@ -77,7 +98,7 @@ class SocialLinks
 
         foreach (static::getPlatforms() as $platformKey => $platformData) {
             /** @var string $platformUrl Raw saved URL for the current platform. */
-            $platformUrl = trim((string) General::getThemeOption(static::SETTING_PREFIX . $platformKey));
+            $platformUrl = General::getSocialLinkOption($platformKey);
 
             if ($platformUrl === '') {
                 continue;

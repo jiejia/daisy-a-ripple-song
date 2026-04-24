@@ -138,11 +138,11 @@ class General
      */
     public static function renderGeneralPage(): void
     {
-        static::renderSettingsPage(
-            __('General', 'daisy-a-ripple-song'),
-            static::GENERAL_OPTION_GROUP,
-            static::getGeneralFields()
-        );
+        echo static::renderAdminView('general', [
+            'title' => __('General', 'daisy-a-ripple-song'),
+            'optionGroup' => static::GENERAL_OPTION_GROUP,
+            'fieldsMarkup' => static::renderSettingsFields(static::getGeneralFields()),
+        ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**
@@ -152,43 +152,41 @@ class General
      */
     public static function renderSocialPage(): void
     {
-        static::renderSettingsPage(
-            __('Social Links', 'daisy-a-ripple-song'),
-            static::SOCIAL_OPTION_GROUP,
-            SocialLinks::getSettingsFields(),
-            __('Only filled links will be used by the theme.', 'daisy-a-ripple-song')
-        );
+        echo static::renderAdminView('social-links', [
+            'title' => __('Social Links', 'daisy-a-ripple-song'),
+            'optionGroup' => static::SOCIAL_OPTION_GROUP,
+            'fieldsMarkup' => static::renderSettingsFields(SocialLinks::getSettingsFields()),
+            'description' => __('Only filled links will be used by the theme.', 'daisy-a-ripple-song'),
+        ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**
-     * Render a native WordPress settings page.
+     * Render one admin view template from the resources directory.
      *
-     * @param string $title Page title.
-     * @param string $optionGroup Settings API option group.
-     * @param array<int, array<string, mixed>> $fields Field definitions.
-     * @param string $description Optional page description.
-     * @return void
+     * @param string $view View name relative to resources/views/admin.
+     * @param array<string, mixed> $data Template data.
+     * @return string
      */
-    protected static function renderSettingsPage(string $title, string $optionGroup, array $fields, string $description = ''): void
+    protected static function renderAdminView(string $view, array $data = []): string
     {
-        echo '<div class="wrap">';
-        echo '<h1>' . esc_html($title) . '</h1>';
+        /** @var string $viewPath Absolute path to the requested admin view file. */
+        $viewPath = get_template_directory() . '/resources/views/admin/' . $view . '.php';
 
-        if ($description !== '') {
-            echo '<p class="description">' . esc_html($description) . '</p>';
+        if (!file_exists($viewPath)) {
+            return '';
         }
 
-        settings_errors();
-        echo '<form method="post" action="options.php">';
-        settings_fields($optionGroup);
-        echo '<table class="form-table" role="presentation">';
-        echo '<tbody>';
-        echo static::renderSettingsFields($fields);
-        echo '</tbody>';
-        echo '</table>';
-        submit_button();
-        echo '</form>';
-        echo '</div>';
+        /** @var string|false $markup Rendered admin view markup captured from the template include. */
+        $markup = (static function (string $__viewPath, array $__data): string {
+            extract($__data, EXTR_SKIP);
+
+            ob_start();
+            include $__viewPath;
+
+            return (string) ob_get_clean();
+        })($viewPath, $data);
+
+        return is_string($markup) ? $markup : '';
     }
 
     /**
@@ -752,17 +750,12 @@ class General
         /** @var string $currentLogo Saved logo URL. */
         $currentLogo = static::getThemeOption('site_logo');
 
-        return sprintf(
-            '<tr class="%1$s"><th scope="row"><label for="site_logo">%2$s</label></th><td><div class="ars-logo-uploader" data-ars-logo-uploader><input type="url" class="regular-text" id="site_logo" name="%8$s[site_logo]" value="%3$s" placeholder="https://example.com/logo.svg" data-ars-logo-input><p class="description">%4$s</p><p><button type="button" class="button button-primary" data-ars-logo-select>%5$s</button> <button type="button" class="button" data-ars-logo-remove>%6$s</button></p><div class="ars-logo-preview" data-ars-logo-preview>%7$s</div></div></td></tr>',
-            esc_attr($rowClass),
-            esc_html__('Site Logo', 'daisy-a-ripple-song'),
-            esc_attr($currentLogo),
-            esc_html__('Upload a logo image (220px × 32px). You will be able to crop the image after upload.', 'daisy-a-ripple-song'),
-            esc_html__('Upload / Change Logo', 'daisy-a-ripple-song'),
-            esc_html__('Remove Logo', 'daisy-a-ripple-song'),
-            static::renderLogoPreview($currentLogo),
-            esc_attr(static::GENERAL_OPTION_NAME)
-        );
+        return static::renderAdminView('fields/logo-row', [
+            'rowClass' => $rowClass,
+            'currentLogo' => $currentLogo,
+            'previewHtml' => static::renderLogoPreview($currentLogo),
+            'optionName' => static::GENERAL_OPTION_NAME,
+        ]);
     }
 
     /**
@@ -861,15 +854,14 @@ class General
         string $description,
         string $rowClass = ''
     ): string {
-        return sprintf(
-            '<tr class="%1$s"><th scope="row"><label for="%2$s">%3$s</label></th><td>%4$s%5$s<p class="description">%6$s</p></td></tr>',
-            esc_attr($rowClass),
-            esc_attr($optionKey),
-            esc_html($label),
-            static::renderDaisyUiThemePicker($mode, $options, $value),
-            static::renderThemeSelect($optionKey, $options, $value, $mode),
-            esc_html($description)
-        );
+        return static::renderAdminView('fields/theme-picker-row', [
+            'rowClass' => $rowClass,
+            'optionKey' => $optionKey,
+            'label' => $label,
+            'pickerHtml' => static::renderDaisyUiThemePicker($mode, $options, $value),
+            'selectHtml' => static::renderThemeSelect($optionKey, $options, $value, $mode),
+            'description' => $description,
+        ]);
     }
 
     /**
@@ -885,30 +877,20 @@ class General
         /** @var array<string, array<string, string>> $themePalette Full theme palette map. */
         $themePalette = static::getThemePalette();
 
-        /** @var array<int, string> $markup Generated picker fragments. */
-        $markup = [];
-        $markup[] = '<div class="ars-theme-picker" data-ars-theme-picker data-theme-target="' . esc_attr($mode) . '">';
+        /** @var array<string, string> $swatches Pre-rendered swatch markup keyed by theme slug. */
+        $swatches = [];
 
         foreach ($options as $themeSlug => $themeLabel) {
-            /** @var array<string, string> $colors Theme color palette. */
-            $colors = $themePalette[$themeSlug] ?? [];
-
-            $markup[] = sprintf(
-                '<button type="button" class="ars-theme-card%1$s" data-theme-value="%2$s" style="--ars-base-100:%3$s;--ars-base-200:%4$s;--ars-base-300:%5$s;--ars-base-content:%6$s;"><div class="ars-theme-card__preview"><div class="ars-theme-card__sidebar"><div class="ars-theme-card__sidebar-top"></div><div class="ars-theme-card__sidebar-bottom"></div></div><div class="ars-theme-card__content"><span class="ars-theme-card__name">%7$s</span><span class="ars-theme-card__swatches" aria-hidden="true">%8$s</span></div></div></button>',
-                $value === $themeSlug ? ' is-active' : '',
-                esc_attr($themeSlug),
-                esc_attr($colors['base100'] ?? '#f3f4f6'),
-                esc_attr($colors['base200'] ?? '#e5e7eb'),
-                esc_attr($colors['base300'] ?? '#d1d5db'),
-                esc_attr($colors['baseContent'] ?? '#111827'),
-                esc_html($themeLabel),
-                static::renderThemeSwatches($colors)
-            );
+            $swatches[$themeSlug] = static::renderThemeSwatches($themePalette[$themeSlug] ?? []);
         }
 
-        $markup[] = '</div>';
-
-        return implode('', $markup);
+        return static::renderAdminView('fields/theme-picker', [
+            'mode' => $mode,
+            'options' => $options,
+            'value' => $value,
+            'themePalette' => $themePalette,
+            'swatches' => $swatches,
+        ]);
     }
 
     /**
@@ -919,26 +901,9 @@ class General
      */
     protected static function renderThemeSwatches(array $colors): string
     {
-        /** @var array<string, string> $swatchKeys Palette keys shown in the card. */
-        $swatchKeys = [
-            'primary' => 'primaryContent',
-            'secondary' => 'secondaryContent',
-            'accent' => 'accentContent',
-            'neutral' => 'neutralContent',
-        ];
-
-        /** @var array<int, string> $markup Generated swatch fragments. */
-        $markup = [];
-
-        foreach ($swatchKeys as $swatchKey => $contentKey) {
-            $markup[] = sprintf(
-                '<span class="ars-theme-card__swatch" style="--ars-swatch:%s;--ars-swatch-content:%s;">A</span>',
-                esc_attr($colors[$swatchKey] ?? '#d1d5db'),
-                esc_attr($colors[$contentKey] ?? '#ffffff')
-            );
-        }
-
-        return implode('', $markup);
+        return static::renderAdminView('fields/theme-swatches', [
+            'colors' => $colors,
+        ]);
     }
 
     /**
@@ -952,22 +917,13 @@ class General
      */
     protected static function renderThemeSelect(string $optionKey, array $options, string $value, string $mode): string
     {
-        /** @var array<int, string> $markup Generated select fragments. */
-        $markup = [];
-        $markup[] = '<select class="ars-theme-select" id="' . esc_attr($optionKey) . '" name="' . esc_attr(static::GENERAL_OPTION_NAME) . '[' . esc_attr($optionKey) . ']" data-theme-target="' . esc_attr($mode) . '">';
-
-        foreach ($options as $optionValue => $optionLabel) {
-            $markup[] = sprintf(
-                '<option value="%1$s"%2$s>%3$s</option>',
-                esc_attr($optionValue),
-                selected($value, $optionValue, false),
-                esc_html($optionLabel)
-            );
-        }
-
-        $markup[] = '</select>';
-
-        return implode('', $markup);
+        return static::renderAdminView('fields/theme-select', [
+            'optionKey' => $optionKey,
+            'options' => $options,
+            'value' => $value,
+            'mode' => $mode,
+            'optionName' => static::GENERAL_OPTION_NAME,
+        ]);
     }
 
     /**
@@ -982,28 +938,14 @@ class General
      */
     protected static function renderSelectRow(string $optionKey, string $label, array $options, string $value, string $description, string $optionName = self::GENERAL_OPTION_NAME): string
     {
-        /** @var array<int, string> $markup Generated row fragments. */
-        $markup = [];
-        $markup[] = '<tr>';
-        $markup[] = '<th scope="row"><label for="' . esc_attr($optionKey) . '">' . esc_html($label) . '</label></th>';
-        $markup[] = '<td>';
-        $markup[] = '<select id="' . esc_attr($optionKey) . '" name="' . esc_attr($optionName) . '[' . esc_attr($optionKey) . ']">';
-
-        foreach ($options as $optionValue => $optionLabel) {
-            $markup[] = sprintf(
-                '<option value="%1$s"%2$s>%3$s</option>',
-                esc_attr($optionValue),
-                selected($value, $optionValue, false),
-                esc_html($optionLabel)
-            );
-        }
-
-        $markup[] = '</select>';
-        $markup[] = '<p class="description">' . esc_html($description) . '</p>';
-        $markup[] = '</td>';
-        $markup[] = '</tr>';
-
-        return implode('', $markup);
+        return static::renderAdminView('fields/select-row', [
+            'optionKey' => $optionKey,
+            'label' => $label,
+            'options' => $options,
+            'value' => $value,
+            'description' => $description,
+            'optionName' => $optionName,
+        ]);
     }
 
     /**
@@ -1017,14 +959,13 @@ class General
      */
     protected static function renderTextareaRow(string $optionKey, string $label, string $value, string $description, string $optionName = self::GENERAL_OPTION_NAME): string
     {
-        return sprintf(
-            '<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><textarea id="%1$s" name="%5$s[%1$s]" class="large-text code" rows="5">%3$s</textarea><p class="description">%4$s</p></td></tr>',
-            esc_attr($optionKey),
-            esc_html($label),
-            esc_textarea($value),
-            esc_html($description),
-            esc_attr($optionName)
-        );
+        return static::renderAdminView('fields/textarea-row', [
+            'optionKey' => $optionKey,
+            'label' => $label,
+            'value' => $value,
+            'description' => $description,
+            'optionName' => $optionName,
+        ]);
     }
 
     /**
@@ -1038,14 +979,13 @@ class General
      */
     protected static function renderUrlRow(string $optionKey, string $label, string $value, string $description, string $optionName = self::SOCIAL_OPTION_NAME): string
     {
-        return sprintf(
-            '<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><input type="url" id="%1$s" name="%5$s[%1$s]" class="regular-text" value="%3$s" placeholder="https://example.com"><p class="description">%4$s</p></td></tr>',
-            esc_attr($optionKey),
-            esc_html($label),
-            esc_attr($value),
-            esc_html($description),
-            esc_attr($optionName)
-        );
+        return static::renderAdminView('fields/url-row', [
+            'optionKey' => $optionKey,
+            'label' => $label,
+            'value' => $value,
+            'description' => $description,
+            'optionName' => $optionName,
+        ]);
     }
 
     /**
@@ -1125,11 +1065,9 @@ class General
             return '';
         }
 
-        return sprintf(
-            '<img class="ars-logo-preview__image" src="%1$s" alt="%2$s">',
-            esc_url($logoUrl),
-            esc_attr__('Site Logo', 'daisy-a-ripple-song')
-        );
+        return static::renderAdminView('fields/logo-preview', [
+            'logoUrl' => $logoUrl,
+        ]);
     }
 
     /**

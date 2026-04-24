@@ -2,8 +2,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: A Ripple Song Theme 1.0.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-29 16:09+0800\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/daisy-a-ripple-"
+"song\n"
+"POT-Creation-Date: 2026-04-01T07:06:05+00:00\n"
 "PO-Revision-Date: 2026-03-27 12:05+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -12,695 +13,80 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: resources/views/widgets/tags-cloud.php:28
-#, fuzzy, php-format
-msgid "%d post"
-msgid_plural "%d posts"
-msgstr[0] "%d 篇文章"
-msgstr[1] "%d 篇文章"
-
-#: src/Widgets/BannerCarouselWidget.php:154
-msgid "+ Add Banner"
-msgstr "+ 添加横幅"
-
-#: src/Widgets/FooterLinksWidget.php:146
-msgid "+ Add Item"
-msgstr "+ 添加条目"
-
 #. Theme Name of the theme
-#: style.css app/ThemeOptions/General.php:87
+#: style.css src/ThemeOptions/General.php:87
 msgid "A Ripple Song"
 msgstr "A Ripple Song"
 
-#: resources/views/sections/playlist-drawer.php:32
-msgid "Add some episodes to start listening"
-msgstr "添加一些节目后即可开始收听"
+#. Theme URI of the theme
+#: style.css
+msgid "https://github.com/jiejia/daisy-a-ripple-song"
+msgstr ""
 
-#: resources/views/widgets/subscribe-links.php:16
-#: resources/views/widgets/subscribe-links.php:17
-msgid "Apple Podcast"
-msgstr "Apple 播客"
+#. Description of the theme
+#: style.css
+msgid "A custom WordPress theme with Vite-powered frontend asset management."
+msgstr ""
 
-#: src/Widgets/SubscribeLinksWidget.php:90
-msgid "Apple Podcast Link:"
-msgstr "Apple 播客链接："
+#. Author of the theme
+#: style.css
+msgid "Jamie"
+msgstr ""
 
-#: resources/views/sections/playlist-drawer.php:17
-msgid "Are you sure you want to clear the playlist?"
-msgstr "确定要清空播放列表吗？"
+#. Author URI of the theme
+#: style.css
+msgid "https://github.com/jiejia"
+msgstr ""
 
-#: src/Widgets/TagsCloudWidget.php:134
-msgid "Ascending (Low to High/A to Z)"
-msgstr "升序（低到高 / A 到 Z）"
+#: src/Core/Helper.php:519
+msgid "Author"
+msgstr ""
 
-#: resources/views/widgets/authors.php:49
-msgid "Authors will appear here after adding users"
-msgstr "添加用户后，作者会显示在这里"
+#: src/Core/Helper.php:528
+msgid "Pending Approval"
+msgstr ""
 
-#: src/Widgets/BlogListWidget.php:39 app/Widgets/BlogListWidget.php:103
-msgid "BLOG"
-msgstr "博客"
+#: src/Core/Helper.php:544
+msgid "Reply"
+msgstr ""
 
-#: resources/views/partials/page-header.php:42
-msgid "Blog"
-msgstr "博客"
+#: src/Core/Helper.php:550
+msgid "Edit"
+msgstr ""
 
-#: src/Widgets/BannerCarouselWidget.php:76
-msgid "Banner Slides:"
-msgstr "横幅幻灯片："
+#: src/Core/Helper.php:578
+msgid "Your email address will not be published."
+msgstr ""
 
-#: resources/views/sections/autoplay-confirm.php:45
-msgid "Cancel"
-msgstr "取消"
-
-#: footer.php:92
-msgid "Back to top"
-msgstr "返回顶部"
-
-#: resources/views/sections/playlist-drawer.php:21
-msgid "Clear"
-msgstr "清空"
-
-#: resources/views/sections/playlist-drawer.php:19
-msgid "Clear Playlist"
-msgstr "清空播放列表"
-
-#: resources/views/sections/leftbar-drawer.php:9
-#: resources/views/sections/mobile-menu.php:4
-#: resources/views/sections/playlist-drawer.php:4
-#: resources/views/sections/sidebar-drawer.php:9
-msgid "Close sidebar"
-msgstr "关闭侧边栏"
-
-#: src/ThemeOptions/General.php:123
-msgid "Click any card to choose the dark theme."
-msgstr "点击任意卡片即可选择深色主题。"
-
-#: src/ThemeOptions/General.php:108
-msgid "Click any card to choose the light theme."
-msgstr "点击任意卡片即可选择浅色主题。"
-
-#: resources/views/sections/autoplay-confirm.php:26
-msgid "Continue playing?"
-msgstr "继续播放吗？"
-
-#: src/Core/Widget.php:69 app/Widgets/BannerCarouselWidget.php:122
-msgid "Current Page"
-msgstr "当前页面"
-
-#: header.php:9
-msgid "Dark Mode"
-msgstr "深色模式"
-
-#: src/ThemeOptions/General.php:115 app/ThemeOptions/General.php:119
-msgid "Dark Theme"
-msgstr "深色主题"
-
-#: src/ThemeOptions/General.php:124
-msgid "Dark Theme (fallback)"
-msgstr "深色主题（后备下拉框）"
-
-#: src/Core/Widget.php:73 app/Widgets/BannerCarouselWidget.php:143
-#: src/Widgets/FooterLinksWidget.php:135
-msgid "Delete"
-msgstr "删除"
-
-#: src/Widgets/TagsCloudWidget.php:133
-msgid "Descending (High to Low/Z to A)"
-msgstr "降序（高到低 / Z 到 A）"
-
-#: src/Core/Widget.php:71 app/Widgets/BannerCarouselWidget.php:132
-msgid "Description:"
-msgstr "描述："
-
-#: src/Widgets/FooterLinksWidget.php:23
-msgid "Display a list of links or text items in the footer"
-msgstr "在页脚显示链接或文本条目列表"
-
-#: src/Widgets/TagsCloudWidget.php:23
-msgid "Display article tags cloud"
-msgstr "显示文章标签云"
-
-#: src/Widgets/BannerCarouselWidget.php:23
-msgid "Display banner carousel with images"
-msgstr "显示带图片的横幅轮播"
-
-#: src/Widgets/BlogListWidget.php:23
-msgid "Display latest blog posts list"
-msgstr "显示最新博客文章列表"
-
-#: src/Widgets/PodcastListWidget.php:24
-msgid "Display latest podcast list"
-msgstr "显示最新播客列表"
-
-#: src/Widgets/AuthorsWidget.php:26
-msgid "Display members and guest authors list"
-msgstr "显示成员和嘉宾作者列表"
-
-#: src/Widgets/SubscribeLinksWidget.php:23
-msgid "Display podcast subscription platform links"
-msgstr "显示播客订阅平台链接"
-
-#: src/Core/Widget.php:75 app/Widgets/FooterLinksWidget.php:108
-msgid "Display text"
-msgstr "显示文本"
-
-#: src/ThemeOptions/SocialLinks.php:22
-msgid "Facebook"
-msgstr "Facebook"
-
-#: header.php:10
-msgid "Follow System"
-msgstr "跟随系统"
-
-#: src/ThemeOptions/General.php:130
-msgid "Footer Copyright"
-msgstr "页脚版权"
-
-#: src/Core/Setup.php:119
-msgid "Footer Links"
-msgstr "页脚链接"
-
-#: src/ThemeOptions/General.php:136
-msgid "Footer Scripts"
-msgstr "页脚脚本"
-
-#: src/Core/Setup.php:121
-msgid "Footer links area for displaying link columns"
-msgstr "页脚链接区域，用于展示链接列"
-
-#: resources/views/sections/leftbar-drawer.php:12
-msgid "Left Sidebar"
-msgstr "左侧边栏"
-
-#: footer.php:67
-msgid "Open Left Sidebar"
-msgstr "打开左侧边栏"
-
-#: footer.php:75
-msgid "Open Right Sidebar"
-msgstr "打开右侧边栏"
-
-#: src/ThemeOptions/General.php:52 app/ThemeOptions/General.php:53
-msgid "Theme Options"
-msgstr "主题选项"
-
-#: src/ThemeOptions/General.php:61 app/ThemeOptions/General.php:62
-msgid "General"
-msgstr "常规"
-
-#: resources/views/widgets/banner-carousel.php:63
+#: src/Core/Helper.php:582
 #, php-format
-msgid "Go to slide %d"
-msgstr "转到第 %d 张幻灯片"
+msgid "Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\">Log out?</a>"
+msgstr ""
 
-#: src/Widgets/AuthorsWidget.php:49 app/Widgets/AuthorsWidget.php:129
-msgid "Guests"
-msgstr "嘉宾"
+#: src/Core/Helper.php:609 src/ThemeOptions/RecommendedPlugins.php:84
+msgid "Name"
+msgstr "名称"
 
-#: src/Widgets/AuthorsWidget.php:161
-msgid "Guests Title:"
-msgstr "嘉宾标题："
+#: src/Core/Helper.php:611
+msgid "Email"
+msgstr ""
 
-#: src/ThemeOptions/General.php:134
-msgid "Header Scripts"
-msgstr "头部脚本"
+#: src/Core/Helper.php:613
+msgid "Website"
+msgstr ""
 
-#: src/Core/Setup.php:132
-msgid "Home Main"
-msgstr "首页主区域"
-
-#: src/ThemeOptions/General.php:127
-msgid "If the card picker is unavailable, use this dropdown (default: dim)."
-msgstr "如果色卡选择器不可用，请使用此下拉框（默认：dim）。"
-
-#: src/ThemeOptions/General.php:112
-msgid "If the card picker is unavailable, use this dropdown (default: retro)."
-msgstr "如果色卡选择器不可用，请使用此下拉框（默认：retro）。"
-
-#: src/Core/Widget.php:63 app/Widgets/BannerCarouselWidget.php:90
-msgid "Image URL"
-msgstr "图片 URL"
-
-#: src/Core/Widget.php:62 app/Widgets/BannerCarouselWidget.php:83
-msgid "Image URL:"
-msgstr "图片 URL："
-
-#: src/Core/Widget.php:72 app/Widgets/BannerCarouselWidget.php:138
-msgid "Image description"
-msgstr "图片描述"
-
-#: src/ThemeOptions/SocialLinks.php:30
-msgid "Instagram"
-msgstr "Instagram"
-
-#: src/Widgets/FooterLinksWidget.php:94
-msgid "Items:"
-msgstr "条目："
-
-#: src/Widgets/SubscribeLinksWidget.php:98
-#: src/Widgets/SubscribeLinksWidget.php:111
-#: src/Widgets/SubscribeLinksWidget.php:124
-msgid "Leave blank to hide this button"
-msgstr "留空则隐藏此按钮"
-
-#: src/Core/Setup.php:158
-msgid "Leftbar Primary"
-msgstr "主左侧边栏"
-
-#: header.php:8
-msgid "Light Mode"
-msgstr "浅色模式"
-
-#: src/ThemeOptions/General.php:100 app/ThemeOptions/General.php:104
-msgid "Light Theme"
-msgstr "浅色主题"
-
-#: src/ThemeOptions/General.php:109
-msgid "Light Theme (fallback)"
-msgstr "浅色主题（后备下拉框）"
-
-#: src/Core/Widget.php:68 app/Widgets/BannerCarouselWidget.php:117
-msgid "Link Target:"
-msgstr "链接打开方式："
-
-#: src/Core/Widget.php:67 app/Widgets/BannerCarouselWidget.php:106
-msgid "Link URL (optional):"
-msgstr "链接 URL（可选）："
-
-#: src/ThemeOptions/SocialLinks.php:34
-msgid "LinkedIn"
-msgstr "LinkedIn"
-
-#: resources/views/sections/player.php:51
-msgid "Loading audio"
-msgstr "正在加载音频"
-
-#: src/Core/Setup.php:134
-msgid "Main area of the homepage for displaying various content modules"
-msgstr "首页主区域，用于展示各种内容模块"
-
-#: src/Widgets/TagsCloudWidget.php:109
-msgid "Maximum number of tags to display"
-msgstr "最多显示的标签数量"
-
-#: src/Widgets/AuthorsWidget.php:44 app/Widgets/AuthorsWidget.php:126
-msgid "Members"
-msgstr "成员"
-
-#: src/Widgets/AuthorsWidget.php:139
-msgid "Members Title:"
-msgstr "成员标题："
-
-#: resources/views/sections/mobile-menu.php:7
-msgid "Menu"
-msgstr "菜单"
-
-#: resources/views/sections/player.php:8
-msgid "NOW PLAYING"
-msgstr "正在播放"
-
-#: src/Core/Widget.php:70 app/Widgets/BannerCarouselWidget.php:125
-msgid "New Tab"
-msgstr "新标签页"
-
-#: resources/views/widgets/banner-carousel.php:51
-msgid "Next slide"
-msgstr "下一张幻灯片"
-
-#: resources/views/widgets/podcast-list.php:44
-msgid "No ARS Episode content"
-msgstr "暂无 ARS 节目内容"
-
-#: resources/views/sections/player.php:15
-#: resources/views/sections/player.php:31
-#: resources/views/sections/player.php:32
-msgid "No Episode Playing"
-msgstr "暂无播放节目"
-
-#: resources/views/widgets/authors.php:48
-msgid "No authors yet"
-msgstr "暂无作者"
-
-#: resources/views/widgets/banner-carousel.php:16
-msgid "No banner yet"
-msgstr "暂无横幅"
-
-#: resources/views/widgets/blog-list.php:37
-msgid "No blog posts yet"
-msgstr "暂无博客文章"
-
-#: resources/views/widgets/tags-cloud.php:18
-msgid "No tags yet"
-msgstr "暂无标签"
-
-#: src/Widgets/BlogListWidget.php:141
-msgid "Number of columns:"
-msgstr "列数："
-
-#: src/Widgets/PodcastListWidget.php:98
-msgid "Number of episodes:"
-msgstr "节目数量："
-
-#: src/Widgets/BlogListWidget.php:127
-msgid "Number of posts:"
-msgstr "文章数量："
-
-#: src/Widgets/TagsCloudWidget.php:99
-msgid "Number of tags:"
-msgstr "标签数量："
-
-#: src/ThemeOptions/General.php:1013
-msgid "Only filled links will be used by the theme."
-msgstr "只有已填写的链接才会在主题中显示。"
-
-#: src/Core/Widget.php:77 app/Widgets/FooterLinksWidget.php:129
-msgid "Open in new tab"
-msgstr "在新标签页打开"
-
-#: src/ThemeOptions/General.php:1018
-msgid "Optional. Enter a full URL."
-msgstr "可选。请输入完整 URL。"
-
-#: src/Widgets/TagsCloudWidget.php:114
-msgid "Order by:"
-msgstr "排序依据："
-
-#: src/ThemeOptions/General.php:133
-msgid "Overrides the footer copyright line. Leave empty to use the default."
-msgstr "覆盖页脚版权文案。留空则使用默认内容。"
-
-#: src/Widgets/PodcastListWidget.php:154
-msgid "PODCASTS"
-msgstr "播客"
-
-#: resources/views/partials/podcast-episode-card.php:70
-msgid "Pause"
-msgstr "暂停"
-
-#: src/ThemeOptions/SocialLinks.php:46
-msgid "Pinterest"
-msgstr "Pinterest"
-
-#: resources/views/partials/podcast-episode-card.php:70
-#: resources/views/sections/autoplay-confirm.php:38
-msgid "Play"
-msgstr "播放"
-
-#: resources/views/sections/playlist-drawer.php:8
-msgid "Playlist"
-msgstr "播放列表"
-
-#: resources/views/sections/playlist-drawer.php:31
-msgid "Playlist is empty"
-msgstr "播放列表为空"
-
-#: resources/views/widgets/banner-carousel.php:17
-msgid "Please add banner content in the admin panel"
-msgstr "请在后台添加横幅内容"
-
-#: template-home.php:18
+#: src/Core/Helper.php:615
 msgid ""
-"Please add widgets to \"Home Main\" area in Appearance > Widgets in the "
-"admin panel."
-msgstr "请在后台的“外观 > 小工具”中向“Home Main”区域添加小工具。"
+"Save my name, email, and website in this browser for the next time I comment."
+msgstr ""
 
-#: resources/views/sections/leftbar-drawer.php:23
-#: resources/views/sections/leftbar.php:8
-msgid ""
-"Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin "
-"panel."
-msgstr "请在后台「外观 > 小工具」中向「Leftbar」区域添加小工具。"
-
-#: resources/views/sections/sidebar-drawer.php:24 sidebar.php:19
-msgid ""
-"Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin "
-"panel."
-msgstr "请在后台「外观 > 小工具」中向「Sidebar」区域添加小工具。"
-
-#: resources/views/widgets/podcast-list.php:23
-msgid "Popular"
-msgstr "热门"
-
-#: src/Widgets/TagsCloudWidget.php:119
-msgid "Post Count"
-msgstr "文章数量"
-
-#: src/ThemeOptions/General.php:132
-msgid "Powered by A Ripple Song Theme"
-msgstr "由 A Ripple Song 主题驱动"
-
-#: resources/views/widgets/banner-carousel.php:42
-msgid "Previous slide"
-msgstr "上一张幻灯片"
+#: src/Core/Helper.php:628 resources/views/partials/comments.php:84
+msgid "Comment"
+msgstr ""
 
 #: src/Core/Setup.php:63
 msgid "Primary Navigation"
 msgstr "主导航"
-
-#: src/Core/Setup.php:160
-msgid "Primary left sidebar area for displaying various content modules"
-msgstr "主左侧边栏区域，用于展示各种内容模块"
-
-#: src/Core/Setup.php:147
-msgid "Primary right sidebar area for displaying various content modules"
-msgstr "用于显示各类内容模块的主右侧边栏区域"
-
-#: src/ThemeOptions/SocialLinks.php:62
-msgid "RSS Feed"
-msgstr "RSS 订阅"
-
-#: src/Widgets/TagsCloudWidget.php:122
-#: resources/views/widgets/podcast-list.php:24
-msgid "Random"
-msgstr "随机"
-
-#: resources/views/widgets/podcast-list.php:22
-msgid "Recent"
-msgstr "最新"
-
-#: resources/views/sections/playlist-drawer.php:82
-msgid "Remove"
-msgstr "移除"
-
-#: src/ThemeOptions/General.php:449
-msgid "Remove Logo"
-msgstr "移除 Logo"
-
-#: src/Core/Setup.php:145
-msgid "Rightbar Primary"
-msgstr "主要右侧栏"
-
-#: resources/views/sections/sidebar-drawer.php:12
-msgid "Right Sidebar"
-msgstr "右侧边栏"
-
-#: src/Widgets/SubscribeLinksWidget.php:39
-#: src/Widgets/SubscribeLinksWidget.php:65
-#: src/Widgets/SubscribeLinksWidget.php:85
-msgid "SUBSCRIBE"
-msgstr "订阅"
-
-#: src/ThemeOptions/General.php:137
-msgid ""
-"Scripts to be added before </body>. You can include complete <script> tags."
-msgstr "将在 </body> 前插入的脚本。你可以包含完整的 <script> 标签。"
-
-#: src/ThemeOptions/General.php:135
-msgid ""
-"Scripts to be added in the <head> section. You can include complete <script>"
-" tags for services like Google Analytics."
-msgstr "将在 <head> 区域插入的脚本。你可以为 Google Analytics 等服务填写完整的 <script> 标签。"
-
-#: resources/views/widgets/blog-list.php:18
-#: resources/views/widgets/podcast-list.php:16
-msgid "See all"
-msgstr "查看全部"
-
-#: src/Core/Widget.php:65
-msgid "Select Banner Image"
-msgstr "选择横幅图片"
-
-#: src/Core/Widget.php:64 app/Widgets/BannerCarouselWidget.php:93
-msgid "Select Image"
-msgstr "选择图片"
-
-#: src/Widgets/BlogListWidget.php:161 app/Widgets/PodcastListWidget.php:117
-msgid "Show \"See all\" link"
-msgstr "显示“查看全部”链接"
-
-#: src/Widgets/AuthorsWidget.php:177
-msgid "Show Guests (Contributors)"
-msgstr "显示嘉宾（投稿者）"
-
-#: src/Widgets/AuthorsWidget.php:155
-msgid "Show Members (Administrators, Editors, Authors)"
-msgstr "显示成员（管理员、编辑、作者）"
-
-#: src/ThemeOptions/General.php:93 app/ThemeOptions/General.php:439
-#: src/ThemeOptions/General.php:795
-msgid "Site Logo"
-msgstr "网站 Logo"
-
-#: src/ThemeOptions/General.php:142 app/ThemeOptions/General.php:1012
-msgid "Social Links"
-msgstr "社交链接"
-
-#: src/Widgets/TagsCloudWidget.php:128
-msgid "Sort order:"
-msgstr "排序方向："
-
-#: resources/views/widgets/subscribe-links.php:23
-#: resources/views/widgets/subscribe-links.php:24
-msgid "Spotify"
-msgstr "Spotify"
-
-#: src/Widgets/SubscribeLinksWidget.php:103
-msgid "Spotify Link:"
-msgstr "Spotify 链接："
-
-#: src/Widgets/TagsCloudWidget.php:39 app/Widgets/TagsCloudWidget.php:75
-msgid "TAGS"
-msgstr "标签"
-
-#: src/Widgets/TagsCloudWidget.php:121
-msgid "Tag ID"
-msgstr "标签 ID"
-
-#: src/Widgets/TagsCloudWidget.php:120
-msgid "Tag Name"
-msgstr "标签名称"
-
-#: resources/views/widgets/tags-cloud.php:19
-msgid "Tags will appear here after publishing articles with tags"
-msgstr "发布带标签的文章后，标签会显示在这里"
-
-#: src/Core/Widget.php:74 app/Widgets/FooterLinksWidget.php:102
-msgid "Text:"
-msgstr "文本："
-
-#: src/ThemeOptions/General.php:79
-msgid "Theme Settings"
-msgstr "主题设置"
-
-#: functions.php:12
-msgid ""
-"Theme dependencies are missing. Run \"composer install\" in wp-"
-"content/themes/daisy-a-ripple-song."
-msgstr "主题依赖缺失。请在 wp-content/themes/daisy-a-ripple-song 中运行 \"composer install\"。"
-
-#: src/ThemeOptions/SocialLinks.php:50
-msgid "Threads"
-msgstr "Threads"
-
-#: src/ThemeOptions/SocialLinks.php:42
-msgid "TikTok"
-msgstr "TikTok"
-
-#: src/Widgets/BlogListWidget.php:116 app/Widgets/FooterLinksWidget.php:83
-#: src/Widgets/PodcastListWidget.php:87
-#: src/Widgets/SubscribeLinksWidget.php:78 app/Widgets/TagsCloudWidget.php:88
-msgid "Title:"
-msgstr "标题："
-
-#: header.php:11
-msgid "Toggle Theme"
-msgstr "切换主题"
-
-#: resources/views/sections/playlist-drawer.php:15
-msgid "Total"
-msgstr "共"
-
-#: src/ThemeOptions/SocialLinks.php:26
-msgid "Twitter / X"
-msgstr "Twitter / X"
-
-#: src/Core/Widget.php:76 app/Widgets/FooterLinksWidget.php:113
-msgid "URL (optional - leave empty for plain text):"
-msgstr "URL（可选，留空则显示纯文本）："
-
-#: resources/views/sections/autoplay-confirm.php:29
-msgid "Unknown episode"
-msgstr "未知节目"
-
-#: src/ThemeOptions/General.php:447
-msgid "Upload / Change Logo"
-msgstr "上传 / 更换 Logo"
-
-#: src/ThemeOptions/General.php:95
-msgid ""
-"Upload a logo image (220px × 32px). You will be able to crop the image after"
-" upload."
-msgstr "上传一张 Logo 图片（220px × 32px）。上传后可以继续裁切。"
-
-#: src/Core/Widget.php:66
-msgid "Use This Image"
-msgstr "使用这张图片"
-
-#: src/ThemeOptions/SocialLinks.php:58
-msgid "WeChat"
-msgstr "微信"
-
-#: src/ThemeOptions/SocialLinks.php:54
-msgid "Weibo"
-msgstr "微博"
-
-#: src/ThemeOptions/SocialLinks.php:38
-msgid "YouTube"
-msgstr "YouTube"
-
-#: resources/views/widgets/subscribe-links.php:30
-#: resources/views/widgets/subscribe-links.php:31
-msgid "YouTube Music"
-msgstr "YouTube Music"
-
-#: src/Widgets/SubscribeLinksWidget.php:116
-msgid "YouTube Music Link:"
-msgstr "YouTube Music 链接："
-
-#: src/Widgets/AuthorsWidget.php:25
-msgid "aripplesong - Authors List"
-msgstr "aripplesong - 作者列表"
-
-#: src/Widgets/BannerCarouselWidget.php:22
-msgid "aripplesong - Banner Carousel"
-msgstr "aripplesong - 横幅轮播"
-
-#: src/Widgets/BlogListWidget.php:22
-msgid "aripplesong - Blog List"
-msgstr "aripplesong - 博客列表"
-
-#: src/Widgets/FooterLinksWidget.php:22
-msgid "aripplesong - Footer Links"
-msgstr "aripplesong - 页脚链接"
-
-#: src/Widgets/PodcastListWidget.php:23
-msgid "aripplesong - Podcast List"
-msgstr "aripplesong - 播客列表"
-
-#: src/Widgets/SubscribeLinksWidget.php:22
-msgid "aripplesong - Subscribe Links"
-msgstr "aripplesong - 订阅链接"
-
-#: src/Widgets/TagsCloudWidget.php:22
-msgid "aripplesong - Tags Cloud"
-msgstr "aripplesong - 标签云"
-
-#: src/Widgets/FooterLinksWidget.php:90
-msgid "e.g., Contact, Navigate, Support"
-msgstr "例如：联系、导航、支持"
-
-#: resources/views/sections/playlist-drawer.php:15
-msgid "episodes"
-msgstr "个节目"
-
-#: resources/views/partials/entry-meta.php:19
-msgid "plays"
-msgstr "次播放"
-
-#: resources/views/partials/entry-meta.php:17
-msgid "views"
-msgstr "次浏览"
 
 #: src/Core/Setup.php:79
 msgid "Panel"
@@ -728,146 +114,245 @@ msgstr "使用这个区块样式来介绍精选文章、公告或播客节目。
 msgid "Learn more"
 msgstr "了解更多"
 
-#: resources/views/partials/content-single-ars_episode.php:58
-#: resources/views/partials/content-single-page.php:30
-#: resources/views/partials/content-single.php:30
-msgid "Pages:"
-msgstr "分页："
+#: src/Core/Setup.php:119
+msgid "Footer Links"
+msgstr "页脚链接"
 
-#. translators: %s Archive object title.
-#: resources/views/partials/page-header.php:41
-#, php-format
-msgid "Archives: %s"
-msgstr "归档：%s"
+#: src/Core/Setup.php:121
+msgid "Footer links area for displaying link columns"
+msgstr "页脚链接区域，用于展示链接列"
 
-#: src/Core/Helper.php:519
-msgid "Author"
-msgstr ""
+#: src/Core/Setup.php:132
+msgid "Home Main"
+msgstr "首页主区域"
 
-#: src/Core/Helper.php:528
-msgid "Pending Approval"
-msgstr ""
+#: src/Core/Setup.php:134
+msgid "Main area of the homepage for displaying various content modules"
+msgstr "首页主区域，用于展示各种内容模块"
 
-#: src/Core/Helper.php:544
-msgid "Reply"
-msgstr ""
+#: src/Core/Setup.php:145
+msgid "Rightbar Primary"
+msgstr "主要右侧栏"
 
-#: src/Core/Helper.php:550
-msgid "Edit"
-msgstr ""
+#: src/Core/Setup.php:147
+msgid "Primary right sidebar area for displaying various content modules"
+msgstr "用于显示各类内容模块的主右侧边栏区域"
 
-#: src/Core/Helper.php:578
-msgid "Your email address will not be published."
-msgstr ""
+#: src/Core/Setup.php:158
+msgid "Leftbar Primary"
+msgstr "主左侧边栏"
 
-#: src/Core/Helper.php:582
-#, php-format
-msgid "Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\">Log out?</a>"
-msgstr ""
+#: src/Core/Setup.php:160
+msgid "Primary left sidebar area for displaying various content modules"
+msgstr "主左侧边栏区域，用于展示各种内容模块"
 
-#: src/Core/Helper.php:609 app/ThemeOptions/RecommendedPlugins.php:84
-msgid "Name"
-msgstr "名称"
+#: src/Core/Widget.php:62 src/Widgets/BannerCarouselWidget.php:83
+msgid "Image URL:"
+msgstr "图片 URL："
 
-#: src/Core/Helper.php:611
-msgid "Email"
-msgstr ""
+#: src/Core/Widget.php:63 src/Widgets/BannerCarouselWidget.php:90
+msgid "Image URL"
+msgstr "图片 URL"
 
-#: src/Core/Helper.php:613
-msgid "Website"
-msgstr ""
+#: src/Core/Widget.php:64 src/Widgets/BannerCarouselWidget.php:93
+msgid "Select Image"
+msgstr "选择图片"
 
-#: src/Core/Helper.php:615
+#: src/Core/Widget.php:65
+msgid "Select Banner Image"
+msgstr "选择横幅图片"
+
+#: src/Core/Widget.php:66
+msgid "Use This Image"
+msgstr "使用这张图片"
+
+#: src/Core/Widget.php:67 src/Widgets/BannerCarouselWidget.php:106
+msgid "Link URL (optional):"
+msgstr "链接 URL（可选）："
+
+#: src/Core/Widget.php:68 src/Widgets/BannerCarouselWidget.php:117
+msgid "Link Target:"
+msgstr "链接打开方式："
+
+#: src/Core/Widget.php:69 src/Widgets/BannerCarouselWidget.php:122
+msgid "Current Page"
+msgstr "当前页面"
+
+#: src/Core/Widget.php:70 src/Widgets/BannerCarouselWidget.php:125
+msgid "New Tab"
+msgstr "新标签页"
+
+#: src/Core/Widget.php:71 src/Widgets/BannerCarouselWidget.php:132
+msgid "Description:"
+msgstr "描述："
+
+#: src/Core/Widget.php:72 src/Widgets/BannerCarouselWidget.php:138
+msgid "Image description"
+msgstr "图片描述"
+
+#: src/Core/Widget.php:73 src/Widgets/BannerCarouselWidget.php:143
+#: src/Widgets/FooterLinksWidget.php:135
+msgid "Delete"
+msgstr "删除"
+
+#: src/Core/Widget.php:74 src/Widgets/FooterLinksWidget.php:102
+msgid "Text:"
+msgstr "文本："
+
+#: src/Core/Widget.php:75 src/Widgets/FooterLinksWidget.php:108
+msgid "Display text"
+msgstr "显示文本"
+
+#: src/Core/Widget.php:76 src/Widgets/FooterLinksWidget.php:113
+msgid "URL (optional - leave empty for plain text):"
+msgstr "URL（可选，留空则显示纯文本）："
+
+#: src/Core/Widget.php:77 src/Widgets/FooterLinksWidget.php:129
+msgid "Open in new tab"
+msgstr "在新标签页打开"
+
+#: src/ThemeOptions/General.php:79
+msgid "Theme Settings"
+msgstr "主题设置"
+
+#: src/ThemeOptions/General.php:52 src/ThemeOptions/General.php:53
+msgid "Theme Options"
+msgstr "主题选项"
+
+#: src/ThemeOptions/General.php:61 src/ThemeOptions/General.php:62
+msgid "General"
+msgstr "常规"
+
+#: src/ThemeOptions/General.php:93 src/ThemeOptions/General.php:439
+#: src/ThemeOptions/General.php:795
+msgid "Site Logo"
+msgstr "网站 Logo"
+
+#: src/ThemeOptions/General.php:95
 msgid ""
-"Save my name, email, and website in this browser for the next time I "
-"comment."
-msgstr ""
+"Upload a logo image (220px × 32px). You will be able to crop the image after "
+"upload."
+msgstr "上传一张 Logo 图片（220px × 32px）。上传后可以继续裁切。"
 
-#: src/Core/Helper.php:628 resources/views/partials/comments.php:84
-msgid "Comment"
-msgstr ""
+#: src/ThemeOptions/General.php:614
+msgid "Select Site Logo"
+msgstr "选择网站 Logo"
 
-#: resources/views/sections/player.php:35
-msgid "No publish date"
-msgstr ""
+#: src/ThemeOptions/General.php:611
+msgid "Select and Crop"
+msgstr "选择并裁切"
 
-#: resources/views/partials/content-single-attachment.php:26
-msgid "Download"
-msgstr ""
+#: src/ThemeOptions/General.php:100 src/ThemeOptions/General.php:104
+msgid "Light Theme"
+msgstr "浅色主题"
 
-#: resources/views/partials/comments.php:29
-#, php-format
-msgctxt "comments title"
-msgid "One response"
-msgid_plural "%1$s responses"
-msgstr[0] ""
-msgstr[1] ""
+#: src/ThemeOptions/General.php:108
+msgid "Click any card to choose the light theme."
+msgstr "点击任意卡片即可选择浅色主题。"
 
-#: resources/views/partials/comments.php:45
-msgid "Older comments"
-msgstr ""
+#: src/ThemeOptions/General.php:109
+msgid "Light Theme (fallback)"
+msgstr "浅色主题（后备下拉框）"
 
-#: resources/views/partials/comments.php:52
-msgid "Newer comments"
-msgstr ""
+#: src/ThemeOptions/General.php:112
+msgid "If the card picker is unavailable, use this dropdown (default: retro)."
+msgstr "如果色卡选择器不可用，请使用此下拉框（默认：retro）。"
 
-#: resources/views/partials/comments.php:111
-msgid "Comments are closed."
-msgstr ""
+#: src/ThemeOptions/General.php:210
+msgid "This is the default theme used when the site is in light mode."
+msgstr "这是站点在浅色模式下使用的默认主题。"
 
-#: resources/views/partials/comments.php:118
-msgid "Leave a Comment"
-msgstr ""
+#: src/ThemeOptions/General.php:115 src/ThemeOptions/General.php:119
+msgid "Dark Theme"
+msgstr "深色主题"
 
-#: resources/views/partials/image-lightbox.php:5
-#: resources/views/partials/image-lightbox.php:12
-#: resources/views/sections/search-modal.php:11
-msgid "Close"
-msgstr ""
+#: src/ThemeOptions/General.php:123
+msgid "Click any card to choose the dark theme."
+msgstr "点击任意卡片即可选择深色主题。"
 
-#. translators: %s Search query text.
-#: resources/views/partials/page-header.php:49
-#, php-format
-msgid "Search Results for: %s"
-msgstr ""
+#: src/ThemeOptions/General.php:124
+msgid "Dark Theme (fallback)"
+msgstr "深色主题（后备下拉框）"
 
-#: author.php:50 search.php:10
-msgid "Sorry, no results were found."
-msgstr ""
+#: src/ThemeOptions/General.php:127
+msgid "If the card picker is unavailable, use this dropdown (default: dim)."
+msgstr "如果色卡选择器不可用，请使用此下拉框（默认：dim）。"
 
-#: footer.php:22
-#, php-format
-msgid "© %1$s Powered by %2$s Theme"
-msgstr ""
+#: src/ThemeOptions/General.php:219
+msgid "This is the default theme used when the site is in dark mode."
+msgstr "这是站点在深色模式下使用的默认主题。"
 
-#: author.php:22
-msgid "Author:"
-msgstr ""
+#: src/ThemeOptions/General.php:130
+msgid "Footer Copyright"
+msgstr "页脚版权"
 
-#: searchform.php:15
-msgctxt "placeholder"
-msgid "Search &hellip;"
-msgstr ""
+#: src/ThemeOptions/General.php:132
+msgid "Powered by A Ripple Song Theme"
+msgstr "由 A Ripple Song 主题驱动"
 
-#. Theme URI of the theme
-#: style.css
-msgid "https://github.com/jiejia/daisy-a-ripple-song"
-msgstr ""
+#: src/ThemeOptions/General.php:133
+msgid "Overrides the footer copyright line. Leave empty to use the default."
+msgstr "覆盖页脚版权文案。留空则使用默认内容。"
 
-#. Description of the theme
-#: style.css
-msgid "A custom WordPress theme with Vite-powered frontend asset management."
-msgstr ""
+#: src/ThemeOptions/General.php:134
+msgid "Header Scripts"
+msgstr "头部脚本"
 
-#. Author of the theme
-#: style.css
-msgid "Jamie"
+#: src/ThemeOptions/General.php:135
+msgid ""
+"Scripts to be added in the <head> section. You can include complete <script> "
+"tags for services like Google Analytics."
 msgstr ""
+"将在 <head> 区域插入的脚本。你可以为 Google Analytics 等服务填写完整的 "
+"<script> 标签。"
 
-#. Author URI of the theme
-#: style.css
-msgid "https://github.com/jiejia"
-msgstr ""
+#: src/ThemeOptions/General.php:136
+msgid "Footer Scripts"
+msgstr "页脚脚本"
+
+#: src/ThemeOptions/General.php:137
+msgid ""
+"Scripts to be added before </body>. You can include complete <script> tags."
+msgstr "将在 </body> 前插入的脚本。你可以包含完整的 <script> 标签。"
+
+#: src/ThemeOptions/General.php:142 src/ThemeOptions/General.php:1012
+msgid "Social Links"
+msgstr "社交链接"
+
+#: src/ThemeOptions/General.php:447
+msgid "Upload / Change Logo"
+msgstr "上传 / 更换 Logo"
+
+#: src/ThemeOptions/General.php:449
+msgid "Remove Logo"
+msgstr "移除 Logo"
+
+#: resources/views/admin/general.php:14
+#: resources/views/admin/social-links.php:14
+msgid "Save Settings"
+msgstr "保存设置"
+
+#: src/ThemeOptions/General.php:1013
+msgid "Only filled links will be used by the theme."
+msgstr "只有已填写的链接才会在主题中显示。"
+
+#: src/ThemeOptions/General.php:1018
+msgid "Optional. Enter a full URL."
+msgstr "可选。请输入完整 URL。"
+
+#: resources/views/admin/fields/logo-row.php:12
+msgid "Enter the logo image URL"
+msgstr "输入 Logo 图片 URL"
+
+#: resources/views/admin/fields/url-row.php:6
+msgid "Enter a full URL"
+msgstr "输入完整 URL"
+
+#: src/ThemeOptions/RecommendedPlugins.php:56
+#: src/ThemeOptions/RecommendedPlugins.php:57
+#: src/ThemeOptions/RecommendedPlugins.php:79
+msgid "ARS Plugins"
+msgstr "ARS 插件"
 
 #: src/ThemeOptions/RecommendedPlugins.php:72
 msgid "You are not allowed to manage plugins on this site."
@@ -889,6 +374,26 @@ msgstr "说明"
 msgid "Status"
 msgstr "状态"
 
+#: src/ThemeOptions/RecommendedPlugins.php:88
+msgid "Option"
+msgstr "操作"
+
+#: src/ThemeOptions/RecommendedPlugins.php:109
+msgid "ARS Official"
+msgstr "ARS 官方"
+
+#: src/ThemeOptions/RecommendedPlugins.php:399
+msgid "Yes"
+msgstr "是"
+
+#: src/ThemeOptions/RecommendedPlugins.php:399
+msgid "No"
+msgstr "否"
+
+#: src/ThemeOptions/RecommendedPlugins.php:102
+msgid "Deactivate"
+msgstr "停用"
+
 #: src/ThemeOptions/RecommendedPlugins.php:108
 msgid "Activate"
 msgstr "启用"
@@ -898,13 +403,16 @@ msgid "Install"
 msgstr "安装"
 
 #: src/ThemeOptions/RecommendedPlugins.php:119
-msgid ""
-"This plugin will be installable after it is published on WordPress.org."
+msgid "This plugin will be installable after it is published on WordPress.org."
 msgstr "该插件发布到 WordPress.org 后即可在这里安装。"
 
 #: src/ThemeOptions/RecommendedPlugins.php:141
 msgid "You are not allowed to activate plugins on this site."
 msgstr "您无权在此站点上启用插件。"
+
+#: src/ThemeOptions/RecommendedPlugins.php:180
+msgid "You are not allowed to deactivate plugins on this site."
+msgstr "您无权在此站点上停用插件。"
 
 #: src/ThemeOptions/RecommendedPlugins.php:218
 msgid "You are not allowed to install plugins on this site."
@@ -944,6 +452,14 @@ msgstr "该插件无法启用。"
 msgid "The plugin was activated successfully."
 msgstr "该插件已成功启用。"
 
+#: src/ThemeOptions/RecommendedPlugins.php:563
+msgid "The plugin could not be deactivated."
+msgstr "该插件无法停用。"
+
+#: src/ThemeOptions/RecommendedPlugins.php:564
+msgid "The plugin was deactivated successfully."
+msgstr "该插件已成功停用。"
+
 #: src/ThemeOptions/RecommendedPlugins.php:565
 msgid "The plugin is not yet available for installation from WordPress.org."
 msgstr "该插件暂时还不能从 WordPress.org 安装。"
@@ -956,52 +472,727 @@ msgstr "该插件无法安装。"
 msgid "The plugin was installed successfully. You can activate it now."
 msgstr "该插件已安装成功，现在可以启用了。"
 
+#: src/ThemeOptions/SocialLinks.php:22
+msgid "Facebook"
+msgstr "Facebook"
+
+#: src/ThemeOptions/SocialLinks.php:26
+msgid "Twitter / X"
+msgstr "Twitter / X"
+
+#: src/ThemeOptions/SocialLinks.php:30
+msgid "Instagram"
+msgstr "Instagram"
+
+#: src/ThemeOptions/SocialLinks.php:34
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: src/ThemeOptions/SocialLinks.php:38
+msgid "YouTube"
+msgstr "YouTube"
+
+#: src/ThemeOptions/SocialLinks.php:42
+msgid "TikTok"
+msgstr "TikTok"
+
+#: src/ThemeOptions/SocialLinks.php:46
+msgid "Pinterest"
+msgstr "Pinterest"
+
+#: src/ThemeOptions/SocialLinks.php:50
+msgid "Threads"
+msgstr "Threads"
+
+#: src/ThemeOptions/SocialLinks.php:54
+msgid "Weibo"
+msgstr "微博"
+
+#: src/ThemeOptions/SocialLinks.php:58
+msgid "WeChat"
+msgstr "微信"
+
+#: src/ThemeOptions/SocialLinks.php:62
+msgid "RSS Feed"
+msgstr "RSS 订阅"
+
+#: src/Widgets/AuthorsWidget.php:25
+msgid "aripplesong - Authors List"
+msgstr "aripplesong - 作者列表"
+
+#: src/Widgets/AuthorsWidget.php:26
+msgid "Display members and guest authors list"
+msgstr "显示成员和嘉宾作者列表"
+
+#: src/Widgets/AuthorsWidget.php:44 src/Widgets/AuthorsWidget.php:126
+msgid "Members"
+msgstr "成员"
+
+#: src/Widgets/AuthorsWidget.php:49 src/Widgets/AuthorsWidget.php:129
+msgid "Guests"
+msgstr "嘉宾"
+
+#: src/Widgets/AuthorsWidget.php:139
+msgid "Members Title:"
+msgstr "成员标题："
+
+#: src/Widgets/AuthorsWidget.php:155
+msgid "Show Members (Administrators, Editors, Authors)"
+msgstr "显示成员（管理员、编辑、作者）"
+
+#: src/Widgets/AuthorsWidget.php:161
+msgid "Guests Title:"
+msgstr "嘉宾标题："
+
+#: src/Widgets/AuthorsWidget.php:177
+msgid "Show Guests (Contributors)"
+msgstr "显示嘉宾（投稿者）"
+
+#: src/Widgets/BannerCarouselWidget.php:22
+msgid "aripplesong - Banner Carousel"
+msgstr "aripplesong - 横幅轮播"
+
+#: src/Widgets/BannerCarouselWidget.php:23
+msgid "Display banner carousel with images"
+msgstr "显示带图片的横幅轮播"
+
+#: src/Widgets/BannerCarouselWidget.php:76
+msgid "Banner Slides:"
+msgstr "横幅幻灯片："
+
+#: src/Widgets/BannerCarouselWidget.php:154
+msgid "+ Add Banner"
+msgstr "+ 添加横幅"
+
+#: src/Widgets/BlogListWidget.php:22
+msgid "aripplesong - Blog List"
+msgstr "aripplesong - 博客列表"
+
+#: src/Widgets/BlogListWidget.php:23
+msgid "Display latest blog posts list"
+msgstr "显示最新博客文章列表"
+
+#: src/Widgets/BlogListWidget.php:39 src/Widgets/BlogListWidget.php:103
+msgid "BLOG"
+msgstr "博客"
+
+#: src/Widgets/BlogListWidget.php:116 src/Widgets/FooterLinksWidget.php:83
+#: src/Widgets/PodcastListWidget.php:87 src/Widgets/SubscribeLinksWidget.php:78
+#: src/Widgets/TagsCloudWidget.php:88
+msgid "Title:"
+msgstr "标题："
+
+#: src/Widgets/BlogListWidget.php:127
+msgid "Number of posts:"
+msgstr "文章数量："
+
+#: src/Widgets/BlogListWidget.php:141
+msgid "Number of columns:"
+msgstr "列数："
+
+#: src/Widgets/BlogListWidget.php:161 src/Widgets/PodcastListWidget.php:117
+msgid "Show \"See all\" link"
+msgstr "显示“查看全部”链接"
+
+#: src/Widgets/FooterLinksWidget.php:22
+msgid "aripplesong - Footer Links"
+msgstr "aripplesong - 页脚链接"
+
+#: src/Widgets/FooterLinksWidget.php:23
+msgid "Display a list of links or text items in the footer"
+msgstr "在页脚显示链接或文本条目列表"
+
+#: src/Widgets/FooterLinksWidget.php:90
+msgid "e.g., Contact, Navigate, Support"
+msgstr "例如：联系、导航、支持"
+
+#: src/Widgets/FooterLinksWidget.php:94
+msgid "Items:"
+msgstr "条目："
+
+#: src/Widgets/FooterLinksWidget.php:146
+msgid "+ Add Item"
+msgstr "+ 添加条目"
+
+#: src/Widgets/PodcastListWidget.php:23
+msgid "aripplesong - Podcast List"
+msgstr "aripplesong - 播客列表"
+
+#: src/Widgets/PodcastListWidget.php:24
+msgid "Display latest podcast list"
+msgstr "显示最新播客列表"
+
+#: src/Widgets/PodcastListWidget.php:98
+msgid "Number of episodes:"
+msgstr "节目数量："
+
+#: src/Widgets/PodcastListWidget.php:154
+msgid "PODCASTS"
+msgstr "播客"
+
+#: src/Widgets/SubscribeLinksWidget.php:22
+msgid "aripplesong - Subscribe Links"
+msgstr "aripplesong - 订阅链接"
+
+#: src/Widgets/SubscribeLinksWidget.php:23
+msgid "Display podcast subscription platform links"
+msgstr "显示播客订阅平台链接"
+
+#: src/Widgets/SubscribeLinksWidget.php:39
+#: src/Widgets/SubscribeLinksWidget.php:65
+#: src/Widgets/SubscribeLinksWidget.php:85
+msgid "SUBSCRIBE"
+msgstr "订阅"
+
+#: src/Widgets/SubscribeLinksWidget.php:90
+msgid "Apple Podcast Link:"
+msgstr "Apple 播客链接："
+
+#: src/Widgets/SubscribeLinksWidget.php:98
+#: src/Widgets/SubscribeLinksWidget.php:111
+#: src/Widgets/SubscribeLinksWidget.php:124
+msgid "Leave blank to hide this button"
+msgstr "留空则隐藏此按钮"
+
+#: src/Widgets/SubscribeLinksWidget.php:103
+msgid "Spotify Link:"
+msgstr "Spotify 链接："
+
+#: src/Widgets/SubscribeLinksWidget.php:116
+msgid "YouTube Music Link:"
+msgstr "YouTube Music 链接："
+
+#: src/Widgets/TagsCloudWidget.php:22
+msgid "aripplesong - Tags Cloud"
+msgstr "aripplesong - 标签云"
+
+#: src/Widgets/TagsCloudWidget.php:23
+msgid "Display article tags cloud"
+msgstr "显示文章标签云"
+
+#: src/Widgets/TagsCloudWidget.php:39 src/Widgets/TagsCloudWidget.php:75
+msgid "TAGS"
+msgstr "标签"
+
+#: src/Widgets/TagsCloudWidget.php:99
+msgid "Number of tags:"
+msgstr "标签数量："
+
+#: src/Widgets/TagsCloudWidget.php:109
+msgid "Maximum number of tags to display"
+msgstr "最多显示的标签数量"
+
+#: src/Widgets/TagsCloudWidget.php:114
+msgid "Order by:"
+msgstr "排序依据："
+
+#: src/Widgets/TagsCloudWidget.php:119
+msgid "Post Count"
+msgstr "文章数量"
+
+#: src/Widgets/TagsCloudWidget.php:120
+msgid "Tag Name"
+msgstr "标签名称"
+
+#: src/Widgets/TagsCloudWidget.php:121
+msgid "Tag ID"
+msgstr "标签 ID"
+
+#: src/Widgets/TagsCloudWidget.php:122
+#: resources/views/widgets/podcast-list.php:24
+msgid "Random"
+msgstr "随机"
+
+#: src/Widgets/TagsCloudWidget.php:128
+msgid "Sort order:"
+msgstr "排序方向："
+
+#: src/Widgets/TagsCloudWidget.php:133
+msgid "Descending (High to Low/Z to A)"
+msgstr "降序（高到低 / Z 到 A）"
+
+#: src/Widgets/TagsCloudWidget.php:134
+msgid "Ascending (Low to High/A to Z)"
+msgstr "升序（低到高 / A 到 Z）"
+
+#: author.php:22
+msgid "Author:"
+msgstr ""
+
+#: author.php:50 search.php:10
+msgid "Sorry, no results were found."
+msgstr ""
+
+#: footer.php:22
+#, php-format
+msgid "© %1$s Powered by %2$s Theme"
+msgstr ""
+
+#: footer.php:67
+msgid "Open Left Sidebar"
+msgstr "打开左侧边栏"
+
+#: footer.php:75
+msgid "Open Right Sidebar"
+msgstr "打开右侧边栏"
+
+#: footer.php:92
+msgid "Back to top"
+msgstr "返回顶部"
+
+#: functions.php:12
+msgid ""
+"Theme dependencies are missing. Run \"composer install\" in wp-content/"
+"themes/daisy-a-ripple-song."
+msgstr ""
+"主题依赖缺失。请在 wp-content/themes/daisy-a-ripple-song 中运行 \"composer "
+"install\"。"
+
+#: header.php:8
+msgid "Light Mode"
+msgstr "浅色模式"
+
+#: header.php:9
+msgid "Dark Mode"
+msgstr "深色模式"
+
+#: header.php:10
+msgid "Follow System"
+msgstr "跟随系统"
+
+#: header.php:11
+msgid "Toggle Theme"
+msgstr "切换主题"
+
+#: resources/views/partials/comments.php:29
+msgctxt "comments title"
+msgid "One response"
+msgid_plural "%1$s responses"
+msgstr[0] ""
+msgstr[1] ""
+
+#: resources/views/partials/comments.php:45
+msgid "Older comments"
+msgstr ""
+
+#: resources/views/partials/comments.php:52
+msgid "Newer comments"
+msgstr ""
+
+#: resources/views/partials/comments.php:111
+msgid "Comments are closed."
+msgstr ""
+
+#: resources/views/partials/comments.php:118
+msgid "Leave a Comment"
+msgstr ""
+
+#: resources/views/partials/content-single-ars_episode.php:58
+#: resources/views/partials/content-single-page.php:30
+#: resources/views/partials/content-single.php:30
+msgid "Pages:"
+msgstr "分页："
+
+#: resources/views/partials/content-single-attachment.php:26
+msgid "Download"
+msgstr ""
+
+#: resources/views/partials/entry-meta.php:17
+msgid "views"
+msgstr "次浏览"
+
+#: resources/views/partials/entry-meta.php:19
+msgid "plays"
+msgstr "次播放"
+
+#: resources/views/partials/image-lightbox.php:5
+#: resources/views/partials/image-lightbox.php:12
+#: resources/views/sections/search-modal.php:11
+msgid "Close"
+msgstr ""
+
+#. translators: %s Archive object title.
+#: resources/views/partials/page-header.php:41
+#, php-format
+msgid "Archives: %s"
+msgstr "归档：%s"
+
+#: resources/views/partials/page-header.php:42
+msgid "Blog"
+msgstr "博客"
+
+#. translators: %s Search query text.
+#: resources/views/partials/page-header.php:49
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#: resources/views/partials/podcast-episode-card.php:70
+msgid "Pause"
+msgstr "暂停"
+
+#: resources/views/partials/podcast-episode-card.php:70
+#: resources/views/sections/autoplay-confirm.php:38
+msgid "Play"
+msgstr "播放"
+
+#: resources/views/sections/autoplay-confirm.php:26
+msgid "Continue playing?"
+msgstr "继续播放吗？"
+
+#: resources/views/sections/autoplay-confirm.php:29
+msgid "Unknown episode"
+msgstr "未知节目"
+
+#: resources/views/sections/autoplay-confirm.php:45
+msgid "Cancel"
+msgstr "取消"
+
+#: resources/views/sections/leftbar-drawer.php:9
+#: resources/views/sections/mobile-menu.php:4
+#: resources/views/sections/playlist-drawer.php:4
+#: resources/views/sections/sidebar-drawer.php:9
+msgid "Close sidebar"
+msgstr "关闭侧边栏"
+
+#: resources/views/sections/leftbar-drawer.php:12
+msgid "Left Sidebar"
+msgstr "左侧边栏"
+
+#: resources/views/sections/leftbar-drawer.php:23
+#: resources/views/sections/leftbar.php:8
+msgid ""
+"Please add widgets to \"Leftbar\" area in Appearance > Widgets in the admin "
+"panel."
+msgstr "请在后台「外观 > 小工具」中向「Leftbar」区域添加小工具。"
+
+#: resources/views/sections/mobile-menu.php:7
+msgid "Menu"
+msgstr "菜单"
+
+#: resources/views/sections/player.php:8
+msgid "NOW PLAYING"
+msgstr "正在播放"
+
+#: resources/views/sections/player.php:15
+#: resources/views/sections/player.php:31
+#: resources/views/sections/player.php:32
+msgid "No Episode Playing"
+msgstr "暂无播放节目"
+
+#: resources/views/sections/player.php:35
+msgid "No publish date"
+msgstr ""
+
+#: resources/views/sections/player.php:51
+msgid "Loading audio"
+msgstr "正在加载音频"
+
+#: resources/views/sections/playlist-drawer.php:8
+msgid "Playlist"
+msgstr "播放列表"
+
+#: resources/views/sections/playlist-drawer.php:15
+msgid "Total"
+msgstr "共"
+
+#: resources/views/sections/playlist-drawer.php:15
+msgid "episodes"
+msgstr "个节目"
+
+#: resources/views/sections/playlist-drawer.php:17
+msgid "Are you sure you want to clear the playlist?"
+msgstr "确定要清空播放列表吗？"
+
+#: resources/views/sections/playlist-drawer.php:19
+msgid "Clear Playlist"
+msgstr "清空播放列表"
+
+#: resources/views/sections/playlist-drawer.php:21
+msgid "Clear"
+msgstr "清空"
+
+#: resources/views/sections/playlist-drawer.php:31
+msgid "Playlist is empty"
+msgstr "播放列表为空"
+
+#: resources/views/sections/playlist-drawer.php:32
+msgid "Add some episodes to start listening"
+msgstr "添加一些节目后即可开始收听"
+
+#: resources/views/sections/playlist-drawer.php:82
+msgid "Remove"
+msgstr "移除"
+
+#: resources/views/sections/sidebar-drawer.php:12
+msgid "Right Sidebar"
+msgstr "右侧边栏"
+
+#: resources/views/sections/sidebar-drawer.php:24 sidebar.php:19
+msgid ""
+"Please add widgets to \"Sidebar\" area in Appearance > Widgets in the admin "
+"panel."
+msgstr "请在后台「外观 > 小工具」中向「Sidebar」区域添加小工具。"
+
+#: resources/views/widgets/authors.php:48
+msgid "No authors yet"
+msgstr "暂无作者"
+
+#: resources/views/widgets/authors.php:49
+msgid "Authors will appear here after adding users"
+msgstr "添加用户后，作者会显示在这里"
+
+#: resources/views/widgets/banner-carousel.php:16
+msgid "No banner yet"
+msgstr "暂无横幅"
+
+#: resources/views/widgets/banner-carousel.php:17
+msgid "Please add banner content in the admin panel"
+msgstr "请在后台添加横幅内容"
+
+#: resources/views/widgets/banner-carousel.php:42
+msgid "Previous slide"
+msgstr "上一张幻灯片"
+
+#: resources/views/widgets/banner-carousel.php:51
+msgid "Next slide"
+msgstr "下一张幻灯片"
+
+#: resources/views/widgets/banner-carousel.php:63
+#, php-format
+msgid "Go to slide %d"
+msgstr "转到第 %d 张幻灯片"
+
+#: resources/views/widgets/blog-list.php:18
+#: resources/views/widgets/podcast-list.php:16
+msgid "See all"
+msgstr "查看全部"
+
+#: resources/views/widgets/blog-list.php:37
+msgid "No blog posts yet"
+msgstr "暂无博客文章"
+
+#: resources/views/widgets/podcast-list.php:22
+msgid "Recent"
+msgstr "最新"
+
+#: resources/views/widgets/podcast-list.php:23
+msgid "Popular"
+msgstr "热门"
+
+#: resources/views/widgets/podcast-list.php:44
+msgid "No ARS Episode content"
+msgstr "暂无 ARS 节目内容"
+
+#: resources/views/widgets/subscribe-links.php:16
+#: resources/views/widgets/subscribe-links.php:17
+msgid "Apple Podcast"
+msgstr "Apple 播客"
+
+#: resources/views/widgets/subscribe-links.php:23
+#: resources/views/widgets/subscribe-links.php:24
+msgid "Spotify"
+msgstr "Spotify"
+
+#: resources/views/widgets/subscribe-links.php:30
+#: resources/views/widgets/subscribe-links.php:31
+msgid "YouTube Music"
+msgstr "YouTube Music"
+
+#: resources/views/widgets/tags-cloud.php:18
+msgid "No tags yet"
+msgstr "暂无标签"
+
+#: resources/views/widgets/tags-cloud.php:19
+msgid "Tags will appear here after publishing articles with tags"
+msgstr "发布带标签的文章后，标签会显示在这里"
+
+#: resources/views/widgets/tags-cloud.php:28
+#, fuzzy, php-format
+msgid "%d post"
+msgid_plural "%d posts"
+msgstr[0] "%d 篇文章"
+msgstr[1] "%d 篇文章"
+
+#: searchform.php:15
+msgctxt "placeholder"
+msgid "Search &hellip;"
+msgstr ""
+
 #. Template Name of the theme
 msgid "Home Template"
 msgstr ""
 
-#: src/ThemeOptions/RecommendedPlugins.php:56
-#: src/ThemeOptions/RecommendedPlugins.php:57
-#: src/ThemeOptions/RecommendedPlugins.php:79
-msgid "ARS Plugins"
-msgstr "ARS 插件"
+#: template-home.php:18
+msgid ""
+"Please add widgets to \"Home Main\" area in Appearance > Widgets in the "
+"admin panel."
+msgstr "请在后台的“外观 > 小工具”中向“Home Main”区域添加小工具。"
 
-#: src/ThemeOptions/RecommendedPlugins.php:102
-msgid "Deactivate"
-msgstr "停用"
+#~ msgid "retro"
+#~ msgstr "复古"
 
-#: src/ThemeOptions/RecommendedPlugins.php:180
-msgid "You are not allowed to deactivate plugins on this site."
-msgstr "您无权在此站点上停用插件。"
+#~ msgid "Pastel Breeze"
+#~ msgstr "柔和微风"
 
-#: src/ThemeOptions/RecommendedPlugins.php:563
-msgid "The plugin could not be deactivated."
-msgstr "该插件无法停用。"
+#~ msgid "Soft Sand"
+#~ msgstr "柔沙"
 
-#: src/ThemeOptions/RecommendedPlugins.php:564
-msgid "The plugin was deactivated successfully."
-msgstr "该插件已成功停用。"
+#~ msgid "Mint Cream"
+#~ msgstr "薄荷奶油"
 
-#: src/ThemeOptions/RecommendedPlugins.php:88
-msgid "Option"
-msgstr "操作"
+#~ msgid "Blush Mist"
+#~ msgstr "腮红薄雾"
 
-#: src/ThemeOptions/RecommendedPlugins.php:109
-msgid "ARS Official"
-msgstr "ARS 官方"
+#~ msgid "Sky Peach"
+#~ msgstr "天空桃色"
 
-#: src/ThemeOptions/RecommendedPlugins.php:399
-msgid "Yes"
-msgstr "是"
+#~ msgid "Lemon Fizz"
+#~ msgstr "柠檬气泡"
 
-#: src/ThemeOptions/RecommendedPlugins.php:399
-msgid "No"
-msgstr "否"
+#~ msgid "Lavender Fog"
+#~ msgstr "薰衣草薄雾"
 
-#: src/ThemeOptions/General.php:614
-msgid "Select Site Logo"
-msgstr "选择网站 Logo"
+#~ msgid "Coral Sunset"
+#~ msgstr "珊瑚落日"
 
-#: src/ThemeOptions/General.php:611
-msgid "Select and Crop"
-msgstr "选择并裁切"
+#~ msgid "Sea Glass"
+#~ msgstr "海玻璃"
+
+#~ msgid "Apricot Sorbet"
+#~ msgstr "杏桃雪芭"
+
+#~ msgid "Cotton Candy"
+#~ msgstr "棉花糖"
+
+#~ msgid "Pear Spritz"
+#~ msgstr "梨汽泡"
+
+#~ msgid "Cloud Latte"
+#~ msgstr "云拿铁"
+
+#~ msgid "Dew Frost"
+#~ msgstr "露霜"
+
+#~ msgid "Peach Foam"
+#~ msgstr "桃沫"
+
+#~ msgid "Lilac Ice"
+#~ msgstr "丁香冰晶"
+
+#~ msgid "Sage Mint"
+#~ msgstr "鼠尾草薄荷"
+
+#~ msgid "Buttercup"
+#~ msgstr "毛茛黄"
+
+#~ msgid "Powder Blue"
+#~ msgstr "粉蓝"
+
+#~ msgid "Melon Ice"
+#~ msgstr "甜瓜冰"
+
+#~ msgid "Hazy Rose"
+#~ msgstr "朦胧玫瑰"
+
+#~ msgid "Calm Water"
+#~ msgstr "静水"
+
+#~ msgid "Honey Milk"
+#~ msgstr "蜂蜜牛奶"
+
+#~ msgid "Arctic Mint"
+#~ msgstr "北极薄荷"
+
+#~ msgid "Vanilla Berry"
+#~ msgstr "香草莓果"
+
+#~ msgid "Morning Sun"
+#~ msgstr "晨光"
+
+#~ msgid "Matcha Cream"
+#~ msgstr "抹茶奶油"
+
+#~ msgid "dim"
+#~ msgstr "暗调"
+
+#~ msgid "Midnight Aurora"
+#~ msgstr "午夜极光"
+
+#~ msgid "Neon Plasma"
+#~ msgstr "霓虹等离子"
+
+#~ msgid "Cyber Grape"
+#~ msgstr "赛博葡萄"
+
+#~ msgid "Velvet Ember"
+#~ msgstr "天鹅绒余烬"
+
+#~ msgid "Ink Cyan"
+#~ msgstr "墨青"
+
+#~ msgid "Dusk Rose"
+#~ msgstr "黄昏玫瑰"
+
+#~ msgid "Obsidian Gold"
+#~ msgstr "黑曜金"
+
+#~ msgid "Deep Space"
+#~ msgstr "深空"
+
+#~ msgid "Ocean Night"
+#~ msgstr "海洋之夜"
+
+#~ msgid "Noir Mint"
+#~ msgstr "暗黑薄荷"
+
+#~ msgid "Plum Neon"
+#~ msgstr "李子霓虹"
+
+#~ msgid "Cobalt Flare"
+#~ msgstr "钴蓝闪光"
+
+#~ msgid "Dusk Marine"
+#~ msgstr "黄昏海蓝"
+
+#~ msgid "Ember Glow"
+#~ msgstr "余烬微光"
+
+#~ msgid "Midnight Teal"
+#~ msgstr "午夜青绿"
+
+#~ msgid "Aurora Mist"
+#~ msgstr "极光薄雾"
+
+#~ msgid "Shadow Berry"
+#~ msgstr "影莓"
+
+#~ msgid "Neon Blush"
+#~ msgstr "霓虹腮红"
+
+#~ msgid "Abyss Blue"
+#~ msgstr "深渊蓝"
+
+#~ msgid "Charcoal Mint"
+#~ msgstr "木炭薄荷"
+
+#~ msgid "Galaxy Candy"
+#~ msgstr "银河糖果"
+
+#~ msgid "Violet Storm"
+#~ msgstr "紫罗兰风暴"
+
+#~ msgid "Magma Ice"
+#~ msgstr "岩浆冰"
+
+#~ msgid "Stormy Sea"
+#~ msgstr "风暴之海"
+
+#~ msgid "Lunar Mauve"
+#~ msgstr "月影淡紫"
+
+#~ msgid "Acid Jungle"
+#~ msgstr "酸性丛林"
+
+#~ msgid "Carbon Ember"
+#~ msgstr "碳火余烬"

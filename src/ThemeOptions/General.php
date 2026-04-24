@@ -1160,7 +1160,7 @@ class General
      */
     public static function getLightThemeOptions(): array
     {
-        return ThemeConstant::LIGHT;
+        return ThemeConstant::getLightThemeLabels();
     }
 
     /**
@@ -1170,7 +1170,7 @@ class General
      */
     public static function getDarkThemeOptions(): array
     {
-        return ThemeConstant::DARK;
+        return ThemeConstant::getDarkThemeLabels();
     }
 
     /**

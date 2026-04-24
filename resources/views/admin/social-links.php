@@ -16,6 +16,6 @@
             </tbody>
         </table>
 
-        <?php submit_button(); ?>
+        <?php submit_button( __( 'Save Settings', 'daisy-a-ripple-song' ) ); ?>
     </form>
 </div>

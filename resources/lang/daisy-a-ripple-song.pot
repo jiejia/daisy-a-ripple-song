@@ -275,6 +275,10 @@ msgstr ""
 msgid "If the card picker is unavailable, use this dropdown (default: retro)."
 msgstr ""
 
+#: src/ThemeOptions/General.php:210
+msgid "This is the default theme used when the site is in light mode."
+msgstr ""
+
 #: src/ThemeOptions/General.php:115
 #: src/ThemeOptions/General.php:119
 msgid "Dark Theme"
@@ -290,6 +294,10 @@ msgstr ""
 
 #: src/ThemeOptions/General.php:127
 msgid "If the card picker is unavailable, use this dropdown (default: dim)."
+msgstr ""
+
+#: src/ThemeOptions/General.php:219
+msgid "This is the default theme used when the site is in dark mode."
 msgstr ""
 
 #: src/ThemeOptions/General.php:130
@@ -333,12 +341,25 @@ msgstr ""
 msgid "Remove Logo"
 msgstr ""
 
+#: resources/views/admin/general.php:14
+#: resources/views/admin/social-links.php:14
+msgid "Save Settings"
+msgstr ""
+
 #: src/ThemeOptions/General.php:1013
 msgid "Only filled links will be used by the theme."
 msgstr ""
 
 #: src/ThemeOptions/General.php:1018
 msgid "Optional. Enter a full URL."
+msgstr ""
+
+#: resources/views/admin/fields/logo-row.php:12
+msgid "Enter the logo image URL"
+msgstr ""
+
+#: resources/views/admin/fields/url-row.php:6
+msgid "Enter a full URL"
 msgstr ""
 
 #: src/ThemeOptions/RecommendedPlugins.php:56

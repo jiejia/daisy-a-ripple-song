@@ -16,7 +16,17 @@ add_action('after_setup_theme', function (): void {
     /**
      * Load translations from the custom theme language directory.
      */
-    load_theme_textdomain(BaseConstant::THEME_SLUG, get_template_directory() . '/resources/lang');
+    /** @var string $locale Active locale used to resolve the bundled MO file. */
+    $locale = function_exists('determine_locale') ? determine_locale() : get_locale();
+
+    /** @var string $moFile Absolute path to the bundled MO translation file. */
+    $moFile = get_template_directory() . '/resources/lang/' . BaseConstant::THEME_SLUG . '-' . $locale . '.mo';
+
+    if (file_exists($moFile)) {
+        load_textdomain(BaseConstant::THEME_SLUG, $moFile);
+    } else {
+        load_theme_textdomain(BaseConstant::THEME_SLUG, get_template_directory() . '/resources/lang');
+    }
 
     /**
      * Register classic theme supports required by WordPress theme guidelines.

@@ -37,6 +37,85 @@ class ThemeConstant
         'morning-sun' => 'Morning Sun',
         'matcha-cream' => 'Matcha Cream',
     ];
+
+    /**
+     * Return translated light theme labels.
+     *
+     * @return array<string, string>
+     */
+    public static function getLightThemeLabels(): array
+    {
+        return [
+            'retro' => __('retro', 'daisy-a-ripple-song'),
+            'pastel-breeze' => __('Pastel Breeze', 'daisy-a-ripple-song'),
+            'soft-sand' => __('Soft Sand', 'daisy-a-ripple-song'),
+            'mint-cream' => __('Mint Cream', 'daisy-a-ripple-song'),
+            'blush-mist' => __('Blush Mist', 'daisy-a-ripple-song'),
+            'sky-peach' => __('Sky Peach', 'daisy-a-ripple-song'),
+            'lemon-fizz' => __('Lemon Fizz', 'daisy-a-ripple-song'),
+            'lavender-fog' => __('Lavender Fog', 'daisy-a-ripple-song'),
+            'coral-sunset' => __('Coral Sunset', 'daisy-a-ripple-song'),
+            'sea-glass' => __('Sea Glass', 'daisy-a-ripple-song'),
+            'apricot-sorbet' => __('Apricot Sorbet', 'daisy-a-ripple-song'),
+            'cotton-candy' => __('Cotton Candy', 'daisy-a-ripple-song'),
+            'pear-spritz' => __('Pear Spritz', 'daisy-a-ripple-song'),
+            'cloud-latte' => __('Cloud Latte', 'daisy-a-ripple-song'),
+            'dew-frost' => __('Dew Frost', 'daisy-a-ripple-song'),
+            'peach-foam' => __('Peach Foam', 'daisy-a-ripple-song'),
+            'lilac-ice' => __('Lilac Ice', 'daisy-a-ripple-song'),
+            'sage-mint' => __('Sage Mint', 'daisy-a-ripple-song'),
+            'buttercup' => __('Buttercup', 'daisy-a-ripple-song'),
+            'powder-blue' => __('Powder Blue', 'daisy-a-ripple-song'),
+            'melon-ice' => __('Melon Ice', 'daisy-a-ripple-song'),
+            'hazy-rose' => __('Hazy Rose', 'daisy-a-ripple-song'),
+            'calm-water' => __('Calm Water', 'daisy-a-ripple-song'),
+            'honey-milk' => __('Honey Milk', 'daisy-a-ripple-song'),
+            'arctic-mint' => __('Arctic Mint', 'daisy-a-ripple-song'),
+            'vanilla-berry' => __('Vanilla Berry', 'daisy-a-ripple-song'),
+            'morning-sun' => __('Morning Sun', 'daisy-a-ripple-song'),
+            'matcha-cream' => __('Matcha Cream', 'daisy-a-ripple-song'),
+        ];
+    }
+
+    /**
+     * Return translated dark theme labels.
+     *
+     * @return array<string, string>
+     */
+    public static function getDarkThemeLabels(): array
+    {
+        return [
+            'dim' => __('dim', 'daisy-a-ripple-song'),
+            'midnight-aurora' => __('Midnight Aurora', 'daisy-a-ripple-song'),
+            'neon-plasma' => __('Neon Plasma', 'daisy-a-ripple-song'),
+            'cyber-grape' => __('Cyber Grape', 'daisy-a-ripple-song'),
+            'velvet-ember' => __('Velvet Ember', 'daisy-a-ripple-song'),
+            'ink-cyan' => __('Ink Cyan', 'daisy-a-ripple-song'),
+            'dusk-rose' => __('Dusk Rose', 'daisy-a-ripple-song'),
+            'obsidian-gold' => __('Obsidian Gold', 'daisy-a-ripple-song'),
+            'deep-space' => __('Deep Space', 'daisy-a-ripple-song'),
+            'ocean-night' => __('Ocean Night', 'daisy-a-ripple-song'),
+            'noir-mint' => __('Noir Mint', 'daisy-a-ripple-song'),
+            'plum-neon' => __('Plum Neon', 'daisy-a-ripple-song'),
+            'cobalt-flare' => __('Cobalt Flare', 'daisy-a-ripple-song'),
+            'dusk-marine' => __('Dusk Marine', 'daisy-a-ripple-song'),
+            'ember-glow' => __('Ember Glow', 'daisy-a-ripple-song'),
+            'midnight-teal' => __('Midnight Teal', 'daisy-a-ripple-song'),
+            'aurora-mist' => __('Aurora Mist', 'daisy-a-ripple-song'),
+            'shadow-berry' => __('Shadow Berry', 'daisy-a-ripple-song'),
+            'neon-blush' => __('Neon Blush', 'daisy-a-ripple-song'),
+            'abyss-blue' => __('Abyss Blue', 'daisy-a-ripple-song'),
+            'charcoal-mint' => __('Charcoal Mint', 'daisy-a-ripple-song'),
+            'galaxy-candy' => __('Galaxy Candy', 'daisy-a-ripple-song'),
+            'violet-storm' => __('Violet Storm', 'daisy-a-ripple-song'),
+            'magma-ice' => __('Magma Ice', 'daisy-a-ripple-song'),
+            'stormy-sea' => __('Stormy Sea', 'daisy-a-ripple-song'),
+            'lunar-mauve' => __('Lunar Mauve', 'daisy-a-ripple-song'),
+            'acid-jungle' => __('Acid Jungle', 'daisy-a-ripple-song'),
+            'carbon-ember' => __('Carbon Ember', 'daisy-a-ripple-song'),
+        ];
+    }
+
     public const DARK = [
 
         'dim' => 'dim',

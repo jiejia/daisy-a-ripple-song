@@ -10,7 +10,7 @@
                 id="site_logo"
                 name="<?php echo esc_attr($optionName); ?>[site_logo]"
                 value="<?php echo esc_attr($currentLogo); ?>"
-                placeholder="https://example.com/logo.svg"
+                placeholder="<?php echo esc_attr__( 'Enter the logo image URL', 'daisy-a-ripple-song' ); ?>"
                 data-ars-logo-input
             >
 

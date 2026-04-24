@@ -5,7 +5,7 @@ Daisy A Ripple Song 是一个经典 WordPress 主题，安装[播客插件](http
 <img width="" src="../screenshot.png"/>
 
 ## Demo
-[https://podcast.aripplesong.me/](https://podcast.aripplesong.me/)
+[https://cn-podcast.aripplesong.me/](https://cn-podcast.aripplesong.me/)
 
 ## 特性
 

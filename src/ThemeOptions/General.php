@@ -10,6 +10,18 @@ use ARippleSong\Themes\Daisy\Constants\ThemeConstant;
  */
 class General
 {
+    /** @var string $themeOptionsScriptEntry Theme options admin JavaScript entry. */
+    protected const THEME_OPTIONS_SCRIPT_ENTRY = 'resources/js/theme-options.js';
+
+    /** @var string $themeOptionsStyleEntry Theme options admin stylesheet entry. */
+    protected const THEME_OPTIONS_STYLE_ENTRY = 'resources/css/theme-options.css';
+
+    /** @var string $themeOptionsHandlePrefix Prefix used for theme options admin assets. */
+    protected const THEME_OPTIONS_HANDLE_PREFIX = BaseConstant::THEME_SLUG . '-theme-options';
+
+    /** @var string $viteDevServerUrl Base URL of the shared Vite development server. */
+    protected const VITE_DEV_SERVER_URL = 'http://127.0.0.1:5173';
+
     /** @var string $optionsPageFile Theme options top-level menu slug. */
     protected const OPTIONS_PAGE_FILE = BaseConstant::PREFIX . '_theme_options';
 
@@ -47,8 +59,6 @@ class General
         add_action('admin_menu', [static::class, 'registerPages']);
         add_action('admin_init', [static::class, 'registerSettings']);
         add_action('admin_enqueue_scripts', [static::class, 'enqueueAdminAssets']);
-        add_action('admin_head', [static::class, 'outputPickerAssets']);
-        add_action('admin_head', [static::class, 'outputLogoAssets']);
         add_action('wp_head', [static::class, 'outputThemePaletteStyles'], 1);
         add_action('wp_head', [static::class, 'outputHeaderScripts'], 99);
         add_action('wp_footer', [static::class, 'outputFooterScripts'], 99);
@@ -244,11 +254,32 @@ class General
      */
     public static function enqueueAdminAssets(): void
     {
-        if (!static::isGeneralSettingsPage()) {
+        if (!static::isThemeOptionsPage()) {
             return;
         }
 
-        wp_enqueue_media();
+        if (static::isGeneralSettingsPage()) {
+            wp_enqueue_media();
+        }
+
+        static::enqueueThemeOptionsAssets();
+    }
+
+    /**
+     * Return whether the current admin request targets a theme options settings page.
+     *
+     * @return bool
+     */
+    protected static function isThemeOptionsPage(): bool
+    {
+        if (!is_admin()) {
+            return false;
+        }
+
+        /** @var string $page Current admin page slug. */
+        $page = static::getCurrentAdminPage();
+
+        return in_array($page, [static::OPTIONS_PAGE_FILE, static::GENERAL_PAGE_FILE, static::SOCIAL_PAGE_FILE], true);
     }
 
     /**
@@ -258,14 +289,20 @@ class General
      */
     protected static function isGeneralSettingsPage(): bool
     {
-        if (!is_admin()) {
-            return false;
-        }
-
         /** @var string $page Current admin page slug. */
-        $page = isset($_GET['page']) ? sanitize_text_field(wp_unslash((string) $_GET['page'])) : '';
+        $page = static::getCurrentAdminPage();
 
         return $page === static::OPTIONS_PAGE_FILE || $page === static::GENERAL_PAGE_FILE;
+    }
+
+    /**
+     * Return the current admin page slug from the request.
+     *
+     * @return string
+     */
+    protected static function getCurrentAdminPage(): string
+    {
+        return isset($_GET['page']) ? sanitize_text_field(wp_unslash((string) $_GET['page'])) : '';
     }
 
     /**
@@ -525,414 +562,183 @@ class General
     }
 
     /**
-     * Output inline assets for the native logo uploader.
+     * Enqueue the extracted theme options asset bundle.
      *
      * @return void
      */
-    public static function outputLogoAssets(): void
+    protected static function enqueueThemeOptionsAssets(): void
     {
-        if (!static::isGeneralSettingsPage()) {
+        /** @var string $scriptHandle Script handle for the admin bundle. */
+        $scriptHandle = static::THEME_OPTIONS_HANDLE_PREFIX . '-script';
+
+        /** @var string $styleHandle Style handle for the admin bundle. */
+        $styleHandle = static::THEME_OPTIONS_HANDLE_PREFIX . '-style';
+
+        if (static::isThemeOptionsDevServerRunning()) {
+            static::markScriptAsModule(static::THEME_OPTIONS_HANDLE_PREFIX . '-vite-client');
+            static::markScriptAsModule($scriptHandle);
+
+            wp_enqueue_style(
+                $styleHandle,
+                static::VITE_DEV_SERVER_URL . '/' . static::THEME_OPTIONS_STYLE_ENTRY,
+                [],
+                null
+            );
+
+            wp_enqueue_script(
+                static::THEME_OPTIONS_HANDLE_PREFIX . '-vite-client',
+                static::VITE_DEV_SERVER_URL . '/@vite/client',
+                [],
+                null,
+                false
+            );
+
+            wp_enqueue_script(
+                $scriptHandle,
+                static::VITE_DEV_SERVER_URL . '/' . static::THEME_OPTIONS_SCRIPT_ENTRY,
+                [],
+                null,
+                false
+            );
+        } else {
+            /** @var array<string, mixed>|null $style Manifest entry for the admin stylesheet. */
+            $style = static::getBuildManifestEntry(static::THEME_OPTIONS_STYLE_ENTRY);
+
+            /** @var array<string, mixed>|null $script Manifest entry for the admin JavaScript. */
+            $script = static::getBuildManifestEntry(static::THEME_OPTIONS_SCRIPT_ENTRY);
+
+            /** @var string $themeUri Public theme directory URI. */
+            $themeUri = get_template_directory_uri();
+
+            if ($style) {
+                wp_enqueue_style(
+                    $styleHandle,
+                    $themeUri . '/public/dist/' . $style['file'],
+                    [],
+                    null
+                );
+            } elseif (!empty($script['css']) && is_array($script['css'])) {
+                foreach ($script['css'] as $index => $cssFile) {
+                    wp_enqueue_style(
+                        $styleHandle . '-' . $index,
+                        $themeUri . '/public/dist/' . $cssFile,
+                        [],
+                        null
+                    );
+                }
+            }
+
+            if ($script) {
+                static::markScriptAsModule($scriptHandle);
+
+                wp_enqueue_script(
+                    $scriptHandle,
+                    $themeUri . '/public/dist/' . $script['file'],
+                    [],
+                    null,
+                    true
+                );
+            }
+        }
+
+        if (!wp_script_is($scriptHandle, 'registered') && !wp_script_is($scriptHandle, 'enqueued')) {
             return;
         }
 
-        ?>
-        <script>
-            (() => {
-                /** @const {number} logoWidth Target logo width in pixels. */
-                const logoWidth = <?php echo (int) static::LOGO_CROP_WIDTH; ?>;
-                /** @const {number} logoHeight Target logo height in pixels. */
-                const logoHeight = <?php echo (int) static::LOGO_CROP_HEIGHT; ?>;
+        /** @var string $bootstrapScript Inline bootstrap data for the admin bundle. */
+        $bootstrapScript = 'window.aripplesongThemeOptions = Object.assign({}, window.aripplesongThemeOptions || {}, ' . wp_json_encode(static::getThemeOptionsAssetData()) . ');';
 
-                /**
-                 * Decide whether the attachment must be cropped to the target size.
-                 *
-                 * @param {number} imgWidth Original attachment width.
-                 * @param {number} imgHeight Original attachment height.
-                 * @returns {boolean}
-                 */
-                const mustBeCropped = (imgWidth, imgHeight) => {
-                    if (imgWidth === logoWidth && imgHeight === logoHeight) {
-                        return false;
-                    }
-
-                    if (imgWidth <= logoWidth || imgHeight <= logoHeight) {
-                        return false;
-                    }
-
-                    return true;
-                };
-
-                /**
-                 * Build imgSelect options that lock the crop box to the target aspect ratio.
-                 *
-                 * @param {Object} attachment Media library attachment model.
-                 * @param {Object} controller Cropper state controller.
-                 * @returns {Object}
-                 */
-                const calculateImageSelectOptions = (attachment, controller) => {
-                    const realWidth = parseInt(attachment.get('width'), 10) || 0;
-                    const realHeight = parseInt(attachment.get('height'), 10) || 0;
-                    const ratio = logoWidth / logoHeight;
-
-                    let xInit = logoWidth;
-                    let yInit = logoHeight;
-
-                    if (realWidth / realHeight > ratio) {
-                        yInit = realHeight;
-                        xInit = yInit * ratio;
-                    } else {
-                        xInit = realWidth;
-                        yInit = xInit / ratio;
-                    }
-
-                    const x1 = (realWidth - xInit) / 2;
-                    const y1 = (realHeight - yInit) / 2;
-
-                    controller.set('canSkipCrop', !mustBeCropped(realWidth, realHeight));
-
-                    return {
-                        handles: true,
-                        keys: true,
-                        instance: true,
-                        persistent: true,
-                        imageWidth: realWidth,
-                        imageHeight: realHeight,
-                        minWidth: logoWidth > xInit ? xInit : logoWidth,
-                        minHeight: logoHeight > yInit ? yInit : logoHeight,
-                        x1: x1,
-                        y1: y1,
-                        x2: xInit + x1,
-                        y2: yInit + y1,
-                        aspectRatio: logoWidth + ':' + logoHeight
-                    };
-                };
-
-                /** @type {?Function} Cached cropper state constructor. */
-                let ArsLogoCropper = null;
-
-                /**
-                 * Lazily build the cropper state constructor, forcing a fixed output size.
-                 *
-                 * @returns {Function}
-                 */
-                const getLogoCropperCtor = () => {
-                    if (ArsLogoCropper) {
-                        return ArsLogoCropper;
-                    }
-
-                    ArsLogoCropper = wp.media.controller.Cropper.extend({
-                        doCrop: function(attachment) {
-                            const cropDetails = attachment.get('cropDetails');
-                            cropDetails.dst_width = logoWidth;
-                            cropDetails.dst_height = logoHeight;
-                            attachment.set('cropDetails', cropDetails);
-
-                            return wp.ajax.post('crop-image', {
-                                nonce: attachment.get('nonces').edit,
-                                id: attachment.get('id'),
-                                context: 'ars-site-logo',
-                                cropDetails: cropDetails
-                            });
-                        }
-                    });
-
-                    return ArsLogoCropper;
-                };
-
-                const bindLogoUploader = () => {
-                    const wrapper = document.querySelector('[data-ars-logo-uploader]');
-
-                    if (!wrapper || wrapper.dataset.ready === 'true') {
-                        return;
-                    }
-
-                    const input = wrapper.querySelector('[data-ars-logo-input]');
-                    const selectButton = wrapper.querySelector('[data-ars-logo-select]');
-                    const removeButton = wrapper.querySelector('[data-ars-logo-remove]');
-                    const preview = wrapper.querySelector('[data-ars-logo-preview]');
-
-                    if (!input || !selectButton || !removeButton || !preview) {
-                        return;
-                    }
-
-                    wrapper.dataset.ready = 'true';
-
-                    const renderPreview = (url) => {
-                        preview.innerHTML = url
-                            ? '<img src="' + url + '" alt="<?php echo esc_js(__('Site Logo', 'daisy-a-ripple-song')); ?>" style="display:block;width:' + logoWidth + 'px;height:' + logoHeight + 'px;margin-top:12px;border:1px solid #dcdcde;padding:8px;background:#fff;object-fit:contain;">'
-                            : '';
-                        removeButton.disabled = url === '';
-                    };
-
-                    const syncValue = (url) => {
-                        input.value = url;
-                        input.dispatchEvent(new Event('input', { bubbles: true }));
-                        input.dispatchEvent(new Event('change', { bubbles: true }));
-                        renderPreview(url);
-                    };
-
-                    selectButton.addEventListener('click', (event) => {
-                        event.preventDefault();
-
-                        if (!window.wp || !wp.media || !wp.media.controller || !wp.media.controller.Cropper) {
-                            return;
-                        }
-
-                        const CropperCtor = getLogoCropperCtor();
-                        const cropperState = new CropperCtor({
-                            imgSelectOptions: calculateImageSelectOptions
-                        });
-
-                        const frame = wp.media({
-                            button: {
-                                text: <?php echo wp_json_encode(__('Select and Crop', 'daisy-a-ripple-song')); ?>,
-                                close: false
-                            },
-                            states: [
-                                new wp.media.controller.Library({
-                                    title: <?php echo wp_json_encode(__('Select Site Logo', 'daisy-a-ripple-song')); ?>,
-                                    library: wp.media.query({ type: 'image' }),
-                                    multiple: false,
-                                    date: false,
-                                    priority: 20,
-                                    suggestedWidth: logoWidth,
-                                    suggestedHeight: logoHeight
-                                }),
-                                cropperState
-                            ]
-                        });
-
-                        const handleSkippedCrop = (selection) => {
-                            const url = String(selection.get('url') || '').trim();
-
-                            if (url !== '') {
-                                syncValue(url);
-                            }
-                        };
-
-                        frame.on('select', () => {
-                            const selection = frame.state().get('selection');
-
-                            if (!selection) {
-                                return;
-                            }
-
-                            const attachment = selection.first();
-                            const mime = String(attachment.get('mime') || '');
-                            const realWidth = parseInt(attachment.get('width'), 10) || 0;
-                            const realHeight = parseInt(attachment.get('height'), 10) || 0;
-
-                            if (mime === 'image/svg+xml' || realWidth === 0 || realHeight === 0) {
-                                const url = String(attachment.get('url') || '').trim();
-
-                                if (url !== '') {
-                                    syncValue(url);
-                                }
-
-                                frame.close();
-                                return;
-                            }
-
-                            frame.setState('cropper');
-                        });
-
-                        frame.on('cropped', (croppedImage) => {
-                            const url = String(croppedImage.url || '').trim();
-
-                            if (url !== '') {
-                                syncValue(url);
-                            }
-                        });
-
-                        frame.on('skippedcrop', handleSkippedCrop);
-                        cropperState.on('skippedcrop', handleSkippedCrop);
-
-                        frame.open();
-                    });
-
-                    removeButton.addEventListener('click', (event) => {
-                        event.preventDefault();
-                        syncValue('');
-                    });
-
-                    renderPreview(String(input.value || '').trim());
-                };
-
-                document.addEventListener('DOMContentLoaded', bindLogoUploader);
-            })();
-        </script>
-        <?php
+        wp_add_inline_script($scriptHandle, $bootstrapScript, 'before');
     }
 
     /**
-     * Output inline assets for native theme picker cards.
+     * Return localized runtime data used by the theme options admin bundle.
      *
-     * @return void
+     * @return array<string, array<string, int|string>>
      */
-    public static function outputPickerAssets(): void
+    protected static function getThemeOptionsAssetData(): array
     {
-        if (!static::isGeneralSettingsPage()) {
-            return;
+        return [
+            'logo' => [
+                'width' => static::LOGO_CROP_WIDTH,
+                'height' => static::LOGO_CROP_HEIGHT,
+            ],
+            'i18n' => [
+                'siteLogo' => __('Site Logo', 'daisy-a-ripple-song'),
+                'selectAndCrop' => __('Select and Crop', 'daisy-a-ripple-song'),
+                'selectSiteLogo' => __('Select Site Logo', 'daisy-a-ripple-song'),
+            ],
+        ];
+    }
+
+    /**
+     * Return whether the shared Vite development server is reachable.
+     *
+     * @return bool
+     */
+    protected static function isThemeOptionsDevServerRunning(): bool
+    {
+        /** @var array<string, mixed> $args HTTP client arguments for the Vite health check. */
+        $args = [
+            'timeout' => 0.3,
+        ];
+
+        /** @var array<string, mixed>|\WP_Error $response HTTP response from the Vite client endpoint. */
+        $response = wp_remote_get(static::VITE_DEV_SERVER_URL . '/@vite/client', $args);
+
+        return !is_wp_error($response)
+            && wp_remote_retrieve_response_code($response) === 200;
+    }
+
+    /**
+     * Return a Vite manifest entry for a specific admin asset source path.
+     *
+     * @param string $entry Vite source entry path.
+     * @return array<string, mixed>|null
+     */
+    protected static function getBuildManifestEntry(string $entry): ?array
+    {
+        /** @var string $manifestPath Absolute path to the Vite manifest. */
+        $manifestPath = get_template_directory() . '/public/dist/.vite/manifest.json';
+
+        if (!file_exists($manifestPath)) {
+            return null;
         }
 
-        ?>
-        <style>
-            .ars-logo-uploader [data-ars-logo-input] {
-                display: none;
+        /** @var array<string, array<string, mixed>>|null $manifest Parsed Vite manifest data. */
+        $manifest = json_decode((string) file_get_contents($manifestPath), true);
+
+        return $manifest[$entry] ?? null;
+    }
+
+    /**
+     * Mark a specific theme options script handle as an ES module.
+     *
+     * @param string $handle Script handle to upgrade.
+     * @return void
+     */
+    protected static function markScriptAsModule(string $handle): void
+    {
+        add_filter('script_loader_tag', static function (string $tag, string $currentHandle, string $src) use ($handle): string {
+            if ($currentHandle !== $handle) {
+                return $tag;
             }
 
-            .ars-theme-picker {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
-                gap: 10px;
-                max-width: 920px;
-                margin-bottom: 10px;
-            }
+            /** @var string|null $updatedTag Preserve existing attributes while forcing module mode. */
+            $updatedTag = preg_replace_callback(
+                '/<script\b(?=[^>]*\ssrc=)([^>]*)>/',
+                static function (array $matches): string {
+                    /** @var string $attributes Existing script attributes without the original type attribute. */
+                    $attributes = preg_replace('/\s+type=(["\']).*?\1/', '', $matches[1], 1);
 
-            .ars-theme-card {
-                position: relative;
-                display: block;
-                width: 100%;
-                padding: 0;
-                cursor: pointer;
-                text-align: left;
-                border: 1px solid #c3c4c7;
-                border-radius: 10px;
-                background: var(--ars-base-100);
-                color: var(--ars-base-content);
-                overflow: hidden;
-                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
-                transition: border-color 0.2s, box-shadow 0.2s;
-            }
+                    return '<script type="module"' . $attributes . '>';
+                },
+                $tag,
+                1
+            );
 
-            .ars-theme-card:hover,
-            .ars-theme-card:focus {
-                border-color: #2271b1;
-                box-shadow: 0 0 0 1px #2271b1;
-                outline: none;
-            }
-
-            .ars-theme-card.is-active {
-                border-color: #2271b1;
-                box-shadow: 0 0 0 2px rgba(34, 113, 177, 0.22);
-            }
-
-            .ars-theme-card.is-active::after {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                width: 10px;
-                height: 10px;
-                content: "";
-                border-radius: 999px;
-                background: #2271b1;
-            }
-
-            .ars-theme-card__preview {
-                display: grid;
-                grid-template-columns: 1fr 4fr;
-                grid-template-rows: 1fr;
-                height: 100%;
-                min-height: 72px;
-                background: var(--ars-base-100);
-            }
-
-            .ars-theme-card__sidebar {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .ars-theme-card__sidebar-top {
-                flex: 2;
-                background: var(--ars-base-200);
-            }
-
-            .ars-theme-card__sidebar-bottom {
-                flex: 1;
-                background: var(--ars-base-300);
-            }
-
-            .ars-theme-card__content {
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-                padding: 12px;
-            }
-
-            .ars-theme-card__name {
-                display: block;
-                font-weight: 600;
-                font-size: 13px;
-                line-height: 1;
-            }
-
-            .ars-theme-card__swatches {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 4px;
-            }
-
-            .ars-theme-card__swatch {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 20px;
-                height: 20px;
-                border-radius: 4px;
-                background: var(--ars-swatch);
-                color: var(--ars-swatch-content);
-                font-size: 11px;
-                font-weight: 700;
-                line-height: 1;
-                font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-            }
-
-            .ars-theme-select {
-                display: none;
-            }
-        </style>
-        <script>
-            (() => {
-                const bindThemePickers = () => {
-                    document.querySelectorAll('[data-ars-theme-picker]').forEach((picker) => {
-                        if (picker.dataset.ready === 'true') {
-                            return;
-                        }
-
-                        const target = picker.dataset.themeTarget || '';
-                        const select = document.querySelector('select[data-theme-target="' + target + '"]');
-                        const cards = Array.from(picker.querySelectorAll('[data-theme-value]'));
-
-                        if (!select || cards.length === 0) {
-                            return;
-                        }
-
-                        picker.dataset.ready = 'true';
-
-                        const syncCards = () => {
-                            cards.forEach((card) => {
-                                card.classList.toggle('is-active', card.dataset.themeValue === select.value);
-                            });
-                        };
-
-                        cards.forEach((card) => {
-                            card.addEventListener('click', (event) => {
-                                event.preventDefault();
-                                select.value = card.dataset.themeValue || '';
-                                select.dispatchEvent(new Event('change', { bubbles: true }));
-                                syncCards();
-                            });
-                        });
-
-                        select.addEventListener('change', syncCards);
-                        syncCards();
-                    });
-                };
-
-                document.addEventListener('DOMContentLoaded', bindThemePickers);
-            })();
-        </script>
-        <?php
+            return is_string($updatedTag) ? $updatedTag : $tag;
+        }, 10, 3);
     }
 
     /**
@@ -1320,11 +1126,9 @@ class General
         }
 
         return sprintf(
-            '<img src="%1$s" alt="%2$s" style="display:block;width:%3$dpx;height:%4$dpx;margin-top:12px;border:1px solid #dcdcde;padding:8px;background:#fff;object-fit:contain;">',
+            '<img class="ars-logo-preview__image" src="%1$s" alt="%2$s">',
             esc_url($logoUrl),
-            esc_attr__('Site Logo', 'daisy-a-ripple-song'),
-            (int) static::LOGO_CROP_WIDTH,
-            (int) static::LOGO_CROP_HEIGHT
+            esc_attr__('Site Logo', 'daisy-a-ripple-song')
         );
     }
 

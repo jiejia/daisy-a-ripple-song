@@ -22,8 +22,10 @@ export default defineConfig({
     rollupOptions: {
       input: [
         path.resolve(__dirname, 'resources/js/main.js'),
+        path.resolve(__dirname, 'resources/js/theme-options.js'),
         path.resolve(__dirname, 'resources/js/widget-preview.js'),
-        path.resolve(__dirname, 'resources/css/main.css')
+        path.resolve(__dirname, 'resources/css/main.css'),
+        path.resolve(__dirname, 'resources/css/theme-options.css')
       ]
     }
   }

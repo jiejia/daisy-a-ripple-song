@@ -1,0 +1,124 @@
+.ars-logo-uploader [data-ars-logo-input] {
+    display: none;
+}
+
+.ars-logo-preview__image {
+    display: block;
+    width: 220px;
+    height: 32px;
+    margin-top: 12px;
+    border: 1px solid #dcdcde;
+    padding: 8px;
+    background: #fff;
+    object-fit: contain;
+}
+
+.ars-theme-picker {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+    gap: 10px;
+    max-width: 920px;
+    margin-bottom: 10px;
+}
+
+.ars-theme-card {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    border: 1px solid #c3c4c7;
+    border-radius: 10px;
+    background: var(--ars-base-100);
+    color: var(--ars-base-content);
+    overflow: hidden;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ars-theme-card:hover,
+.ars-theme-card:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+}
+
+.ars-theme-card.is-active {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 2px rgba(34, 113, 177, 0.22);
+}
+
+.ars-theme-card.is-active::after {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 10px;
+    height: 10px;
+    content: "";
+    border-radius: 999px;
+    background: #2271b1;
+}
+
+.ars-theme-card__preview {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
+    height: 100%;
+    min-height: 72px;
+    background: var(--ars-base-100);
+}
+
+.ars-theme-card__sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.ars-theme-card__sidebar-top {
+    flex: 2;
+    background: var(--ars-base-200);
+}
+
+.ars-theme-card__sidebar-bottom {
+    flex: 1;
+    background: var(--ars-base-300);
+}
+
+.ars-theme-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px;
+}
+
+.ars-theme-card__name {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1;
+}
+
+.ars-theme-card__swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.ars-theme-card__swatch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: var(--ars-swatch);
+    color: var(--ars-swatch-content);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+.ars-theme-select {
+    display: none;
+}

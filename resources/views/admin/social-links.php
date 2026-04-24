@@ -12,28 +12,7 @@
 
         <table class="form-table" role="presentation">
             <tbody>
-                <?php foreach ((array) $fields as $field): ?>
-                    <?php if (($field['type'] ?? '') !== 'url'): ?>
-                        <?php continue; ?>
-                    <?php endif; ?>
-
-                    <tr>
-                        <th scope="row">
-                            <label for="<?php echo esc_attr((string) ($field['key'] ?? '')); ?>"><?php echo esc_html((string) ($field['label'] ?? '')); ?></label>
-                        </th>
-                        <td>
-                            <input
-                                type="url"
-                                id="<?php echo esc_attr((string) ($field['key'] ?? '')); ?>"
-                                name="<?php echo esc_attr((string) ($field['optionName'] ?? '')); ?>[<?php echo esc_attr((string) ($field['key'] ?? '')); ?>]"
-                                class="regular-text"
-                                value="<?php echo esc_attr((string) ($field['value'] ?? '')); ?>"
-                                placeholder="https://example.com"
-                            >
-                            <p class="description"><?php echo esc_html((string) ($field['description'] ?? '')); ?></p>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
+                <?php echo $fieldsMarkup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             </tbody>
         </table>
 

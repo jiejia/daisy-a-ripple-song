@@ -141,8 +141,7 @@ class General
         echo static::renderAdminView('general', [
             'title' => __('General', 'daisy-a-ripple-song'),
             'optionGroup' => static::GENERAL_OPTION_GROUP,
-            'fields' => static::getGeneralFields(),
-            'themePalette' => static::getThemePalette(),
+            'fieldsMarkup' => static::renderSettingsFields(static::getGeneralFields()),
         ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
@@ -156,7 +155,7 @@ class General
         echo static::renderAdminView('social-links', [
             'title' => __('Social Links', 'daisy-a-ripple-song'),
             'optionGroup' => static::SOCIAL_OPTION_GROUP,
-            'fields' => SocialLinks::getSettingsFields(),
+            'fieldsMarkup' => static::renderSettingsFields(SocialLinks::getSettingsFields()),
             'description' => __('Only filled links will be used by the theme.', 'daisy-a-ripple-song'),
         ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
@@ -200,11 +199,6 @@ class General
         return [
             [
                 'type' => 'logo',
-                'key' => 'site_logo',
-                'label' => __('Site Logo', 'daisy-a-ripple-song'),
-                'value' => static::getThemeOption('site_logo'),
-                'description' => __('Upload a logo image (220px × 32px). You will be able to crop the image after upload.', 'daisy-a-ripple-song'),
-                'optionName' => static::GENERAL_OPTION_NAME,
             ],
             [
                 'type' => 'theme_picker',
@@ -214,7 +208,6 @@ class General
                 'value' => static::getLightTheme(),
                 'mode' => 'light',
                 'description' => __('This is the default theme used when the site is in light mode.', 'daisy-a-ripple-song'),
-                'optionName' => static::GENERAL_OPTION_NAME,
             ],
             [
                 'type' => 'theme_picker',
@@ -224,7 +217,6 @@ class General
                 'value' => static::getDarkTheme(),
                 'mode' => 'dark',
                 'description' => __('This is the default theme used when the site is in dark mode.', 'daisy-a-ripple-song'),
-                'optionName' => static::GENERAL_OPTION_NAME,
             ],
             [
                 'type' => 'textarea',
@@ -748,6 +740,255 @@ class General
     }
 
     /**
+     * Render the native logo field row.
+     *
+     * @param string $rowClass Optional extra CSS classes for the table row.
+     * @return string
+     */
+    protected static function renderLogoRow(string $rowClass = ''): string
+    {
+        /** @var string $currentLogo Saved logo URL. */
+        $currentLogo = static::getThemeOption('site_logo');
+
+        return static::renderAdminView('fields/logo-row', [
+            'rowClass' => $rowClass,
+            'currentLogo' => $currentLogo,
+            'previewHtml' => static::renderLogoPreview($currentLogo),
+            'optionName' => static::GENERAL_OPTION_NAME,
+        ]);
+    }
+
+    /**
+     * Render a list of settings fields from definitions.
+     *
+     * @param array<int, array<string, mixed>> $fields Field definitions.
+     * @return string
+     */
+    protected static function renderSettingsFields(array $fields): string
+    {
+        /** @var array<int, string> $markup Generated field rows. */
+        $markup = [];
+
+        foreach ($fields as $field) {
+            $markup[] = static::renderSettingsField($field);
+        }
+
+        return implode('', $markup);
+    }
+
+    /**
+     * Render one settings field from a definition.
+     *
+     * @param array<string, mixed> $field Field definition.
+     * @return string
+     */
+    protected static function renderSettingsField(array $field): string
+    {
+        /** @var string $type Field renderer type. */
+        $type = is_string($field['type'] ?? null) ? $field['type'] : '';
+
+        if ($type === 'logo') {
+            return static::renderLogoRow((string) ($field['rowClass'] ?? ''));
+        }
+
+        /** @var string $optionKey Field key inside the serialized option. */
+        $optionKey = is_string($field['key'] ?? null) ? $field['key'] : '';
+        if ($optionKey === '') {
+            return '';
+        }
+
+        /** @var string $label Field label. */
+        $label = is_string($field['label'] ?? null) ? $field['label'] : '';
+        /** @var string $value Current field value. */
+        $value = is_scalar($field['value'] ?? null) ? (string) $field['value'] : '';
+        /** @var string $description Field help text. */
+        $description = is_string($field['description'] ?? null) ? $field['description'] : '';
+        /** @var string $optionName Serialized option name. */
+        $optionName = is_string($field['optionName'] ?? null) ? $field['optionName'] : static::GENERAL_OPTION_NAME;
+
+        if ($type === 'theme_picker') {
+            /** @var array<string, string> $options Theme picker options. */
+            $options = is_array($field['options'] ?? null) ? $field['options'] : [];
+            /** @var string $mode Theme mode identifier. */
+            $mode = is_string($field['mode'] ?? null) ? $field['mode'] : $optionKey;
+
+            return static::renderThemePickerRow($optionKey, $label, $options, $value, $mode, $description);
+        }
+
+        if ($type === 'select') {
+            /** @var array<string, string> $options Select options. */
+            $options = is_array($field['options'] ?? null) ? $field['options'] : [];
+
+            return static::renderSelectRow($optionKey, $label, $options, $value, $description, $optionName);
+        }
+
+        if ($type === 'url') {
+            return static::renderUrlRow($optionKey, $label, $value, $description, $optionName);
+        }
+
+        if ($type === 'textarea') {
+            return static::renderTextareaRow($optionKey, $label, $value, $description, $optionName);
+        }
+
+        return '';
+    }
+
+    /**
+     * Render a theme picker row with color swatches and a native select fallback.
+     *
+     * @param string $optionKey Option key.
+     * @param string $label Field label.
+     * @param array<string, string> $options Select options.
+     * @param string $value Current value.
+     * @param string $mode Theme mode identifier.
+     * @param string $description Field description.
+     * @param string $rowClass Optional extra CSS classes for the table row.
+     * @return string
+     */
+    protected static function renderThemePickerRow(
+        string $optionKey,
+        string $label,
+        array $options,
+        string $value,
+        string $mode,
+        string $description,
+        string $rowClass = ''
+    ): string {
+        return static::renderAdminView('fields/theme-picker-row', [
+            'rowClass' => $rowClass,
+            'optionKey' => $optionKey,
+            'label' => $label,
+            'pickerHtml' => static::renderDaisyUiThemePicker($mode, $options, $value),
+            'selectHtml' => static::renderThemeSelect($optionKey, $options, $value, $mode),
+            'description' => $description,
+        ]);
+    }
+
+    /**
+     * Render DaisyUI theme swatch cards.
+     *
+     * @param string $mode Theme mode identifier.
+     * @param array<string, string> $options Theme options.
+     * @param string $value Current value.
+     * @return string
+     */
+    protected static function renderDaisyUiThemePicker(string $mode, array $options, string $value): string
+    {
+        /** @var array<string, array<string, string>> $themePalette Full theme palette map. */
+        $themePalette = static::getThemePalette();
+
+        /** @var array<string, string> $swatches Pre-rendered swatch markup keyed by theme slug. */
+        $swatches = [];
+
+        foreach ($options as $themeSlug => $themeLabel) {
+            $swatches[$themeSlug] = static::renderThemeSwatches($themePalette[$themeSlug] ?? []);
+        }
+
+        return static::renderAdminView('fields/theme-picker', [
+            'mode' => $mode,
+            'options' => $options,
+            'value' => $value,
+            'themePalette' => $themePalette,
+            'swatches' => $swatches,
+        ]);
+    }
+
+    /**
+     * Render color swatches for a theme palette.
+     *
+     * @param array<string, string> $colors Theme colors.
+     * @return string
+     */
+    protected static function renderThemeSwatches(array $colors): string
+    {
+        return static::renderAdminView('fields/theme-swatches', [
+            'colors' => $colors,
+        ]);
+    }
+
+    /**
+     * Render the native select fallback for theme selection.
+     *
+     * @param string $optionKey Option key.
+     * @param array<string, string> $options Select options.
+     * @param string $value Current value.
+     * @param string $mode Theme mode identifier.
+     * @return string
+     */
+    protected static function renderThemeSelect(string $optionKey, array $options, string $value, string $mode): string
+    {
+        return static::renderAdminView('fields/theme-select', [
+            'optionKey' => $optionKey,
+            'options' => $options,
+            'value' => $value,
+            'mode' => $mode,
+            'optionName' => static::GENERAL_OPTION_NAME,
+        ]);
+    }
+
+    /**
+     * Render a select field row.
+     *
+     * @param string $optionKey Option key.
+     * @param string $label Field label.
+     * @param array<string, string> $options Select options.
+     * @param string $value Current value.
+     * @param string $description Field description.
+     * @return string
+     */
+    protected static function renderSelectRow(string $optionKey, string $label, array $options, string $value, string $description, string $optionName = self::GENERAL_OPTION_NAME): string
+    {
+        return static::renderAdminView('fields/select-row', [
+            'optionKey' => $optionKey,
+            'label' => $label,
+            'options' => $options,
+            'value' => $value,
+            'description' => $description,
+            'optionName' => $optionName,
+        ]);
+    }
+
+    /**
+     * Render a textarea field row.
+     *
+     * @param string $optionKey Option key.
+     * @param string $label Field label.
+     * @param string $value Current value.
+     * @param string $description Field description.
+     * @return string
+     */
+    protected static function renderTextareaRow(string $optionKey, string $label, string $value, string $description, string $optionName = self::GENERAL_OPTION_NAME): string
+    {
+        return static::renderAdminView('fields/textarea-row', [
+            'optionKey' => $optionKey,
+            'label' => $label,
+            'value' => $value,
+            'description' => $description,
+            'optionName' => $optionName,
+        ]);
+    }
+
+    /**
+     * Render a URL field row.
+     *
+     * @param string $optionKey Option key.
+     * @param string $label Field label.
+     * @param string $value Current value.
+     * @param string $description Field description.
+     * @return string
+     */
+    protected static function renderUrlRow(string $optionKey, string $label, string $value, string $description, string $optionName = self::SOCIAL_OPTION_NAME): string
+    {
+        return static::renderAdminView('fields/url-row', [
+            'optionKey' => $optionKey,
+            'label' => $label,
+            'value' => $value,
+            'description' => $description,
+            'optionName' => $optionName,
+        ]);
+    }
+
+    /**
      * Sanitize the serialized general options array.
      *
      * @param mixed $value Raw option value.
@@ -810,6 +1051,23 @@ class General
         }
 
         return $sanitizedOptions;
+    }
+
+    /**
+     * Render a logo preview image.
+     *
+     * @param string $logoUrl Logo URL.
+     * @return string
+     */
+    protected static function renderLogoPreview(string $logoUrl): string
+    {
+        if ($logoUrl === '') {
+            return '';
+        }
+
+        return static::renderAdminView('fields/logo-preview', [
+            'logoUrl' => $logoUrl,
+        ]);
     }
 
     /**

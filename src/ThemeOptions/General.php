@@ -11,10 +11,10 @@ use ARippleSong\Themes\Daisy\Constants\ThemeConstant;
 class General
 {
     /** @var string $themeOptionsScriptEntry Theme options admin JavaScript entry. */
-    protected const THEME_OPTIONS_SCRIPT_ENTRY = 'resources/js/theme-options.js';
+    protected const THEME_OPTIONS_SCRIPT_ENTRY = 'resources/js/admin.js';
 
     /** @var string $themeOptionsStyleEntry Theme options admin stylesheet entry. */
-    protected const THEME_OPTIONS_STYLE_ENTRY = 'resources/css/theme-options.css';
+    protected const THEME_OPTIONS_STYLE_ENTRY = 'resources/css/admin.css';
 
     /** @var string $themeOptionsHandlePrefix Prefix used for theme options admin assets. */
     protected const THEME_OPTIONS_HANDLE_PREFIX = BaseConstant::THEME_SLUG . '-theme-options';

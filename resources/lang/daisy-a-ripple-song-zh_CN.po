@@ -256,11 +256,15 @@ msgstr "浅色主题（后备下拉框）"
 
 #: src/ThemeOptions/General.php:112
 msgid "If the card picker is unavailable, use this dropdown (default: retro)."
-msgstr "如果色卡选择器不可用，请使用此下拉框（默认：retro）。"
+msgstr "如果色卡选择器不可用，请使用此下拉框（默认：复古）。"
 
 #: src/ThemeOptions/General.php:210
 msgid "This is the default theme used when the site is in light mode."
 msgstr "这是站点在浅色模式下使用的默认主题。"
+
+#: src/ThemeOptions/General.php:219
+msgid "This is the default theme used when the site is in dark mode."
+msgstr "这是站点在深色模式下使用的默认主题。"
 
 #: src/ThemeOptions/General.php:115 src/ThemeOptions/General.php:119
 msgid "Dark Theme"
@@ -276,11 +280,177 @@ msgstr "深色主题（后备下拉框）"
 
 #: src/ThemeOptions/General.php:127
 msgid "If the card picker is unavailable, use this dropdown (default: dim)."
-msgstr "如果色卡选择器不可用，请使用此下拉框（默认：dim）。"
+msgstr "如果色卡选择器不可用，请使用此下拉框（默认：暗柔）。"
 
-#: src/ThemeOptions/General.php:219
-msgid "This is the default theme used when the site is in dark mode."
-msgstr "这是站点在深色模式下使用的默认主题。"
+#: src/Constants/ThemeConstant.php:49
+msgid "retro"
+msgstr "复古"
+
+msgid "Pastel Breeze"
+msgstr "柔和微风"
+
+msgid "Soft Sand"
+msgstr "柔沙"
+
+msgid "Mint Cream"
+msgstr "薄荷奶油"
+
+msgid "Blush Mist"
+msgstr "粉雾"
+
+msgid "Sky Peach"
+msgstr "天空蜜桃"
+
+msgid "Lemon Fizz"
+msgstr "柠檬气泡"
+
+msgid "Lavender Fog"
+msgstr "薰衣草雾"
+
+msgid "Coral Sunset"
+msgstr "珊瑚落日"
+
+msgid "Sea Glass"
+msgstr "海玻璃"
+
+msgid "Apricot Sorbet"
+msgstr "杏桃冰沙"
+
+msgid "Cotton Candy"
+msgstr "棉花糖"
+
+msgid "Pear Spritz"
+msgstr "梨子气泡"
+
+msgid "Cloud Latte"
+msgstr "云朵拿铁"
+
+msgid "Dew Frost"
+msgstr "露霜"
+
+msgid "Peach Foam"
+msgstr "蜜桃泡沫"
+
+msgid "Lilac Ice"
+msgstr "丁香冰"
+
+msgid "Sage Mint"
+msgstr "鼠尾草薄荷"
+
+msgid "Buttercup"
+msgstr "毛茛黄"
+
+msgid "Powder Blue"
+msgstr "粉蓝"
+
+msgid "Melon Ice"
+msgstr "蜜瓜冰"
+
+msgid "Hazy Rose"
+msgstr "朦胧玫瑰"
+
+msgid "Calm Water"
+msgstr "静水"
+
+msgid "Honey Milk"
+msgstr "蜜奶"
+
+msgid "Arctic Mint"
+msgstr "极地薄荷"
+
+msgid "Vanilla Berry"
+msgstr "香草莓果"
+
+msgid "Morning Sun"
+msgstr "朝阳"
+
+msgid "Matcha Cream"
+msgstr "抹茶奶霜"
+
+#: src/Constants/ThemeConstant.php:88
+msgid "dim"
+msgstr "暗柔"
+
+msgid "Midnight Aurora"
+msgstr "午夜极光"
+
+msgid "Neon Plasma"
+msgstr "霓虹等离子"
+
+msgid "Cyber Grape"
+msgstr "赛博葡萄"
+
+msgid "Velvet Ember"
+msgstr "丝绒余烬"
+
+msgid "Ink Cyan"
+msgstr "墨青"
+
+msgid "Dusk Rose"
+msgstr "黄昏玫瑰"
+
+msgid "Obsidian Gold"
+msgstr "黑曜金"
+
+msgid "Deep Space"
+msgstr "深空"
+
+msgid "Ocean Night"
+msgstr "海夜"
+
+msgid "Noir Mint"
+msgstr "暗夜薄荷"
+
+msgid "Plum Neon"
+msgstr "李子霓虹"
+
+msgid "Cobalt Flare"
+msgstr "钴蓝光焰"
+
+msgid "Dusk Marine"
+msgstr "暮海"
+
+msgid "Ember Glow"
+msgstr "余烬微光"
+
+msgid "Midnight Teal"
+msgstr "午夜蓝绿"
+
+msgid "Aurora Mist"
+msgstr "极光雾"
+
+msgid "Shadow Berry"
+msgstr "暗影莓果"
+
+msgid "Neon Blush"
+msgstr "霓虹粉霞"
+
+msgid "Abyss Blue"
+msgstr "深渊蓝"
+
+msgid "Charcoal Mint"
+msgstr "木炭薄荷"
+
+msgid "Galaxy Candy"
+msgstr "银河糖果"
+
+msgid "Violet Storm"
+msgstr "紫罗兰风暴"
+
+msgid "Magma Ice"
+msgstr "岩浆冰"
+
+msgid "Stormy Sea"
+msgstr "风暴之海"
+
+msgid "Lunar Mauve"
+msgstr "月暮紫"
+
+msgid "Acid Jungle"
+msgstr "酸性丛林"
+
+msgid "Carbon Ember"
+msgstr "碳烬"
 
 #: src/ThemeOptions/General.php:130
 msgid "Footer Copyright"
@@ -1028,171 +1198,3 @@ msgid ""
 "Please add widgets to \"Home Main\" area in Appearance > Widgets in the "
 "admin panel."
 msgstr "请在后台的“外观 > 小工具”中向“Home Main”区域添加小工具。"
-
-#~ msgid "retro"
-#~ msgstr "复古"
-
-#~ msgid "Pastel Breeze"
-#~ msgstr "柔和微风"
-
-#~ msgid "Soft Sand"
-#~ msgstr "柔沙"
-
-#~ msgid "Mint Cream"
-#~ msgstr "薄荷奶油"
-
-#~ msgid "Blush Mist"
-#~ msgstr "腮红薄雾"
-
-#~ msgid "Sky Peach"
-#~ msgstr "天空桃色"
-
-#~ msgid "Lemon Fizz"
-#~ msgstr "柠檬气泡"
-
-#~ msgid "Lavender Fog"
-#~ msgstr "薰衣草薄雾"
-
-#~ msgid "Coral Sunset"
-#~ msgstr "珊瑚落日"
-
-#~ msgid "Sea Glass"
-#~ msgstr "海玻璃"
-
-#~ msgid "Apricot Sorbet"
-#~ msgstr "杏桃雪芭"
-
-#~ msgid "Cotton Candy"
-#~ msgstr "棉花糖"
-
-#~ msgid "Pear Spritz"
-#~ msgstr "梨汽泡"
-
-#~ msgid "Cloud Latte"
-#~ msgstr "云拿铁"
-
-#~ msgid "Dew Frost"
-#~ msgstr "露霜"
-
-#~ msgid "Peach Foam"
-#~ msgstr "桃沫"
-
-#~ msgid "Lilac Ice"
-#~ msgstr "丁香冰晶"
-
-#~ msgid "Sage Mint"
-#~ msgstr "鼠尾草薄荷"
-
-#~ msgid "Buttercup"
-#~ msgstr "毛茛黄"
-
-#~ msgid "Powder Blue"
-#~ msgstr "粉蓝"
-
-#~ msgid "Melon Ice"
-#~ msgstr "甜瓜冰"
-
-#~ msgid "Hazy Rose"
-#~ msgstr "朦胧玫瑰"
-
-#~ msgid "Calm Water"
-#~ msgstr "静水"
-
-#~ msgid "Honey Milk"
-#~ msgstr "蜂蜜牛奶"
-
-#~ msgid "Arctic Mint"
-#~ msgstr "北极薄荷"
-
-#~ msgid "Vanilla Berry"
-#~ msgstr "香草莓果"
-
-#~ msgid "Morning Sun"
-#~ msgstr "晨光"
-
-#~ msgid "Matcha Cream"
-#~ msgstr "抹茶奶油"
-
-#~ msgid "dim"
-#~ msgstr "暗调"
-
-#~ msgid "Midnight Aurora"
-#~ msgstr "午夜极光"
-
-#~ msgid "Neon Plasma"
-#~ msgstr "霓虹等离子"
-
-#~ msgid "Cyber Grape"
-#~ msgstr "赛博葡萄"
-
-#~ msgid "Velvet Ember"
-#~ msgstr "天鹅绒余烬"
-
-#~ msgid "Ink Cyan"
-#~ msgstr "墨青"
-
-#~ msgid "Dusk Rose"
-#~ msgstr "黄昏玫瑰"
-
-#~ msgid "Obsidian Gold"
-#~ msgstr "黑曜金"
-
-#~ msgid "Deep Space"
-#~ msgstr "深空"
-
-#~ msgid "Ocean Night"
-#~ msgstr "海洋之夜"
-
-#~ msgid "Noir Mint"
-#~ msgstr "暗黑薄荷"
-
-#~ msgid "Plum Neon"
-#~ msgstr "李子霓虹"
-
-#~ msgid "Cobalt Flare"
-#~ msgstr "钴蓝闪光"
-
-#~ msgid "Dusk Marine"
-#~ msgstr "黄昏海蓝"
-
-#~ msgid "Ember Glow"
-#~ msgstr "余烬微光"
-
-#~ msgid "Midnight Teal"
-#~ msgstr "午夜青绿"
-
-#~ msgid "Aurora Mist"
-#~ msgstr "极光薄雾"
-
-#~ msgid "Shadow Berry"
-#~ msgstr "影莓"
-
-#~ msgid "Neon Blush"
-#~ msgstr "霓虹腮红"
-
-#~ msgid "Abyss Blue"
-#~ msgstr "深渊蓝"
-
-#~ msgid "Charcoal Mint"
-#~ msgstr "木炭薄荷"
-
-#~ msgid "Galaxy Candy"
-#~ msgstr "银河糖果"
-
-#~ msgid "Violet Storm"
-#~ msgstr "紫罗兰风暴"
-
-#~ msgid "Magma Ice"
-#~ msgstr "岩浆冰"
-
-#~ msgid "Stormy Sea"
-#~ msgstr "风暴之海"
-
-#~ msgid "Lunar Mauve"
-#~ msgstr "月影淡紫"
-
-#~ msgid "Acid Jungle"
-#~ msgstr "酸性丛林"
-
-#~ msgid "Carbon Ember"
-#~ msgstr "碳火余烬"

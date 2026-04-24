@@ -296,8 +296,174 @@ msgstr ""
 msgid "If the card picker is unavailable, use this dropdown (default: dim)."
 msgstr ""
 
-#: src/ThemeOptions/General.php:219
-msgid "This is the default theme used when the site is in dark mode."
+#: src/Constants/ThemeConstant.php:49
+msgid "retro"
+msgstr ""
+
+msgid "Pastel Breeze"
+msgstr ""
+
+msgid "Soft Sand"
+msgstr ""
+
+msgid "Mint Cream"
+msgstr ""
+
+msgid "Blush Mist"
+msgstr ""
+
+msgid "Sky Peach"
+msgstr ""
+
+msgid "Lemon Fizz"
+msgstr ""
+
+msgid "Lavender Fog"
+msgstr ""
+
+msgid "Coral Sunset"
+msgstr ""
+
+msgid "Sea Glass"
+msgstr ""
+
+msgid "Apricot Sorbet"
+msgstr ""
+
+msgid "Cotton Candy"
+msgstr ""
+
+msgid "Pear Spritz"
+msgstr ""
+
+msgid "Cloud Latte"
+msgstr ""
+
+msgid "Dew Frost"
+msgstr ""
+
+msgid "Peach Foam"
+msgstr ""
+
+msgid "Lilac Ice"
+msgstr ""
+
+msgid "Sage Mint"
+msgstr ""
+
+msgid "Buttercup"
+msgstr ""
+
+msgid "Powder Blue"
+msgstr ""
+
+msgid "Melon Ice"
+msgstr ""
+
+msgid "Hazy Rose"
+msgstr ""
+
+msgid "Calm Water"
+msgstr ""
+
+msgid "Honey Milk"
+msgstr ""
+
+msgid "Arctic Mint"
+msgstr ""
+
+msgid "Vanilla Berry"
+msgstr ""
+
+msgid "Morning Sun"
+msgstr ""
+
+msgid "Matcha Cream"
+msgstr ""
+
+#: src/Constants/ThemeConstant.php:88
+msgid "dim"
+msgstr ""
+
+msgid "Midnight Aurora"
+msgstr ""
+
+msgid "Neon Plasma"
+msgstr ""
+
+msgid "Cyber Grape"
+msgstr ""
+
+msgid "Velvet Ember"
+msgstr ""
+
+msgid "Ink Cyan"
+msgstr ""
+
+msgid "Dusk Rose"
+msgstr ""
+
+msgid "Obsidian Gold"
+msgstr ""
+
+msgid "Deep Space"
+msgstr ""
+
+msgid "Ocean Night"
+msgstr ""
+
+msgid "Noir Mint"
+msgstr ""
+
+msgid "Plum Neon"
+msgstr ""
+
+msgid "Cobalt Flare"
+msgstr ""
+
+msgid "Dusk Marine"
+msgstr ""
+
+msgid "Ember Glow"
+msgstr ""
+
+msgid "Midnight Teal"
+msgstr ""
+
+msgid "Aurora Mist"
+msgstr ""
+
+msgid "Shadow Berry"
+msgstr ""
+
+msgid "Neon Blush"
+msgstr ""
+
+msgid "Abyss Blue"
+msgstr ""
+
+msgid "Charcoal Mint"
+msgstr ""
+
+msgid "Galaxy Candy"
+msgstr ""
+
+msgid "Violet Storm"
+msgstr ""
+
+msgid "Magma Ice"
+msgstr ""
+
+msgid "Stormy Sea"
+msgstr ""
+
+msgid "Lunar Mauve"
+msgstr ""
+
+msgid "Acid Jungle"
+msgstr ""
+
+msgid "Carbon Ember"
 msgstr ""
 
 #: src/ThemeOptions/General.php:130

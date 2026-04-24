@@ -287,7 +287,7 @@ msgstr ""
 
 #: src/ThemeOptions/General.php:219
 msgid "This is the default theme used when the site is in dark mode."
-msgstr ""
+msgstr "Este é o tema padrão usado quando o site está no modo escuro."
 
 #: src/ThemeOptions/General.php:130
 msgid "Footer Copyright"

@@ -50,7 +50,7 @@ $title = (string) ($args['title'] ?? get_the_title($postId));
             'title' => $title,
             'show_link' => false,
         ]); ?>
-        <div class="max-w-none text-sm text-base-content/80 [&_p]:py-2 [&_img]:mx-auto [&_img]:cursor-pointer [&_img]:rounded-lg [&_img]:shadow-md" id="content">
+        <div class="entry-content max-w-none text-sm text-base-content/80 [&_p]:py-2 [&_img]:mx-auto [&_img]:cursor-pointer [&_img]:rounded-lg [&_img]:shadow-md">
             <?php the_content(); ?>
         </div>
         <?php

@@ -1038,3 +1038,7 @@ msgid ""
 "Please add widgets to \"Home Main\" area in Appearance > Widgets in the "
 "admin panel."
 msgstr ""
+
+#: header.php:25
+msgid "Skip to content"
+msgstr "কনটেন্টে যান"

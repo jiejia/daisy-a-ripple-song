@@ -47,7 +47,7 @@ $title = (string) ($args['title'] ?? get_the_title($postId));
             'title' => $title,
             'show_link' => true,
         ]); ?>
-        <div class="prose max-w-none text-sm text-base-content/80 [&_p]:py-2 [&_img]:mx-auto [&_img]:cursor-pointer [&_img]:rounded-lg [&_img]:shadow-md" id="content">
+        <div class="entry-content prose max-w-none text-sm text-base-content/80 [&_p]:py-2 [&_img]:mx-auto [&_img]:cursor-pointer [&_img]:rounded-lg [&_img]:shadow-md">
             <?php the_excerpt(); ?>
         </div>
         <?php get_template_part('resources/views/partials/entry-tags', null, ['post_id' => $postId]); ?>

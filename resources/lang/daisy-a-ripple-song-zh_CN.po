@@ -1198,3 +1198,7 @@ msgid ""
 "Please add widgets to \"Home Main\" area in Appearance > Widgets in the "
 "admin panel."
 msgstr "请在后台的“外观 > 小工具”中向“Home Main”区域添加小工具。"
+
+#: header.php:25
+msgid "Skip to content"
+msgstr "跳转到内容"

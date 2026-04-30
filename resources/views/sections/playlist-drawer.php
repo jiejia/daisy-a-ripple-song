@@ -6,7 +6,7 @@
       <!-- Header -->
       <div class="sticky top-0 bg-base-100 p-4 border-b border-base-300 flex items-center justify-between z-10">
         <h3 class="font-bold text-lg"><?php echo esc_html__('Playlist', 'daisy-a-ripple-song'); ?></h3>
-        <label for="playlist-drawer" class="btn btn-sm btn-circle btn-ghost">✕</label>
+        <button type="button" class="btn btn-sm btn-circle btn-ghost" onclick="document.getElementById('playlist-drawer').checked = false" aria-label="<?php echo esc_attr__('Close sidebar', 'daisy-a-ripple-song'); ?>">✕</button>
       </div>
       
       <!-- Playlist Content -->

@@ -68,14 +68,16 @@
             </div>
             <div class="mt-1 md:mt-2 grid grid-cols-[1fr_1fr_1fr] gap-4 items-center w-full">
                 <div class="flex items-center gap-2">
-                    <label for="playlist-drawer" class="cursor-pointer">
+                    <button type="button" class="btn btn-ghost btn-xs btn-circle" x-on:click="document.getElementById('playlist-drawer').checked = true">
                         <i data-lucide="list-music" class="w-4 h-4"></i>
-                    </label>
+                    </button>
                     <div class="relative">
-                        <label
-                            class="cursor-pointer text-xs font-semibold px-2 py-1 rounded transition-colors flex items-center gap-1 hover:opacity-70"
+                        <button
+                            type="button"
+                            class="btn btn-ghost btn-xs min-h-0 h-auto px-2 py-1 text-xs font-semibold"
                             x-text="$store.player.playbackRateText"
-                            x-on:click="$store.player.togglePlaybackRatePanel()">1x</label>
+                            x-on:click="$store.player.togglePlaybackRatePanel()"
+                            aria-label="<?php echo esc_attr__('Change playback speed', 'daisy-a-ripple-song'); ?>">1x</button>
 
                         <div x-show="$store.player.playbackRatePanelOpen"
                             @click.outside="$store.player.playbackRatePanelOpen = false"
@@ -91,34 +93,32 @@
                     </div>
                 </div>
                 <div class="flex justify-center gap-4 items-center">
-                    <i data-lucide="skip-back" class="cursor-pointer w-4 h-4"
-                        x-on:click="$store.player.playPrevious()"></i>
-                    <i x-show="!$store.player.isPlaying" data-lucide="play"
-                        class="cursor-pointer w-4 h-4 bg-success-500 rounded-full"
-                        x-on:click="$store.player.togglePlay()"></i>
-                    <i x-show="$store.player.isPlaying" data-lucide="pause"
-                        class="cursor-pointer w-4 h-4 bg-success-500 rounded-full"
-                        x-on:click="$store.player.togglePlay()"></i>
-                    <i data-lucide="skip-forward" class="cursor-pointer w-4 h-4"
-                        x-on:click="$store.player.playNext()"></i>
+                    <button type="button" class="btn btn-ghost btn-xs btn-circle" x-on:click="$store.player.playPrevious()" aria-label="<?php echo esc_attr__('Previous episode', 'daisy-a-ripple-song'); ?>">
+                        <i data-lucide="skip-back" class="w-4 h-4"></i>
+                    </button>
+                    <button type="button" class="btn btn-ghost btn-xs btn-circle" x-on:click="$store.player.togglePlay()" :aria-label="$store.player.isPlaying ? <?php echo esc_attr(wp_json_encode(__('Pause episode', 'daisy-a-ripple-song'))); ?> : <?php echo esc_attr(wp_json_encode(__('Play episode', 'daisy-a-ripple-song'))); ?>">
+                        <i x-show="!$store.player.isPlaying" data-lucide="play" class="w-4 h-4 bg-success-500 rounded-full"></i>
+                        <i x-show="$store.player.isPlaying" data-lucide="pause" class="w-4 h-4 bg-success-500 rounded-full"></i>
+                    </button>
+                    <button type="button" class="btn btn-ghost btn-xs btn-circle" x-on:click="$store.player.playNext()" aria-label="<?php echo esc_attr__('Next episode', 'daisy-a-ripple-song'); ?>">
+                        <i data-lucide="skip-forward" class="w-4 h-4"></i>
+                    </button>
                 </div>
                 <div class="justify-self-end relative">
-                    <i x-show="!$store.player.isMuted" data-lucide="volume" class="cursor-pointer w-4 h-4"
-                        x-on:click="$store.player.toggleVolumePanel()"></i>
-                    <i x-show="$store.player.isMuted" data-lucide="volume-x" class="cursor-pointer w-4 h-4"
-                        x-on:click="$store.player.toggleVolumePanel()"></i>
+                    <button type="button" class="btn btn-ghost btn-xs btn-circle" x-on:click="$store.player.toggleVolumePanel()" :aria-label="$store.player.isMuted ? <?php echo esc_attr(wp_json_encode(__('Open volume controls, currently muted', 'daisy-a-ripple-song'))); ?> : <?php echo esc_attr(wp_json_encode(__('Open volume controls', 'daisy-a-ripple-song'))); ?>">
+                        <i x-show="!$store.player.isMuted" data-lucide="volume" class="w-4 h-4"></i>
+                        <i x-show="$store.player.isMuted" data-lucide="volume-x" class="w-4 h-4"></i>
+                    </button>
 
                     <div x-show="$store.player.volumePanelOpen" @click.outside="$store.player.volumePanelOpen = false"
                         class="absolute bottom-full right-[-8px] mb-2 bg-base-100 rounded-full shadow-lg p-2 w-10 h-32 z-20">
                         <input type="range" min="0" max="1" step="0.01" :value="$store.player.volume"
                             x-on:input="$store.player.setVolume($event.target.value)"
                             class="w-22 absolute left-[-23px] bottom-[70px] range range-xs range-success transform -rotate-90" />
-                        <label class="swap absolute bottom-3 left-3 cursor-pointer">
-                            <i x-show="!$store.player.isMuted" data-lucide="volume-2" class="w-4 h-4 "
-                                x-on:click="$store.player.toggleMute()"></i>
-                            <i x-show="$store.player.isMuted" data-lucide="volume-x" class="w-4 h-4 "
-                                x-on:click="$store.player.toggleMute()"></i>
-                        </label>
+                        <button type="button" class="btn btn-ghost btn-xs btn-circle absolute bottom-2 left-2" x-on:click="$store.player.toggleMute()" :aria-label="$store.player.isMuted ? <?php echo esc_attr(wp_json_encode(__('Unmute audio', 'daisy-a-ripple-song'))); ?> : <?php echo esc_attr(wp_json_encode(__('Mute audio', 'daisy-a-ripple-song'))); ?>">
+                            <i x-show="!$store.player.isMuted" data-lucide="volume-2" class="w-4 h-4"></i>
+                            <i x-show="$store.player.isMuted" data-lucide="volume-x" class="w-4 h-4"></i>
+                        </button>
                     </div>
                 </div>
             </div>

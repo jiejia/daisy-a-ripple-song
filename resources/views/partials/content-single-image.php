@@ -17,7 +17,7 @@
       </h4>
       <?php get_template_part('resources/views/partials/entry-meta', null, ['post_id' => (int) ($args['post_id'] ?? get_the_ID())]); ?>
     </div>
-    <div class="max-w-none text-sm text-base-content/80 [&_p]:py-2 [&_img]:mx-auto [&_img]:cursor-pointer [&_img]:rounded-lg [&_img]:shadow-md" id="content">
+    <div class="entry-content max-w-none text-sm text-base-content/80 [&_p]:py-2 [&_img]:mx-auto [&_img]:cursor-pointer [&_img]:rounded-lg [&_img]:shadow-md">
       <?php if (has_excerpt((int) ($args['post_id'] ?? get_the_ID()))): ?>
       <div class="prose max-w-none"><?php echo wp_kses_post(wpautop(get_the_excerpt((int) ($args['post_id'] ?? get_the_ID())))); ?></div>
       <?php endif; ?>

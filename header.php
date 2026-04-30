@@ -22,6 +22,9 @@ $theme_mode_labels = [
 
 <body <?php body_class('bg-base-200'); ?>>
     <?php wp_body_open(); ?>
+    <a class="skip-link screen-reader-text" href="#swup-main">
+        <?php esc_html_e('Skip to content', 'daisy-a-ripple-song'); ?>
+    </a>
     <div id="app" class="p-4 gap-4 mb-[<?php echo IS_PODCAST_PLUGIN_ACTIVATED ? '180px' : '0px'; ?>] md:mb-0">
         <header class="fixed top-0 h-[55px] left-0 right-0 z-50 bg-base-100/75 transition-fade z-[100]" id="swup-header">
             <div class="max-w-screen-xl mx-auto h-full">
@@ -41,9 +44,9 @@ $theme_mode_labels = [
                         </h1>
                         <?php get_template_part('resources/views/sections/primary-navigation'); ?>
                         <div class="grid grid-flow-col justify-end gap-2 place-items-center">
-                            <label for="search-modal" class="md:hidden block">
+                            <button type="button" class="btn btn-ghost btn-sm btn-circle md:hidden  inline-flex items-center justify-center" onclick="search_modal.showModal()">
                                 <i data-lucide="search" class="w-5 h-5"></i>
-                            </label>
+                            </button>
                             <!-- 主题循环切换按钮 -->
                             <button type="button" class="btn btn-ghost btn-sm btn-circle" @click="$store.theme.toggle()" :title="$store.theme.mode === 'light' ? <?php echo esc_attr(wp_json_encode($theme_mode_labels['light'])); ?> : ($store.theme.mode === 'dark' ? <?php echo esc_attr(wp_json_encode($theme_mode_labels['dark'])); ?> : <?php echo esc_attr(wp_json_encode($theme_mode_labels['system'])); ?>)" title="<?php echo esc_attr($theme_mode_labels['system']); ?>">
                                 <i data-lucide="sun" class="w-5 h-5" x-show="$store.theme.isLight"></i>
@@ -52,10 +55,9 @@ $theme_mode_labels = [
                                 <span class="sr-only"><?php echo esc_html($theme_mode_labels['toggle']); ?></span>
                             </button>
 
-                            <label for="mobile-menu" class="xl:hidden block">
-                                <i data-lucide="menu" class="w-5 h-5 cursor-pointer"></i>
-                            </label>
-
+                            <button type="button" class="btn btn-ghost btn-sm btn-circle xl:hidden" onclick="document.getElementById('mobile-menu').checked = true">
+                                <i data-lucide="menu" class="w-5 h-5"></i>
+                            </button>
                         </div>
                     </div>
                 </div>

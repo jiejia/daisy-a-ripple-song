@@ -10,9 +10,9 @@
         <div class="min-h-full w-72 max-w-[85vw] bg-base-100">
             <div class="sticky top-0 z-10 flex items-center justify-between border-b border-base-300 bg-base-100 p-4">
                 <h3 class="text-lg font-bold"><?php esc_html_e('Left Sidebar', 'daisy-a-ripple-song'); ?></h3>
-                <label for="leftbar-drawer" class="btn btn-circle btn-ghost btn-sm">
+                <button type="button" class="btn btn-circle btn-ghost btn-sm" onclick="document.getElementById('leftbar-drawer').checked = false" aria-label="<?php echo esc_attr__('Close sidebar', 'daisy-a-ripple-song'); ?>">
                     <i data-lucide="x" class="h-4 w-4"></i>
-                </label>
+                </button>
             </div>
 
             <div class="p-4">

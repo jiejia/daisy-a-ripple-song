@@ -60,7 +60,6 @@
 <?php get_template_part('resources/views/sections/search-modal'); ?>
 <?php get_template_part('resources/views/sections/sidebar-drawer'); ?>
 <?php get_template_part('resources/views/sections/leftbar-drawer'); ?>
-<?php wp_footer(); ?>
 <label
     for="leftbar-drawer"
     class="fixed left-0 top-1/2 z-[99] -translate-y-1/2 cursor-pointer rounded-r-md bg-base-300/80 px-1 py-3 text-base-content/70 shadow-sm transition-all duration-200 hover:bg-base-300 hover:px-2 hover:text-base-content lg:hidden"
@@ -93,5 +92,6 @@
 >
     <i data-lucide="arrow-up" class="h-5 w-5"></i>
 </button>
+<?php wp_footer(); ?>
 </body>
 </html>

@@ -1047,3 +1047,11 @@ msgstr ""
 #: header.php:25
 msgid "Skip to content"
 msgstr "Перейти к содержимому"
+
+#: header.php:47
+msgid "Open search"
+msgstr "Открыть поиск"
+
+#: header.php:47
+msgid "Open menu"
+msgstr "Открыть меню"

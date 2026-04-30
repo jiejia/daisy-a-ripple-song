@@ -1046,3 +1046,11 @@ msgstr ""
 #: header.php:25
 msgid "Skip to content"
 msgstr "Pular para o conteúdo"
+
+#: header.php:47
+msgid "Open search"
+msgstr "Abrir pesquisa"
+
+#: header.php:47
+msgid "Open menu"
+msgstr "Abrir menu"

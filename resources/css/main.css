@@ -65,6 +65,17 @@ footer a,
     word-break: break-word;
 }
 
+/* Ensure keyboard users can always see the active interactive control. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
 /* Alpine.js x-cloak: 在 Alpine 初始化前隐藏元素，防止闪烁 */
 [x-cloak] {
     display: none !important;

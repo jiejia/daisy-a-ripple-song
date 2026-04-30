@@ -44,7 +44,7 @@ $theme_mode_labels = [
                         </h1>
                         <?php get_template_part('resources/views/sections/primary-navigation'); ?>
                         <div class="grid grid-flow-col justify-end gap-2 place-items-center">
-                            <button type="button" class="btn btn-ghost btn-sm btn-circle md:hidden  inline-flex items-center justify-center" onclick="search_modal.showModal()">
+                            <button type="button" class="btn btn-ghost btn-sm btn-circle md:hidden  inline-flex items-center justify-center" onclick="search_modal.showModal()" aria-label="<?php echo esc_attr__('Open search', 'daisy-a-ripple-song'); ?>">
                                 <i data-lucide="search" class="w-5 h-5"></i>
                             </button>
                             <!-- 主题循环切换按钮 -->
@@ -55,7 +55,7 @@ $theme_mode_labels = [
                                 <span class="sr-only"><?php echo esc_html($theme_mode_labels['toggle']); ?></span>
                             </button>
 
-                            <button type="button" class="btn btn-ghost btn-sm btn-circle xl:hidden" onclick="document.getElementById('mobile-menu').checked = true">
+                            <button type="button" class="btn btn-ghost btn-sm btn-circle xl:hidden" onclick="document.getElementById('mobile-menu').checked = true" aria-label="<?php echo esc_attr__('Open menu', 'daisy-a-ripple-song'); ?>">
                                 <i data-lucide="menu" class="w-5 h-5"></i>
                             </button>
                         </div>

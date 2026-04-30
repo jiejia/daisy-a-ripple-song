@@ -1041,3 +1041,11 @@ msgstr ""
 #: header.php:25
 msgid "Skip to content"
 msgstr "सामग्री पर जाएँ"
+
+#: header.php:47
+msgid "Open search"
+msgstr "खोज खोलें"
+
+#: header.php:47
+msgid "Open menu"
+msgstr "मेनू खोलें"

@@ -1202,3 +1202,11 @@ msgstr "请在后台的“外观 > 小工具”中向“Home Main”区域添加
 #: header.php:25
 msgid "Skip to content"
 msgstr "跳至內容"
+
+#: header.php:47
+msgid "Open search"
+msgstr "開啟搜尋"
+
+#: header.php:47
+msgid "Open menu"
+msgstr "開啟選單"

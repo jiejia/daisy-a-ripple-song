@@ -1041,3 +1041,11 @@ msgstr ""
 #: header.php:25
 msgid "Skip to content"
 msgstr "Skip to content"
+
+#: header.php:47
+msgid "Open search"
+msgstr "Open search"
+
+#: header.php:47
+msgid "Open menu"
+msgstr "Open menu"

@@ -31,9 +31,14 @@ $theme_mode_labels = [
                 <div class="xl:px-0 px-4 py-3">
                     <div class="grid xl:grid-cols-[220px_minmax(0,1fr)_300px] grid-cols-[220px_minmax(0,1fr)] gap-4">
                         <h1 class="min-w-0 text-2xl font-bold text-center">
-                            <?php if (\ARippleSong\Themes\Daisy\ThemeOptions\General::getSiteLogoUrl() !== ''): ?>
+                            <?php if (has_custom_logo()): ?>
                                 <a href="<?php echo esc_url(home_url('/')); ?>" class="flex min-w-0 items-center gap-2" title="<?php bloginfo('description'); ?>">
-                                    <img src="<?php echo esc_url(\ARippleSong\Themes\Daisy\ThemeOptions\General::getSiteLogoUrl()); ?>" alt="<?php bloginfo('name'); ?>" class="h-8 w-auto max-w-[220px] object-contain">
+                                    <?php
+                                    echo wp_kses_post(wp_get_attachment_image((int) get_theme_mod('custom_logo'), 'full', false, [
+                                        'class' => 'custom-logo h-8 w-auto max-w-[220px] object-contain',
+                                        'alt' => get_bloginfo('name'),
+                                    ]));
+                                    ?>
                                 </a>
                             <?php else: ?>
                                 <a href="<?php echo esc_url(home_url('/')); ?>" class="flex min-w-0 items-center gap-2" title="<?php bloginfo('description'); ?>">

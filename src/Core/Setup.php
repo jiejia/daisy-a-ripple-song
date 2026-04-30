@@ -34,6 +34,12 @@ add_action('after_setup_theme', function (): void {
     add_theme_support('title-tag');
     add_theme_support('automatic-feed-links');
     add_theme_support('post-thumbnails');
+    add_theme_support('custom-logo', [
+        'height' => 32,
+        'width' => 220,
+        'flex-height' => true,
+        'flex-width' => true,
+    ]);
     add_theme_support('wp-block-styles');
     add_theme_support('responsive-embeds');
     add_theme_support('align-wide');

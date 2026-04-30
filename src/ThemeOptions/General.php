@@ -43,12 +43,6 @@ class General
     /** @var string $socialOptionName Serialized option name for social links. */
     public const SOCIAL_OPTION_NAME = BaseConstant::PREFIX . '_social_links';
 
-    /** @var int $logoCropWidth Preferred site logo width. */
-    protected const LOGO_CROP_WIDTH = 220;
-
-    /** @var int $logoCropHeight Preferred site logo height. */
-    protected const LOGO_CROP_HEIGHT = 32;
-
     /**
      * Register all option-related hooks.
      *
@@ -198,9 +192,6 @@ class General
     {
         return [
             [
-                'type' => 'logo',
-            ],
-            [
                 'type' => 'theme_picker',
                 'key' => 'light_theme',
                 'label' => __('Light Theme', 'daisy-a-ripple-song'),
@@ -246,7 +237,7 @@ class General
     }
 
     /**
-     * Enqueue the native media library on the general settings page.
+     * Enqueue theme options assets on theme settings pages.
      *
      * @return void
      */
@@ -254,10 +245,6 @@ class General
     {
         if (!static::isThemeOptionsPage()) {
             return;
-        }
-
-        if (static::isGeneralSettingsPage()) {
-            wp_enqueue_media();
         }
 
         static::enqueueThemeOptionsAssets();
@@ -311,7 +298,6 @@ class General
     public static function getDefaultGeneralOptions(): array
     {
         return [
-            'site_logo' => '',
             'light_theme' => 'retro',
             'dark_theme' => 'dim',
             'footer_copyright' => '',
@@ -403,16 +389,6 @@ class General
         $options = static::getSocialLinksOptions();
 
         return trim($options[$platformKey] ?? '');
-    }
-
-    /**
-     * Return the configured site logo URL.
-     *
-     * @return string
-     */
-    public static function getSiteLogoUrl(): string
-    {
-        return esc_url(static::getThemeOption('site_logo'));
     }
 
     /**
@@ -652,21 +628,11 @@ class General
     /**
      * Return localized runtime data used by the theme options admin bundle.
      *
-     * @return array<string, array<string, int|string>>
+     * @return array<string, mixed>
      */
     protected static function getThemeOptionsAssetData(): array
     {
-        return [
-            'logo' => [
-                'width' => static::LOGO_CROP_WIDTH,
-                'height' => static::LOGO_CROP_HEIGHT,
-            ],
-            'i18n' => [
-                'siteLogo' => __('Site Logo', 'daisy-a-ripple-song'),
-                'selectAndCrop' => __('Select and Crop', 'daisy-a-ripple-song'),
-                'selectSiteLogo' => __('Select Site Logo', 'daisy-a-ripple-song'),
-            ],
-        ];
+        return [];
     }
 
     /**
@@ -740,25 +706,6 @@ class General
     }
 
     /**
-     * Render the native logo field row.
-     *
-     * @param string $rowClass Optional extra CSS classes for the table row.
-     * @return string
-     */
-    protected static function renderLogoRow(string $rowClass = ''): string
-    {
-        /** @var string $currentLogo Saved logo URL. */
-        $currentLogo = static::getThemeOption('site_logo');
-
-        return static::renderAdminView('fields/logo-row', [
-            'rowClass' => $rowClass,
-            'currentLogo' => $currentLogo,
-            'previewHtml' => static::renderLogoPreview($currentLogo),
-            'optionName' => static::GENERAL_OPTION_NAME,
-        ]);
-    }
-
-    /**
      * Render a list of settings fields from definitions.
      *
      * @param array<int, array<string, mixed>> $fields Field definitions.
@@ -786,10 +733,6 @@ class General
     {
         /** @var string $type Field renderer type. */
         $type = is_string($field['type'] ?? null) ? $field['type'] : '';
-
-        if ($type === 'logo') {
-            return static::renderLogoRow((string) ($field['rowClass'] ?? ''));
-        }
 
         /** @var string $optionKey Field key inside the serialized option. */
         $optionKey = is_string($field['key'] ?? null) ? $field['key'] : '';
@@ -1016,7 +959,6 @@ class General
     protected static function getGeneralSanitizers(): array
     {
         return [
-            'site_logo' => 'sanitizeUrlOption',
             'light_theme' => 'sanitizeLightTheme',
             'dark_theme' => 'sanitizeDarkTheme',
             'footer_copyright' => 'sanitizeHtmlOption',
@@ -1051,23 +993,6 @@ class General
         }
 
         return $sanitizedOptions;
-    }
-
-    /**
-     * Render a logo preview image.
-     *
-     * @param string $logoUrl Logo URL.
-     * @return string
-     */
-    protected static function renderLogoPreview(string $logoUrl): string
-    {
-        if ($logoUrl === '') {
-            return '';
-        }
-
-        return static::renderAdminView('fields/logo-preview', [
-            'logoUrl' => $logoUrl,
-        ]);
     }
 
     /**

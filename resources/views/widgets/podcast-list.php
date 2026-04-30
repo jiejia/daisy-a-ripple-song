@@ -9,8 +9,8 @@
  */
 ?>
 <div class="" x-data="{ activeTab: 'recent' }">
-    <div class="grid grid-cols-[1fr_auto] items-center gap-2">
-        <h2 class="text-lg font-bold"><?php echo esc_html($title); ?></h2>
+    <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
+        <h2 class="min-w-0 text-lg font-bold"><?php echo esc_html($title); ?></h2>
         <?php if ($showSeeAll): ?>
             <span class="text-xs text-base-content/70">
                 <a href="<?php echo esc_url($archiveUrl); ?>"><?php esc_html_e('See all', 'daisy-a-ripple-song'); ?></a>

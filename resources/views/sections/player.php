@@ -7,7 +7,7 @@
     <div class="card-body md:p-4 py-2 px-4">
         <h2 class="md:text-lg text-md font-bold"><?php echo esc_html__('NOW PLAYING', 'daisy-a-ripple-song'); ?></h2>
         <div
-            class="grid grid-cols-[60px_1fr] gap-4 items-center md:bg-base-300/50 bg-base-100/75 md:p-4 py-2 px-4 rounded-lg">
+            class="grid grid-cols-[60px_minmax(0,1fr)] gap-4 items-center md:bg-base-300/50 bg-base-100/75 md:p-4 py-2 px-4 rounded-lg">
             <div class="md:w-15 md:h-15 w-10 h-10">
                 <template x-if="$store.player.currentEpisode?.featuredImage">
                     <div class="relative md:w-15 md:h-15 w-10 h-10">
@@ -26,8 +26,8 @@
                     </div>
                 </template>
             </div>
-            <div>
-                <h4 class="text-md font-bold line-clamp-2"
+            <div class="min-w-0">
+                <h4 class="min-w-0 text-md font-bold line-clamp-2"
                     x-text="$store.player.currentEpisode?.title || <?php echo esc_attr(wp_json_encode(__('No Episode Playing', 'daisy-a-ripple-song'))); ?>">
                     <?php esc_html_e('No Episode Playing', 'daisy-a-ripple-song'); ?>
                 </h4>

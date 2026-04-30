@@ -13,7 +13,7 @@
  */
 ?>
 <div class="rounded-lg bg-base-200/50 hover:bg-base-200">
-    <div class="grid grid-cols-[95px_1fr_30px] items-center p-4">
+    <div class="grid grid-cols-[95px_minmax(0,1fr)_30px] items-center p-4">
         <div>
             <a href="<?php echo esc_url(get_permalink((int) ($args['post_id'] ?? 0))); ?>" class="relative block h-20 w-20 overflow-hidden rounded-lg">
                 <?php if (has_post_thumbnail((int) ($args['post_id'] ?? 0))): ?>
@@ -40,8 +40,8 @@
                 <?php endif; ?>
             </a>
         </div>
-        <div class="grid grid-flow-row gap-1 overflow-hidden">
-            <h4 class="line-clamp-2 text-md font-bold">
+        <div class="grid min-w-0 grid-flow-row gap-1 overflow-hidden">
+            <h4 class="line-clamp-2 min-w-0 text-md font-bold">
                 <?php if (($args['show_link'] ?? true)): ?>
                     <a href="<?php echo esc_url(get_permalink((int) ($args['post_id'] ?? 0))); ?>">
                         <?php echo esc_html(html_entity_decode((string) ($args['title'] ?? ''))); ?>

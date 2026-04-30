@@ -24,9 +24,45 @@ html {
     display: none;
 }
 
-/* 全局移除所有链接的下划线 */
-a {
+/* Keep interface links visually consistent without affecting user-authored content links. */
+nav a,
+.menu a,
+.btn,
+#swup-header a,
+footer a,
+.entry-tags a,
+.wp-block-button__link {
     text-decoration: none;
+}
+
+/* WordPress.org requires links inside user-authored text to be underlined. */
+.entry-content a,
+.comment-content a,
+.textwidget a,
+.wp-block-post-content a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+/* Prevent long unbroken titles from forcing horizontal page scrolling. */
+#swup-main h1,
+#swup-main h2,
+#swup-main h3,
+#swup-main h4,
+#swup-main h5,
+#swup-main h6,
+.widget h1,
+.widget h2,
+.widget h3,
+.widget h4,
+.widget h5,
+.widget h6,
+#swup-header h1,
+#swup-header h1 a,
+#swup-header h1 span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 /* Alpine.js x-cloak: 在 Alpine 初始化前隐藏元素，防止闪烁 */

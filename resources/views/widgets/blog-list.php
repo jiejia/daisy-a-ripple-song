@@ -11,8 +11,8 @@
 ?>
 <?php $gridClass = $columns === 1 ? 'grid-cols-1' : ($columns === 2 ? 'grid-cols-1 md:grid-cols-1' : 'grid-cols-1 md:grid-cols-1 xl:grid-cols-1'); ?>
 <div class="">
-    <div class="grid grid-cols-[1fr_auto] items-center gap-2">
-        <h2 class="text-lg font-bold"><?php echo esc_html($title); ?></h2>
+    <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
+        <h2 class="min-w-0 text-lg font-bold"><?php echo esc_html($title); ?></h2>
         <?php if ($showSeeAll): ?>
             <span class="text-xs text-base-content/70">
                 <a href="<?php echo esc_url($archiveUrl); ?>"><?php esc_html_e('See all', 'daisy-a-ripple-song'); ?></a>
@@ -24,7 +24,7 @@
         <?php if (!empty($posts)): ?>
             <?php foreach ($posts as $post): ?>
                 <li class="rounded-lg bg-base-200/50 p-4 transition-colors hover:bg-base-200">
-                    <h3 class="text-md font-bold">
+                    <h3 class="min-w-0 text-md font-bold">
                         <a href="<?php echo esc_url($post['permalink']); ?>"><?php echo esc_html($post['title']); ?></a>
                     </h3>
 

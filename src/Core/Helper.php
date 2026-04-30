@@ -529,7 +529,7 @@ class Helper
                             <?php endif; ?>
                         </div>
 
-                        <div class="mb-3 text-sm leading-relaxed text-base-content/80">
+                        <div class="comment-content mb-3 text-sm leading-relaxed text-base-content/80">
                             <?php comment_text(); ?>
                         </div>
 

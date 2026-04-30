@@ -29,16 +29,16 @@ $theme_mode_labels = [
         <header class="fixed top-0 h-[55px] left-0 right-0 z-50 bg-base-100/75 transition-fade z-[100]" id="swup-header">
             <div class="max-w-screen-xl mx-auto h-full">
                 <div class="xl:px-0 px-4 py-3">
-                    <div class="grid xl:grid-cols-[220px_1fr_300px] grid-cols-[220px_1fr] gap-4">
-                        <h1 class="text-2xl font-bold text-center">
+                    <div class="grid xl:grid-cols-[220px_minmax(0,1fr)_300px] grid-cols-[220px_minmax(0,1fr)] gap-4">
+                        <h1 class="min-w-0 text-2xl font-bold text-center">
                             <?php if (\ARippleSong\Themes\Daisy\ThemeOptions\General::getSiteLogoUrl() !== ''): ?>
-                                <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-2" title="<?php bloginfo('description'); ?>">
+                                <a href="<?php echo esc_url(home_url('/')); ?>" class="flex min-w-0 items-center gap-2" title="<?php bloginfo('description'); ?>">
                                     <img src="<?php echo esc_url(\ARippleSong\Themes\Daisy\ThemeOptions\General::getSiteLogoUrl()); ?>" alt="<?php bloginfo('name'); ?>" class="h-8 w-auto max-w-[220px] object-contain">
                                 </a>
                             <?php else: ?>
-                                <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-2" title="<?php bloginfo('description'); ?>">
+                                <a href="<?php echo esc_url(home_url('/')); ?>" class="flex min-w-0 items-center gap-2" title="<?php bloginfo('description'); ?>">
                                     <i data-lucide="podcast" class="w-6 h-6"></i>
-                                    <span class="text-2xl bg-gradient-to-r from-base-content/40 via-base-content/70 to-base-content bg-clip-text text-transparent transition-all duration-500 ease-in-out hover:from-base-content hover:via-base-content/70 hover:to-base-content/40"><?php bloginfo('name'); ?></span>
+                                    <span class="min-w-0 text-2xl bg-gradient-to-r from-base-content/40 via-base-content/70 to-base-content bg-clip-text text-transparent transition-all duration-500 ease-in-out hover:from-base-content hover:via-base-content/70 hover:to-base-content/40"><?php bloginfo('name'); ?></span>
                                 </a>
                             <?php endif; ?>
                         </h1>

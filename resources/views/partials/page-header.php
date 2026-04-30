@@ -82,8 +82,8 @@ if ($pageTitle === '') {
 $total = isset($args['total']) ? (int) $args['total'] : (int) ($GLOBALS['wp_query']->found_posts ?? 0);
 ?>
 <div class="mb-4 rounded-lg bg-base-100 p-4">
-    <div class="grid grid-cols-[1fr_auto] items-center">
-        <h2 class="text-lg font-bold">
+    <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
+        <h2 class="min-w-0 text-lg font-bold">
             <?php echo wp_kses_post((string) $pageTitle); ?>
         </h2>
         <div class="rounded-md bg-base-200 px-2 py-1 text-sm text-base-content/70">

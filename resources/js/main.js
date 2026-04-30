@@ -172,8 +172,7 @@ async function sendAjaxMetric(action, postId, extraData = {}) {
         }
 
         return await response.json();
-    } catch (error) {
-        console.error(`[aripplesong] Failed to send metric "${action}"`, error);
+    } catch {
         return null;
     }
 }
@@ -221,8 +220,7 @@ async function fetchMetrics(postIds = []) {
 
         const json = await fetchResponse.json();
         return json?.data?.counts || null;
-    } catch (error) {
-        console.error('[aripplesong] Failed to fetch metrics', error);
+    } catch {
         return null;
     }
 }
@@ -337,8 +335,7 @@ function createSafeStorage(type = 'localStorage') {
         storage.removeItem(testKey);
 
         return storage;
-    } catch (error) {
-        console.warn(`[aripplesong] ${type} is unavailable, falling back to memory storage.`, error);
+    } catch {
         return createMemoryStorage();
     }
 }
@@ -866,8 +863,10 @@ Alpine.store('player', {
             this.currentIndex = 0;
             this.currentEpisode = episodes[0];
             this.savePlaylist();
-        } catch (error) {
-            console.warn('[aripplesong] Failed to fetch latest episodes.', error);
+        } catch {
+            this.playlist = [];
+            this.currentIndex = 0;
+            this.currentEpisode = null;
         }
     },
 
@@ -946,13 +945,11 @@ Alpine.store('player', {
             onend: () => {
                 this.playNext();
             },
-            onloaderror: (_, error) => {
+            onloaderror: () => {
                 this.isLoading = false;
-                console.warn('[aripplesong] Failed to load audio.', error);
             },
-            onplayerror: (_, error) => {
+            onplayerror: () => {
                 this.isPlaying = false;
-                console.warn('[aripplesong] Failed to start playback.', error);
             },
         });
     },
@@ -1006,8 +1003,9 @@ Alpine.store('player', {
             progressHeatmapCache.set(cacheKey, gradient);
             this.progressHeatmapGradient = gradient;
             this.progressHeatmapReady = true;
-        } catch (error) {
-            console.warn('[aripplesong] Failed to generate progress heatmap.', error);
+        } catch {
+            this.progressHeatmapGradient = '';
+            this.progressHeatmapReady = false;
         }
     },
 
@@ -1080,17 +1078,16 @@ Alpine.store('player', {
                     maxDecibels: -30,
                 });
                 this.analyzerAudioContext = sourceContext;
-            } catch (error) {
+            } catch {
                 this.audioMotion = null;
                 this.analyzerAudioContext = null;
                 this.analyzerSourceNode = null;
-                console.warn('[aripplesong] Failed to create waveform analyzer.', error);
                 return;
             }
         } else {
             try {
                 this.audioMotion.disconnectInput();
-            } catch (error) {
+            } catch {
                 // Ignore disconnect failures and try reconnecting anyway.
             }
         }
@@ -1098,12 +1095,11 @@ Alpine.store('player', {
         try {
             this.audioMotion.connectInput(sourceNode);
             this.analyzerSourceNode = sourceNode;
-        } catch (error) {
+        } catch {
             this.destroyAnalyzer();
             container.querySelectorAll('canvas').forEach((canvas) => {
                 canvas.remove();
             });
-            console.warn('[aripplesong] Failed to bind waveform analyzer.', error);
         }
     },
 
@@ -1557,8 +1553,7 @@ Alpine.store('player', {
                 ? parsedPlaylist.filter((episode) => episode?.id && episode?.audioUrl)
                 : [];
             this.currentIndex = Math.max(0, Number.parseInt(rawIndex || '0', 10) || 0);
-        } catch (error) {
-            console.warn('[aripplesong] Failed to restore playlist from storage.', error);
+        } catch {
             this.playlist = [];
             this.currentIndex = 0;
         }

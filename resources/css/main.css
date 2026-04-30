@@ -81,6 +81,13 @@ body.admin-bar .sticky.top-\[70px\] {
     @apply bg-base-300/25;
 }
 
+/* Keep hover menus working while making nested navigation visible for keyboard focus. */
+.ars-primary-navigation .dropdown:focus-within > .dropdown-content,
+.ars-primary-navigation li:focus-within > ul {
+    display: block;
+    visibility: visible;
+}
+
 .is-style-ars-panel,
 .wp-block-group.is-style-ars-panel {
     @apply rounded-lg bg-base-100 p-6 shadow-sm;

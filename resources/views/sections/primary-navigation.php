@@ -3,7 +3,7 @@
 $menu_items  = \ARippleSong\Themes\Daisy\Core\Helper::getMenuItems();
 $current_url = home_url($_SERVER['REQUEST_URI']);
 ?>
-<ul class="xl:grid hidden grid-flow-col gap-2 text-md justify-center" id="menu-1">
+<ul class="ars-primary-navigation xl:grid hidden grid-flow-col gap-2 text-md justify-center" id="menu-1">
     <?php foreach ($menu_items as $menu_data) : ?>
         <?php
         /** @var object $item     The top-level menu item */
@@ -26,7 +26,7 @@ $current_url = home_url($_SERVER['REQUEST_URI']);
                     <a class="grid place-items-center h-full w-full text-center px-4 rounded-lg <?php echo esc_attr($active_class); ?>" href="<?php echo esc_url($item->url); ?>" data-pjax>
                         <?php echo esc_html($item->title); ?>
                     </a>
-                    <ul tabindex="-1" class="dropdown-content menu bg-base-200/75 rounded-box z-[100] w-52 p-2 shadow-sm">
+	                    <ul class="dropdown-content menu bg-base-200/75 rounded-box z-[100] w-52 p-2 shadow-sm">
                         <?php foreach ($children as $child_data) : ?>
                             <?php
                             /** @var object $child        The child menu item */

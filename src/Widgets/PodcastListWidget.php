@@ -2,7 +2,6 @@
 
 namespace Jiejia\DaisyARippleSong\Widgets;
 
-use Jiejia\DaisyARippleSong\Constants\PodcastPluginConstant;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
@@ -64,7 +63,7 @@ class PodcastListWidget extends AbstractWidget
         $showSeeAll = isset($instance['show_see_all']) ? (bool) $instance['show_see_all'] : true;
 
         /** @var string $episodePostType The podcast episode post type slug. */
-        $episodePostType = PodcastPluginConstant::PODCAST_POST_TYPE;
+        $episodePostType = \Jiejia\ARippleSong\CPTs\Episode::slug();
 
         /** @var array<string, array<int, array<string, mixed>>> $tabs Prepared episode lists for each tab. */
         $tabs = [

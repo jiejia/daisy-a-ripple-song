@@ -2,7 +2,7 @@
 namespace Jiejia\DaisyARippleSong;
 
 use Jiejia\DaisyARippleSong\Contracts\ServiceProvider;
-use Jiejia\DaisyARippleSong\Providers\AjaxServiceProvider;
+use Jiejia\DaisyARippleSong\Providers\RestApiServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\AssetServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\BlockServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\CommentServiceProvider;
@@ -48,7 +48,7 @@ class Theme
         WidgetServiceProvider::class,
         SettingServiceProvider::class,
         CommentServiceProvider::class,
-        AjaxServiceProvider::class,
+        RestApiServiceProvider::class,
         PodcastIntegrationServiceProvider::class,
     ];
 

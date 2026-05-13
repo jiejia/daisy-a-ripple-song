@@ -2,7 +2,6 @@
 
 namespace Jiejia\DaisyARippleSong\Widgets;
 
-use Jiejia\DaisyARippleSong\Constants\PodcastPluginConstant;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
@@ -105,7 +104,7 @@ class AuthorsWidget extends AbstractWidget
                 $postCountsByUser    = count_many_users_posts($userIds, 'post', true);
 
                 if (IS_PODCAST_PLUGIN_ACTIVATED) {
-                    $episodeCountsByUser = count_many_users_posts($userIds, PodcastPluginConstant::PODCAST_POST_TYPE, true);
+                    $episodeCountsByUser = count_many_users_posts($userIds, \Jiejia\ARippleSong\CPTs\Episode::slug(), true);
                 }
             }
         }

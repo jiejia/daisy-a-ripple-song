@@ -260,7 +260,7 @@ class AssetServiceProvider extends AbstractServiceProvider
     }
 
     /**
-     * Build the frontend runtime payload used by AJAX-driven theme features.
+     * Build the frontend runtime payload used by REST API-driven theme features.
      *
      * @return array<string, array<string, int|string>>
      */
@@ -274,11 +274,11 @@ class AssetServiceProvider extends AbstractServiceProvider
 
         return [
             'ajax' => [
-                'url' => admin_url('admin-ajax.php'),
-                'nonce' => wp_create_nonce('aripplesong-ajax'),
-                'postId' => $postId,
-                'postType' => $postType,
-                'podcastPostType' => \Jiejia\ARippleSong\CPTs\Episode::slug(),
+                'restUrl'         => rest_url('aripplesong/v1/'),
+                'nonce'           => wp_create_nonce('wp_rest'),
+                'postId'          => $postId,
+                'postType'        => $postType,
+                'podcastPostType' => (defined('IS_PODCAST_PLUGIN_ACTIVATED') && IS_PODCAST_PLUGIN_ACTIVATED) ? \Jiejia\ARippleSong\CPTs\Episode::slug() : '',
             ],
             'theme' => General::getThemeModeConfig(),
         ];

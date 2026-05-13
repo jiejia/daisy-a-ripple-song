@@ -41,10 +41,10 @@ const simpleBrandIcons = {
     spotify: siSpotify,
 };
 
-/** @type {{view: string, play: string}} AJAX action names for metric updates. */
-const metricActions = {
-    view: 'aripplesong_increment_view',
-    play: 'aripplesong_increment_play',
+/** @type {{view: string, play: string}} REST API endpoint paths for metric updates. */
+const metricEndpoints = {
+    view: 'metrics/views',
+    play: 'metrics/plays',
 };
 
 /** @type {string|null} Deduplicate singular view tracking across Swup page loads. */
@@ -134,37 +134,27 @@ function syncCurrentPageAjaxContext() {
 }
 
 /**
- * Send a metric AJAX request to WordPress.
+ * Send a metric request to the REST API.
  *
- * @param {string} action The WordPress AJAX action name.
+ * @param {string} endpoint The REST API endpoint path relative to the theme namespace.
  * @param {number} postId The target post ID.
- * @param {Record<string, string|number>} extraData Additional form fields to include.
  * @return {Promise<object|null>}
  */
-async function sendAjaxMetric(action, postId, extraData = {}) {
+async function sendRestMetric(endpoint, postId) {
     const ajax = window.aripplesongData?.ajax;
 
-    if (!ajax?.url || !ajax?.nonce || !postId) {
+    if (!ajax?.restUrl || !ajax?.nonce || !postId) {
         return null;
     }
 
-    const params = new URLSearchParams({
-        action,
-        post_id: String(postId),
-        _ajax_nonce: ajax.nonce,
-    });
-
-    Object.entries(extraData).forEach(([key, value]) => {
-        params.append(key, String(value));
-    });
-
     try {
-        const response = await fetch(ajax.url, {
+        const response = await fetch(`${ajax.restUrl}${endpoint}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': ajax.nonce,
             },
-            body: params,
+            body: JSON.stringify({ post_id: postId }),
         });
 
         if (!response.ok) {
@@ -192,26 +182,19 @@ async function fetchMetrics(postIds = []) {
 
     const ajax = window.aripplesongData?.ajax;
 
-    if (!ajax?.url || !ajax?.nonce) {
+    if (!ajax?.restUrl || !ajax?.nonce) {
         return null;
     }
 
-    const params = new URLSearchParams({
-        action: 'aripplesong_get_metrics',
-        _ajax_nonce: ajax.nonce,
-    });
-
-    ids.forEach((id) => {
-        params.append('post_ids[]', String(id));
-    });
+    const params = new URLSearchParams();
+    ids.forEach((id) => params.append('post_ids[]', String(id)));
 
     try {
-        const fetchResponse = await fetch(ajax.url, {
-            method: 'POST',
+        const fetchResponse = await fetch(`${ajax.restUrl}metrics?${params.toString()}`, {
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-WP-Nonce': ajax.nonce,
             },
-            body: params,
         });
 
         if (!fetchResponse.ok) {
@@ -219,7 +202,7 @@ async function fetchMetrics(postIds = []) {
         }
 
         const json = await fetchResponse.json();
-        return json?.data?.counts || null;
+        return json?.counts || null;
     } catch {
         return null;
     }
@@ -277,8 +260,8 @@ function maybeSendViewMetric() {
 
     lastViewMetricKey = metricKey;
 
-    sendAjaxMetric(metricActions.view, postId).then((response) => {
-        const count = response?.data?.count;
+    sendRestMetric(metricEndpoints.view, postId).then((response) => {
+        const count = response?.count;
 
         if (Number.isFinite(count)) {
             updateMetricCountDom('.js-views-count', postId, Number(count));
@@ -1218,8 +1201,8 @@ Alpine.store('player', {
 
         if (this.soundId === null) {
             if (this.currentEpisode?.id) {
-                sendAjaxMetric(metricActions.play, Number(this.currentEpisode.id)).then((response) => {
-                    const count = response?.data?.count;
+                sendRestMetric(metricEndpoints.play, Number(this.currentEpisode.id)).then((response) => {
+                    const count = response?.count;
 
                     if (Number.isFinite(count)) {
                         updateMetricCountDom('.js-play-count', Number(this.currentEpisode.id), Number(count));

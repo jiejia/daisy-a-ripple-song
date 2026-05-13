@@ -3,7 +3,6 @@
 namespace Jiejia\DaisyARippleSong\Providers;
 
 use Jiejia\DaisyARippleSong\Abstracts\AbstractServiceProvider;
-use Jiejia\DaisyARippleSong\Constants\PodcastPluginConstant;
 use Jiejia\DaisyARippleSong\Supports\Helper;
 
 /**

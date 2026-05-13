@@ -2,8 +2,6 @@
 
 namespace Jiejia\DaisyARippleSong\Supports;
 
-use Jiejia\DaisyARippleSong\Constants\PodcastPluginConstant;
-
 /**
  * Provide shared helper methods for theme templates and widgets.
  */
@@ -203,7 +201,7 @@ class Helper
 
         // If it's a podcast, also get members and guests
         $post_type = get_post_type($post_id);
-        if ($post_type === \Jiejia\ARippleSong\CPTs\Episode::slug()) {
+        if (defined('IS_PODCAST_PLUGIN_ACTIVATED') && IS_PODCAST_PLUGIN_ACTIVATED && $post_type === \Jiejia\ARippleSong\CPTs\Episode::slug()) {
             $members = get_post_meta($post_id, 'members', true);
             $guests = get_post_meta($post_id, 'guests', true);
 
@@ -387,9 +385,12 @@ class Helper
         $post_ids = [];
 
         // Get posts authored by the user (both 'post' and 'podcast' types)
+        $postTypes = (defined('IS_PODCAST_PLUGIN_ACTIVATED') && IS_PODCAST_PLUGIN_ACTIVATED)
+            ? ['post', \Jiejia\ARippleSong\CPTs\Episode::slug()]
+            : ['post'];
         $authored_posts = get_posts([
             'author' => $user_id,
-            'post_type' => ['post', \Jiejia\ARippleSong\CPTs\Episode::slug()],
+            'post_type' => $postTypes,
             'posts_per_page' => -1,
             'post_status' => 'publish',
             'fields' => 'ids',  
@@ -451,7 +452,7 @@ class Helper
                 $query->set('post__in', $post_ids);
                 $query->set('author', 0); // Set to 0 instead of empty string
                 $query->set('author_name', ''); // Clear author_name too
-                $query->set('post_type', ['post', \Jiejia\ARippleSong\CPTs\Episode::slug()]); // Include both post types
+                $query->set('post_type', (defined('IS_PODCAST_PLUGIN_ACTIVATED') && IS_PODCAST_PLUGIN_ACTIVATED) ? ['post', \Jiejia\ARippleSong\CPTs\Episode::slug()] : ['post']); // Include both post types
                 $query->set('orderby', 'date');
                 $query->set('order', 'DESC');
 
@@ -630,126 +631,4 @@ class Helper
         return '<div class="form-control"><label class="label" for="comment"><span class="label-text text-sm">' . esc_html__('Comment', 'daisy-a-ripple-song') . ' <span class="text-error">*</span></span></label><textarea id="comment" name="comment" rows="6" class="textarea textarea-bordered w-full text-sm" required></textarea></div>';
     }
 
-    /**
-     * Check whether a post can be read for metric tracking purposes.
-     *
-     * @param \WP_Post $post The target post object.
-     * @return bool True when the post metrics may be read or updated.
-     */
-    private static function canReadMetricPost(\WP_Post $post): bool
-    {
-        if ($post->post_status === 'publish') {
-            return true;
-        }
-
-        return current_user_can('read_post', $post->ID);
-    }
-
-    /**
-     * Increment the view count for a readable post.
-     *
-     * @return void
-     */
-    public static function incrementViewCount(): void
-    {
-        check_ajax_referer('aripplesong-ajax');
-
-        /** @var int $postId Requested post ID. */
-        $postId = isset($_POST['post_id']) ? absint(wp_unslash($_POST['post_id'])) : 0;
-
-        /** @var \WP_Post|null $post Target post object. */
-        $post = $postId ? get_post($postId) : null;
-
-        if (!$post instanceof \WP_Post || !self::canReadMetricPost($post)) {
-            wp_send_json_error(['message' => 'Invalid post ID.'], 400);
-        }
-
-        /** @var int $count Updated view count. */
-        $count = max(0, (int) get_post_meta($postId, '_views_count', true)) + 1;
-
-        update_post_meta($postId, '_views_count', $count);
-
-        wp_send_json_success(['count' => $count]);
-    }
-
-    /**
-     * Increment the play count for a readable podcast episode.
-     *
-     * @return void
-     */
-    public static function incrementPlayCount(): void
-    {
-        check_ajax_referer('aripplesong-ajax');
-
-        /** @var int $postId Requested post ID. */
-        $postId = isset($_POST['post_id']) ? absint(wp_unslash($_POST['post_id'])) : 0;
-
-        /** @var \WP_Post|null $post Target post object. */
-        $post = $postId ? get_post($postId) : null;
-
-        if (
-            !$post instanceof \WP_Post
-            || $post->post_type !== PodcastPluginConstant::PODCAST_POST_TYPE
-            || !self::canReadMetricPost($post)
-        ) {
-            wp_send_json_error(['message' => 'Invalid podcast episode post.'], 400);
-        }
-
-        /** @var int $count Updated play count. */
-        $count = max(0, (int) get_post_meta($postId, '_play_count', true)) + 1;
-
-        update_post_meta($postId, '_play_count', $count);
-
-        wp_send_json_success(['count' => $count]);
-    }
-
-    /**
-     * Fetch the current metrics for a list of readable posts.
-     *
-     * @return void
-     */
-    public static function getMetrics(): void
-    {
-        check_ajax_referer('aripplesong-ajax');
-
-        /** @var mixed[] $rawIds Raw post ID list from the AJAX request. */
-        $rawIds = isset($_POST['post_ids']) ? (array) $_POST['post_ids'] : [];
-
-        /** @var int[] $postIds Normalized post IDs. */
-        $postIds = array_values(array_filter(array_map(static function ($id): int {
-            return absint(wp_unslash($id));
-        }, $rawIds)));
-
-        if ($postIds === []) {
-            wp_send_json_error(['message' => 'No post IDs provided.'], 400);
-        }
-
-        /** @var array<int, array<string, int|string|null>> $data Metrics payload keyed by post ID. */
-        $data = [];
-
-        foreach ($postIds as $postId) {
-            /** @var \WP_Post|null $post Post object for the requested ID. */
-            $post = get_post($postId);
-
-            if (!$post instanceof \WP_Post || !self::canReadMetricPost($post)) {
-                continue;
-            }
-
-            /** @var int $views Current post view count. */
-            $views = max(0, (int) get_post_meta($postId, '_views_count', true));
-
-            /** @var int|null $plays Current post play count when the post is a podcast episode. */
-            $plays = $post->post_type === PodcastPluginConstant::PODCAST_POST_TYPE
-                ? max(0, (int) get_post_meta($postId, '_play_count', true))
-                : null;
-
-            $data[$postId] = [
-                'views' => $views,
-                'plays' => $plays,
-                'postType' => $post->post_type,
-            ];
-        }
-
-        wp_send_json_success(['counts' => $data]);
-    }
 }

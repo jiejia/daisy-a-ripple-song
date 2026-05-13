@@ -16,8 +16,8 @@
                 <?php
                 echo wp_kses_post(
                     (
-                        \ARippleSong\Themes\Daisy\ThemeOptions\General::getFooterCopyright() !== ''
-                            ? \ARippleSong\Themes\Daisy\ThemeOptions\General::getFooterCopyright()
+                        \Jiejia\DaisyARippleSong\Settings\General::getFooterCopyright() !== ''
+                            ? \Jiejia\DaisyARippleSong\Settings\General::getFooterCopyright()
                             : sprintf(
                                 __('© %1$s Powered by %2$s Theme', 'daisy-a-ripple-song'),
                                 wp_date('Y'),
@@ -28,10 +28,10 @@
                 ?>
             </div>
 
-            <?php if (\ARippleSong\Themes\Daisy\ThemeOptions\SocialLinks::hasLinks()): ?>
+            <?php if (\Jiejia\DaisyARippleSong\Settings\SocialLinks::hasLinks()): ?>
                 <div class="md:justify-self-end self-center">
                     <ul class="flex justify-center gap-2">
-                        <?php foreach (\ARippleSong\Themes\Daisy\ThemeOptions\SocialLinks::getConfiguredLinks() as $platformKey => $social): ?>
+                        <?php foreach (\Jiejia\DaisyARippleSong\Settings\SocialLinks::getConfiguredLinks() as $platformKey => $social): ?>
                             <li>
                                 <a
                                     href="<?php echo esc_url($social['url']); ?>"

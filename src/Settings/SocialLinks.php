@@ -1,12 +1,101 @@
 <?php
 
-namespace ARippleSong\Themes\Daisy\ThemeOptions;
+namespace Jiejia\DaisyARippleSong\Settings;
+
+use Jiejia\DaisyARippleSong\Abstracts\AbstractSetting;
+use Jiejia\DaisyARippleSong\Menus\ThemeOptions;
 
 /**
  * Social links option helper.
  */
-class SocialLinks
+class SocialLinks extends AbstractSetting
 {
+    /**
+     * Return the settings page slug.
+     *
+     * @return string
+     */
+    public function pageSlug(): string
+    {
+        return ThemeOptions::SOCIAL_PAGE_FILE;
+    }
+
+    /**
+     * Return the translated settings page title.
+     *
+     * @return string
+     */
+    public function pageTitle(): string
+    {
+        return __('Social Links', 'daisy-a-ripple-song');
+    }
+
+    /**
+     * Return the WordPress settings group.
+     *
+     * @return string
+     */
+    public function optionGroup(): string
+    {
+        return General::SOCIAL_OPTION_GROUP;
+    }
+
+    /**
+     * Return the serialized WordPress option name.
+     *
+     * @return string
+     */
+    public function optionName(): string
+    {
+        return General::SOCIAL_OPTION_NAME;
+    }
+
+    /**
+     * Return field definitions for this settings page.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function fields(): array
+    {
+        return static::getSettingsFields();
+    }
+
+    /**
+     * Return default settings for this page.
+     *
+     * @return array<string, mixed>
+     */
+    public function defaultSettings(): array
+    {
+        return [];
+    }
+
+    /**
+     * Sanitize the submitted settings value.
+     *
+     * @param mixed $value Raw submitted value.
+     * @return array<string, mixed>
+     */
+    public function sanitize($value): array
+    {
+        return General::sanitizeSocialLinksOptions($value);
+    }
+
+    /**
+     * Render the settings page.
+     *
+     * @return void
+     */
+    public function renderPage(): void
+    {
+        echo General::renderAdminView('social-links', [
+            'title' => $this->pageTitle(),
+            'optionGroup' => $this->optionGroup(),
+            'fieldsMarkup' => General::renderSettingsFields($this->fields()),
+            'description' => __('Only filled links will be used by the theme.', 'daisy-a-ripple-song'),
+        ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    }
+
     /**
      * Return all supported social platforms.
      *

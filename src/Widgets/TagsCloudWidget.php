@@ -1,27 +1,45 @@
 <?php
 
-namespace ARippleSong\Themes\Daisy\Widgets;
+namespace Jiejia\DaisyARippleSong\Widgets;
 
-use ARippleSong\Themes\Daisy\Core\Widget as WidgetCore;
+use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
  * Tags Cloud Widget
  *
  * Display a configurable cloud of post tags.
  */
-class TagsCloudWidget extends \WP_Widget
+class TagsCloudWidget extends AbstractWidget
 {
 
     /**
-     * Register widget with WordPress.
+     * Return the WordPress widget ID.
+     *
+     * @return string
      */
-    public function __construct()
+    public function widgetId(): string
     {
-        parent::__construct(
-            'tags_cloud_widget',
-            __('aripplesong - Tags Cloud', 'daisy-a-ripple-song'),
-            ['description' => __('Display article tags cloud', 'daisy-a-ripple-song')]
-        );
+        return 'tags_cloud_widget';
+    }
+
+    /**
+     * Return the translated widget title.
+     *
+     * @return string
+     */
+    public function widgetTitle(): string
+    {
+        return __('aripplesong - Tags Cloud', 'daisy-a-ripple-song');
+    }
+
+    /**
+     * Return the translated widget description.
+     *
+     * @return string
+     */
+    public function widgetDescription(): string
+    {
+        return __('Display article tags cloud', 'daisy-a-ripple-song');
     }
 
     /**
@@ -55,7 +73,7 @@ class TagsCloudWidget extends \WP_Widget
             'hide_empty' => true,
         ]);
 
-        echo WidgetCore::render('tags-cloud', [
+        echo $this->renderTemplate('tags-cloud', [
             'title' => $title,
             'tags' => $tags,
         ]);

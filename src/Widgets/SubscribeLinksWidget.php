@@ -1,27 +1,45 @@
 <?php
 
-namespace ARippleSong\Themes\Daisy\Widgets;
+namespace Jiejia\DaisyARippleSong\Widgets;
 
-use ARippleSong\Themes\Daisy\Core\Widget as WidgetCore;
+use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
  * Subscribe Links Widget
  *
  * Display podcast subscription links for common listening platforms.
  */
-class SubscribeLinksWidget extends \WP_Widget
+class SubscribeLinksWidget extends AbstractWidget
 {
 
     /**
-     * Register widget with WordPress.
+     * Return the WordPress widget ID.
+     *
+     * @return string
      */
-    public function __construct()
+    public function widgetId(): string
     {
-        parent::__construct(
-            'subscribe_links_widget',
-            __('aripplesong - Subscribe Links', 'daisy-a-ripple-song'),
-            ['description' => __('Display podcast subscription platform links', 'daisy-a-ripple-song')]
-        );
+        return 'subscribe_links_widget';
+    }
+
+    /**
+     * Return the translated widget title.
+     *
+     * @return string
+     */
+    public function widgetTitle(): string
+    {
+        return __('aripplesong - Subscribe Links', 'daisy-a-ripple-song');
+    }
+
+    /**
+     * Return the translated widget description.
+     *
+     * @return string
+     */
+    public function widgetDescription(): string
+    {
+        return __('Display podcast subscription platform links', 'daisy-a-ripple-song');
     }
 
     /**
@@ -45,7 +63,7 @@ class SubscribeLinksWidget extends \WP_Widget
             'youtube' => !empty($instance['youtube_music_url']) ? esc_url((string) $instance['youtube_music_url']) : '',
         ];
 
-        echo WidgetCore::render('subscribe-links', [
+        echo $this->renderTemplate('subscribe-links', [
             'title' => $title,
             'links' => $links,
         ]);

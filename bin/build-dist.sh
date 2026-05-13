@@ -61,7 +61,7 @@ cat > "${DIST_THEME_DIR}/vendor/scoper-autoload.php" <<'PHP'
 
 $loader = require __DIR__ . '/autoload.php';
 
-$prefix = 'ARippleSong\\Themes\\Daisy\\Vendor\\';
+$prefix = 'Jiejia\\DaisyARippleSong\\Vendor\\';
 $prefixLength = strlen($prefix);
 
 spl_autoload_register(

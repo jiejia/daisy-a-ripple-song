@@ -1,28 +1,46 @@
 <?php
 
-namespace ARippleSong\Themes\Daisy\Widgets;
+namespace Jiejia\DaisyARippleSong\Widgets;
 
-use ARippleSong\Themes\Daisy\Constants\PodcastPluginConstant;
-use ARippleSong\Themes\Daisy\Core\Widget as WidgetCore;
+use Jiejia\DaisyARippleSong\Constants\PodcastPluginConstant;
+use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
  * Podcast List Widget
  *
  * Display recent, popular, and random podcast episode cards.
  */
-class PodcastListWidget extends \WP_Widget
+class PodcastListWidget extends AbstractWidget
 {
 
     /**
-     * Register widget with WordPress.
+     * Return the WordPress widget ID.
+     *
+     * @return string
      */
-    public function __construct()
+    public function widgetId(): string
     {
-        parent::__construct(
-            'podcast_list_widget',
-            __('aripplesong - Podcast List', 'daisy-a-ripple-song'),
-            ['description' => __('Display latest podcast list', 'daisy-a-ripple-song')]
-        );
+        return 'podcast_list_widget';
+    }
+
+    /**
+     * Return the translated widget title.
+     *
+     * @return string
+     */
+    public function widgetTitle(): string
+    {
+        return __('aripplesong - Podcast List', 'daisy-a-ripple-song');
+    }
+
+    /**
+     * Return the translated widget description.
+     *
+     * @return string
+     */
+    public function widgetDescription(): string
+    {
+        return __('Display latest podcast list', 'daisy-a-ripple-song');
     }
 
     /**
@@ -55,7 +73,7 @@ class PodcastListWidget extends \WP_Widget
             'random' => $this->getRandomEpisodes($episodePostType, $postsPerPage),
         ];
 
-        echo WidgetCore::render('podcast-list', [
+        echo $this->renderTemplate('podcast-list', [
             'title' => $title,
             'showSeeAll' => $showSeeAll,
             'archiveUrl' => get_post_type_archive_link($episodePostType) ?: home_url('/'),

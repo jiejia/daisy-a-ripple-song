@@ -1,17 +1,15 @@
 <?php
 
-namespace ARippleSong\Themes\Daisy\Core;
+namespace Jiejia\DaisyARippleSong\Providers;
 
-use ARippleSong\Themes\Daisy\Constants\BaseConstant;
-use ARippleSong\Themes\Daisy\Constants\PodcastPluginConstant;
-use ARippleSong\Themes\Daisy\ThemeOptions\General;
+use Jiejia\DaisyARippleSong\Abstracts\AbstractServiceProvider;
+use Jiejia\DaisyARippleSong\Settings\General;
+use Jiejia\DaisyARippleSong\Theme;
 
 /**
- * Vite
- *
- * Handle Vite asset integration for both development and production environments.
+ * Registers and loads theme frontend and editor assets.
  */
-class Vite
+class AssetServiceProvider extends AbstractServiceProvider
 {
     /** @var bool $widgetEditorAssetsLoaded Track whether widget editor assets were already enqueued. */
     private bool $widgetEditorAssetsLoaded = false;
@@ -42,12 +40,27 @@ class Vite
         string $devServerUrl = 'http://127.0.0.1:5173',
         string $scriptEntry = 'resources/js/main.js',
         string $styleEntry = 'resources/css/main.css',
-        string $handlePrefix = BaseConstant::THEME_SLUG
+        string $handlePrefix = Theme::PREFIX
     ) {
         $this->devServerUrl = $devServerUrl;
         $this->scriptEntry = $scriptEntry;
         $this->styleEntry = $styleEntry;
         $this->handlePrefix = $handlePrefix;
+    }
+
+    /**
+     * Register asset loading hooks.
+     *
+     * @return void
+     */
+    public function register(): void
+    {
+        // Load the main theme bundle on public requests.
+        add_action('wp_enqueue_scripts', [$this, 'enqueueAssets']);
+
+        // Load theme styles in widget editors and block previews.
+        add_action('admin_enqueue_scripts', [$this, 'enqueueWidgetEditorAssets']);
+        add_action('enqueue_block_assets', [$this, 'enqueueWidgetEditorAssets']);
     }
 
     /**
@@ -265,7 +278,7 @@ class Vite
                 'nonce' => wp_create_nonce('aripplesong-ajax'),
                 'postId' => $postId,
                 'postType' => $postType,
-                'podcastPostType' => PodcastPluginConstant::PODCAST_POST_TYPE,
+                'podcastPostType' => \Jiejia\ARippleSong\CPTs\Episode::slug(),
             ],
             'theme' => General::getThemeModeConfig(),
         ];
@@ -458,13 +471,13 @@ class Vite
     private function getWidgetEditorThemeScript(): string
     {
         /** @var string $lightTheme Default light theme configured for the site. */
-        $lightTheme = class_exists(\ARippleSong\Themes\Daisy\ThemeOptions\General::class)
-            ? \ARippleSong\Themes\Daisy\ThemeOptions\General::getLightTheme()
+        $lightTheme = class_exists(\Jiejia\DaisyARippleSong\Settings\General::class)
+            ? \Jiejia\DaisyARippleSong\Settings\General::getLightTheme()
             : 'retro';
 
         /** @var string $darkTheme Default dark theme configured for the site. */
-        $darkTheme = class_exists(\ARippleSong\Themes\Daisy\ThemeOptions\General::class)
-            ? \ARippleSong\Themes\Daisy\ThemeOptions\General::getDarkTheme()
+        $darkTheme = class_exists(\Jiejia\DaisyARippleSong\Settings\General::class)
+            ? \Jiejia\DaisyARippleSong\Settings\General::getDarkTheme()
             : 'dim';
 
         /** @var string $lightThemeJson JSON-safe light theme slug for the inline script. */

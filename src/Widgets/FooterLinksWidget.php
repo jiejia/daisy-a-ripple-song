@@ -1,27 +1,45 @@
 <?php
 
-namespace ARippleSong\Themes\Daisy\Widgets;
+namespace Jiejia\DaisyARippleSong\Widgets;
 
-use ARippleSong\Themes\Daisy\Core\Widget as WidgetCore;
+use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
  * Footer Links Widget
  *
  * Display a configurable list of footer links or plain text rows.
  */
-class FooterLinksWidget extends \WP_Widget
+class FooterLinksWidget extends AbstractWidget
 {
 
     /**
-     * Register widget with WordPress.
+     * Return the WordPress widget ID.
+     *
+     * @return string
      */
-    public function __construct()
+    public function widgetId(): string
     {
-        parent::__construct(
-            'footer_links_widget',
-            __('aripplesong - Footer Links', 'daisy-a-ripple-song'),
-            ['description' => __('Display a list of links or text items in the footer', 'daisy-a-ripple-song')]
-        );
+        return 'footer_links_widget';
+    }
+
+    /**
+     * Return the translated widget title.
+     *
+     * @return string
+     */
+    public function widgetTitle(): string
+    {
+        return __('aripplesong - Footer Links', 'daisy-a-ripple-song');
+    }
+
+    /**
+     * Return the translated widget description.
+     *
+     * @return string
+     */
+    public function widgetDescription(): string
+    {
+        return __('Display a list of links or text items in the footer', 'daisy-a-ripple-song');
     }
 
     /**
@@ -41,7 +59,7 @@ class FooterLinksWidget extends \WP_Widget
         /** @var array<int, array<string, mixed>> $items Sanitized footer items. */
         $items = $this->getSanitizedItems($instance['items'] ?? []);
 
-        echo WidgetCore::render('footer-links', [
+        echo $this->renderTemplate('footer-links', [
             'title' => $title,
             'items' => $items,
         ]);

@@ -1,6 +1,6 @@
 <?php
 
-namespace ARippleSong\Themes\Daisy\Constants;
+namespace Jiejia\DaisyARippleSong\Constants;
 
 /**
  * Legacy theme settings data used by the general options page.

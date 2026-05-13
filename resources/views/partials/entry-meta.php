@@ -15,7 +15,7 @@
     <?php if (IS_PODCAST_PLUGIN_ACTIVATED): ?>
         <span class="ml-2">
             · <span class="js-views-count" data-post-id="<?php echo esc_attr((string) ((int) ($args['post_id'] ?? 0))); ?>" data-post-type="<?php echo esc_attr((string) get_post_type((int) ($args['post_id'] ?? 0))); ?>"><?php echo esc_html(number_format_i18n((int) get_post_meta((int) ($args['post_id'] ?? 0), '_views_count', true))); ?></span> <?php esc_html_e('views', 'daisy-a-ripple-song'); ?>
-            <?php if (get_post_type((int) ($args['post_id'] ?? 0)) === \ARippleSong\Themes\Daisy\Constants\PodcastPluginConstant::PODCAST_POST_TYPE): ?>
+            <?php if (get_post_type((int) ($args['post_id'] ?? 0)) === \Jiejia\ARippleSong\CPTs\Episode::slug()): ?>
                 · <span class="js-play-count" data-post-id="<?php echo esc_attr((string) ((int) ($args['post_id'] ?? 0))); ?>" data-post-type="<?php echo esc_attr((string) get_post_type((int) ($args['post_id'] ?? 0))); ?>"><?php echo esc_html(number_format_i18n((int) get_post_meta((int) ($args['post_id'] ?? 0), '_play_count', true))); ?></span> <?php esc_html_e('plays', 'daisy-a-ripple-song'); ?>
             <?php endif; ?>
         </span>

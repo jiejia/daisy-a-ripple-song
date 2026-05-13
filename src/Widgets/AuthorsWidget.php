@@ -1,9 +1,9 @@
 <?php
 
-namespace ARippleSong\Themes\Daisy\Widgets;
+namespace Jiejia\DaisyARippleSong\Widgets;
 
-use ARippleSong\Themes\Daisy\Constants\PodcastPluginConstant;
-use ARippleSong\Themes\Daisy\Core\Widget as WidgetCore;
+use Jiejia\DaisyARippleSong\Constants\PodcastPluginConstant;
+use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
  * Authors Widget
@@ -12,19 +12,37 @@ use ARippleSong\Themes\Daisy\Core\Widget as WidgetCore;
  * Members include administrators, editors, and authors.
  * Guests are contributors.
  */
-class AuthorsWidget extends \WP_Widget
+class AuthorsWidget extends AbstractWidget
 {
 
     /**
-     * Register widget with WordPress.
+     * Return the WordPress widget ID.
+     *
+     * @return string
      */
-    public function __construct()
+    public function widgetId(): string
     {
-        parent::__construct(
-            'authors_widget',
-            __('aripplesong - Authors List', 'daisy-a-ripple-song'),
-            ['description' => __('Display members and guest authors list', 'daisy-a-ripple-song')]
-        );
+        return 'authors_widget';
+    }
+
+    /**
+     * Return the translated widget title.
+     *
+     * @return string
+     */
+    public function widgetTitle(): string
+    {
+        return __('aripplesong - Authors List', 'daisy-a-ripple-song');
+    }
+
+    /**
+     * Return the translated widget description.
+     *
+     * @return string
+     */
+    public function widgetDescription(): string
+    {
+        return __('Display members and guest authors list', 'daisy-a-ripple-song');
     }
 
     /**
@@ -102,7 +120,7 @@ class AuthorsWidget extends \WP_Widget
             ? $this->prepareUsers($contributors, $postCountsByUser, $episodeCountsByUser)
             : [];
 
-        echo WidgetCore::render('authors', [
+        echo $this->renderTemplate('authors', [
             'membersTitle' => $membersTitle,
             'guestsTitle' => $guestsTitle,
             'showMembers' => $showMembers,
@@ -228,8 +246,8 @@ class AuthorsWidget extends \WP_Widget
                 + (int) ($episodeCountsByUser[$user->ID] ?? 0);
 
             /** @var int $participatedCount Number of podcast appearances linked through helper data. */
-            $participatedCount = is_callable([\ARippleSong\Themes\Daisy\Core\Helper::class, 'getParticipatedPodcastIds'])
-                ? count(\ARippleSong\Themes\Daisy\Core\Helper::getParticipatedPodcastIds($user->ID))
+            $participatedCount = is_callable([\Jiejia\DaisyARippleSong\Supports\Helper::class, 'getParticipatedPodcastIds'])
+                ? count(\Jiejia\DaisyARippleSong\Supports\Helper::getParticipatedPodcastIds($user->ID))
                 : 0;
 
             /** @var int $postCount Total content count displayed next to the user name. */

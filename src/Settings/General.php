@@ -1,14 +1,16 @@
 <?php
 
-namespace ARippleSong\Themes\Daisy\ThemeOptions;
+namespace Jiejia\DaisyARippleSong\Settings;
 
-use ARippleSong\Themes\Daisy\Constants\BaseConstant;
-use ARippleSong\Themes\Daisy\Constants\ThemeConstant;
+use Jiejia\DaisyARippleSong\Abstracts\AbstractSetting;
+use Jiejia\DaisyARippleSong\Constants\ThemeConstant;
+use Jiejia\DaisyARippleSong\Menus\ThemeOptions;
+use Jiejia\DaisyARippleSong\Theme;
 
 /**
  * Theme general options powered by native WordPress settings pages.
  */
-class General
+class General extends AbstractSetting
 {
     /** @var string $themeOptionsScriptEntry Theme options admin JavaScript entry. */
     protected const THEME_OPTIONS_SCRIPT_ENTRY = 'resources/js/admin.js';
@@ -17,31 +19,103 @@ class General
     protected const THEME_OPTIONS_STYLE_ENTRY = 'resources/css/admin.css';
 
     /** @var string $themeOptionsHandlePrefix Prefix used for theme options admin assets. */
-    protected const THEME_OPTIONS_HANDLE_PREFIX = BaseConstant::THEME_SLUG . '-theme-options';
+    protected const THEME_OPTIONS_HANDLE_PREFIX = Theme::PREFIX . '-theme-options';
 
     /** @var string $viteDevServerUrl Base URL of the shared Vite development server. */
     protected const VITE_DEV_SERVER_URL = 'http://127.0.0.1:5173';
 
-    /** @var string $optionsPageFile Theme options top-level menu slug. */
-    protected const OPTIONS_PAGE_FILE = BaseConstant::PREFIX . '_theme_options';
-
-    /** @var string $generalPageFile Theme general settings page slug. */
-    protected const GENERAL_PAGE_FILE = BaseConstant::PREFIX . '_theme_general';
-
-    /** @var string $socialPageFile Social links settings page slug. */
-    protected const SOCIAL_PAGE_FILE = BaseConstant::PREFIX . '_theme_social_links';
-
     /** @var string $generalOptionGroup Settings group used by the general settings page. */
-    protected const GENERAL_OPTION_GROUP = BaseConstant::PREFIX . '_general_options_group';
+    public const GENERAL_OPTION_GROUP = Theme::PREFIX . '_general_options_group';
 
     /** @var string $socialOptionGroup Settings group used by the social links settings page. */
-    protected const SOCIAL_OPTION_GROUP = BaseConstant::PREFIX . '_social_links_group';
+    public const SOCIAL_OPTION_GROUP = Theme::PREFIX . '_social_links_group';
 
     /** @var string $generalOptionName Serialized option name for general settings. */
-    public const GENERAL_OPTION_NAME = BaseConstant::PREFIX . '_general_options';
+    public const GENERAL_OPTION_NAME = Theme::PREFIX . '_general_options';
 
     /** @var string $socialOptionName Serialized option name for social links. */
-    public const SOCIAL_OPTION_NAME = BaseConstant::PREFIX . '_social_links';
+    public const SOCIAL_OPTION_NAME = Theme::PREFIX . '_social_links';
+
+    /**
+     * Return the settings page slug.
+     *
+     * @return string
+     */
+    public function pageSlug(): string
+    {
+        return ThemeOptions::GENERAL_PAGE_FILE;
+    }
+
+    /**
+     * Return the translated settings page title.
+     *
+     * @return string
+     */
+    public function pageTitle(): string
+    {
+        return __('General', 'daisy-a-ripple-song');
+    }
+
+    /**
+     * Return the WordPress settings group.
+     *
+     * @return string
+     */
+    public function optionGroup(): string
+    {
+        return static::GENERAL_OPTION_GROUP;
+    }
+
+    /**
+     * Return the serialized WordPress option name.
+     *
+     * @return string
+     */
+    public function optionName(): string
+    {
+        return static::GENERAL_OPTION_NAME;
+    }
+
+    /**
+     * Return field definitions for this settings page.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function fields(): array
+    {
+        return static::getGeneralFields();
+    }
+
+    /**
+     * Return default settings for this page.
+     *
+     * @return array<string, mixed>
+     */
+    public function defaultSettings(): array
+    {
+        return static::getDefaultGeneralOptions();
+    }
+
+    /**
+     * Sanitize the submitted settings value.
+     *
+     * @param mixed $value Raw submitted value.
+     * @return array<string, mixed>
+     */
+    public function sanitize($value): array
+    {
+        return static::sanitizeGeneralOptions($value);
+    }
+
+    /**
+     * Render the settings page.
+     *
+     * @return void
+     */
+    public function renderPage(): void
+    {
+        static::renderGeneralPage();
+    }
 
     /**
      * Register all option-related hooks.
@@ -50,51 +124,11 @@ class General
      */
     public static function boot(): void
     {
-        add_action('admin_menu', [static::class, 'registerPages']);
         add_action('admin_init', [static::class, 'registerSettings']);
         add_action('admin_enqueue_scripts', [static::class, 'enqueueAdminAssets']);
         add_action('wp_head', [static::class, 'outputThemePaletteStyles'], 1);
         add_action('wp_head', [static::class, 'outputHeaderScripts'], 99);
         add_action('wp_footer', [static::class, 'outputFooterScripts'], 99);
-    }
-
-    /**
-     * Register the theme settings pages in the admin menu.
-     *
-     * @return void
-     */
-    public static function registerPages(): void
-    {
-        add_menu_page(
-            __('Theme Options', 'daisy-a-ripple-song'),
-            __('Theme Options', 'daisy-a-ripple-song'),
-            'edit_theme_options',
-            static::OPTIONS_PAGE_FILE,
-            [static::class, 'renderGeneralPage'],
-            'dashicons-admin-settings',
-            61
-        );
-
-        add_submenu_page(
-            static::OPTIONS_PAGE_FILE,
-            __('General', 'daisy-a-ripple-song'),
-            __('General', 'daisy-a-ripple-song'),
-            'edit_theme_options',
-            static::GENERAL_PAGE_FILE,
-            [static::class, 'renderGeneralPage']
-        );
-
-        // Remove the auto-generated duplicate submenu so "General" becomes the first item.
-        remove_submenu_page(static::OPTIONS_PAGE_FILE, static::OPTIONS_PAGE_FILE);
-
-        add_submenu_page(
-            static::OPTIONS_PAGE_FILE,
-            __('Social Links', 'daisy-a-ripple-song'),
-            __('Social Links', 'daisy-a-ripple-song'),
-            'edit_theme_options',
-            static::SOCIAL_PAGE_FILE,
-            [static::class, 'renderSocialPage']
-        );
     }
 
     /**
@@ -104,25 +138,8 @@ class General
      */
     public static function registerSettings(): void
     {
-        register_setting(
-            static::GENERAL_OPTION_GROUP,
-            static::GENERAL_OPTION_NAME,
-            [
-                'type' => 'array',
-                'sanitize_callback' => [static::class, 'sanitizeGeneralOptions'],
-                'default' => static::getDefaultGeneralOptions(),
-            ]
-        );
-
-        register_setting(
-            static::SOCIAL_OPTION_GROUP,
-            static::SOCIAL_OPTION_NAME,
-            [
-                'type' => 'array',
-                'sanitize_callback' => [static::class, 'sanitizeSocialLinksOptions'],
-                'default' => [],
-            ]
-        );
+        (new static())->registerSetting();
+        (new SocialLinks())->registerSetting();
     }
 
     /**
@@ -132,10 +149,13 @@ class General
      */
     public static function renderGeneralPage(): void
     {
+        /** @var self $setting General settings page instance. */
+        $setting = new self();
+
         echo static::renderAdminView('general', [
-            'title' => __('General', 'daisy-a-ripple-song'),
-            'optionGroup' => static::GENERAL_OPTION_GROUP,
-            'fieldsMarkup' => static::renderSettingsFields(static::getGeneralFields()),
+            'title' => $setting->pageTitle(),
+            'optionGroup' => $setting->optionGroup(),
+            'fieldsMarkup' => static::renderSettingsFields($setting->fields()),
         ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
@@ -146,12 +166,7 @@ class General
      */
     public static function renderSocialPage(): void
     {
-        echo static::renderAdminView('social-links', [
-            'title' => __('Social Links', 'daisy-a-ripple-song'),
-            'optionGroup' => static::SOCIAL_OPTION_GROUP,
-            'fieldsMarkup' => static::renderSettingsFields(SocialLinks::getSettingsFields()),
-            'description' => __('Only filled links will be used by the theme.', 'daisy-a-ripple-song'),
-        ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        (new SocialLinks())->renderPage();
     }
 
     /**
@@ -161,7 +176,7 @@ class General
      * @param array<string, mixed> $data Template data.
      * @return string
      */
-    protected static function renderAdminView(string $view, array $data = []): string
+    public static function renderAdminView(string $view, array $data = []): string
     {
         /** @var string $viewPath Absolute path to the requested admin view file. */
         $viewPath = get_template_directory() . '/resources/views/admin/' . $view . '.php';
@@ -264,7 +279,7 @@ class General
         /** @var string $page Current admin page slug. */
         $page = static::getCurrentAdminPage();
 
-        return in_array($page, [static::OPTIONS_PAGE_FILE, static::GENERAL_PAGE_FILE, static::SOCIAL_PAGE_FILE], true);
+        return in_array($page, [ThemeOptions::OPTIONS_PAGE_FILE, ThemeOptions::GENERAL_PAGE_FILE, ThemeOptions::SOCIAL_PAGE_FILE], true);
     }
 
     /**
@@ -272,12 +287,12 @@ class General
      *
      * @return bool
      */
-    protected static function isGeneralSettingsPage(): bool
+    protected static function isGeneralThemeOptionsPage(): bool
     {
         /** @var string $page Current admin page slug. */
         $page = static::getCurrentAdminPage();
 
-        return $page === static::OPTIONS_PAGE_FILE || $page === static::GENERAL_PAGE_FILE;
+        return $page === ThemeOptions::OPTIONS_PAGE_FILE || $page === ThemeOptions::GENERAL_PAGE_FILE;
     }
 
     /**
@@ -711,7 +726,7 @@ class General
      * @param array<int, array<string, mixed>> $fields Field definitions.
      * @return string
      */
-    protected static function renderSettingsFields(array $fields): string
+    public static function renderSettingsFields(array $fields): string
     {
         /** @var array<int, string> $markup Generated field rows. */
         $markup = [];

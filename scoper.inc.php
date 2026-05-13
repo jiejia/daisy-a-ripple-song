@@ -31,7 +31,7 @@ $arsExcludedFiles = array_merge(
 );
 
 return [
-    'prefix' => 'ARippleSong\\Themes\\Daisy\\Vendor',
+    'prefix' => 'Jiejia\\DaisyARippleSong\\Vendor',
     'output-dir' => __DIR__ . '/build/scoped',
     'finders' => [
         $arsFinder::create()

@@ -1,27 +1,45 @@
 <?php
 
-namespace ARippleSong\Themes\Daisy\Widgets;
+namespace Jiejia\DaisyARippleSong\Widgets;
 
-use ARippleSong\Themes\Daisy\Core\Widget as WidgetCore;
+use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
  * Blog List Widget
  *
  * Display a configurable list of the latest blog posts.
  */
-class BlogListWidget extends \WP_Widget
+class BlogListWidget extends AbstractWidget
 {
 
     /**
-     * Register widget with WordPress.
+     * Return the WordPress widget ID.
+     *
+     * @return string
      */
-    public function __construct()
+    public function widgetId(): string
     {
-        parent::__construct(
-            'blog_list_widget',
-            __('aripplesong - Blog List', 'daisy-a-ripple-song'),
-            ['description' => __('Display latest blog posts list', 'daisy-a-ripple-song')]
-        );
+        return 'blog_list_widget';
+    }
+
+    /**
+     * Return the translated widget title.
+     *
+     * @return string
+     */
+    public function widgetTitle(): string
+    {
+        return __('aripplesong - Blog List', 'daisy-a-ripple-song');
+    }
+
+    /**
+     * Return the translated widget description.
+     *
+     * @return string
+     */
+    public function widgetDescription(): string
+    {
+        return __('Display latest blog posts list', 'daisy-a-ripple-song');
     }
 
     /**
@@ -80,7 +98,7 @@ class BlogListWidget extends \WP_Widget
             wp_reset_postdata();
         }
 
-        echo WidgetCore::render('blog-list', [
+        echo $this->renderTemplate('blog-list', [
             'title' => $title,
             'posts' => $posts,
             'columns' => $columns,

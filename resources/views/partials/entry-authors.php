@@ -8,7 +8,7 @@
  * @var array<string, mixed> $args
  */
 ?>
-<?php if ($authorIds = \ARippleSong\Themes\Daisy\Core\Helper::getPostAllAuthors((int) ($args['post_id'] ?? get_the_ID()))): ?>
+<?php if ($authorIds = \Jiejia\DaisyARippleSong\Supports\Helper::getPostAllAuthors((int) ($args['post_id'] ?? get_the_ID()))): ?>
 <div class="avatar-group mt-2 justify-center -space-x-2">
     <?php foreach ($authorIds as $authorId): ?>
         <?php if ($author = get_userdata((int) $authorId)): ?>

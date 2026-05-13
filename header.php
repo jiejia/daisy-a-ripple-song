@@ -12,7 +12,7 @@ $theme_mode_labels = [
 ];
 ?>
 <!DOCTYPE html>
-<html <?php language_attributes(); ?> class="bg-base-200" data-theme="<?php echo esc_attr(\ARippleSong\Themes\Daisy\ThemeOptions\General::getLightTheme()); ?>" x-data x-init="$store.theme.init()" :data-theme="$store.theme.current">
+<html <?php language_attributes(); ?> class="bg-base-200" data-theme="<?php echo esc_attr(\Jiejia\DaisyARippleSong\Settings\General::getLightTheme()); ?>" x-data x-init="$store.theme.init()" :data-theme="$store.theme.current">
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">

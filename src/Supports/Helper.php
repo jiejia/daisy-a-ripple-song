@@ -1,12 +1,10 @@
 <?php
 
-namespace ARippleSong\Themes\Daisy\Core;
+namespace Jiejia\DaisyARippleSong\Supports;
 
-use ARippleSong\Themes\Daisy\Constants\PodcastPluginConstant;
+use Jiejia\DaisyARippleSong\Constants\PodcastPluginConstant;
 
 /**
- * Helper
- *
  * Provide shared helper methods for theme templates and widgets.
  */
 class Helper
@@ -205,7 +203,7 @@ class Helper
 
         // If it's a podcast, also get members and guests
         $post_type = get_post_type($post_id);
-        if ($post_type === PodcastPluginConstant::PODCAST_POST_TYPE) {
+        if ($post_type === \Jiejia\ARippleSong\CPTs\Episode::slug()) {
             $members = get_post_meta($post_id, 'members', true);
             $guests = get_post_meta($post_id, 'guests', true);
 
@@ -263,6 +261,10 @@ class Helper
      */
     public static function isPluginActivated(string $pluginSlug): bool
     {
+        if (sanitize_key($pluginSlug) === \Jiejia\ARippleSong\Plugin::SLUG) {
+            return class_exists(\Jiejia\ARippleSong\Plugin::class, false);
+        }
+
         /** @var array<string, bool> $cache In-request cache keyed by plugin slug. */
         static $cache = [];
 
@@ -387,10 +389,10 @@ class Helper
         // Get posts authored by the user (both 'post' and 'podcast' types)
         $authored_posts = get_posts([
             'author' => $user_id,
-            'post_type' => ['post', PodcastPluginConstant::PODCAST_POST_TYPE],
+            'post_type' => ['post', \Jiejia\ARippleSong\CPTs\Episode::slug()],
             'posts_per_page' => -1,
             'post_status' => 'publish',
-            'fields' => 'ids',
+            'fields' => 'ids',  
             'no_found_rows' => true,
             'update_post_meta_cache' => false,
             'update_post_term_cache' => false,
@@ -449,7 +451,7 @@ class Helper
                 $query->set('post__in', $post_ids);
                 $query->set('author', 0); // Set to 0 instead of empty string
                 $query->set('author_name', ''); // Clear author_name too
-                $query->set('post_type', ['post', PodcastPluginConstant::PODCAST_POST_TYPE]); // Include both post types
+                $query->set('post_type', ['post', \Jiejia\ARippleSong\CPTs\Episode::slug()]); // Include both post types
                 $query->set('orderby', 'date');
                 $query->set('order', 'DESC');
 

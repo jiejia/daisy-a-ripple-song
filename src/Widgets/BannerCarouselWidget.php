@@ -1,27 +1,45 @@
 <?php
 
-namespace ARippleSong\Themes\Daisy\Widgets;
+namespace Jiejia\DaisyARippleSong\Widgets;
 
-use ARippleSong\Themes\Daisy\Core\Widget as WidgetCore;
+use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
  * Banner Carousel Widget
  *
  * Display a configurable banner carousel with optional slide links.
  */
-class BannerCarouselWidget extends \WP_Widget
+class BannerCarouselWidget extends AbstractWidget
 {
 
     /**
-     * Register widget with WordPress.
+     * Return the WordPress widget ID.
+     *
+     * @return string
      */
-    public function __construct()
+    public function widgetId(): string
     {
-        parent::__construct(
-            'banner_carousel_widget',
-            __('aripplesong - Banner Carousel', 'daisy-a-ripple-song'),
-            ['description' => __('Display banner carousel with images', 'daisy-a-ripple-song')]
-        );
+        return 'banner_carousel_widget';
+    }
+
+    /**
+     * Return the translated widget title.
+     *
+     * @return string
+     */
+    public function widgetTitle(): string
+    {
+        return __('aripplesong - Banner Carousel', 'daisy-a-ripple-song');
+    }
+
+    /**
+     * Return the translated widget description.
+     *
+     * @return string
+     */
+    public function widgetDescription(): string
+    {
+        return __('Display banner carousel with images', 'daisy-a-ripple-song');
     }
 
     /**
@@ -41,7 +59,7 @@ class BannerCarouselWidget extends \WP_Widget
         /** @var string $carouselId Unique DOM ID for the current carousel instance. */
         $carouselId = 'banner-carousel-' . $this->id;
 
-        echo WidgetCore::render('banner-carousel', [
+        echo $this->renderTemplate('banner-carousel', [
             'slides' => $slides,
             'carouselId' => $carouselId,
         ]);

@@ -4,70 +4,41 @@ namespace Jiejia\DaisyARippleSong\Providers;
 
 use Jiejia\DaisyARippleSong\Abstracts\AbstractServiceProvider;
 use Jiejia\DaisyARippleSong\Contracts\Menu;
-use Jiejia\DaisyARippleSong\Menus\PrimaryNavigation;
 use Jiejia\DaisyARippleSong\Menus\ThemeOptions;
 
 /**
- * Registers theme menu locations.
+ * Registers admin menu pages via add_menu_page() / add_submenu_page().
  */
 class MenuServiceProvider extends AbstractServiceProvider
 {
-    /**
-     * Frontend menu classes registered by this provider.
-     *
-     * @var array<int,class-string<Menu>>
-     */
-    private array $frontendMenus = [
-        PrimaryNavigation::class,
-    ];
-
     /**
      * Admin menu classes registered by this provider.
      *
      * @var array<int,class-string<Menu>>
      */
-    private array $adminMenus = [
+    private array $menus = [
         ThemeOptions::class,
     ];
 
     /**
-     * Register menu hooks.
+     * Hook into admin_menu to register admin menu pages.
      *
      * @return void
      */
     public function register(): void
     {
-        // Register frontend menu locations after WordPress initializes theme support.
-        add_action('after_setup_theme', [$this, 'registerFrontendMenus']);
-
-        // Register admin menus when WordPress builds the admin menu tree.
         add_action('admin_menu', [$this, 'registerAdminMenus']);
     }
 
     /**
-     * Register all configured frontend menu locations.
-     *
-     * @return void
-     */
-    public function registerFrontendMenus(): void
-    {
-        foreach ($this->frontendMenus as $menuClass) {
-            // Let each frontend menu register its location.
-            $menu = new $menuClass();
-            $menu->topMenu();
-            $menu->subMenu();
-        }
-    }
-
-    /**
-     * Register all configured admin menus.
+     * Register all configured admin menu pages.
      *
      * @return void
      */
     public function registerAdminMenus(): void
     {
-        foreach ($this->adminMenus as $menuClass) {
-            // Let each admin menu register its top-level and child entries.
+        foreach ($this->menus as $menuClass) {
+            /** @var Menu $menu Admin menu instance. */
             $menu = new $menuClass();
             $menu->topMenu();
             $menu->subMenu();

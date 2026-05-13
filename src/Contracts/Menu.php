@@ -3,7 +3,10 @@
 namespace Jiejia\DaisyARippleSong\Contracts;
 
 /**
- * Defines a theme menu registration contract.
+ * Defines an admin menu page registration contract.
+ *
+ * Implementations register top-level and child pages via
+ * add_menu_page() / add_submenu_page() during the admin_menu hook.
  */
 interface Menu
 {

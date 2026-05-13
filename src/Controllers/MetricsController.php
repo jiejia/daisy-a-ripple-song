@@ -2,18 +2,13 @@
 
 namespace Jiejia\DaisyARippleSong\Controllers;
 
+use Jiejia\DaisyARippleSong\Abstracts\AbstractController;
+
 /**
  * REST API controller for post metric tracking (view counts and play counts).
  */
-class MetricsController
+class MetricsController extends AbstractController
 {
-    /**
-     * REST API namespace for all theme endpoints.
-     *
-     * @var string
-     */
-    public const NAMESPACE = 'aripplesong/v1';
-
     /**
      * Register all REST API routes handled by this controller.
      *

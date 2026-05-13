@@ -8,6 +8,7 @@ use Jiejia\DaisyARippleSong\Providers\BlockServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\CommentServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\CustomAreaServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\MenuServiceProvider;
+use Jiejia\DaisyARippleSong\Providers\NavigationServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\PodcastIntegrationServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\SettingServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\ThemeSupportServiceProvider;
@@ -41,6 +42,7 @@ class Theme
     private array $providers = [
         TranslationServiceProvider::class,
         ThemeSupportServiceProvider::class,
+        NavigationServiceProvider::class,
         MenuServiceProvider::class,
         BlockServiceProvider::class,
         AssetServiceProvider::class,

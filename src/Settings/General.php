@@ -47,11 +47,8 @@ class General extends AbstractSetting
     public function fields(): array
     {
         return [
-            Field::make('hidden', $this->fieldName('_saved'))
-                ->set_default_value('1'),
-
             Field::make('html', $this->fieldName('light_theme_picker'), __('Light Theme', 'daisy-a-ripple-song'))
-                ->set_html($this->renderThemePickerHtml('light', static::getLightThemeOptions(), static::getLightTheme())),
+                ->set_html($this->renderThemePickerHtml('light', __('Light Theme', 'daisy-a-ripple-song'), static::getLightThemeOptions(), static::getLightTheme())),
 
             Field::make('select', $this->fieldName('light_theme'), __('Light Theme', 'daisy-a-ripple-song'))
                 ->set_options(static::getLightThemeOptions())
@@ -62,7 +59,7 @@ class General extends AbstractSetting
                 ->set_required(true),
 
             Field::make('html', $this->fieldName('dark_theme_picker'), __('Dark Theme', 'daisy-a-ripple-song'))
-                ->set_html($this->renderThemePickerHtml('dark', static::getDarkThemeOptions(), static::getDarkTheme())),
+                ->set_html($this->renderThemePickerHtml('dark', __('Dark Theme', 'daisy-a-ripple-song'), static::getDarkThemeOptions(), static::getDarkTheme())),
 
             Field::make('select', $this->fieldName('dark_theme'), __('Dark Theme', 'daisy-a-ripple-song'))
                 ->set_options(static::getDarkThemeOptions())
@@ -364,11 +361,12 @@ class General extends AbstractSetting
      * Render DaisyUI theme picker cards for a Carbon Fields HTML field.
      *
      * @param string $mode Theme mode identifier.
+     * @param string $title Theme picker title.
      * @param array<string,string> $options Select options keyed by theme slug.
      * @param string $value Current selected theme slug.
      * @return string
      */
-    protected function renderThemePickerHtml(string $mode, array $options, string $value): string
+    protected function renderThemePickerHtml(string $mode, string $title, array $options, string $value): string
     {
         /** @var array<string,array<string,string>> $themePalette Full theme palette map. */
         $themePalette = static::getThemePalette();
@@ -383,6 +381,7 @@ class General extends AbstractSetting
 
         return $this->renderAdminView('fields/theme-picker', [
             'mode' => $mode,
+            'title' => $title,
             'options' => $options,
             'value' => $value,
             'themePalette' => $themePalette,

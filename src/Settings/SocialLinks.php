@@ -40,10 +40,7 @@ class SocialLinks extends AbstractSetting
     public function fields(): array
     {
         /** @var array<int,\Carbon_Fields\Field\Field> $fields Social link fields. */
-        $fields = [
-            Field::make('hidden', $this->fieldName('_saved'))
-                ->set_default_value('1'),
-        ];
+        $fields = [];
 
         foreach (static::getPlatforms() as $platformKey => $platformData) {
             $fields[] = Field::make('text', $this->fieldName($platformKey), $platformData['label'])

@@ -91,7 +91,20 @@ abstract class AbstractSetting implements Setting
      */
     protected function hasSavedSettings(): bool
     {
-        return get_option($this->settingsMarkerFieldName(), null) !== null;
+        if (get_option($this->settingsMarkerFieldName(), null) !== null) {
+            return true;
+        }
+
+        foreach (array_keys($this->defaultSettings()) as $settingKey) {
+            /** @var mixed $storedValue Raw option value stored by Carbon Fields. */
+            $storedValue = get_option($this->fieldName((string) $settingKey), null);
+
+            if ($storedValue !== null) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

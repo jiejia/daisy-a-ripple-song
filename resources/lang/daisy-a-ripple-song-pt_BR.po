@@ -332,8 +332,6 @@ msgstr "Enviar / alterar logotipo"
 msgid "Remove Logo"
 msgstr "Remover logotipo"
 
-#: resources/views/admin/general.php:14
-#: resources/views/admin/social-links.php:14
 #, fuzzy
 msgid "Save Settings"
 msgstr "Configurações do tema"
@@ -350,7 +348,6 @@ msgstr "Opcional. Insira uma URL completa."
 msgid "Enter the logo image URL"
 msgstr ""
 
-#: resources/views/admin/fields/url-row.php:6
 #, fuzzy
 msgid "Enter a full URL"
 msgstr "Opcional. Insira uma URL completa."
@@ -797,7 +794,7 @@ msgstr ""
 msgid "Leave a Comment"
 msgstr ""
 
-#: resources/views/partials/content-single-ars_episode.php:58
+#: resources/views/partials/content-single-aripplesong_episode.php:58
 #: resources/views/partials/content-single-page.php:30
 #: resources/views/partials/content-single.php:30
 msgid "Pages:"

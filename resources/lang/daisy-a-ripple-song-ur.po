@@ -331,8 +331,6 @@ msgstr "لوگو اپ لوڈ / تبدیل کریں"
 msgid "Remove Logo"
 msgstr "لوگو ہٹائیں"
 
-#: resources/views/admin/general.php:14
-#: resources/views/admin/social-links.php:14
 #, fuzzy
 msgid "Save Settings"
 msgstr "تھیم سیٹنگز"
@@ -349,7 +347,6 @@ msgstr "اختیاری۔ مکمل URL درج کریں۔"
 msgid "Enter the logo image URL"
 msgstr ""
 
-#: resources/views/admin/fields/url-row.php:6
 #, fuzzy
 msgid "Enter a full URL"
 msgstr "اختیاری۔ مکمل URL درج کریں۔"
@@ -796,7 +793,7 @@ msgstr ""
 msgid "Leave a Comment"
 msgstr ""
 
-#: resources/views/partials/content-single-ars_episode.php:58
+#: resources/views/partials/content-single-aripplesong_episode.php:58
 #: resources/views/partials/content-single-page.php:30
 #: resources/views/partials/content-single.php:30
 msgid "Pages:"

@@ -17,11 +17,11 @@
 $postId = (int) ($args['post_id'] ?? get_the_ID());
 
 /**
- * Resolve the episode audio file used by the player controls.
+ * Resolve the episode audio file from the plugin Carbon Fields meta key.
  *
  * @var string $audioFile
  */
-$audioFile = (string) get_post_meta($postId, '_audio_file', true);
+$audioFile = (string) get_post_meta($postId, \Jiejia\DaisyARippleSong\Supports\Helper::podcastEpisodeMetaKey('audio_file'), true);
 
 /**
  * Build the frontend player payload for Alpine state.

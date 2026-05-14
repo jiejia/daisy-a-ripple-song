@@ -358,7 +358,7 @@ function getEpisodesEndpoint() {
     const apiLink = document.querySelector('link[rel="https://api.w.org/"]')?.href;
     const restRoot = window.wpApiSettings?.root || apiLink || `${window.location.origin}/wp-json/`;
     const normalizedRoot = restRoot.endsWith('/') ? restRoot : `${restRoot}/`;
-    const podcastPostType = window.aripplesongData?.ajax?.podcastPostType || 'ars_episode';
+    const podcastPostType = window.aripplesongData?.ajax?.podcastPostType || 'aripplesong_episode';
     const query = 'per_page=5&orderby=date&order=desc&_embed=1';
     const separator = normalizedRoot.includes('?') ? '&' : '?';
 

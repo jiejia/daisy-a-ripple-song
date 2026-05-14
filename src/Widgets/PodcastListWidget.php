@@ -4,6 +4,7 @@ namespace Jiejia\DaisyARippleSong\Widgets;
 
 use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
+use Jiejia\DaisyARippleSong\Supports\Helper;
 
 /**
  * Podcast List Widget.
@@ -95,7 +96,7 @@ class PodcastListWidget extends AbstractWidget
         /** @var bool $showSeeAll Whether to display the archive link. */
         $showSeeAll = $this->boolValue($widgetInstance, 'show_see_all', true);
         /** @var string $episodePostType The podcast episode post type slug. */
-        $episodePostType = \Jiejia\ARippleSong\CPTs\Episode::slug();
+        $episodePostType = Helper::podcastEpisodePostType();
 
         echo $this->renderTemplate('podcast-list', [
             'title' => $title,
@@ -186,7 +187,7 @@ class PodcastListWidget extends AbstractWidget
 
                 $scoredPosts[] = [
                     'post' => get_post($postId),
-                    'score' => (int) get_post_meta($postId, '_views_count', true) + (int) get_post_meta($postId, '_play_count', true),
+                    'score' => (int) get_post_meta($postId, Helper::viewCountMetaKey(), true) + (int) get_post_meta($postId, Helper::playCountMetaKey(), true),
                 ];
             }
 
@@ -301,20 +302,13 @@ class PodcastListWidget extends AbstractWidget
     }
 
     /**
-     * Resolve the episode audio file URL using both public and underscored meta keys.
+     * Resolve the episode audio file URL from the plugin Carbon Fields meta key.
      *
      * @param int $postId Episode post ID.
      * @return string
      */
     protected function getEpisodeAudioUrl(int $postId): string
     {
-        /** @var string $audioUrl Public meta key value. */
-        $audioUrl = (string) get_post_meta($postId, 'audio_file', true);
-
-        if ($audioUrl !== '') {
-            return $audioUrl;
-        }
-
-        return (string) get_post_meta($postId, '_audio_file', true);
+        return (string) get_post_meta($postId, Helper::podcastEpisodeMetaKey('audio_file'), true);
     }
 }

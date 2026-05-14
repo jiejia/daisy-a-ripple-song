@@ -7,6 +7,69 @@ namespace Jiejia\DaisyARippleSong\Supports;
  */
 class Helper
 {
+    /**
+     * Check whether the companion podcast plugin is currently available.
+     *
+     * @return bool True when the plugin bootstrap class has been loaded.
+     */
+    public static function isPodcastPluginAvailable(): bool
+    {
+        return class_exists(\Jiejia\ARippleSong\Plugin::class, false);
+    }
+
+    /**
+     * Return the plugin episode post type slug.
+     *
+     * @return string Podcast episode post type slug, or an empty string when unavailable.
+     */
+    public static function podcastEpisodePostType(): string
+    {
+        if (!self::isPodcastPluginAvailable() || !class_exists(\Jiejia\ARippleSong\CPTs\Episode::class)) {
+            return '';
+        }
+
+        return \Jiejia\ARippleSong\CPTs\Episode::slug();
+    }
+
+    /**
+     * Return a plugin episode stored meta key.
+     *
+     * @param string $key Raw plugin episode field key.
+     * @return string Stored plugin episode meta key.
+     */
+    public static function podcastEpisodeMetaKey(string $key): string
+    {
+        if (!self::isPodcastPluginAvailable() || !class_exists(\Jiejia\ARippleSong\CPTs\Episode::class)) {
+            return '_aripplesong_episode_' . ltrim($key, '_');
+        }
+
+        return \Jiejia\ARippleSong\CPTs\Episode::storedFieldKey($key);
+    }
+
+    /**
+     * Return the plugin stored view count meta key.
+     *
+     * @return string Stored view count meta key.
+     */
+    public static function viewCountMetaKey(): string
+    {
+        if (!self::isPodcastPluginAvailable() || !class_exists(\Jiejia\ARippleSong\Metas\PostViewCount::class)) {
+            return '_aripplesong_views_count';
+        }
+
+        return \Jiejia\ARippleSong\Metas\PostViewCount::storedFieldKey('views_count');
+    }
+
+    /**
+     * Return the plugin stored episode play count meta key.
+     *
+     * @return string Stored play count meta key.
+     */
+    public static function playCountMetaKey(): string
+    {
+        return self::podcastEpisodeMetaKey('play_count');
+    }
+
 
     /**
      * Get primary navigation menu items with parent-child relationship structure.
@@ -116,6 +179,15 @@ class Helper
             return $cache[$userId];
         }
 
+        /** @var string $episodePostType Plugin episode post type slug. */
+        $episodePostType = self::podcastEpisodePostType();
+
+        if ($episodePostType === '') {
+            $cache[$userId] = [];
+
+            return $cache[$userId];
+        }
+
         /** @var int $cacheVersion Cache version stored in the options table. */
         $cacheVersion = (int) get_option('aripplesong_participation_cache_version', 1);
 
@@ -137,9 +209,15 @@ class Helper
         /** @var string $needleInt Serialized integer fragment used in meta queries. */
         $needleInt = 'i:' . $userId . ';';
 
+        /** @var string $membersMetaKey Stored members meta key registered by the podcast plugin. */
+        $membersMetaKey = self::podcastEpisodeMetaKey('members');
+
+        /** @var string $guestsMetaKey Stored guests meta key registered by the podcast plugin. */
+        $guestsMetaKey = self::podcastEpisodeMetaKey('guests');
+
         /** @var int[] $ids Matching podcast post IDs. */
         $ids = get_posts([
-            'post_type' => 'ars_podcast',
+            'post_type' => $episodePostType,
             'post_status' => 'publish',
             'posts_per_page' => -1,
             'fields' => 'ids',
@@ -150,22 +228,22 @@ class Helper
             'meta_query' => [
                 'relation' => 'OR',
                 [
-                    'key' => 'members',
+                    'key' => $membersMetaKey,
                     'value' => $needleString,
                     'compare' => 'LIKE',
                 ],
                 [
-                    'key' => 'guests',
+                    'key' => $guestsMetaKey,
                     'value' => $needleString,
                     'compare' => 'LIKE',
                 ],
                 [
-                    'key' => 'members',
+                    'key' => $membersMetaKey,
                     'value' => $needleInt,
                     'compare' => 'LIKE',
                 ],
                 [
-                    'key' => 'guests',
+                    'key' => $guestsMetaKey,
                     'value' => $needleInt,
                     'compare' => 'LIKE',
                 ],
@@ -201,9 +279,9 @@ class Helper
 
         // If it's a podcast, also get members and guests
         $post_type = get_post_type($post_id);
-        if (defined('IS_PODCAST_PLUGIN_ACTIVATED') && IS_PODCAST_PLUGIN_ACTIVATED && $post_type === \Jiejia\ARippleSong\CPTs\Episode::slug()) {
-            $members = get_post_meta($post_id, 'members', true);
-            $guests = get_post_meta($post_id, 'guests', true);
+        if (defined('IS_PODCAST_PLUGIN_ACTIVATED') && IS_PODCAST_PLUGIN_ACTIVATED && $post_type === self::podcastEpisodePostType()) {
+            $members = get_post_meta($post_id, self::podcastEpisodeMetaKey('members'), true);
+            $guests = get_post_meta($post_id, self::podcastEpisodeMetaKey('guests'), true);
 
             $authors = array_merge(
                 $authors,
@@ -218,10 +296,10 @@ class Helper
     }
 
     /**
-     * Extract user IDs from a CMB2 multicheck value.
+     * Extract user IDs from a Carbon Fields multiselect value.
      *
-     * CMB2 multicheck typically stores selected values as an associative array of
-     * "id" => "on". Some installs may store a simple numeric array instead.
+     * Carbon Fields multiselect values are usually numeric arrays, while legacy
+     * installs may still contain associative "id" => "on" values.
      *
      * @param mixed $value
      * @return int[]
@@ -348,7 +426,7 @@ class Helper
         }
 
         /** @var string $audio_file Episode audio file URL. */
-        $audio_file = get_post_meta($post_id, 'audio_file', true);
+        $audio_file = get_post_meta($post_id, self::podcastEpisodeMetaKey('audio_file'), true);
 
         /** @var string|false $featured_image Episode featured image URL. */
         $featured_image = get_the_post_thumbnail_url($post_id, 'medium');
@@ -385,8 +463,11 @@ class Helper
         $post_ids = [];
 
         // Get posts authored by the user (both 'post' and 'podcast' types)
-        $postTypes = (defined('IS_PODCAST_PLUGIN_ACTIVATED') && IS_PODCAST_PLUGIN_ACTIVATED)
-            ? ['post', \Jiejia\ARippleSong\CPTs\Episode::slug()]
+        /** @var string $episodePostType Plugin episode post type slug. */
+        $episodePostType = self::podcastEpisodePostType();
+
+        $postTypes = (defined('IS_PODCAST_PLUGIN_ACTIVATED') && IS_PODCAST_PLUGIN_ACTIVATED && $episodePostType !== '')
+            ? ['post', $episodePostType]
             : ['post'];
         $authored_posts = get_posts([
             'author' => $user_id,
@@ -448,11 +529,19 @@ class Helper
 
             // Modify query to use our post IDs
             if (!empty($post_ids)) {
+                /** @var string $episodePostType Plugin episode post type slug. */
+                $episodePostType = self::podcastEpisodePostType();
+
+                /** @var array<int,string> $archivePostTypes Post types shown on author archives. */
+                $archivePostTypes = (defined('IS_PODCAST_PLUGIN_ACTIVATED') && IS_PODCAST_PLUGIN_ACTIVATED && $episodePostType !== '')
+                    ? ['post', $episodePostType]
+                    : ['post'];
+
                 // Reset query vars to prevent conflicts
                 $query->set('post__in', $post_ids);
                 $query->set('author', 0); // Set to 0 instead of empty string
                 $query->set('author_name', ''); // Clear author_name too
-                $query->set('post_type', (defined('IS_PODCAST_PLUGIN_ACTIVATED') && IS_PODCAST_PLUGIN_ACTIVATED) ? ['post', \Jiejia\ARippleSong\CPTs\Episode::slug()] : ['post']); // Include both post types
+                $query->set('post_type', $archivePostTypes); // Include both post types
                 $query->set('orderby', 'date');
                 $query->set('order', 'DESC');
 

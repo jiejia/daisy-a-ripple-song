@@ -497,8 +497,6 @@ msgstr "上传 / 更换 Logo"
 msgid "Remove Logo"
 msgstr "移除 Logo"
 
-#: resources/views/admin/general.php:14
-#: resources/views/admin/social-links.php:14
 msgid "Save Settings"
 msgstr "保存设置"
 
@@ -514,7 +512,6 @@ msgstr "可选。请输入完整 URL。"
 msgid "Enter the logo image URL"
 msgstr "输入 Logo 图片 URL"
 
-#: resources/views/admin/fields/url-row.php:6
 msgid "Enter a full URL"
 msgstr "输入完整 URL"
 
@@ -957,7 +954,7 @@ msgstr ""
 msgid "Leave a Comment"
 msgstr ""
 
-#: resources/views/partials/content-single-ars_episode.php:58
+#: resources/views/partials/content-single-aripplesong_episode.php:58
 #: resources/views/partials/content-single-page.php:30
 #: resources/views/partials/content-single.php:30
 msgid "Pages:"

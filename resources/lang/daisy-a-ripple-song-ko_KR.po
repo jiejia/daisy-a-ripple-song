@@ -330,8 +330,6 @@ msgstr "로고 업로드 / 변경"
 msgid "Remove Logo"
 msgstr "로고 제거"
 
-#: resources/views/admin/general.php:14
-#: resources/views/admin/social-links.php:14
 #, fuzzy
 msgid "Save Settings"
 msgstr "테마 설정"
@@ -348,7 +346,6 @@ msgstr "선택 사항입니다. 전체 URL을 입력하세요."
 msgid "Enter the logo image URL"
 msgstr ""
 
-#: resources/views/admin/fields/url-row.php:6
 #, fuzzy
 msgid "Enter a full URL"
 msgstr "선택 사항입니다. 전체 URL을 입력하세요."
@@ -795,7 +792,7 @@ msgstr ""
 msgid "Leave a Comment"
 msgstr ""
 
-#: resources/views/partials/content-single-ars_episode.php:58
+#: resources/views/partials/content-single-aripplesong_episode.php:58
 #: resources/views/partials/content-single-page.php:30
 #: resources/views/partials/content-single.php:30
 msgid "Pages:"

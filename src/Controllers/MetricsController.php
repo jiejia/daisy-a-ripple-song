@@ -3,6 +3,7 @@
 namespace Jiejia\DaisyARippleSong\Controllers;
 
 use Jiejia\DaisyARippleSong\Abstracts\AbstractController;
+use Jiejia\DaisyARippleSong\Supports\Helper;
 
 /**
  * REST API controller for post metric tracking (view counts and play counts).
@@ -95,9 +96,9 @@ class MetricsController extends AbstractController
         }
 
         /** @var int $count Updated view count. */
-        $count = max(0, (int) get_post_meta($postId, '_views_count', true)) + 1;
+        $count = max(0, (int) get_post_meta($postId, Helper::viewCountMetaKey(), true)) + 1;
 
-        update_post_meta($postId, '_views_count', $count);
+        update_post_meta($postId, Helper::viewCountMetaKey(), $count);
 
         return new \WP_REST_Response(['count' => $count], 200);
     }
@@ -118,16 +119,16 @@ class MetricsController extends AbstractController
 
         if (
             !$post instanceof \WP_Post
-            || $post->post_type !== \Jiejia\ARippleSong\CPTs\Episode::slug()
+            || $post->post_type !== Helper::podcastEpisodePostType()
             || !self::canReadMetricPost($post)
         ) {
             return new \WP_REST_Response(['message' => 'Invalid podcast episode post.'], 400);
         }
 
         /** @var int $count Updated play count. */
-        $count = max(0, (int) get_post_meta($postId, '_play_count', true)) + 1;
+        $count = max(0, (int) get_post_meta($postId, Helper::playCountMetaKey(), true)) + 1;
 
-        update_post_meta($postId, '_play_count', $count);
+        update_post_meta($postId, Helper::playCountMetaKey(), $count);
 
         return new \WP_REST_Response(['count' => $count], 200);
     }
@@ -159,11 +160,11 @@ class MetricsController extends AbstractController
             }
 
             /** @var int $views Current post view count. */
-            $views = max(0, (int) get_post_meta($postId, '_views_count', true));
+            $views = max(0, (int) get_post_meta($postId, Helper::viewCountMetaKey(), true));
 
             /** @var int|null $plays Current post play count when the post is a podcast episode. */
-            $plays = $post->post_type === \Jiejia\ARippleSong\CPTs\Episode::slug()
-                ? max(0, (int) get_post_meta($postId, '_play_count', true))
+            $plays = $post->post_type === Helper::podcastEpisodePostType()
+                ? max(0, (int) get_post_meta($postId, Helper::playCountMetaKey(), true))
                 : null;
 
             $data[$postId] = [

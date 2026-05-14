@@ -2,16 +2,14 @@
 
 namespace Jiejia\DaisyARippleSong\Widgets;
 
+use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
- * Footer Links Widget
- *
- * Display a configurable list of footer links or plain text rows.
+ * Footer Links Widget.
  */
 class FooterLinksWidget extends AbstractWidget
 {
-
     /**
      * Return the WordPress widget ID.
      *
@@ -43,158 +41,71 @@ class FooterLinksWidget extends AbstractWidget
     }
 
     /**
-     * Front-end display of widget.
+     * Return all Carbon Fields fields for the widget form.
      *
-     * @param array $args     Widget arguments from the sidebar registration.
+     * @return array<int,\Carbon_Fields\Field\Field>
+     */
+    public function fields(): array
+    {
+        return [
+            Field::make('text', $this->fieldName('title'), __('Title', 'daisy-a-ripple-song'))
+                ->set_attribute('placeholder', __('e.g., Contact, Navigate, Support', 'daisy-a-ripple-song'))
+                ->set_help_text(__('For example: Contact, Navigate, Support.', 'daisy-a-ripple-song')),
+            Field::make('complex', $this->fieldName('items'), __('Items', 'daisy-a-ripple-song'))
+                ->set_help_text(__('Add text-only rows or links. Empty text rows will not be rendered.', 'daisy-a-ripple-song'))
+                ->add_fields([
+                    Field::make('text', 'text', __('Text', 'daisy-a-ripple-song'))
+                        ->set_attribute('placeholder', __('Display text', 'daisy-a-ripple-song'))
+                        ->set_required(true),
+                    Field::make('text', 'url', __('URL', 'daisy-a-ripple-song'))
+                        ->set_attribute('type', 'url')
+                        ->set_attribute('placeholder', 'https://example.com'),
+                    Field::make('checkbox', 'new_tab', __('Open in new tab', 'daisy-a-ripple-song'))
+                        ->set_option_value('1'),
+                ]),
+        ];
+    }
+
+    /**
+     * Return default values for the widget instance.
+     *
+     * @return array<string,mixed>
+     */
+    public function defaultSettings(): array
+    {
+        return [
+            'title' => '',
+            'items' => [],
+        ];
+    }
+
+    /**
+     * Render the widget output.
+     *
+     * @param array $args Widget arguments from the sidebar registration.
      * @param array $instance Saved widget option values.
      * @return void
      */
-    public function widget($args, $instance)
+    public function front_end($args, $instance): void
     {
-        echo $args['before_widget'];
-
-        /** @var string $title Footer column title. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : '';
-
-        /** @var array<int, array<string, mixed>> $items Sanitized footer items. */
-        $items = $this->getSanitizedItems($instance['items'] ?? []);
+        /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
+        $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);
 
         echo $this->renderTemplate('footer-links', [
-            'title' => $title,
-            'items' => $items,
-        ]);
-
-        echo $args['after_widget'];
-    }
-
-    /**
-     * Back-end widget form displayed in the WordPress admin.
-     *
-     * @param array $instance Current widget settings.
-     * @return void
-     */
-    public function form($instance)
-    {
-        /** @var string $title Current widget title. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : '';
-
-        /** @var array<int, array<string, mixed>> $items Current footer item configuration. */
-        $items = $this->getSanitizedItems($instance['items'] ?? []);
-
-        if (empty($items)) {
-            $items[] = [
-                'text' => '',
-                'url' => '',
-                'new_tab' => false,
-            ];
-        }
-
-        /** @var string $widgetId DOM-safe field ID prefix. */
-        $widgetId = $this->get_field_id('items');
-
-        /** @var string $fieldPrefix Field name prefix used by the repeatable form. */
-        $fieldPrefix = $this->get_field_name('items');
-        ?>
-        <div class="footer-links-widget-form" data-field-prefix="<?php echo esc_attr($fieldPrefix); ?>">
-            <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
-                    <?php esc_html_e('Title:', 'daisy-a-ripple-song'); ?>
-                </label>
-                <input class="widefat"
-                       id="<?php echo esc_attr($this->get_field_id('title')); ?>"
-                       name="<?php echo esc_attr($this->get_field_name('title')); ?>"
-                       type="text"
-                       value="<?php echo esc_attr($title); ?>"
-                       placeholder="<?php echo esc_attr__('e.g., Contact, Navigate, Support', 'daisy-a-ripple-song'); ?>">
-            </p>
-
-            <p style="margin-bottom: 8px;">
-                <strong><?php esc_html_e('Items:', 'daisy-a-ripple-song'); ?></strong>
-            </p>
-
-            <div id="<?php echo esc_attr($widgetId); ?>_container" class="footer-links-container" style="margin-bottom: 10px;">
-                <?php foreach ($items as $index => $item): ?>
-                    <div class="footer-link-item" style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; background: #f9f9f9;">
-                        <div style="margin-bottom: 8px;">
-                            <label style="display: block; margin-bottom: 4px; font-weight: 600;">
-                                <?php esc_html_e('Text:', 'daisy-a-ripple-song'); ?>
-                            </label>
-                            <input type="text"
-                                   class="widefat footer-link-text"
-                                   name="<?php echo esc_attr($fieldPrefix); ?>[<?php echo esc_attr((string) $index); ?>][text]"
-                                   value="<?php echo esc_attr((string) ($item['text'] ?? '')); ?>"
-                                   placeholder="<?php echo esc_attr__('Display text', 'daisy-a-ripple-song'); ?>">
-                        </div>
-
-                        <div style="margin-bottom: 8px;">
-                            <label style="display: block; margin-bottom: 4px; font-weight: 600;">
-                                <?php esc_html_e('URL (optional - leave empty for plain text):', 'daisy-a-ripple-song'); ?>
-                            </label>
-                            <input type="url"
-                                   class="widefat footer-link-url"
-                                   name="<?php echo esc_attr($fieldPrefix); ?>[<?php echo esc_attr((string) $index); ?>][url]"
-                                   value="<?php echo esc_attr((string) ($item['url'] ?? '')); ?>"
-                                   placeholder="https://example.com">
-                        </div>
-
-                        <div style="margin-bottom: 8px;">
-                            <label>
-                                <input type="checkbox"
-                                       class="footer-link-new-tab"
-                                       name="<?php echo esc_attr($fieldPrefix); ?>[<?php echo esc_attr((string) $index); ?>][new_tab]"
-                                       value="1"
-                                       <?php checked(!empty($item['new_tab'])); ?>>
-                                <?php esc_html_e('Open in new tab', 'daisy-a-ripple-song'); ?>
-                            </label>
-                        </div>
-
-                        <div style="text-align: right;">
-                            <button type="button" class="button button-link button-link-delete footer-remove-link" style="color: #b32d2e;">
-                                <?php esc_html_e('Delete', 'daisy-a-ripple-song'); ?>
-                            </button>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-
-            <input type="hidden" class="footer-links-flag" name="<?php echo esc_attr($this->get_field_name('_flag')); ?>" value="1">
-
-            <p>
-                <button type="button" class="button footer-add-link" data-widget-id="<?php echo esc_attr($widgetId); ?>">
-                    <?php esc_html_e('+ Add Item', 'daisy-a-ripple-song'); ?>
-                </button>
-            </p>
-        </div>
-        <?php
-    }
-
-    /**
-     * Sanitize widget form values as they are saved.
-     *
-     * @param array $newInstance New widget settings submitted from the form.
-     * @param array $oldInstance Previous widget settings.
-     * @return array Sanitized settings to be saved.
-     */
-    public function update($newInstance, $oldInstance)
-    {
-        /** @var array<string, mixed> $instance Sanitized widget settings to persist. */
-        $instance = [];
-
-        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : '';
-        $instance['items'] = $this->getSanitizedItems($newInstance['items'] ?? []);
-
-        return $instance;
+            'title' => $this->textValue($widgetInstance, 'title'),
+            'items' => $this->getSanitizedItems($widgetInstance['items'] ?? []),
+        ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**
      * Sanitize footer item rows.
      *
      * @param mixed $items Raw footer item configuration.
-     * @return array<int, array<string, mixed>> Sanitized footer items.
+     * @return array<int,array<string,mixed>>
      */
-    protected function getSanitizedItems($items): array
+    protected function getSanitizedItems(mixed $items): array
     {
-        /** @var array<int, array<string, mixed>> $sanitizedItems Sanitized footer item list. */
+        /** @var array<int,array<string,mixed>> $sanitizedItems Sanitized footer item list. */
         $sanitizedItems = [];
 
         if (!is_array($items)) {

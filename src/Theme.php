@@ -5,6 +5,7 @@ use Jiejia\DaisyARippleSong\Contracts\ServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\RestApiServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\AssetServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\BlockServiceProvider;
+use Jiejia\DaisyARippleSong\Providers\CarbonFieldsServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\CommentServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\CustomAreaServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\MenuServiceProvider;
@@ -42,6 +43,7 @@ class Theme
     private array $providers = [
         TranslationServiceProvider::class,
         ThemeSupportServiceProvider::class,
+        CarbonFieldsServiceProvider::class,
         NavigationServiceProvider::class,
         MenuServiceProvider::class,
         BlockServiceProvider::class,

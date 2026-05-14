@@ -3,19 +3,12 @@
 namespace Jiejia\DaisyARippleSong\Contracts;
 
 /**
- * Defines a native WordPress settings page contract.
+ * Defines a Carbon Fields settings page contract.
  */
 interface Setting
 {
     /**
-     * Register this setting with WordPress.
-     *
-     * @return void
-     */
-    public function registerSetting(): void;
-
-    /**
-     * Return the settings page slug.
+     * Return the Carbon Fields page slug.
      *
      * @return string
      */
@@ -29,45 +22,30 @@ interface Setting
     public function pageTitle(): string;
 
     /**
-     * Return the WordPress settings group.
+     * Return all Carbon Fields fields for the settings page.
      *
-     * @return string
-     */
-    public function optionGroup(): string;
-
-    /**
-     * Return the serialized WordPress option name.
-     *
-     * @return string
-     */
-    public function optionName(): string;
-
-    /**
-     * Return field definitions for this settings page.
-     *
-     * @return array<int, array<string, mixed>>
+     * @return array<int,\Carbon_Fields\Field\Field>
      */
     public function fields(): array;
 
     /**
-     * Return default settings for this page.
+     * Return default values for the settings page.
      *
-     * @return array<string, mixed>
+     * @return array<string,mixed>
      */
     public function defaultSettings(): array;
 
     /**
-     * Sanitize the submitted settings value.
+     * Return the field prefix used by this settings page.
      *
-     * @param mixed $value Raw submitted value.
-     * @return array<string, mixed>
+     * @return string
      */
-    public function sanitize($value): array;
+    public function fieldPrefix(): string;
 
     /**
-     * Render the settings page.
+     * Return the parent admin menu slug for this settings page.
      *
-     * @return void
+     * @return string
      */
-    public function renderPage(): void;
+    public function parentPageSlug(): string;
 }

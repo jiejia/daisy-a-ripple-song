@@ -2,16 +2,14 @@
 
 namespace Jiejia\DaisyARippleSong\Widgets;
 
+use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
- * Tags Cloud Widget
- *
- * Display a configurable cloud of post tags.
+ * Tags Cloud Widget.
  */
 class TagsCloudWidget extends AbstractWidget
 {
-
     /**
      * Return the WordPress widget ID.
      *
@@ -43,32 +41,79 @@ class TagsCloudWidget extends AbstractWidget
     }
 
     /**
-     * Front-end display of widget.
+     * Return all Carbon Fields fields for the widget form.
      *
-     * @param array $args     Widget arguments from the sidebar registration.
+     * @return array<int,\Carbon_Fields\Field\Field>
+     */
+    public function fields(): array
+    {
+        return [
+            Field::make('text', $this->fieldName('title'), __('Title', 'daisy-a-ripple-song'))
+                ->set_attribute('placeholder', __('TAGS', 'daisy-a-ripple-song'))
+                ->set_default_value((string) $this->defaultSettings()['title']),
+            Field::make('text', $this->fieldName('number'), __('Number of tags', 'daisy-a-ripple-song'))
+                ->set_attribute('type', 'number')
+                ->set_attribute('min', '1')
+                ->set_attribute('step', '1')
+                ->set_attribute('placeholder', '20')
+                ->set_default_value((string) $this->defaultSettings()['number'])
+                ->set_help_text(__('Maximum number of tags to display.', 'daisy-a-ripple-song')),
+            Field::make('select', $this->fieldName('orderby'), __('Order by', 'daisy-a-ripple-song'))
+                ->set_options([
+                    'count' => __('Post Count', 'daisy-a-ripple-song'),
+                    'name' => __('Tag Name', 'daisy-a-ripple-song'),
+                    'term_id' => __('Tag ID', 'daisy-a-ripple-song'),
+                    'rand' => __('Random', 'daisy-a-ripple-song'),
+                ])
+                ->set_default_value((string) $this->defaultSettings()['orderby']),
+            Field::make('select', $this->fieldName('order'), __('Sort order', 'daisy-a-ripple-song'))
+                ->set_options([
+                    'DESC' => __('Descending (High to Low/Z to A)', 'daisy-a-ripple-song'),
+                    'ASC' => __('Ascending (Low to High/A to Z)', 'daisy-a-ripple-song'),
+                ])
+                ->set_default_value((string) $this->defaultSettings()['order']),
+        ];
+    }
+
+    /**
+     * Return default values for the widget instance.
+     *
+     * @return array<string,mixed>
+     */
+    public function defaultSettings(): array
+    {
+        return [
+            'title' => __('TAGS', 'daisy-a-ripple-song'),
+            'number' => 20,
+            'orderby' => 'count',
+            'order' => 'DESC',
+        ];
+    }
+
+    /**
+     * Render the widget output.
+     *
+     * @param array $args Widget arguments from the sidebar registration.
      * @param array $instance Saved widget option values.
      * @return void
      */
-    public function widget($args, $instance)
+    public function front_end($args, $instance): void
     {
-        echo $args['before_widget'];
-
+        /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
+        $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);
         /** @var string $title Widget heading. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('TAGS', 'daisy-a-ripple-song');
-
+        $title = $this->textValue($widgetInstance, 'title', __('TAGS', 'daisy-a-ripple-song'));
         /** @var int $number Number of tags to show. */
-        $number = !empty($instance['number']) ? max(1, absint($instance['number'])) : 20;
-
+        $number = $this->intValue($widgetInstance, 'number', 20);
         /** @var string $orderby Current tag order field. */
-        $orderby = !empty($instance['orderby']) ? sanitize_key((string) $instance['orderby']) : 'count';
-
+        $orderby = $this->choiceValue($widgetInstance, 'orderby', ['count', 'name', 'term_id', 'rand'], 'count');
         /** @var string $order Current tag sort direction. */
-        $order = !empty($instance['order']) ? strtoupper(sanitize_key((string) $instance['order'])) : 'DESC';
+        $order = strtoupper($this->choiceValue($widgetInstance, 'order', ['asc', 'desc', 'ASC', 'DESC'], 'DESC'));
 
         /** @var \WP_Term[] $tags Retrieved tag objects. */
         $tags = get_tags([
             'number' => $number,
-            'orderby' => in_array($orderby, ['count', 'name', 'term_id', 'rand'], true) ? $orderby : 'count',
+            'orderby' => $orderby,
             'order' => in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC',
             'hide_empty' => true,
         ]);
@@ -76,106 +121,6 @@ class TagsCloudWidget extends AbstractWidget
         echo $this->renderTemplate('tags-cloud', [
             'title' => $title,
             'tags' => $tags,
-        ]);
-
-        echo $args['after_widget'];
-    }
-
-    /**
-     * Back-end widget form displayed in the WordPress admin.
-     *
-     * @param array $instance Current widget settings.
-     * @return void
-     */
-    public function form($instance)
-    {
-        /** @var string $title Current widget title. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('TAGS', 'daisy-a-ripple-song');
-
-        /** @var int $number Current number of tags setting. */
-        $number = !empty($instance['number']) ? max(1, absint($instance['number'])) : 20;
-
-        /** @var string $orderby Current tag order field. */
-        $orderby = !empty($instance['orderby']) ? sanitize_key((string) $instance['orderby']) : 'count';
-
-        /** @var string $order Current tag sort direction. */
-        $order = !empty($instance['order']) ? strtoupper(sanitize_key((string) $instance['order'])) : 'DESC';
-        ?>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
-                <?php esc_html_e('Title:', 'daisy-a-ripple-song'); ?>
-            </label>
-            <input class="widefat"
-                   id="<?php echo esc_attr($this->get_field_id('title')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('title')); ?>"
-                   type="text"
-                   value="<?php echo esc_attr($title); ?>">
-        </p>
-
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('number')); ?>">
-                <?php esc_html_e('Number of tags:', 'daisy-a-ripple-song'); ?>
-            </label>
-            <input class="tiny-text"
-                   id="<?php echo esc_attr($this->get_field_id('number')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('number')); ?>"
-                   type="number"
-                   step="1"
-                   min="1"
-                   value="<?php echo esc_attr((string) $number); ?>"
-                   size="3">
-            <small class="description"><?php esc_html_e('Maximum number of tags to display', 'daisy-a-ripple-song'); ?></small>
-        </p>
-
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('orderby')); ?>">
-                <?php esc_html_e('Order by:', 'daisy-a-ripple-song'); ?>
-            </label>
-            <select class="widefat"
-                    id="<?php echo esc_attr($this->get_field_id('orderby')); ?>"
-                    name="<?php echo esc_attr($this->get_field_name('orderby')); ?>">
-                <option value="count" <?php selected($orderby, 'count'); ?>><?php esc_html_e('Post Count', 'daisy-a-ripple-song'); ?></option>
-                <option value="name" <?php selected($orderby, 'name'); ?>><?php esc_html_e('Tag Name', 'daisy-a-ripple-song'); ?></option>
-                <option value="term_id" <?php selected($orderby, 'term_id'); ?>><?php esc_html_e('Tag ID', 'daisy-a-ripple-song'); ?></option>
-                <option value="rand" <?php selected($orderby, 'rand'); ?>><?php esc_html_e('Random', 'daisy-a-ripple-song'); ?></option>
-            </select>
-        </p>
-
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('order')); ?>">
-                <?php esc_html_e('Sort order:', 'daisy-a-ripple-song'); ?>
-            </label>
-            <select class="widefat"
-                    id="<?php echo esc_attr($this->get_field_id('order')); ?>"
-                    name="<?php echo esc_attr($this->get_field_name('order')); ?>">
-                <option value="DESC" <?php selected($order, 'DESC'); ?>><?php esc_html_e('Descending (High to Low/Z to A)', 'daisy-a-ripple-song'); ?></option>
-                <option value="ASC" <?php selected($order, 'ASC'); ?>><?php esc_html_e('Ascending (Low to High/A to Z)', 'daisy-a-ripple-song'); ?></option>
-            </select>
-        </p>
-        <?php
-    }
-
-    /**
-     * Sanitize widget form values as they are saved.
-     *
-     * @param array $newInstance New widget settings submitted from the form.
-     * @param array $oldInstance Previous widget settings.
-     * @return array Sanitized settings to be saved.
-     */
-    public function update($newInstance, $oldInstance)
-    {
-        /** @var array<string, mixed> $instance Sanitized widget settings to persist. */
-        $instance = [];
-
-        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : '';
-        $instance['number'] = !empty($newInstance['number']) ? max(1, absint($newInstance['number'])) : 20;
-        $instance['orderby'] = !empty($newInstance['orderby']) && in_array($newInstance['orderby'], ['count', 'name', 'term_id', 'rand'], true)
-            ? (string) $newInstance['orderby']
-            : 'count';
-        $instance['order'] = !empty($newInstance['order']) && in_array($newInstance['order'], ['ASC', 'DESC'], true)
-            ? (string) $newInstance['order']
-            : 'DESC';
-
-        return $instance;
+        ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 }

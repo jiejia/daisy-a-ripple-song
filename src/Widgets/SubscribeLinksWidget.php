@@ -2,16 +2,14 @@
 
 namespace Jiejia\DaisyARippleSong\Widgets;
 
+use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
- * Subscribe Links Widget
- *
- * Display podcast subscription links for common listening platforms.
+ * Subscribe Links Widget.
  */
 class SubscribeLinksWidget extends AbstractWidget
 {
-
     /**
      * Return the WordPress widget ID.
      *
@@ -43,124 +41,65 @@ class SubscribeLinksWidget extends AbstractWidget
     }
 
     /**
-     * Front-end display of widget.
+     * Return all Carbon Fields fields for the widget form.
      *
-     * @param array $args     Widget arguments from the sidebar registration.
+     * @return array<int,\Carbon_Fields\Field\Field>
+     */
+    public function fields(): array
+    {
+        return [
+            Field::make('text', $this->fieldName('title'), __('Title', 'daisy-a-ripple-song'))
+                ->set_attribute('placeholder', __('SUBSCRIBE', 'daisy-a-ripple-song'))
+                ->set_default_value((string) $this->defaultSettings()['title']),
+            Field::make('text', $this->fieldName('apple_podcast_url'), __('Apple Podcast Link', 'daisy-a-ripple-song'))
+                ->set_attribute('type', 'url')
+                ->set_attribute('placeholder', 'https://podcasts.apple.com/...')
+                ->set_help_text(__('Leave blank to hide this button.', 'daisy-a-ripple-song')),
+            Field::make('text', $this->fieldName('spotify_url'), __('Spotify Link', 'daisy-a-ripple-song'))
+                ->set_attribute('type', 'url')
+                ->set_attribute('placeholder', 'https://open.spotify.com/...')
+                ->set_help_text(__('Leave blank to hide this button.', 'daisy-a-ripple-song')),
+            Field::make('text', $this->fieldName('youtube_music_url'), __('YouTube Music Link', 'daisy-a-ripple-song'))
+                ->set_attribute('type', 'url')
+                ->set_attribute('placeholder', 'https://music.youtube.com/...')
+                ->set_help_text(__('Leave blank to hide this button.', 'daisy-a-ripple-song')),
+        ];
+    }
+
+    /**
+     * Return default values for the widget instance.
+     *
+     * @return array<string,mixed>
+     */
+    public function defaultSettings(): array
+    {
+        return [
+            'title' => __('SUBSCRIBE', 'daisy-a-ripple-song'),
+            'apple_podcast_url' => '',
+            'spotify_url' => '',
+            'youtube_music_url' => '',
+        ];
+    }
+
+    /**
+     * Render the widget output.
+     *
+     * @param array $args Widget arguments from the sidebar registration.
      * @param array $instance Saved widget option values.
      * @return void
      */
-    public function widget($args, $instance)
+    public function front_end($args, $instance): void
     {
-        echo $args['before_widget'];
-
-        /** @var string $title Widget heading displayed above the buttons. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('SUBSCRIBE', 'daisy-a-ripple-song');
-
-        /** @var array<string, string> $links Configured platform links keyed by slug. */
-        $links = [
-            'apple' => !empty($instance['apple_podcast_url']) ? esc_url((string) $instance['apple_podcast_url']) : '',
-            'spotify' => !empty($instance['spotify_url']) ? esc_url((string) $instance['spotify_url']) : '',
-            'youtube' => !empty($instance['youtube_music_url']) ? esc_url((string) $instance['youtube_music_url']) : '',
-        ];
+        /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
+        $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);
 
         echo $this->renderTemplate('subscribe-links', [
-            'title' => $title,
-            'links' => $links,
-        ]);
-
-        echo $args['after_widget'];
-    }
-
-    /**
-     * Back-end widget form displayed in the WordPress admin.
-     *
-     * @param array $instance Current widget settings.
-     * @return void
-     */
-    public function form($instance)
-    {
-        /** @var string $title Current widget title. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('SUBSCRIBE', 'daisy-a-ripple-song');
-
-        /** @var string $applePodcastUrl Apple Podcasts URL. */
-        $applePodcastUrl = !empty($instance['apple_podcast_url']) ? esc_url((string) $instance['apple_podcast_url']) : '';
-
-        /** @var string $spotifyUrl Spotify URL. */
-        $spotifyUrl = !empty($instance['spotify_url']) ? esc_url((string) $instance['spotify_url']) : '';
-
-        /** @var string $youtubeMusicUrl YouTube Music URL. */
-        $youtubeMusicUrl = !empty($instance['youtube_music_url']) ? esc_url((string) $instance['youtube_music_url']) : '';
-        ?>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
-                <?php esc_html_e('Title:', 'daisy-a-ripple-song'); ?>
-            </label>
-            <input class="widefat"
-                   id="<?php echo esc_attr($this->get_field_id('title')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('title')); ?>"
-                   type="text"
-                   value="<?php echo esc_attr($title); ?>"
-                   placeholder="<?php echo esc_attr__('SUBSCRIBE', 'daisy-a-ripple-song'); ?>">
-        </p>
-
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('apple_podcast_url')); ?>">
-                <?php esc_html_e('Apple Podcast Link:', 'daisy-a-ripple-song'); ?>
-            </label>
-            <input class="widefat"
-                   id="<?php echo esc_attr($this->get_field_id('apple_podcast_url')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('apple_podcast_url')); ?>"
-                   type="url"
-                   value="<?php echo esc_attr($applePodcastUrl); ?>"
-                   placeholder="https://podcasts.apple.com/...">
-            <small class="description"><?php esc_html_e('Leave blank to hide this button', 'daisy-a-ripple-song'); ?></small>
-        </p>
-
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('spotify_url')); ?>">
-                <?php esc_html_e('Spotify Link:', 'daisy-a-ripple-song'); ?>
-            </label>
-            <input class="widefat"
-                   id="<?php echo esc_attr($this->get_field_id('spotify_url')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('spotify_url')); ?>"
-                   type="url"
-                   value="<?php echo esc_attr($spotifyUrl); ?>"
-                   placeholder="https://open.spotify.com/...">
-            <small class="description"><?php esc_html_e('Leave blank to hide this button', 'daisy-a-ripple-song'); ?></small>
-        </p>
-
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('youtube_music_url')); ?>">
-                <?php esc_html_e('YouTube Music Link:', 'daisy-a-ripple-song'); ?>
-            </label>
-            <input class="widefat"
-                   id="<?php echo esc_attr($this->get_field_id('youtube_music_url')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('youtube_music_url')); ?>"
-                   type="url"
-                   value="<?php echo esc_attr($youtubeMusicUrl); ?>"
-                   placeholder="https://music.youtube.com/...">
-            <small class="description"><?php esc_html_e('Leave blank to hide this button', 'daisy-a-ripple-song'); ?></small>
-        </p>
-        <?php
-    }
-
-    /**
-     * Sanitize widget form values as they are saved.
-     *
-     * @param array $newInstance New widget settings submitted from the form.
-     * @param array $oldInstance Previous widget settings.
-     * @return array Sanitized settings to be saved.
-     */
-    public function update($newInstance, $oldInstance)
-    {
-        /** @var array<string, mixed> $instance Sanitized widget settings to persist. */
-        $instance = [];
-
-        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : '';
-        $instance['apple_podcast_url'] = !empty($newInstance['apple_podcast_url']) ? esc_url_raw((string) $newInstance['apple_podcast_url']) : '';
-        $instance['spotify_url'] = !empty($newInstance['spotify_url']) ? esc_url_raw((string) $newInstance['spotify_url']) : '';
-        $instance['youtube_music_url'] = !empty($newInstance['youtube_music_url']) ? esc_url_raw((string) $newInstance['youtube_music_url']) : '';
-
-        return $instance;
+            'title' => $this->textValue($widgetInstance, 'title', __('SUBSCRIBE', 'daisy-a-ripple-song')),
+            'links' => [
+                'apple' => !empty($widgetInstance['apple_podcast_url']) ? esc_url((string) $widgetInstance['apple_podcast_url']) : '',
+                'spotify' => !empty($widgetInstance['spotify_url']) ? esc_url((string) $widgetInstance['spotify_url']) : '',
+                'youtube' => !empty($widgetInstance['youtube_music_url']) ? esc_url((string) $widgetInstance['youtube_music_url']) : '',
+            ],
+        ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 }

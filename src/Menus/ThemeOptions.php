@@ -3,12 +3,10 @@
 namespace Jiejia\DaisyARippleSong\Menus;
 
 use Jiejia\DaisyARippleSong\Contracts\Menu;
-use Jiejia\DaisyARippleSong\Settings\General;
-use Jiejia\DaisyARippleSong\Settings\SocialLinks;
 use Jiejia\DaisyARippleSong\Theme;
 
 /**
- * Registers the theme options admin menu.
+ * Registers the theme options parent admin menu.
  */
 class ThemeOptions implements Menu
 {
@@ -53,7 +51,7 @@ class ThemeOptions implements Menu
             $this->topMenuTitle(),
             $this->capability(),
             $this->topMenuSlug(),
-            [new General(), 'renderPage'],
+            [self::class, 'renderLandingPage'],
             'dashicons-admin-settings',
             61
         );
@@ -62,29 +60,24 @@ class ThemeOptions implements Menu
     }
 
     /**
-     * Register theme options submenu pages.
+     * Keep submenu registration delegated to Carbon Fields containers.
      *
      * @return void
      */
     public function subMenu(): void
     {
-        add_submenu_page(
-            $this->topMenuSlug(),
-            __('General', 'daisy-a-ripple-song'),
-            __('General', 'daisy-a-ripple-song'),
-            $this->capability(),
-            self::GENERAL_PAGE_FILE,
-            [new General(), 'renderPage']
-        );
+        // Theme settings pages are registered from Carbon Fields containers.
+    }
 
-        add_submenu_page(
-            $this->topMenuSlug(),
-            __('Social Links', 'daisy-a-ripple-song'),
-            __('Social Links', 'daisy-a-ripple-song'),
-            $this->capability(),
-            self::SOCIAL_PAGE_FILE,
-            [new SocialLinks(), 'renderPage']
-        );
+    /**
+     * Redirect direct parent menu visits to the general settings page.
+     *
+     * @return void
+     */
+    public static function renderLandingPage(): void
+    {
+        wp_safe_redirect(admin_url('admin.php?page=' . self::GENERAL_PAGE_FILE));
+        exit;
     }
 
     /**

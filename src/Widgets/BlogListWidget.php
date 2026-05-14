@@ -2,16 +2,14 @@
 
 namespace Jiejia\DaisyARippleSong\Widgets;
 
+use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
- * Blog List Widget
- *
- * Display a configurable list of the latest blog posts.
+ * Blog List Widget.
  */
 class BlogListWidget extends AbstractWidget
 {
-
     /**
      * Return the WordPress widget ID.
      *
@@ -43,27 +41,69 @@ class BlogListWidget extends AbstractWidget
     }
 
     /**
-     * Front-end display of widget.
+     * Return all Carbon Fields fields for the widget form.
      *
-     * @param array $args     Widget arguments from the sidebar registration.
+     * @return array<int,\Carbon_Fields\Field\Field>
+     */
+    public function fields(): array
+    {
+        return [
+            Field::make('text', $this->fieldName('title'), __('Title', 'daisy-a-ripple-song'))
+                ->set_attribute('placeholder', __('BLOG', 'daisy-a-ripple-song'))
+                ->set_default_value((string) $this->defaultSettings()['title']),
+            Field::make('text', $this->fieldName('posts_per_page'), __('Number of posts', 'daisy-a-ripple-song'))
+                ->set_attribute('type', 'number')
+                ->set_attribute('min', '1')
+                ->set_attribute('step', '1')
+                ->set_attribute('placeholder', '6')
+                ->set_default_value((string) $this->defaultSettings()['posts_per_page']),
+            Field::make('select', $this->fieldName('columns'), __('Number of columns', 'daisy-a-ripple-song'))
+                ->set_options([
+                    '1' => '1',
+                    '2' => '2',
+                    '3' => '3',
+                ])
+                ->set_default_value((string) $this->defaultSettings()['columns']),
+            Field::make('checkbox', $this->fieldName('show_see_all'), __('Show "See all" link', 'daisy-a-ripple-song'))
+                ->set_option_value('1')
+                ->set_default_value((bool) $this->defaultSettings()['show_see_all']),
+        ];
+    }
+
+    /**
+     * Return default values for the widget instance.
+     *
+     * @return array<string,mixed>
+     */
+    public function defaultSettings(): array
+    {
+        return [
+            'title' => __('BLOG', 'daisy-a-ripple-song'),
+            'posts_per_page' => 6,
+            'columns' => 3,
+            'show_see_all' => true,
+        ];
+    }
+
+    /**
+     * Render the widget output.
+     *
+     * @param array $args Widget arguments from the sidebar registration.
      * @param array $instance Saved widget option values.
      * @return void
      */
-    public function widget($args, $instance)
+    public function front_end($args, $instance): void
     {
-        echo $args['before_widget'];
-
+        /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
+        $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);
         /** @var string $title Widget title displayed above the post grid. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('BLOG', 'daisy-a-ripple-song');
-
+        $title = $this->textValue($widgetInstance, 'title', __('BLOG', 'daisy-a-ripple-song'));
         /** @var int $postsPerPage Number of posts to display. */
-        $postsPerPage = !empty($instance['posts_per_page']) ? max(1, absint($instance['posts_per_page'])) : 6;
-
+        $postsPerPage = $this->intValue($widgetInstance, 'posts_per_page', 6);
         /** @var bool $showSeeAll Whether to display the archive link. */
-        $showSeeAll = isset($instance['show_see_all']) ? (bool) $instance['show_see_all'] : true;
-
+        $showSeeAll = $this->boolValue($widgetInstance, 'show_see_all', true);
         /** @var int $columns Number of visual columns in the widget grid. */
-        $columns = !empty($instance['columns']) ? min(3, max(1, absint($instance['columns']))) : 3;
+        $columns = $this->intValue($widgetInstance, 'columns', 3, 1, 3);
 
         /** @var \WP_Query $query Query object for the latest posts. */
         $query = new \WP_Query([
@@ -78,7 +118,7 @@ class BlogListWidget extends AbstractWidget
             'order' => 'DESC',
         ]);
 
-        /** @var array<int, array<string, int|string>> $posts Prepared post cards for the template. */
+        /** @var array<int,array<string,int|string>> $posts Prepared post cards for the template. */
         $posts = [];
 
         if ($query->have_posts()) {
@@ -104,108 +144,13 @@ class BlogListWidget extends AbstractWidget
             'columns' => $columns,
             'showSeeAll' => $showSeeAll,
             'archiveUrl' => $this->getBlogArchiveUrl(),
-        ]);
-
-        echo $args['after_widget'];
-    }
-
-    /**
-     * Back-end widget form displayed in the WordPress admin.
-     *
-     * @param array $instance Current widget settings.
-     * @return void
-     */
-    public function form($instance)
-    {
-        /** @var string $title Current widget title. */
-        $title = !empty($instance['title']) ? sanitize_text_field((string) $instance['title']) : __('BLOG', 'daisy-a-ripple-song');
-
-        /** @var int $postsPerPage Current number of posts setting. */
-        $postsPerPage = !empty($instance['posts_per_page']) ? max(1, absint($instance['posts_per_page'])) : 6;
-
-        /** @var bool $showSeeAll Current archive link toggle state. */
-        $showSeeAll = isset($instance['show_see_all']) ? (bool) $instance['show_see_all'] : true;
-
-        /** @var int $columns Current number of grid columns. */
-        $columns = !empty($instance['columns']) ? min(3, max(1, absint($instance['columns']))) : 3;
-        ?>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">
-                <?php esc_html_e('Title:', 'daisy-a-ripple-song'); ?>
-            </label>
-            <input class="widefat"
-                   id="<?php echo esc_attr($this->get_field_id('title')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('title')); ?>"
-                   type="text"
-                   value="<?php echo esc_attr($title); ?>">
-        </p>
-
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('posts_per_page')); ?>">
-                <?php esc_html_e('Number of posts:', 'daisy-a-ripple-song'); ?>
-            </label>
-            <input class="tiny-text"
-                   id="<?php echo esc_attr($this->get_field_id('posts_per_page')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('posts_per_page')); ?>"
-                   type="number"
-                   step="1"
-                   min="1"
-                   value="<?php echo esc_attr((string) $postsPerPage); ?>"
-                   size="3">
-        </p>
-
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('columns')); ?>">
-                <?php esc_html_e('Number of columns:', 'daisy-a-ripple-song'); ?>
-            </label>
-            <input class="tiny-text"
-                   id="<?php echo esc_attr($this->get_field_id('columns')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('columns')); ?>"
-                   type="number"
-                   step="1"
-                   min="1"
-                   max="3"
-                   value="<?php echo esc_attr((string) $columns); ?>"
-                   size="3">
-        </p>
-
-        <p>
-            <input class="checkbox"
-                   type="checkbox"
-                   <?php checked($showSeeAll); ?>
-                   id="<?php echo esc_attr($this->get_field_id('show_see_all')); ?>"
-                   name="<?php echo esc_attr($this->get_field_name('show_see_all')); ?>">
-            <label for="<?php echo esc_attr($this->get_field_id('show_see_all')); ?>">
-                <?php esc_html_e('Show "See all" link', 'daisy-a-ripple-song'); ?>
-            </label>
-        </p>
-        <?php
-    }
-
-    /**
-     * Sanitize widget form values as they are saved.
-     *
-     * @param array $newInstance New widget settings submitted from the form.
-     * @param array $oldInstance Previous widget settings.
-     * @return array Sanitized settings to be saved.
-     */
-    public function update($newInstance, $oldInstance)
-    {
-        /** @var array<string, mixed> $instance Sanitized widget settings to persist. */
-        $instance = [];
-
-        $instance['title'] = !empty($newInstance['title']) ? sanitize_text_field((string) $newInstance['title']) : '';
-        $instance['posts_per_page'] = !empty($newInstance['posts_per_page']) ? max(1, absint($newInstance['posts_per_page'])) : 6;
-        $instance['columns'] = !empty($newInstance['columns']) ? min(3, max(1, absint($newInstance['columns']))) : 3;
-        $instance['show_see_all'] = !empty($newInstance['show_see_all']) ? 1 : 0;
-
-        return $instance;
+        ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**
      * Resolve the preferred blog archive URL.
      *
-     * @return string Archive URL for the site blog listing.
+     * @return string
      */
     protected function getBlogArchiveUrl(): string
     {

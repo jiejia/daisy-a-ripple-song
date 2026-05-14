@@ -81,11 +81,11 @@ return [
     'php-version' => null,
     'patchers' => [
         static function (string $filePath, string $prefix, string $contents) use ($arsThemePrefix): string {
-            return str_replace(
-                'carbon_fields_register_fields',
-                $arsThemePrefix . '_carbon_fields_register_fields',
+            return preg_replace(
+                '/carbon_fields_(?!core__)/',
+                $arsThemePrefix . '_carbon_fields_',
                 $contents
-            );
+            ) ?? $contents;
         },
     ],
     'exclude-namespaces' => [],

@@ -24,4 +24,11 @@ ARS_SCOPER_INPUT_DIR="${INPUT_VENDOR_DIR}" \
   --output-dir="${SCOPE_DIR}" \
   -f
 
+# Carbon Fields templates are excluded from PHP-Scoper because some of them
+# start with HTML before PHP. Apply the same hook isolation after copying them.
+if [[ -d "${SCOPE_DIR}/htmlburger/carbon-fields" ]]; then
+  find "${SCOPE_DIR}/htmlburger/carbon-fields" -type f \( -name "*.php" -o -name "*.js" \) -print0 \
+    | xargs -0 perl -0pi -e 's/(?<!daisyaripplesong_)carbon_fields_(?!core__)/daisyaripplesong_carbon_fields_/g'
+fi
+
 echo "Scoped vendor built at: ${SCOPE_DIR}"

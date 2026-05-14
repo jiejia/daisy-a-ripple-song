@@ -63,19 +63,36 @@ $loader = require __DIR__ . '/autoload.php';
 
 $prefix = 'Jiejia\\DaisyARippleSong\\Vendor\\';
 $prefixLength = strlen($prefix);
+$carbonFieldsPrefix = 'Carbon_Fields\\';
+$carbonFieldsPrefixLength = strlen($carbonFieldsPrefix);
 
 spl_autoload_register(
-    static function ($class) use ($loader, $prefix, $prefixLength) {
-        if (strncmp($class, $prefix, $prefixLength) !== 0) {
+    static function ($class) use ($loader, $prefix, $prefixLength, $carbonFieldsPrefix, $carbonFieldsPrefixLength) {
+        if (strncmp($class, $prefix, $prefixLength) === 0) {
+            $unprefixed = substr($class, $prefixLength);
+
+            if ($unprefixed !== '') {
+                $loader->loadClass($unprefixed);
+            }
+
             return;
         }
 
-        $unprefixed = substr($class, $prefixLength);
-        if ($unprefixed === '') {
+        if (strncmp($class, $carbonFieldsPrefix, $carbonFieldsPrefixLength) !== 0) {
             return;
         }
 
-        $loader->loadClass($unprefixed);
+        $prefixed = $prefix . $class;
+
+        $loader->loadClass($class);
+
+        if (!class_exists($prefixed, false)) {
+            return;
+        }
+
+        if (!class_exists($class, false)) {
+            class_alias($prefixed, $class);
+        }
     },
     true,
     true

@@ -24,6 +24,9 @@ class SettingServiceProvider extends AbstractServiceProvider
     /** @var string $devServerUrl Base URL of the shared Vite development server. */
     private const DEV_SERVER_URL = 'http://127.0.0.1:5173';
 
+    /** @var bool $settingsRegistered Whether settings containers have already been registered. */
+    private bool $settingsRegistered = false;
+
     /**
      * Setting page classes registered by this provider.
      *
@@ -41,8 +44,10 @@ class SettingServiceProvider extends AbstractServiceProvider
      */
     public function register(): void
     {
-        // Register settings containers when Carbon Fields asks for fields.
-        add_action('carbon_fields_register_fields', [$this, 'registerSettings']);
+        foreach (Theme::carbonFieldsRegisterHooks() as $hookName) {
+            // Register settings containers when Carbon Fields asks for fields.
+            add_action($hookName, [$this, 'registerSettings']);
+        }
 
         // Load the theme options admin UI assets for Carbon Fields pages.
         add_action('admin_enqueue_scripts', [$this, 'enqueueAdminAssets']);
@@ -60,6 +65,12 @@ class SettingServiceProvider extends AbstractServiceProvider
      */
     public function registerSettings(): void
     {
+        if ($this->settingsRegistered) {
+            return;
+        }
+
+        $this->settingsRegistered = true;
+
         foreach ($this->settings as $settingClass) {
             // Create one Carbon Fields settings container per configured setting page.
             $setting = new $settingClass();

@@ -274,7 +274,7 @@ class AssetServiceProvider extends AbstractServiceProvider
 
         return [
             'ajax' => [
-                'restUrl'         => rest_url('aripplesong/v1/'),
+                'restUrl'         => (defined('IS_PODCAST_PLUGIN_ACTIVATED') && IS_PODCAST_PLUGIN_ACTIVATED) ? rest_url(\Jiejia\ARippleSong\Plugin::PREFIX . '/v1/') : '',
                 'nonce'           => wp_create_nonce('wp_rest'),
                 'postId'          => $postId,
                 'postType'        => $postType,

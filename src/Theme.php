@@ -2,7 +2,6 @@
 namespace Jiejia\DaisyARippleSong;
 
 use Jiejia\DaisyARippleSong\Contracts\ServiceProvider;
-use Jiejia\DaisyARippleSong\Providers\RestApiServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\AssetServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\BlockServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\CarbonFieldsServiceProvider;
@@ -52,7 +51,6 @@ class Theme
         WidgetServiceProvider::class,
         SettingServiceProvider::class,
         CommentServiceProvider::class,
-        RestApiServiceProvider::class,
         PodcastIntegrationServiceProvider::class,
     ];
 
@@ -90,6 +88,29 @@ class Theme
     public static function isPodcastPluginActivated(): bool
     {
         return class_exists(\Jiejia\ARippleSong\Plugin::class, false);
+    }
+
+    /**
+     * Return Carbon Fields registration hooks supported by the current runtime.
+     *
+     * PHP-Scoper prefixes Carbon Fields' internal registration action in scoped
+     * packages, so theme providers must listen to both unscoped and scoped names.
+     *
+     * @return array<int,string>
+     */
+    public static function carbonFieldsRegisterHooks(): array
+    {
+        /** @var array<int,string> $hooks Carbon Fields registration action names. */
+        $hooks = [
+            'carbon_fields_register_fields',
+            self::PREFIX . '_carbon_fields_register_fields',
+        ];
+
+        if (class_exists(\Jiejia\ARippleSong\Plugin::class, false)) {
+            $hooks[] = \Jiejia\ARippleSong\Plugin::PREFIX . '_carbon_fields_register_fields';
+        }
+
+        return array_values(array_unique(array_filter($hooks)));
     }
 
     /**

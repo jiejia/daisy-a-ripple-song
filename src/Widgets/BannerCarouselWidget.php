@@ -124,7 +124,7 @@ class BannerCarouselWidget extends AbstractWidget
             }
 
             /** @var string $imageUrl Slide image URL. */
-            $imageUrl = !empty($slide['image']) ? esc_url_raw((string) $slide['image']) : '';
+            $imageUrl = $this->getSlideImageUrl($slide['image'] ?? '');
 
             if ($imageUrl === '') {
                 continue;
@@ -144,5 +144,27 @@ class BannerCarouselWidget extends AbstractWidget
         }
 
         return $sanitizedSlides;
+    }
+
+    /**
+     * Return a normalized image URL from a Carbon Fields image value.
+     *
+     * @param mixed $image Raw image value from the widget instance.
+     * @return string
+     */
+    protected function getSlideImageUrl(mixed $image): string
+    {
+        if (empty($image)) {
+            return '';
+        }
+
+        if (is_numeric($image)) {
+            /** @var string|false $attachmentUrl Attachment URL resolved from the image ID. */
+            $attachmentUrl = wp_get_attachment_image_url(absint($image), 'full');
+
+            return $attachmentUrl !== false ? esc_url_raw($attachmentUrl) : '';
+        }
+
+        return esc_url_raw((string) $image);
     }
 }

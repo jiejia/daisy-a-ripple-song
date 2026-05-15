@@ -644,17 +644,42 @@ class AssetServiceProvider extends AbstractServiceProvider
     /**
      * Return the original WordPress field name wrapped by a Carbon Fields compact input name.
      *
+     * Complex fields append group indexes after the compact wrapper, so the wrapper closing
+     * bracket must be found by balancing nested WordPress field-name brackets.
+     *
      * @param {string} inputName Form control name attribute.
      * @return {string}
      */
     function unwrapCompactInputName(inputName) {
         const normalizedName = String(inputName || '');
 
-        if (!normalizedName.startsWith(compactInputPrefix) || !normalizedName.endsWith(']')) {
+        if (!normalizedName.startsWith(compactInputPrefix)) {
             return '';
         }
 
-        return normalizedName.slice(compactInputPrefix.length, -1);
+        const compactPayload = normalizedName.slice(compactInputPrefix.length);
+        let bracketDepth = 0;
+
+        for (let index = 0; index < compactPayload.length; index += 1) {
+            const character = compactPayload.charAt(index);
+
+            if (character === '[') {
+                bracketDepth += 1;
+                continue;
+            }
+
+            if (character !== ']') {
+                continue;
+            }
+
+            if (bracketDepth === 0) {
+                return compactPayload.slice(0, index) + compactPayload.slice(index + 1);
+            }
+
+            bracketDepth -= 1;
+        }
+
+        return '';
     }
 
     /**
@@ -855,6 +880,8 @@ class AssetServiceProvider extends AbstractServiceProvider
         scheduleMountWidgetContainers();
         document.addEventListener('input', handleCompactedInputChange, true);
         document.addEventListener('change', handleCompactedInputChange, true);
+        document.addEventListener('submit', syncCompactedInputMirrors, true);
+        document.addEventListener('click', syncCompactedInputMirrors, true);
 
         if (window.jQuery) {
             window.jQuery(document).on('widget-added widget-updated', scheduleMountWidgetContainers);

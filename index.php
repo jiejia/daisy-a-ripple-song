@@ -27,7 +27,7 @@
                 <?php endif; ?>
             <?php endwhile; ?>
 
-            <?php the_posts_pagination(); ?>
+            <?php get_template_part('resources/views/partials/pagination'); ?>
         </main>
 
     </div>

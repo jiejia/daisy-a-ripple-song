@@ -44,7 +44,7 @@
                     <?php endif; ?>
                 <?php endwhile; ?>
 
-                <?php the_posts_pagination(); ?>
+                <?php get_template_part('resources/views/partials/pagination'); ?>
             <?php else: ?>
                 <div class="alert alert-warning">
                     <span><?php esc_html_e('Sorry, no results were found.', 'daisy-a-ripple-song'); ?></span>

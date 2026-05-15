@@ -61,7 +61,9 @@ class AssetServiceProvider extends AbstractServiceProvider
         // Load theme styles in widget editors and block previews.
         add_action('admin_enqueue_scripts', [$this, 'enqueueWidgetEditorAssets']);
         add_action('enqueue_block_assets', [$this, 'enqueueWidgetEditorAssets']);
+        add_action('admin_print_footer_scripts', [$this, 'filterCarbonFieldsWidgetPreload'], 10);
         add_action('admin_print_footer_scripts', [$this, 'printCarbonFieldsWidgetEditorScript'], 10000);
+        add_action('customize_controls_print_footer_scripts', [$this, 'filterCarbonFieldsWidgetPreload'], 10);
         add_action('customize_controls_print_footer_scripts', [$this, 'printCarbonFieldsWidgetEditorScript'], 10000);
     }
 
@@ -140,6 +142,24 @@ class AssetServiceProvider extends AbstractServiceProvider
         }
 
         $this->enqueueWidgetEditorThemeScript();
+    }
+
+    /**
+     * Remove widget containers from Carbon Fields preload data before its initial renderer runs.
+     *
+     * @return void
+     */
+    public function filterCarbonFieldsWidgetPreload(): void
+    {
+        if (!$this->shouldLoadWidgetEditorStyles()) {
+            return;
+        }
+
+        if (!wp_script_is('carbon-fields-vendor', 'enqueued')) {
+            return;
+        }
+
+        wp_add_inline_script('carbon-fields-vendor', $this->getCarbonFieldsWidgetPreloadFilterScript(), 'after');
     }
 
     /**
@@ -503,9 +523,9 @@ class AssetServiceProvider extends AbstractServiceProvider
             window.cf
             && window.cf.core
             && window.cf.metaboxes
-            && window.cf.metaboxes.renderContainer
             && window.wp
             && window.wp.data
+            && window.wp.hooks
         );
     }
 
@@ -616,24 +636,12 @@ class AssetServiceProvider extends AbstractServiceProvider
     }
 
     /**
-     * Mount one Carbon Fields widget container if it has not been mounted yet.
+     * Mount every unmounted Carbon Fields widget form currently present in the editor.
      *
-     * @param {HTMLElement} fieldset Carbon Fields container placeholder.
      * @return {void}
      */
-    function mountWidgetContainer(fieldset) {
-        if (!(fieldset instanceof HTMLElement) || fieldset.dataset.arsCarbonMounted === '1') {
-            return;
-        }
-
+    function mountWidgetContainers() {
         if (!hasCarbonFieldsRuntime()) {
-            return;
-        }
-
-        const parsedContainer = decodeContainerJson(fieldset.getAttribute('data-json'));
-        const normalized = normalizeContainer(parsedContainer);
-
-        if (!normalized) {
             return;
         }
 
@@ -643,22 +651,28 @@ class AssetServiceProvider extends AbstractServiceProvider
             return;
         }
 
-        carbonStore.addFields(normalized.fields);
-        carbonStore.addContainer(normalized.container);
-        window.cf.metaboxes.renderContainer(normalized.container, 'classic');
+        const pendingFieldsets = Array.from(document.querySelectorAll('.carbon-container [data-json]')).filter((fieldset) => (
+            fieldset instanceof HTMLElement && fieldset.dataset.arsCarbonMounted !== '1'
+        ));
 
-        fieldset.dataset.arsCarbonMounted = '1';
-    }
+        if (pendingFieldsets.length === 0) {
+            return;
+        }
 
-    /**
-     * Mount every unmounted Carbon Fields widget form currently present in the editor.
-     *
-     * @return {void}
-     */
-    function mountWidgetContainers() {
-        document.querySelectorAll('.carbon-container [data-json]').forEach((fieldset) => {
-            mountWidgetContainer(fieldset);
+        pendingFieldsets.forEach((fieldset) => {
+            const parsedContainer = decodeContainerJson(fieldset.getAttribute('data-json'));
+            const normalized = normalizeContainer(parsedContainer);
+
+            if (!normalized) {
+                return;
+            }
+
+            carbonStore.addFields(normalized.fields);
+            carbonStore.addContainer(normalized.container);
+            fieldset.dataset.arsCarbonMounted = '1';
         });
+
+        window.wp.hooks.doAction('carbon-fields.init');
     }
 
     /**
@@ -705,6 +719,28 @@ class AssetServiceProvider extends AbstractServiceProvider
     } else {
         bindWidgetFormMounting();
     }
+})();
+JS;
+    }
+
+    /**
+     * Build the script that prevents Carbon Fields from rendering widget forms before WordPress inserts them.
+     *
+     * @return string
+     */
+    private function getCarbonFieldsWidgetPreloadFilterScript(): string
+    {
+        return <<<'JS'
+(() => {
+    'use strict';
+
+    if (!window.cf || !window.cf.preloaded || !Array.isArray(window.cf.preloaded.containers)) {
+        return;
+    }
+
+    window.cf.preloaded.containers = window.cf.preloaded.containers.filter((container) => (
+        !container || container.type !== 'widget'
+    ));
 })();
 JS;
     }

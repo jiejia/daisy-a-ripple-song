@@ -87,6 +87,10 @@ abstract class AbstractWidget extends CarbonWidget implements ThemeWidget
     public function update($new_instance, $old_instance)
     {
         if (is_array($new_instance)) {
+            if ($this->isEncodedComplexStorageInstance($new_instance)) {
+                return $new_instance;
+            }
+
             $new_instance = $this->normalizeProtectedStorageInput($new_instance);
         }
 
@@ -201,6 +205,30 @@ abstract class AbstractWidget extends CarbonWidget implements ThemeWidget
         }
 
         return $instance;
+    }
+
+    /**
+     * Return whether the instance is already encoded Carbon Fields complex storage.
+     *
+     * @param array<string,mixed> $instance Widget instance data.
+     * @return bool
+     */
+    protected function isEncodedComplexStorageInstance(array $instance): bool
+    {
+        /** @var string $protectedPrefix Protected Carbon Fields storage prefix for this widget. */
+        $protectedPrefix = '_' . $this->fieldPrefix();
+
+        foreach ($instance as $fieldName => $fieldValue) {
+            if (
+                is_string($fieldName)
+                && str_starts_with($fieldName, $protectedPrefix)
+                && str_contains($fieldName, '|')
+            ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -6,6 +6,7 @@ use Carbon_Fields\Widget as CarbonWidget;
 use Jiejia\DaisyARippleSong\Contracts\ThemeWidget;
 use Jiejia\DaisyARippleSong\Supports\WidgetRenderer;
 use Jiejia\DaisyARippleSong\Theme;
+use WP_Widget;
 
 /**
  * Base class for Carbon Fields powered theme widgets.
@@ -129,6 +130,50 @@ abstract class AbstractWidget extends CarbonWidget implements ThemeWidget
         }
 
         return $normalizedInstance;
+    }
+
+    /**
+     * Register Carbon Fields containers for all active instances of this widget during REST API initialisation.
+     *
+     * Carbon Fields Loader only initialises containers for widgets whose ID begins with the
+     * "carbon_fields_" prefix. Because AbstractWidget deliberately clears that prefix (to preserve
+     * existing option keys), containers are never registered during REST requests, which prevents
+     * Carbon Fields from reading/writing complex fields via the Block Editor widget panel.
+     *
+     * Call this method from a "rest_api_init" hook so the containers are available before any
+     * REST request attempts to update a widget instance.
+     *
+     * @return void
+     */
+    public function initializeRestContainer(): void
+    {
+        /** @var array<string,mixed> $sidebarWidgets All sidebar widget placements. */
+        $sidebarWidgets = wp_get_sidebars_widgets();
+
+        /** @var array<int,string> $allWidgetIds Flat list of every placed widget ID. */
+        $allWidgetIds = array_merge(...array_values(array_filter($sidebarWidgets, 'is_array')));
+
+        /** @var string $idBase The base ID for this widget class (e.g. "banner_carousel_widget"). */
+        $idBase = $this->id_base;
+
+        foreach ($allWidgetIds as $widgetId) {
+            if (!is_string($widgetId)) {
+                continue;
+            }
+
+            // Match instances that belong to this widget class (e.g. "banner_carousel_widget-2").
+            if (!str_starts_with($widgetId, $idBase . '-')) {
+                continue;
+            }
+
+            /** @var int $instanceNumber The numeric suffix of the placed widget instance. */
+            $instanceNumber = (int) substr($widgetId, strlen($idBase) + 1);
+
+            // _set() is a WP_Widget method that sets the current instance number used by
+            // register_container() to load field values from the correct widget option slot.
+            $this->_set($instanceNumber);
+            $this->register_container();
+        }
     }
 
     /**

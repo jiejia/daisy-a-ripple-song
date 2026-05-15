@@ -66,6 +66,30 @@ $prefixLength = strlen($prefix);
 $carbonFieldsPrefix = 'Carbon_Fields\\';
 $carbonFieldsPrefixLength = strlen($carbonFieldsPrefix);
 
+if (!function_exists('daisy_a_ripple_song_alias_carbon_fields_symbol')) {
+    /**
+     * Alias one prefixed Carbon Fields symbol back to its public class name.
+     *
+     * @param string $exposed Public Carbon Fields symbol name.
+     * @param string $prefixed PHP-Scoper prefixed Carbon Fields symbol name.
+     * @return void
+     */
+    function daisy_a_ripple_song_alias_carbon_fields_symbol($exposed, $prefixed) {
+        if (
+            !class_exists($exposed, false)
+            && !interface_exists($exposed, false)
+            && !trait_exists($exposed, false)
+            && (
+                class_exists($prefixed, false)
+                || interface_exists($prefixed, false)
+                || trait_exists($prefixed, false)
+            )
+        ) {
+            class_alias($prefixed, $exposed);
+        }
+    }
+}
+
 spl_autoload_register(
     static function ($class) use ($loader, $prefix, $prefixLength, $carbonFieldsPrefix, $carbonFieldsPrefixLength) {
         if (strncmp($class, $prefix, $prefixLength) === 0) {
@@ -73,6 +97,10 @@ spl_autoload_register(
 
             if ($unprefixed !== '') {
                 $loader->loadClass($unprefixed);
+
+                if (strncmp($unprefixed, $carbonFieldsPrefix, $carbonFieldsPrefixLength) === 0) {
+                    daisy_a_ripple_song_alias_carbon_fields_symbol($unprefixed, $class);
+                }
             }
 
             return;
@@ -84,15 +112,11 @@ spl_autoload_register(
 
         $prefixed = $prefix . $class;
 
-        $loader->loadClass($class);
-
-        if (!class_exists($prefixed, false)) {
-            return;
+        if (!class_exists($prefixed, false) && !interface_exists($prefixed, false) && !trait_exists($prefixed, false)) {
+            $loader->loadClass($class);
         }
 
-        if (!class_exists($class, false)) {
-            class_alias($prefixed, $class);
-        }
+        daisy_a_ripple_song_alias_carbon_fields_symbol($class, $prefixed);
     },
     true,
     true

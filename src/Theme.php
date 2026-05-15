@@ -103,10 +103,10 @@ class Theme
         /** @var array<int,string> $hooks Carbon Fields registration action names. */
         $hooks = [];
 
-        if (class_exists('Jiejia\\DaisyARippleSong\\Vendor\\Carbon_Fields\\Carbon_Fields', true)) {
+        if (class_exists('Jiejia\\DaisyARippleSong\\Vendor\\Carbon_Fields\\Carbon_Fields', false)) {
             // Scoped release builds isolate Carbon Fields hooks with the theme prefix.
             $hooks[] = self::PREFIX . '_carbon_fields_register_fields';
-        } elseif (class_exists('Carbon_Fields\\Carbon_Fields', true)) {
+        } elseif (class_exists('Carbon_Fields\\Carbon_Fields', false)) {
             // Unscoped development installs use Carbon Fields' original hook names.
             $hooks[] = 'carbon_fields_register_fields';
         } else {

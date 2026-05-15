@@ -28,7 +28,7 @@ if (!$paginationQuery instanceof WP_Query) {
  *
  * @var int $totalPages
  */
-$totalPages = max(1, (int) $paginationQuery->max_num_pages);
+$totalPages = max(1, (int)$paginationQuery->max_num_pages);
 
 /**
  * Stop rendering when there is only one page of results.
@@ -43,8 +43,8 @@ if ($totalPages <= 1) {
  * @var int $currentPage
  */
 $currentPage = isset($args['current'])
-    ? max(1, (int) $args['current'])
-    : max(1, (int) get_query_var('paged'), (int) get_query_var('page'));
+        ? max(1, (int)$args['current'])
+        : max(1, (int)get_query_var('paged'), (int)get_query_var('page'));
 
 /**
  * Clamp the current page number to the query range.
@@ -125,16 +125,22 @@ if ($totalPages <= 7) {
 }
 ?>
 
-<nav class="mt-4 flex justify-center card md:bg-base-100 bg-base-300/90 md:static md:mt-5 fixed bottom-0 left-0 right-0 z-100">
-    <div class="join">
-        <?php foreach ($pages as $pageNumber): ?>
-            <?php if ($pageNumber === 0): ?>
-                <span class="join-item btn btn-square btn-disabled">...</span>
-            <?php elseif ($pageNumber === $currentPage): ?>
-                <span class="join-item btn btn-square btn-active" aria-current="page"><?php echo esc_html(number_format_i18n($pageNumber)); ?></span>
-            <?php else: ?>
-                <a class="join-item btn btn-square" href="<?php echo esc_url(get_pagenum_link($pageNumber)); ?>"><?php echo esc_html(number_format_i18n($pageNumber)); ?></a>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </div>
-</nav>
+<div class="rounded-lg bg-base-100 p-2">
+    <nav class="flex justify-center">
+        <div class="join">
+            <?php foreach ($pages as $pageNumber): ?>
+                <?php if ($pageNumber === 0): ?>
+                    <span class="join-item btn btn-square btn-disabled">...</span>
+                <?php elseif ($pageNumber === $currentPage): ?>
+                    <span class="join-item btn btn-square btn-active"
+                          aria-current="page"><?php echo esc_html(number_format_i18n($pageNumber)); ?></span>
+                <?php else: ?>
+                    <a class="join-item btn btn-square"
+                       href="<?php echo esc_url(get_pagenum_link($pageNumber)); ?>"><?php echo esc_html(number_format_i18n($pageNumber)); ?></a>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    </nav>
+</div>
+
+

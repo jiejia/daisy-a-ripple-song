@@ -91,8 +91,16 @@ abstract class AbstractWidget extends CarbonWidget implements ThemeWidget
             /** @var string $fieldName Carbon Fields storage key for the current widget field. */
             $fieldName = $this->fieldName((string) $key);
 
+            /** @var string $protectedFieldName Carbon Fields protected storage key for the current widget field. */
+            $protectedFieldName = '_' . $fieldName;
+
             if (array_key_exists($fieldName, $instance)) {
                 $normalizedInstance[(string) $key] = $instance[$fieldName];
+                continue;
+            }
+
+            if (array_key_exists($protectedFieldName, $instance)) {
+                $normalizedInstance[(string) $key] = $instance[$protectedFieldName];
                 continue;
             }
 

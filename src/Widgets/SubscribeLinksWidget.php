@@ -93,13 +93,54 @@ class SubscribeLinksWidget extends AbstractWidget
         /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
         $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);
 
+        /** @var array<string,string> $links Sanitized subscription platform links. */
+        $links = [
+            'apple' => !empty($widgetInstance['apple_podcast_url']) ? esc_url((string) $widgetInstance['apple_podcast_url']) : '',
+            'spotify' => !empty($widgetInstance['spotify_url']) ? esc_url((string) $widgetInstance['spotify_url']) : '',
+            'youtube' => !empty($widgetInstance['youtube_music_url']) ? esc_url((string) $widgetInstance['youtube_music_url']) : '',
+        ];
+
+        /** @var bool $isWidgetEditorPreview Whether the widget is rendering inside the admin preview flow. */
+        $isWidgetEditorPreview = $this->isWidgetEditorPreviewRequest();
+
+        if ($isWidgetEditorPreview && empty(array_filter($links))) {
+            $links = [
+                'apple' => '#',
+                'spotify' => '#',
+                'youtube' => '#',
+            ];
+        }
+
         echo $this->renderTemplate('subscribe-links', [
             'title' => $this->textValue($widgetInstance, 'title', __('SUBSCRIBE', 'daisy-a-ripple-song')),
-            'links' => [
-                'apple' => !empty($widgetInstance['apple_podcast_url']) ? esc_url((string) $widgetInstance['apple_podcast_url']) : '',
-                'spotify' => !empty($widgetInstance['spotify_url']) ? esc_url((string) $widgetInstance['spotify_url']) : '',
-                'youtube' => !empty($widgetInstance['youtube_music_url']) ? esc_url((string) $widgetInstance['youtube_music_url']) : '',
-            ],
+            'links' => $links,
+            'isPreview' => $isWidgetEditorPreview,
         ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    }
+
+    /**
+     * Return whether the current request is rendering a WordPress widget editor preview.
+     *
+     * @return bool
+     */
+    protected function isWidgetEditorPreviewRequest(): bool
+    {
+        /** @var string $requestUri Raw request URI used to identify widget REST preview routes. */
+        $requestUri = isset($_SERVER['REQUEST_URI']) ? (string) wp_unslash($_SERVER['REQUEST_URI']) : '';
+
+        /** @var string $restRoute Explicit REST route value when WordPress uses query-string REST routing. */
+        $restRoute = isset($_GET['rest_route']) ? (string) wp_unslash($_GET['rest_route']) : '';
+
+        /** @var bool $isWidgetRestRequest Whether the current REST request belongs to the widget editor. */
+        $isWidgetRestRequest = defined('REST_REQUEST')
+            && REST_REQUEST
+            && (
+                str_contains($requestUri, '/wp/v2/widget-types/')
+                || str_contains($requestUri, '/wp/v2/widgets/')
+                || str_contains($restRoute, '/wp/v2/widget-types/')
+                || str_contains($restRoute, '/wp/v2/widgets/')
+            );
+
+        return $isWidgetRestRequest || !empty($_GET['legacy-widget-preview']);
     }
 }

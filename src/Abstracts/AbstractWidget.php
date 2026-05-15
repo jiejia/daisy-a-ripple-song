@@ -77,6 +77,22 @@ abstract class AbstractWidget extends CarbonWidget implements ThemeWidget
     }
 
     /**
+     * Save a widget instance after normalizing REST-encoded Carbon Fields storage keys.
+     *
+     * @param array<string,mixed> $new_instance New widget instance data.
+     * @param array<string,mixed> $old_instance Previous widget instance data.
+     * @return array<string,mixed>|false Saved widget instance data or false to cancel saving.
+     */
+    public function update($new_instance, $old_instance)
+    {
+        if (is_array($new_instance)) {
+            $new_instance = $this->normalizeProtectedStorageInput($new_instance);
+        }
+
+        return parent::update($new_instance, $old_instance);
+    }
+
+    /**
      * Return instance values merged with widget defaults.
      *
      * @param array<string,mixed> $instance Widget instance data.
@@ -113,6 +129,33 @@ abstract class AbstractWidget extends CarbonWidget implements ThemeWidget
         }
 
         return $normalizedInstance;
+    }
+
+    /**
+     * Mirror protected Carbon Fields storage keys to their public input names for REST widget saves.
+     *
+     * @param array<string,mixed> $instance Widget instance data.
+     * @return array<string,mixed>
+     */
+    protected function normalizeProtectedStorageInput(array $instance): array
+    {
+        /** @var string $protectedPrefix Protected Carbon Fields storage prefix for this widget. */
+        $protectedPrefix = '_' . $this->fieldPrefix();
+
+        foreach ($instance as $fieldName => $fieldValue) {
+            if (!is_string($fieldName) || !str_starts_with($fieldName, $protectedPrefix)) {
+                continue;
+            }
+
+            /** @var string $publicFieldName Public Carbon Fields input name for this widget value. */
+            $publicFieldName = substr($fieldName, 1);
+
+            if (!array_key_exists($publicFieldName, $instance)) {
+                $instance[$publicFieldName] = $fieldValue;
+            }
+        }
+
+        return $instance;
     }
 
     /**

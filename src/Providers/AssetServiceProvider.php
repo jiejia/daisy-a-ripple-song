@@ -513,6 +513,12 @@ class AssetServiceProvider extends AbstractServiceProvider
     /** @type {number} Pending widget form mount timeout ID. */
     let mountTimer = 0;
 
+    /** @type {string} Carbon Fields compact input name prefix. */
+    const compactInputPrefix = 'carbon_fields_compact_input[';
+
+    /** @type {string} Attribute used to identify generated WordPress widget input mirrors. */
+    const mirrorInputAttribute = 'data-ars-carbon-input-mirror';
+
     /**
      * Return whether the Carbon Fields JavaScript APIs required for widget rendering are available.
      *
@@ -636,6 +642,152 @@ class AssetServiceProvider extends AbstractServiceProvider
     }
 
     /**
+     * Return the original WordPress field name wrapped by a Carbon Fields compact input name.
+     *
+     * @param {string} inputName Form control name attribute.
+     * @return {string}
+     */
+    function unwrapCompactInputName(inputName) {
+        const normalizedName = String(inputName || '');
+
+        if (!normalizedName.startsWith(compactInputPrefix) || !normalizedName.endsWith(']')) {
+            return '';
+        }
+
+        return normalizedName.slice(compactInputPrefix.length, -1);
+    }
+
+    /**
+     * Return whether a form control should contribute to submitted FormData.
+     *
+     * @param {HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement} control Candidate form control.
+     * @return {boolean}
+     */
+    function isSuccessfulFormControl(control) {
+        if (!control || control.disabled || !control.name) {
+            return false;
+        }
+
+        if (control instanceof HTMLInputElement) {
+            const ignoredTypes = ['button', 'file', 'image', 'reset', 'submit'];
+
+            if (ignoredTypes.includes(control.type)) {
+                return false;
+            }
+
+            if ((control.type === 'checkbox' || control.type === 'radio') && !control.checked) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Return submitted values for a form control, including multi-select values.
+     *
+     * @param {HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement} control Source form control.
+     * @return {string[]}
+     */
+    function getFormControlValues(control) {
+        if (control instanceof HTMLSelectElement && control.multiple) {
+            return Array.from(control.selectedOptions).map((option) => option.value);
+        }
+
+        return [control.value];
+    }
+
+    /**
+     * Create a hidden WordPress-native widget input mirror.
+     *
+     * @param {HTMLFormElement} form Widget form.
+     * @param {string} inputName Original WordPress input name.
+     * @param {string} inputValue Current input value.
+     * @return {void}
+     */
+    function appendMirroredInput(form, inputName, inputValue) {
+        const input = document.createElement('input');
+
+        input.type = 'hidden';
+        input.name = inputName;
+        input.value = inputValue;
+        input.setAttribute(mirrorInputAttribute, '1');
+
+        form.appendChild(input);
+    }
+
+    /**
+     * Mirror Carbon compact inputs to WordPress widget input names before the editor serializes the form.
+     *
+     * @param {HTMLFormElement} form Widget form.
+     * @return {number}
+     */
+    function syncFormCompactedInputMirrors(form) {
+        if (!(form instanceof HTMLFormElement)) {
+            return 0;
+        }
+
+        form.querySelectorAll('[' + mirrorInputAttribute + '="1"]').forEach((input) => input.remove());
+
+        let mirroredInputCount = 0;
+        const controls = Array.from(form.querySelectorAll('input, textarea, select'));
+
+        controls.forEach((control) => {
+            if (!isSuccessfulFormControl(control)) {
+                return;
+            }
+
+            const originalName = unwrapCompactInputName(control.name);
+
+            if (!originalName.startsWith('widget-')) {
+                return;
+            }
+
+            getFormControlValues(control).forEach((value) => {
+                appendMirroredInput(form, originalName, value);
+                mirroredInputCount += 1;
+            });
+        });
+
+        return mirroredInputCount;
+    }
+
+    /**
+     * Mirror compact inputs for every currently rendered widget form.
+     *
+     * @return {void}
+     */
+    function syncCompactedInputMirrors() {
+        document.querySelectorAll('form').forEach((form) => {
+            syncFormCompactedInputMirrors(form);
+        });
+    }
+
+    /**
+     * Keep mirrored inputs current before WordPress handles widget form events.
+     *
+     * @param {Event} event Native input or change event.
+     * @return {void}
+     */
+    function handleCompactedInputChange(event) {
+        const target = event.target;
+
+        if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement)) {
+            return;
+        }
+
+        if (!unwrapCompactInputName(target.name)) {
+            return;
+        }
+
+        const form = target.form;
+
+        if (form instanceof HTMLFormElement) {
+            syncFormCompactedInputMirrors(form);
+        }
+    }
+
+    /**
      * Mount every unmounted Carbon Fields widget form currently present in the editor.
      *
      * @return {void}
@@ -673,6 +825,7 @@ class AssetServiceProvider extends AbstractServiceProvider
         });
 
         window.wp.hooks.doAction('carbon-fields.init');
+        window.setTimeout(syncCompactedInputMirrors, 0);
     }
 
     /**
@@ -689,6 +842,7 @@ class AssetServiceProvider extends AbstractServiceProvider
             mountTimer = 0;
             mountWidgetContainers();
             window.setTimeout(mountWidgetContainers, 100);
+            window.setTimeout(syncCompactedInputMirrors, 150);
         }, 0);
     }
 
@@ -699,6 +853,8 @@ class AssetServiceProvider extends AbstractServiceProvider
      */
     function bindWidgetFormMounting() {
         scheduleMountWidgetContainers();
+        document.addEventListener('input', handleCompactedInputChange, true);
+        document.addEventListener('change', handleCompactedInputChange, true);
 
         if (window.jQuery) {
             window.jQuery(document).on('widget-added widget-updated', scheduleMountWidgetContainers);

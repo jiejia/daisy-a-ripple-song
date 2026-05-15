@@ -61,6 +61,8 @@ class AssetServiceProvider extends AbstractServiceProvider
         // Load theme styles in widget editors and block previews.
         add_action('admin_enqueue_scripts', [$this, 'enqueueWidgetEditorAssets']);
         add_action('enqueue_block_assets', [$this, 'enqueueWidgetEditorAssets']);
+        add_action('admin_print_footer_scripts', [$this, 'printCarbonFieldsWidgetEditorScript'], 10000);
+        add_action('customize_controls_print_footer_scripts', [$this, 'printCarbonFieldsWidgetEditorScript'], 10000);
     }
 
     /**
@@ -138,6 +140,20 @@ class AssetServiceProvider extends AbstractServiceProvider
         }
 
         $this->enqueueWidgetEditorThemeScript();
+    }
+
+    /**
+     * Print the compatibility runtime that mounts Carbon Fields widget forms in the block widget editor.
+     *
+     * @return void
+     */
+    public function printCarbonFieldsWidgetEditorScript(): void
+    {
+        if (!$this->shouldLoadWidgetEditorStyles()) {
+            return;
+        }
+
+        wp_print_inline_script_tag($this->getCarbonFieldsWidgetEditorScript());
     }
 
     /**
@@ -461,6 +477,236 @@ class AssetServiceProvider extends AbstractServiceProvider
         }
 
         wp_add_inline_script($handle, $this->getWidgetEditorThemeScript());
+    }
+
+    /**
+     * Build the Carbon Fields widget editor compatibility script.
+     *
+     * @return string
+     */
+    private function getCarbonFieldsWidgetEditorScript(): string
+    {
+        return <<<'JS'
+(() => {
+    'use strict';
+
+    /** @type {number} Pending widget form mount timeout ID. */
+    let mountTimer = 0;
+
+    /**
+     * Return whether the Carbon Fields JavaScript APIs required for widget rendering are available.
+     *
+     * @return {boolean}
+     */
+    function hasCarbonFieldsRuntime() {
+        return Boolean(
+            window.cf
+            && window.cf.core
+            && window.cf.metaboxes
+            && window.cf.metaboxes.renderContainer
+            && window.wp
+            && window.wp.data
+        );
+    }
+
+    /**
+     * Decode a Carbon Fields container JSON string stored in a fieldset data attribute.
+     *
+     * @param {string} encodedJson Encoded JSON container payload.
+     * @return {?Object}
+     */
+    function decodeContainerJson(encodedJson) {
+        try {
+            return JSON.parse(decodeURIComponent(String(encodedJson || '').replace(/\+/g, '%20')));
+        } catch (error) {
+            return null;
+        }
+    }
+
+    /**
+     * Return a deep copy of a plain JSON-safe value.
+     *
+     * @param {*} value Value to clone.
+     * @return {*}
+     */
+    function cloneValue(value) {
+        return JSON.parse(JSON.stringify(value));
+    }
+
+    /**
+     * Return a Carbon Fields compatible unique ID.
+     *
+     * @return {string}
+     */
+    function uniqueFieldId() {
+        if (window.cf && window.cf.core && typeof window.cf.core.uniqueId === 'function') {
+            return window.cf.core.uniqueId();
+        }
+
+        return 'cf-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+    }
+
+    /**
+     * Return a compact field reference used by complex field groups.
+     *
+     * @param {Object} field Flattened field object.
+     * @return {Object}
+     */
+    function pickFieldReference(field) {
+        return {
+            id: field.id,
+            type: field.type,
+            name: field.name,
+            base_name: field.base_name,
+        };
+    }
+
+    /**
+     * Flatten a Carbon Fields field and append it to the accumulator.
+     *
+     * @param {Object} field Raw field object from a widget container payload.
+     * @param {string} containerId Current Carbon Fields container ID.
+     * @param {Object[]} accumulator Flat field list.
+     * @return {Object}
+     */
+    function flattenField(field, containerId, accumulator) {
+        const clonedField = cloneValue(field);
+
+        clonedField.id = uniqueFieldId();
+        clonedField.container_id = containerId;
+
+        if (clonedField.type === 'complex' && Array.isArray(clonedField.value)) {
+            clonedField.value.forEach((group) => {
+                group.id = uniqueFieldId();
+                group.container_id = containerId;
+
+                if (Array.isArray(group.fields)) {
+                    group.fields = group.fields.map((groupField) => flattenField(groupField, containerId, accumulator));
+                }
+            });
+        }
+
+        accumulator.push(clonedField);
+
+        return pickFieldReference(clonedField);
+    }
+
+    /**
+     * Convert a Carbon Fields container payload into store-ready container and field objects.
+     *
+     * @param {Object} container Raw container object.
+     * @return {?Object}
+     */
+    function normalizeContainer(container) {
+        if (!container || container.type !== 'widget' || !Array.isArray(container.fields)) {
+            return null;
+        }
+
+        const normalizedContainer = cloneValue(container);
+        const normalizedFields = [];
+
+        normalizedContainer.fields = normalizedContainer.fields.map((field) => (
+            flattenField(field, normalizedContainer.id, normalizedFields)
+        ));
+
+        return {
+            container: normalizedContainer,
+            fields: normalizedFields,
+        };
+    }
+
+    /**
+     * Mount one Carbon Fields widget container if it has not been mounted yet.
+     *
+     * @param {HTMLElement} fieldset Carbon Fields container placeholder.
+     * @return {void}
+     */
+    function mountWidgetContainer(fieldset) {
+        if (!(fieldset instanceof HTMLElement) || fieldset.dataset.arsCarbonMounted === '1') {
+            return;
+        }
+
+        if (!hasCarbonFieldsRuntime()) {
+            return;
+        }
+
+        const parsedContainer = decodeContainerJson(fieldset.getAttribute('data-json'));
+        const normalized = normalizeContainer(parsedContainer);
+
+        if (!normalized) {
+            return;
+        }
+
+        const carbonStore = window.wp.data.dispatch('carbon-fields/metaboxes');
+
+        if (!carbonStore || typeof carbonStore.addContainer !== 'function' || typeof carbonStore.addFields !== 'function') {
+            return;
+        }
+
+        carbonStore.addFields(normalized.fields);
+        carbonStore.addContainer(normalized.container);
+        window.cf.metaboxes.renderContainer(normalized.container, 'classic');
+
+        fieldset.dataset.arsCarbonMounted = '1';
+    }
+
+    /**
+     * Mount every unmounted Carbon Fields widget form currently present in the editor.
+     *
+     * @return {void}
+     */
+    function mountWidgetContainers() {
+        document.querySelectorAll('.carbon-container [data-json]').forEach((fieldset) => {
+            mountWidgetContainer(fieldset);
+        });
+    }
+
+    /**
+     * Schedule a near-future mount pass after WordPress injects or replaces legacy widget forms.
+     *
+     * @return {void}
+     */
+    function scheduleMountWidgetContainers() {
+        if (mountTimer) {
+            window.clearTimeout(mountTimer);
+        }
+
+        mountTimer = window.setTimeout(() => {
+            mountTimer = 0;
+            mountWidgetContainers();
+            window.setTimeout(mountWidgetContainers, 100);
+        }, 0);
+    }
+
+    /**
+     * Bind editor events and DOM observation used by block-based widget screens.
+     *
+     * @return {void}
+     */
+    function bindWidgetFormMounting() {
+        scheduleMountWidgetContainers();
+
+        if (window.jQuery) {
+            window.jQuery(document).on('widget-added widget-updated', scheduleMountWidgetContainers);
+        }
+
+        if (typeof MutationObserver !== 'undefined' && document.body) {
+            const observer = new MutationObserver(scheduleMountWidgetContainers);
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+            });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bindWidgetFormMounting, { once: true });
+    } else {
+        bindWidgetFormMounting();
+    }
+})();
+JS;
     }
 
     /**

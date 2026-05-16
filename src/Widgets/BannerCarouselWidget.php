@@ -48,41 +48,9 @@ class BannerCarouselWidget extends AbstractWidget
     {
         return [
             [
-                'type' => 'repeater',
-                'key' => 'slides',
-                'label' => __('Banner Slides', 'daisy-a-ripple-song'),
-                'description' => __('Add one or more banner slides. Empty image rows will not be rendered.', 'daisy-a-ripple-song'),
-                'fields' => [
-                    [
-                        'type' => 'image',
-                        'key' => 'image',
-                        'label' => __('Image', 'daisy-a-ripple-song'),
-                        'frame_title' => __('Select Banner Image', 'daisy-a-ripple-song'),
-                        'button_label' => __('Use This Image', 'daisy-a-ripple-song'),
-                    ],
-                    [
-                        'type' => 'url',
-                        'key' => 'link',
-                        'label' => __('Link URL', 'daisy-a-ripple-song'),
-                        'placeholder' => 'https://example.com',
-                    ],
-                    [
-                        'type' => 'select',
-                        'key' => 'link_target',
-                        'label' => __('Link Target', 'daisy-a-ripple-song'),
-                        'options' => [
-                            '_self' => __('Current Page', 'daisy-a-ripple-song'),
-                            '_blank' => __('New Tab', 'daisy-a-ripple-song'),
-                        ],
-                        'default' => '_self',
-                    ],
-                    [
-                        'type' => 'text',
-                        'key' => 'description',
-                        'label' => __('Description', 'daisy-a-ripple-song'),
-                        'placeholder' => __('Image description', 'daisy-a-ripple-song'),
-                    ],
-                ],
+                'type' => 'hidden',
+                'key' => 'gallery_ids',
+                'default' => '',
             ],
         ];
     }
@@ -95,8 +63,102 @@ class BannerCarouselWidget extends AbstractWidget
     public function defaultSettings(): array
     {
         return [
-            'slides' => [],
+            'gallery_ids' => '',
         ];
+    }
+
+    /**
+     * Render the native widget admin form with WP Media Gallery.
+     *
+     * @param array<string,mixed> $instance Saved widget instance.
+     * @return string
+     */
+    public function form($instance): string
+    {
+        /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
+        $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);
+        $galleryIds = $widgetInstance['gallery_ids'] ?? '';
+        
+        $fieldId = $this->get_field_id('gallery_ids');
+        $fieldName = $this->get_field_name('gallery_ids');
+        $buttonId = $fieldId . '_button';
+
+        ?>
+        <div class="ars-gallery-widget-wrapper" style="padding: 10px; background: #f9f9f9; border: 1px solid #e2e4e7; border-radius: 4px; margin-bottom: 15px;">
+            <p><strong><?php _e('Banner Images', 'daisy-a-ripple-song'); ?></strong></p>
+            <p class="description"><?php _e('Manage banner images using WordPress built-in gallery manager.', 'daisy-a-ripple-song'); ?></p>
+            
+            <input type="hidden" id="<?php echo esc_attr($fieldId); ?>" name="<?php echo esc_attr($fieldName); ?>" value="<?php echo esc_attr($galleryIds); ?>" class="ars-gallery-ids-input" />
+            
+            <div class="ars-gallery-preview" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; min-height: 60px; align-items: center;">
+                <?php
+                if (!empty($galleryIds)) {
+                    $ids = explode(',', $galleryIds);
+                    foreach ($ids as $id) {
+                        $url = wp_get_attachment_image_url(absint($id), 'thumbnail');
+                        if ($url) {
+                            echo '<img src="' . esc_url($url) . '" style="width: 60px; height: 60px; object-fit: cover; border: 1px solid #c3c4c7; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" />';
+                        }
+                    }
+                } else {
+                    echo '<span style="color: #646970; font-style: italic;">' . __('No images selected.', 'daisy-a-ripple-song') . '</span>';
+                }
+                ?>
+            </div>
+            
+            <button type="button" id="<?php echo esc_attr($buttonId); ?>" class="button button-primary" style="width: 100%; text-align: center;">
+                <span class="dashicons dashicons-images-alt2" style="line-height: 1.3; margin-right: 5px;"></span>
+                <?php _e('Manage Gallery', 'daisy-a-ripple-song'); ?>
+            </button>
+        </div>
+
+        <script>
+            (function($) {
+                $(document).ready(function() {
+                    // Use delegation to support widget updates
+                    $(document).on('click', '#<?php echo esc_js($buttonId); ?>', function(e) {
+                        e.preventDefault();
+                        
+                        var btn = $(this);
+                        var wrapper = btn.closest('.ars-gallery-widget-wrapper');
+                        var input = wrapper.find('.ars-gallery-ids-input');
+                        var preview = wrapper.find('.ars-gallery-preview');
+                        var ids = input.val();
+                        
+                        // Ensure wp.media is available
+                        if (typeof wp === 'undefined' || !wp.media || !wp.media.gallery) {
+                            return;
+                        }
+
+                        // Open WP native gallery editor
+                        var frame = wp.media.gallery.edit('[gallery ids="' + ids + '"]');
+                        
+                        frame.state('gallery-edit').on('update', function(selection) {
+                            var selectedIds = [];
+                            var html = '';
+                            
+                            if (selection.models.length > 0) {
+                                selection.models.forEach(function(attachment) {
+                                    selectedIds.push(attachment.id);
+                                    var url = attachment.get('sizes') && attachment.get('sizes').thumbnail 
+                                        ? attachment.get('sizes').thumbnail.url 
+                                        : attachment.get('url');
+                                    html += '<img src="' + url + '" style="width: 60px; height: 60px; object-fit: cover; border: 1px solid #c3c4c7; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" />';
+                                });
+                            } else {
+                                html = '<span style="color: #646970; font-style: italic;"><?php echo esc_js(__("No images selected.", "daisy-a-ripple-song")); ?></span>';
+                            }
+                            
+                            input.val(selectedIds.join(',')).trigger('change');
+                            preview.html(html);
+                        });
+                    });
+                });
+            })(jQuery);
+        </script>
+        <?php
+        
+        return '';
     }
 
     /**
@@ -111,7 +173,7 @@ class BannerCarouselWidget extends AbstractWidget
         /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
         $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);
         /** @var array<int,array<string,string>> $slides Sanitized banner slide data. */
-        $slides = $this->getSanitizedSlides($widgetInstance['slides'] ?? []);
+        $slides = $this->getSanitizedSlides($widgetInstance['gallery_ids'] ?? '');
         /** @var string $carouselId Unique DOM ID for the current carousel instance. */
         $carouselId = 'banner-carousel-' . $this->id;
 
@@ -124,65 +186,47 @@ class BannerCarouselWidget extends AbstractWidget
     /**
      * Sanitize the repeatable slide array.
      *
-     * @param mixed $slides Raw slide configuration.
+     * @param mixed $galleryIds Raw slide configuration (comma-separated IDs).
      * @return array<int,array<string,string>>
      */
-    protected function getSanitizedSlides(mixed $slides): array
+    protected function getSanitizedSlides(mixed $galleryIds): array
     {
         /** @var array<int,array<string,string>> $sanitizedSlides Sanitized slide list. */
         $sanitizedSlides = [];
 
-        if (!is_array($slides)) {
+        if (!is_string($galleryIds) || empty($galleryIds)) {
             return $sanitizedSlides;
         }
 
-        foreach ($slides as $slide) {
-            if (!is_array($slide)) {
+        $ids = explode(',', $galleryIds);
+        foreach ($ids as $id) {
+            $id = absint($id);
+            if (!$id) {
                 continue;
             }
 
-            /** @var string $imageUrl Slide image URL. */
-            $imageUrl = $this->getSlideImageUrl($slide['image'] ?? '');
+            /** @var string|false $imageUrl Slide image URL. */
+            $imageUrl = wp_get_attachment_image_url($id, 'full');
 
-            if ($imageUrl === '') {
+            if (!$imageUrl) {
                 continue;
             }
 
-            /** @var string $linkTarget Slide link target value. */
-            $linkTarget = !empty($slide['link_target']) && in_array((string) $slide['link_target'], ['_self', '_blank'], true)
-                ? (string) $slide['link_target']
-                : '_self';
+            // Retrieve attachment for caption and URL
+            $attachment = get_post($id);
+            $description = $attachment ? $attachment->post_excerpt : '';
+            
+            // Allow retrieving custom link if set on attachment meta, otherwise default to empty
+            $customLink = get_post_meta($id, '_custom_link', true);
 
             $sanitizedSlides[] = [
-                'image' => $imageUrl,
-                'link' => !empty($slide['link']) ? esc_url_raw((string) $slide['link']) : '',
-                'description' => !empty($slide['description']) ? sanitize_text_field((string) $slide['description']) : '',
-                'link_target' => $linkTarget,
+                'image' => esc_url_raw($imageUrl),
+                'link' => !empty($customLink) ? esc_url_raw((string) $customLink) : '',
+                'description' => sanitize_text_field($description),
+                'link_target' => '_self',
             ];
         }
 
         return $sanitizedSlides;
-    }
-
-    /**
-     * Return a normalized image URL from a widget image value.
-     *
-     * @param mixed $image Raw image value from the widget instance.
-     * @return string
-     */
-    protected function getSlideImageUrl(mixed $image): string
-    {
-        if (empty($image)) {
-            return '';
-        }
-
-        if (is_numeric($image)) {
-            /** @var string|false $attachmentUrl Attachment URL resolved from the image ID. */
-            $attachmentUrl = wp_get_attachment_image_url(absint($image), 'full');
-
-            return $attachmentUrl !== false ? esc_url_raw($attachmentUrl) : '';
-        }
-
-        return esc_url_raw((string) $image);
     }
 }

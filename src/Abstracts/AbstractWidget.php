@@ -406,15 +406,15 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
 
         echo '<div class="ars-widget-image-field" data-ars-widget-image-field>';
         echo '<input type="hidden" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" value="' . esc_attr($imageValue) . '" data-ars-widget-image-input>';
-        echo '<div class="ars-widget-image-field__preview" data-ars-widget-image-preview>';
-
-        if ($previewUrl !== '') {
-            echo '<img src="' . esc_url($previewUrl) . '" alt="" style="display:block;max-width:100%;height:auto;margin:0 0 8px;">';
-        }
-
+        echo '<div class="media-widget-preview media_image ' . ($previewUrl !== '' ? 'populated' : '') . '" data-ars-widget-image-preview data-preview-url="' . esc_url($previewUrl) . '" data-select-label="' . esc_attr__('Select Image', 'daisy-a-ripple-song') . '">';
+        echo '<div class="attachment-media-view">';
+        echo '<button type="button" class="select-media button-add-media not-selected" data-ars-widget-image-select data-frame-title="' . esc_attr((string) ($field['frame_title'] ?? __('Select Image', 'daisy-a-ripple-song'))) . '" data-button-label="' . esc_attr((string) ($field['button_label'] ?? __('Use This Image', 'daisy-a-ripple-song'))) . '">' . esc_html__('Select Image', 'daisy-a-ripple-song') . '</button>';
         echo '</div>';
-        echo '<button type="button" class="button" data-ars-widget-image-select data-frame-title="' . esc_attr((string) ($field['frame_title'] ?? __('Select Image', 'daisy-a-ripple-song'))) . '" data-button-label="' . esc_attr((string) ($field['button_label'] ?? __('Use This Image', 'daisy-a-ripple-song'))) . '">' . esc_html__('Select Image', 'daisy-a-ripple-song') . '</button> ';
+        echo '</div>';
+        echo '<p class="media-widget-buttons">';
+        echo '<button type="button" class="button select-media ' . ($imageValue === '' ? '' : 'selected') . '" data-ars-widget-image-select data-frame-title="' . esc_attr((string) ($field['frame_title'] ?? __('Select Image', 'daisy-a-ripple-song'))) . '" data-button-label="' . esc_attr((string) ($field['button_label'] ?? __('Use This Image', 'daisy-a-ripple-song'))) . '">' . esc_html($imageValue === '' ? __('Select Image', 'daisy-a-ripple-song') : __('Replace Image')) . '</button> ';
         echo '<button type="button" class="button-link-delete" data-ars-widget-image-remove ' . ($imageValue === '' ? 'style="display:none;"' : '') . '>' . esc_html__('Remove', 'daisy-a-ripple-song') . '</button>';
+        echo '</p>';
         echo '</div>';
     }
 

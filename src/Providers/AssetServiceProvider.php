@@ -472,6 +472,7 @@ class AssetServiceProvider extends AbstractServiceProvider
     private function enqueueNativeWidgetFormScript(): void
     {
         wp_enqueue_media();
+        wp_enqueue_script('media-image-widget');
         wp_enqueue_script('jquery');
         wp_add_inline_script('jquery', $this->getNativeWidgetFormScript());
     }
@@ -538,11 +539,8 @@ class AssetServiceProvider extends AbstractServiceProvider
      */
     function setImageFieldValue(field, attachment) {
         const input = field.querySelector('[data-ars-widget-image-input]');
-        const preview = field.querySelector('[data-ars-widget-image-preview]');
         const removeButton = field.querySelector('[data-ars-widget-image-remove]');
-        const attachmentUrl = attachment && attachment.sizes && attachment.sizes.medium
-            ? attachment.sizes.medium.url
-            : (attachment && attachment.url ? attachment.url : '');
+        const selectButtons = field.querySelectorAll('[data-ars-widget-image-select]');
 
         if (input instanceof HTMLInputElement) {
             input.value = attachment && attachment.id ? String(attachment.id) : '';
@@ -550,15 +548,115 @@ class AssetServiceProvider extends AbstractServiceProvider
             input.dispatchEvent(new Event('change', { bubbles: true }));
         }
 
-        if (preview instanceof HTMLElement) {
-            preview.innerHTML = attachmentUrl
-                ? '<img src="' + attachmentUrl.replaceAll('"', '&quot;') + '" alt="" style="display:block;max-width:100%;height:auto;margin:0 0 8px;">'
-                : '';
-        }
+        renderImageFieldPreview(field, attachment ? getPreviewTemplateProps(attachment) : null);
 
         if (removeButton instanceof HTMLElement) {
-            removeButton.style.display = attachmentUrl ? '' : 'none';
+            removeButton.style.display = attachment && attachment.id ? '' : 'none';
         }
+
+        selectButtons.forEach((button) => {
+            if (button instanceof HTMLElement) {
+                button.classList.toggle('selected', Boolean(attachment && attachment.id));
+            }
+        });
+    }
+
+    /**
+     * Return props expected by WordPress core's media image widget preview template.
+     *
+     * @param {?Object} attachment Media attachment object.
+     * @return {?Object}
+     */
+    function getPreviewTemplateProps(attachment) {
+        if (!attachment) {
+            return null;
+        }
+
+        const attachmentUrl = attachment.sizes && attachment.sizes.medium
+            ? attachment.sizes.medium.url
+            : (attachment.url || '');
+
+        if (!attachmentUrl) {
+            return null;
+        }
+
+        return {
+            attachment_id: attachment.id || 0,
+            alt: attachment.alt || '',
+            currentFilename: attachment.filename || attachmentUrl.replace(/\?.*$/, '').replace(/^.+\//, ''),
+            error: false,
+            link_url: '',
+            url: attachmentUrl,
+        };
+    }
+
+    /**
+     * Render one image preview through WordPress core's media image widget template.
+     *
+     * @param {HTMLElement} field Image field wrapper.
+     * @param {?Object} templateProps Preview template data.
+     * @return {void}
+     */
+    function renderImageFieldPreview(field, templateProps) {
+        const preview = field.querySelector('[data-ars-widget-image-preview]');
+
+        if (!(preview instanceof HTMLElement)) {
+            return;
+        }
+
+        if (!templateProps || !window.wp || !window.wp.template || !document.getElementById('tmpl-wp-media-widget-image-preview')) {
+            const selectButton = field.querySelector('.media-widget-buttons [data-ars-widget-image-select]');
+            const buttonText = selectButton instanceof HTMLElement
+                ? selectButton.textContent || preview.getAttribute('data-select-label') || ''
+                : preview.getAttribute('data-select-label') || '';
+
+            preview.classList.remove('populated');
+            preview.innerHTML = '<div class="attachment-media-view"><button type="button" class="select-media button-add-media not-selected" data-ars-widget-image-select></button></div>';
+
+            const placeholderButton = preview.querySelector('[data-ars-widget-image-select]');
+
+            if (placeholderButton instanceof HTMLElement) {
+                placeholderButton.textContent = buttonText;
+            }
+
+            return;
+        }
+
+        preview.innerHTML = window.wp.template('wp-media-widget-image-preview')(templateProps);
+        preview.classList.add('populated');
+    }
+
+    /**
+     * Refresh previews for existing image field values after WordPress media scripts load.
+     *
+     * @return {void}
+     */
+    function hydrateImageFieldPreviews() {
+        document.querySelectorAll('[data-ars-widget-image-field]').forEach((field) => {
+            const input = field.querySelector('[data-ars-widget-image-input]');
+
+            if (!(field instanceof HTMLElement) || !(input instanceof HTMLInputElement) || !input.value) {
+                return;
+            }
+
+            if (/^\d+$/.test(input.value) && window.wp && window.wp.media && window.wp.media.model) {
+                const attachment = window.wp.media.model.Attachment.get(Number(input.value));
+
+                attachment.fetch().done(() => {
+                    renderImageFieldPreview(field, getPreviewTemplateProps(attachment.toJSON()));
+                });
+                return;
+            }
+
+            renderImageFieldPreview(field, {
+                attachment_id: 0,
+                alt: '',
+                currentFilename: input.value.replace(/\?.*$/, '').replace(/^.+\//, ''),
+                error: false,
+                link_url: '',
+                url: input.value,
+            });
+        });
     }
 
     /**
@@ -610,7 +708,6 @@ class AssetServiceProvider extends AbstractServiceProvider
         }
 
         const input = field.querySelector('[data-ars-widget-image-input]');
-        const preview = field.querySelector('[data-ars-widget-image-preview]');
 
         if (input instanceof HTMLInputElement) {
             input.value = '';
@@ -618,12 +715,12 @@ class AssetServiceProvider extends AbstractServiceProvider
             input.dispatchEvent(new Event('change', { bubbles: true }));
         }
 
-        if (preview instanceof HTMLElement) {
-            preview.innerHTML = '';
-        }
+        renderImageFieldPreview(field, null);
 
         button.style.display = 'none';
     }
+
+    hydrateImageFieldPreviews();
 
     document.addEventListener('click', (event) => {
         const target = event.target;

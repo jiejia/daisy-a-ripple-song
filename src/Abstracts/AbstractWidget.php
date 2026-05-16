@@ -406,7 +406,7 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
 
         echo '<div class="ars-widget-image-field" data-ars-widget-image-field>';
         echo '<input type="hidden" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" value="' . esc_attr($imageValue) . '" data-ars-widget-image-input>';
-        echo '<div class="media-widget-preview media_image ' . ($previewUrl !== '' ? 'populated' : '') . '" data-ars-widget-image-preview data-preview-url="' . esc_url($previewUrl) . '" data-select-label="' . esc_attr__('Select Image', 'daisy-a-ripple-song') . '">';
+        echo '<div class="media-widget-preview media_image ' . ($previewUrl !== '' ? 'populated' : '') . '" data-ars-widget-image-preview data-preview-url="' . esc_url($previewUrl) . '" data-select-label="' . esc_attr__('Select Image', 'daisy-a-ripple-song') . '" data-frame-title="' . esc_attr((string) ($field['frame_title'] ?? __('Select Image', 'daisy-a-ripple-song'))) . '" data-button-label="' . esc_attr((string) ($field['button_label'] ?? __('Use This Image', 'daisy-a-ripple-song'))) . '">';
         echo '<div class="attachment-media-view">';
         echo '<button type="button" class="select-media button-add-media not-selected" data-ars-widget-image-select data-frame-title="' . esc_attr((string) ($field['frame_title'] ?? __('Select Image', 'daisy-a-ripple-song'))) . '" data-button-label="' . esc_attr((string) ($field['button_label'] ?? __('Use This Image', 'daisy-a-ripple-song'))) . '">' . esc_html__('Select Image', 'daisy-a-ripple-song') . '</button>';
         echo '</div>';

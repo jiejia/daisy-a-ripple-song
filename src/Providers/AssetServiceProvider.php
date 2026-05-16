@@ -473,8 +473,7 @@ class AssetServiceProvider extends AbstractServiceProvider
     {
         wp_enqueue_media();
         wp_enqueue_script('media-image-widget');
-        wp_enqueue_script('jquery');
-        wp_add_inline_script('jquery', $this->getNativeWidgetFormScript());
+        wp_add_inline_script('media-image-widget', $this->getNativeWidgetFormScript());
     }
 
     /**
@@ -521,11 +520,11 @@ class AssetServiceProvider extends AbstractServiceProvider
     /**
      * Return the image field wrapper for a clicked media button.
      *
-     * @param {HTMLElement} button Clicked image field button.
+     * @param {HTMLElement} element Element inside the image field.
      * @return {?HTMLElement}
      */
-    function getImageField(button) {
-        const field = button.closest('[data-ars-widget-image-field]');
+    function getImageField(element) {
+        const field = element.closest('[data-ars-widget-image-field]');
 
         return field instanceof HTMLElement ? field : null;
     }
@@ -617,6 +616,8 @@ class AssetServiceProvider extends AbstractServiceProvider
 
             if (placeholderButton instanceof HTMLElement) {
                 placeholderButton.textContent = buttonText;
+                placeholderButton.setAttribute('data-frame-title', preview.getAttribute('data-frame-title') || '');
+                placeholderButton.setAttribute('data-button-label', preview.getAttribute('data-button-label') || '');
             }
 
             return;
@@ -672,6 +673,13 @@ class AssetServiceProvider extends AbstractServiceProvider
             return;
         }
 
+        const input = field.querySelector('[data-ars-widget-image-input]');
+        const selection = new window.wp.media.model.Selection([], { multiple: false });
+
+        if (input instanceof HTMLInputElement && /^\d+$/.test(input.value)) {
+            selection.add(window.wp.media.model.Attachment.get(Number(input.value)));
+        }
+
         const frame = window.wp.media({
             title: button.getAttribute('data-frame-title') || 'Select Image',
             button: {
@@ -681,6 +689,7 @@ class AssetServiceProvider extends AbstractServiceProvider
                 type: 'image',
             },
             multiple: false,
+            selection,
         });
 
         frame.on('select', () => {
@@ -720,7 +729,23 @@ class AssetServiceProvider extends AbstractServiceProvider
         button.style.display = 'none';
     }
 
-    hydrateImageFieldPreviews();
+    /**
+     * Hydrate image previews after widget forms or media templates settle.
+     *
+     * @return {void}
+     */
+    function queueHydrateImageFieldPreviews() {
+        window.requestAnimationFrame(hydrateImageFieldPreviews);
+        window.setTimeout(hydrateImageFieldPreviews, 100);
+    }
+
+    queueHydrateImageFieldPreviews();
+
+    if (window.jQuery) {
+        window.jQuery(document).on('widget-added widget-updated widget-synced', queueHydrateImageFieldPreviews);
+    }
+
+    document.addEventListener('DOMContentLoaded', queueHydrateImageFieldPreviews);
 
     document.addEventListener('click', (event) => {
         const target = event.target;
@@ -734,6 +759,14 @@ class AssetServiceProvider extends AbstractServiceProvider
         if (imageSelectButton instanceof HTMLElement) {
             event.preventDefault();
             openImageFrame(imageSelectButton);
+            return;
+        }
+
+        const imagePreview = target.closest('[data-ars-widget-image-preview]');
+
+        if (imagePreview instanceof HTMLElement && imagePreview.classList.contains('populated')) {
+            event.preventDefault();
+            openImageFrame(imagePreview);
             return;
         }
 

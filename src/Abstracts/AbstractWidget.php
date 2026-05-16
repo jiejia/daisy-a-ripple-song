@@ -79,7 +79,9 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
      */
     public function widget($args, $instance): void
     {
+        echo wp_kses_post((string) ($args['before_widget'] ?? ''));
         $this->frontEnd($args, $instance);
+        echo wp_kses_post((string) ($args['after_widget'] ?? ''));
     }
 
     /**
@@ -113,6 +115,22 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
         $submittedInstance = is_array($new_instance) ? $new_instance : [];
         /** @var array<string,mixed> $sanitizedInstance Sanitized instance values. */
         $sanitizedInstance = [];
+        /** @var bool $hasNativeFieldValue Whether the submitted data uses the current native field keys. */
+        $hasNativeFieldValue = false;
+
+        foreach ($this->fields() as $field) {
+            /** @var string $fieldKey Field key. */
+            $fieldKey = (string) ($field['key'] ?? '');
+
+            if ($fieldKey !== '' && array_key_exists($fieldKey, $submittedInstance)) {
+                $hasNativeFieldValue = true;
+                break;
+            }
+        }
+
+        if (!$hasNativeFieldValue && $submittedInstance !== []) {
+            $submittedInstance = $this->mergeInstanceDefaults($submittedInstance);
+        }
 
         foreach ($this->fields() as $field) {
             /** @var string $fieldKey Field key. */
@@ -138,6 +156,19 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
     {
         /** @var array<string,mixed> $normalizedInstance Widget values normalized to raw keys. */
         $normalizedInstance = $this->defaultSettings();
+        /** @var array<string,array<string,mixed>> $fieldDefinitions Field definitions keyed by raw field key. */
+        $fieldDefinitions = [];
+
+        foreach ($this->fields() as $fieldDefinition) {
+            /** @var string $fieldDefinitionKey Raw field key from the field definition. */
+            $fieldDefinitionKey = (string) ($fieldDefinition['key'] ?? '');
+
+            if ($fieldDefinitionKey === '') {
+                continue;
+            }
+
+            $fieldDefinitions[$fieldDefinitionKey] = $fieldDefinition;
+        }
 
         foreach ($normalizedInstance as $key => $defaultValue) {
             /** @var string $rawKey Raw widget field key. */
@@ -162,10 +193,113 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
                 continue;
             }
 
+            if (($fieldDefinitions[$rawKey]['type'] ?? '') === 'repeater') {
+                /** @var array<int,array<string,mixed>> $legacyRepeaterValue Legacy compact repeater rows. */
+                $legacyRepeaterValue = $this->legacyRepeaterFieldValue($rawKey, $fieldDefinitions[$rawKey], $instance);
+
+                if ($legacyRepeaterValue !== []) {
+                    $normalizedInstance[$rawKey] = $legacyRepeaterValue;
+                    continue;
+                }
+            }
+
             $normalizedInstance[$rawKey] = $defaultValue;
         }
 
         return $normalizedInstance;
+    }
+
+    /**
+     * Return repeatable rows from the previous compact widget field storage.
+     *
+     * @param string $rawKey Raw repeater field key.
+     * @param array<string,mixed> $field Repeater field definition.
+     * @param array<string,mixed> $instance Widget instance data.
+     * @return array<int,array<string,mixed>>
+     */
+    protected function legacyRepeaterFieldValue(string $rawKey, array $field, array $instance): array
+    {
+        /** @var array<int,array<string,mixed>> $rows Rows reconstructed from compact field keys. */
+        $rows = [];
+        /** @var array<int,array<string,mixed>> $childFields Repeater child field definitions. */
+        $childFields = is_array($field['fields'] ?? null) ? $field['fields'] : [];
+        /** @var array<string,array<string,mixed>> $childFieldDefinitions Child field definitions keyed by raw field key. */
+        $childFieldDefinitions = [];
+        /** @var string $legacyFieldName Legacy prefixed repeater field name. */
+        $legacyFieldName = $this->fieldName($rawKey);
+        /** @var string $legacyFieldNamePattern Regex-safe legacy field name. */
+        $legacyFieldNamePattern = preg_quote($legacyFieldName, '/');
+
+        foreach ($childFields as $childField) {
+            /** @var string $childKey Repeater child field key. */
+            $childKey = (string) ($childField['key'] ?? '');
+
+            if ($childKey === '') {
+                continue;
+            }
+
+            $childFieldDefinitions[$childKey] = $childField;
+        }
+
+        if ($childFieldDefinitions === []) {
+            return [];
+        }
+
+        foreach ($instance as $storedKey => $storedValue) {
+            if (!is_string($storedKey)) {
+                continue;
+            }
+
+            /** @var array<int,string>|null $matches Compact repeater key matches. */
+            $matches = null;
+
+            if (!preg_match('/^_?' . $legacyFieldNamePattern . '\|([^|]+)\|([0-9]+)\|[0-9]+\|value$/', $storedKey, $matches)) {
+                continue;
+            }
+
+            /** @var string $childKey Child field key from the compact storage key. */
+            $childKey = $matches[1];
+            /** @var int $rowIndex Repeater row index from the compact storage key. */
+            $rowIndex = absint($matches[2]);
+
+            if (!array_key_exists($childKey, $childFieldDefinitions)) {
+                continue;
+            }
+
+            if (!isset($rows[$rowIndex])) {
+                $rows[$rowIndex] = [];
+            }
+
+            $rows[$rowIndex][$childKey] = $this->sanitizeFieldValue($childFieldDefinitions[$childKey], $storedValue);
+        }
+
+        if ($rows === []) {
+            return [];
+        }
+
+        ksort($rows);
+
+        /** @var array<int,array<string,mixed>> $normalizedRows Rows with defaults applied and empty rows removed. */
+        $normalizedRows = [];
+
+        foreach ($rows as $row) {
+            /** @var array<string,mixed> $normalizedRow Row values keyed by child field key. */
+            $normalizedRow = [];
+
+            foreach ($childFieldDefinitions as $childKey => $childField) {
+                $normalizedRow[$childKey] = array_key_exists($childKey, $row)
+                    ? $row[$childKey]
+                    : $this->sanitizeFieldValue($childField, $childField['default'] ?? null);
+            }
+
+            if ($this->isRepeaterRowEmpty($normalizedRow, $childFields)) {
+                continue;
+            }
+
+            $normalizedRows[] = $normalizedRow;
+        }
+
+        return $normalizedRows;
     }
 
     /**

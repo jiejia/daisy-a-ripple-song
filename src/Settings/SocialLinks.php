@@ -2,18 +2,20 @@
 
 namespace Jiejia\DaisyARippleSong\Settings;
 
-use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractSetting;
 use Jiejia\DaisyARippleSong\Menus\ThemeOptions;
 use Jiejia\DaisyARippleSong\Theme;
 
 /**
- * Social links settings powered by Carbon Fields.
+ * Social links settings stored in the native theme options array.
  */
 class SocialLinks extends AbstractSetting
 {
+    /** @var string OPTION_SECTION Native option section key for social links. */
+    public const OPTION_SECTION = 'social_links';
+
     /**
-     * Return the Carbon Fields page slug.
+     * Return the native settings page slug.
      *
      * @return string
      */
@@ -30,26 +32,6 @@ class SocialLinks extends AbstractSetting
     public function pageTitle(): string
     {
         return __('Social Links', 'daisy-a-ripple-song');
-    }
-
-    /**
-     * Return all Carbon Fields fields for this settings page.
-     *
-     * @return array<int,\Carbon_Fields\Field\Field>
-     */
-    public function fields(): array
-    {
-        /** @var array<int,\Carbon_Fields\Field\Field> $fields Social link fields. */
-        $fields = [];
-
-        foreach (static::getPlatforms() as $platformKey => $platformData) {
-            $fields[] = Field::make('text', $this->fieldName($platformKey), $platformData['label'])
-                ->set_attribute('type', 'url')
-                ->set_attribute('placeholder', __('Enter a full URL', 'daisy-a-ripple-song'))
-                ->set_help_text(__('Optional. Enter a full URL.', 'daisy-a-ripple-song'));
-        }
-
-        return $fields;
     }
 
     /**
@@ -70,7 +52,7 @@ class SocialLinks extends AbstractSetting
     }
 
     /**
-     * Return the Carbon Fields key prefix for this settings page.
+     * Return the legacy Carbon Fields key prefix for this settings page.
      *
      * @return string
      */
@@ -105,6 +87,16 @@ class SocialLinks extends AbstractSetting
         }
 
         return isset($savedOptions[$key]) && is_scalar($savedOptions[$key]) ? (string) $savedOptions[$key] : null;
+    }
+
+    /**
+     * Return the section key inside the native theme options array.
+     *
+     * @return string
+     */
+    protected function optionSection(): string
+    {
+        return self::OPTION_SECTION;
     }
 
     /**

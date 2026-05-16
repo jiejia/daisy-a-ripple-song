@@ -2,17 +2,14 @@
 
 namespace Jiejia\DaisyARippleSong\Providers;
 
-use Carbon_Fields\Container;
-use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractServiceProvider;
-use Jiejia\DaisyARippleSong\Contracts\Setting;
 use Jiejia\DaisyARippleSong\Menus\ThemeOptions;
 use Jiejia\DaisyARippleSong\Settings\General;
 use Jiejia\DaisyARippleSong\Settings\SocialLinks;
 use Jiejia\DaisyARippleSong\Theme;
 
 /**
- * Registers Carbon Fields theme settings pages and related hooks.
+ * Registers the native theme settings page and related hooks.
  */
 class SettingServiceProvider extends AbstractServiceProvider
 {
@@ -25,19 +22,6 @@ class SettingServiceProvider extends AbstractServiceProvider
     /** @var string $devServerUrl Base URL of the shared Vite development server. */
     private const DEV_SERVER_URL = 'http://127.0.0.1:5173';
 
-    /** @var bool $settingsRegistered Whether settings containers have already been registered. */
-    private bool $settingsRegistered = false;
-
-    /**
-     * Setting section classes registered on the theme options page.
-     *
-     * @var array<int,class-string<Setting>>
-     */
-    private array $settingSections = [
-        General::class,
-        SocialLinks::class,
-    ];
-
     /**
      * Register settings hooks.
      *
@@ -45,12 +29,11 @@ class SettingServiceProvider extends AbstractServiceProvider
      */
     public function register(): void
     {
-        foreach (Theme::carbonFieldsRegisterHooks() as $hookName) {
-            // Register settings containers when Carbon Fields asks for fields.
-            add_action($hookName, [$this, 'registerSettings']);
-        }
+        // Register the Appearance submenu and the native options setting.
+        add_action('admin_menu', [$this, 'registerSettingsPage']);
+        add_action('admin_init', [$this, 'registerSettings']);
 
-        // Load the theme options admin UI assets for Carbon Fields pages.
+        // Load the theme options admin UI assets for the native settings page.
         add_action('admin_enqueue_scripts', [$this, 'enqueueAdminAssets']);
 
         // Output frontend settings managed by the general settings page.
@@ -58,50 +41,118 @@ class SettingServiceProvider extends AbstractServiceProvider
     }
 
     /**
-     * Register all configured settings pages.
+     * Register the native Appearance submenu page.
+     *
+     * @return void
+     */
+    public function registerSettingsPage(): void
+    {
+        /** @var ThemeOptions $themeOptions Theme options menu descriptor. */
+        $themeOptions = new ThemeOptions();
+
+        add_theme_page(
+            $themeOptions->topMenuTitle(),
+            $themeOptions->topMenuTitle(),
+            'edit_theme_options',
+            $themeOptions->topMenuSlug(),
+            [$this, 'renderSettingsPage']
+        );
+    }
+
+    /**
+     * Register the single native option used by all theme settings.
      *
      * @return void
      */
     public function registerSettings(): void
     {
-        if ($this->settingsRegistered) {
-            return;
-        }
-
-        $this->settingsRegistered = true;
-
-        /** @var ThemeOptions $themeOptions Theme options menu descriptor. */
-        $themeOptions = new ThemeOptions();
-        /** @var Setting $primarySetting Primary setting section used for menu placement. */
-        $primarySetting = new General();
-
-        // Create one Appearance submenu page that contains all theme option sections.
-        Container::make_theme_options($themeOptions->topMenuTitle())
-            ->set_page_parent($primarySetting->parentPageSlug())
-            ->set_page_file($primarySetting->pageSlug())
-            ->set_page_menu_title($themeOptions->topMenuTitle())
-            ->add_fields($this->getSectionedFields());
+        register_setting(ThemeOptions::OPTIONS_PAGE_FILE, General::THEME_OPTIONS_NAME, [
+            'type' => 'array',
+            'sanitize_callback' => [$this, 'sanitizeThemeOptions'],
+            'default' => General::getDefaultThemeOptions(),
+        ]);
     }
 
     /**
-     * Return all settings fields grouped by visual separators.
+     * Render the native theme options page.
      *
-     * @return array<int,\Carbon_Fields\Field\Field>
+     * @return void
      */
-    private function getSectionedFields(): array
+    public function renderSettingsPage(): void
     {
-        /** @var array<int,\Carbon_Fields\Field\Field> $fields Grouped settings fields. */
-        $fields = [];
-
-        foreach ($this->settingSections as $settingClass) {
-            /** @var Setting $setting Setting section instance. */
-            $setting = new $settingClass();
-
-            $fields[] = Field::make('separator', $setting->fieldName('section'), $setting->pageTitle());
-            $fields = array_merge($fields, $setting->fields());
+        if (!current_user_can('edit_theme_options')) {
+            wp_die(esc_html__('Sorry, you are not allowed to access this page.'));
         }
 
-        return $fields;
+        $this->renderAdminView('theme-options', [
+            'settingsGroup' => ThemeOptions::OPTIONS_PAGE_FILE,
+            'optionName' => General::THEME_OPTIONS_NAME,
+            'options' => General::getThemeOptions(),
+            'generalSetting' => new General(),
+        ]);
+    }
+
+    /**
+     * Sanitize all submitted theme options before saving the single option row.
+     *
+     * @param mixed $input Raw submitted options.
+     * @return array<string,array<string,string>>
+     */
+    public function sanitizeThemeOptions(mixed $input): array
+    {
+        /** @var array<string,array<string,string>> $sanitizedOptions Sanitized theme options. */
+        $sanitizedOptions = General::getDefaultThemeOptions();
+        /** @var array<string,mixed> $rawOptions Submitted option array. */
+        $rawOptions = is_array($input) ? $input : [];
+        /** @var array<string,mixed> $rawGeneral Submitted general settings. */
+        $rawGeneral = isset($rawOptions[General::OPTION_SECTION]) && is_array($rawOptions[General::OPTION_SECTION])
+            ? $rawOptions[General::OPTION_SECTION]
+            : [];
+        /** @var array<string,mixed> $rawSocialLinks Submitted social link settings. */
+        $rawSocialLinks = isset($rawOptions[SocialLinks::OPTION_SECTION]) && is_array($rawOptions[SocialLinks::OPTION_SECTION])
+            ? $rawOptions[SocialLinks::OPTION_SECTION]
+            : [];
+
+        $sanitizedOptions[General::OPTION_SECTION]['light_theme'] = $this->sanitizeThemeChoice(
+            $rawGeneral['light_theme'] ?? '',
+            General::getLightThemeOptions(),
+            'retro'
+        );
+        $sanitizedOptions[General::OPTION_SECTION]['dark_theme'] = $this->sanitizeThemeChoice(
+            $rawGeneral['dark_theme'] ?? '',
+            General::getDarkThemeOptions(),
+            'dim'
+        );
+        $sanitizedOptions[General::OPTION_SECTION]['footer_copyright'] = isset($rawGeneral['footer_copyright']) && is_scalar($rawGeneral['footer_copyright'])
+            ? wp_kses_post((string) $rawGeneral['footer_copyright'])
+            : '';
+
+        foreach (array_keys(SocialLinks::getPlatforms()) as $platformKey) {
+            /** @var string $platformUrl Submitted social link URL. */
+            $platformUrl = isset($rawSocialLinks[$platformKey]) && is_scalar($rawSocialLinks[$platformKey])
+                ? (string) $rawSocialLinks[$platformKey]
+                : '';
+
+            $sanitizedOptions[SocialLinks::OPTION_SECTION][$platformKey] = esc_url_raw($platformUrl);
+        }
+
+        return $sanitizedOptions;
+    }
+
+    /**
+     * Sanitize a DaisyUI theme choice against a whitelist.
+     *
+     * @param mixed $themeSlug Raw submitted theme slug.
+     * @param array<string,string> $allowedThemes Allowed theme slugs and labels.
+     * @param string $defaultTheme Fallback theme slug.
+     * @return string
+     */
+    private function sanitizeThemeChoice(mixed $themeSlug, array $allowedThemes, string $defaultTheme): string
+    {
+        /** @var string $sanitizedTheme Submitted theme slug after key sanitization. */
+        $sanitizedTheme = is_scalar($themeSlug) ? sanitize_key((string) $themeSlug) : '';
+
+        return array_key_exists($sanitizedTheme, $allowedThemes) ? $sanitizedTheme : $defaultTheme;
     }
 
     /**
@@ -195,6 +246,29 @@ class SettingServiceProvider extends AbstractServiceProvider
         $manifest = json_decode((string) file_get_contents($manifestPath), true);
 
         return is_array($manifest) ? ($manifest[$entry] ?? null) : null;
+    }
+
+    /**
+     * Render one admin view template from the resources directory.
+     *
+     * @param string $view View name relative to resources/views/admin.
+     * @param array<string,mixed> $data Template data.
+     * @return void
+     */
+    private function renderAdminView(string $view, array $data = []): void
+    {
+        /** @var string $viewPath Absolute path to the requested admin view file. */
+        $viewPath = get_template_directory() . '/resources/views/admin/' . $view . '.php';
+
+        if (!file_exists($viewPath)) {
+            return;
+        }
+
+        (static function (string $__viewPath, array $__data): void {
+            extract($__data, EXTR_SKIP);
+
+            include $__viewPath;
+        })($viewPath, $data);
     }
 
     /**

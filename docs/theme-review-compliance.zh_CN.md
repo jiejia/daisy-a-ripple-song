@@ -58,7 +58,7 @@
 
 - 主题通过 Composer 引入 `htmlburger/carbon-fields`。
 - `functions.php` 从 `vendor/autoload.php` 或 `vendor/scoper-autoload.php` 加载依赖。
-- 后台设置页和 widgets 都依赖 Carbon Fields。
+- widgets 仍依赖 Carbon Fields；后台主题设置页已迁移为原生 Settings API。
 - Carbon Fields 自身包含大量后台 UI、字段、容器等框架能力；如果完整进入主题包，审核员会按“主题内库也必须满足主题要求”审查它。
 - 这类框架可能带来额外文本域、后台功能、区块注册能力或插件性质功能，容易触发“插件功能不能放主题里”的人工审核问题。
 
@@ -165,11 +165,11 @@
 
 - 已删除顶级 `add_menu_page()`。
 - 已把设置页改到 `Appearance > Theme Options`。
-- 已把 `General` 和 `Social Links` 合并到同一个 Carbon Fields 页面，并用分组字段分隔。
+- 已把 `General` 和 `Social Links` 合并到同一个原生设置页面，并用分组字段分隔。
 - 或者迁移到 Customizer，并使用 `edit_theme_options` capability。
 - 保留当前已使用的 `edit_theme_options` 权限，这是正确方向。
 
-### 7. 主题设置可能使用多个 options 存储
+### 7. 主题设置曾可能使用多个 options 存储，已合并
 
 相关文件：
 
@@ -178,22 +178,17 @@
 - `src/Settings/SocialLinks.php`
 - `src/Providers/SettingServiceProvider.php`
 
-当前发现：
+历史问题：
 
 - Carbon Fields theme options 通常按字段保存为多个 option。
 - 当前字段命名如 `ars_general_light_theme`、`ars_general_dark_theme`、`ars_general_footer_copyright`、社交链接字段等，看起来会形成多个独立 option。
 
-影响：
+已完成修复：
 
-- 官方要求主题设置最多使用一个 option，或使用 WordPress 原生 theme mods / Customizer 存储。
-- 多 option 设置会被人工审核要求合并。
-
-修复建议：
-
-- 使用一个 option，例如 `daisy_a_ripple_song_options`，内部保存数组。
-- 或迁移到 Customizer 的 `theme_mods`。
-- 添加迁移逻辑：读取旧 Carbon Fields/options 值，写入新单一 option，然后保留兼容读取一段版本。
-- 删除旧字段后，提供清理逻辑，但不要在主题激活时破坏用户数据。
+- 已改用一个原生 option：`daisyaripplesong_theme_options`。
+- option 内部用 `general` 和 `social_links` 数组索引区分设置。
+- 已保留旧 Carbon Fields/options 读取 fallback，避免已有配置立即丢失。
+- 后续可以在稳定版本后提供旧字段清理逻辑，但不要在主题激活时破坏用户数据。
 
 ### 8. readme 的 Resources 授权清单不足
 

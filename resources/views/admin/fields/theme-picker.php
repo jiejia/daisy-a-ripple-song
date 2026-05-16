@@ -1,5 +1,7 @@
 <div class="ars-theme-picker-field">
-    <h2 class="ars-theme-picker-field__title"><?php echo esc_html((string) ($title ?? '')); ?></h2>
+    <?php if ((string) ($title ?? '') !== ''): ?>
+        <h2 class="ars-theme-picker-field__title"><?php echo esc_html((string) ($title ?? '')); ?></h2>
+    <?php endif; ?>
     <div class="ars-theme-picker" data-ars-theme-picker data-theme-target="<?php echo esc_attr($mode); ?>">
         <?php foreach ($options as $themeSlug => $themeLabel): ?>
             <button

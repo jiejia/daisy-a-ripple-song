@@ -3,12 +3,12 @@
 namespace Jiejia\DaisyARippleSong\Contracts;
 
 /**
- * Defines a Carbon Fields settings page contract.
+ * Defines a theme settings section contract.
  */
 interface Setting
 {
     /**
-     * Return the Carbon Fields page slug.
+     * Return the settings page slug.
      *
      * @return string
      */
@@ -20,13 +20,6 @@ interface Setting
      * @return string
      */
     public function pageTitle(): string;
-
-    /**
-     * Return all Carbon Fields fields for the settings page.
-     *
-     * @return array<int,\Carbon_Fields\Field\Field>
-     */
-    public function fields(): array;
 
     /**
      * Return default values for the settings page.

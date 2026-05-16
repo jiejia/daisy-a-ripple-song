@@ -3,9 +3,10 @@
 namespace Jiejia\DaisyARippleSong\Abstracts;
 
 use Jiejia\DaisyARippleSong\Contracts\Setting;
+use Jiejia\DaisyARippleSong\Theme;
 
 /**
- * Base class for Carbon Fields settings pages.
+ * Base class for native theme settings sections.
  */
 abstract class AbstractSetting implements Setting
 {
@@ -18,21 +19,26 @@ abstract class AbstractSetting implements Setting
     {
         /** @var array<string,mixed> $settings Runtime settings merged with defaults. */
         $settings = $this->defaultSettings();
-        /** @var bool $hasSavedSettings Whether Carbon Fields settings have been saved for this page. */
-        $hasSavedSettings = $this->hasSavedSettings();
+        /** @var array<string,mixed> $sectionSettings Stored native option section values. */
+        $sectionSettings = $this->getStoredOptionSection();
 
         foreach (array_keys($settings) as $settingKey) {
-            /** @var mixed $storedValue Saved Carbon Fields value for the current setting. */
-            $storedValue = function_exists('carbon_get_theme_option')
-                ? carbon_get_theme_option($this->fieldName((string) $settingKey))
-                : null;
+            if (array_key_exists((string) $settingKey, $sectionSettings)) {
+                /** @var mixed $storedValue Saved native option value for the current setting. */
+                $storedValue = $sectionSettings[(string) $settingKey];
 
-            if ($this->hasStoredValue($storedValue)) {
-                $settings[$settingKey] = $storedValue;
+                if (is_scalar($storedValue) || is_array($storedValue)) {
+                    $settings[$settingKey] = $storedValue;
+                }
+
                 continue;
             }
 
-            if ($hasSavedSettings) {
+            /** @var mixed $carbonValue Legacy Carbon Fields value for the current setting. */
+            $carbonValue = $this->carbonSettingValue((string) $settingKey);
+
+            if ($this->hasStoredValue($carbonValue)) {
+                $settings[$settingKey] = $carbonValue;
                 continue;
             }
 
@@ -85,36 +91,78 @@ abstract class AbstractSetting implements Setting
     }
 
     /**
-     * Return whether this settings page has already been saved through Carbon Fields.
-     *
-     * @return bool
-     */
-    protected function hasSavedSettings(): bool
-    {
-        if (get_option($this->settingsMarkerFieldName(), null) !== null) {
-            return true;
-        }
-
-        foreach (array_keys($this->defaultSettings()) as $settingKey) {
-            /** @var mixed $storedValue Raw option value stored by Carbon Fields. */
-            $storedValue = get_option($this->fieldName((string) $settingKey), null);
-
-            if ($storedValue !== null) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Return the hidden marker field name stored with the settings page.
+     * Return the section key inside the native theme options array.
      *
      * @return string
      */
-    protected function settingsMarkerFieldName(): string
+    protected function optionSection(): string
     {
-        return $this->fieldName('_saved');
+        return '';
+    }
+
+    /**
+     * Return the native option name used by the theme settings page.
+     *
+     * @return string
+     */
+    protected function settingsOptionName(): string
+    {
+        return Theme::PREFIX . '_theme_options';
+    }
+
+    /**
+     * Return stored values for this setting section from the single native option.
+     *
+     * @return array<string,mixed>
+     */
+    protected function getStoredOptionSection(): array
+    {
+        /** @var string $sectionKey Section key inside the native option array. */
+        $sectionKey = $this->optionSection();
+
+        if ($sectionKey === '') {
+            return [];
+        }
+
+        /** @var mixed $storedOptions Raw native option value. */
+        $storedOptions = get_option($this->settingsOptionName(), []);
+
+        if (!is_array($storedOptions) || !isset($storedOptions[$sectionKey]) || !is_array($storedOptions[$sectionKey])) {
+            return [];
+        }
+
+        /** @var array<string,mixed> $sectionSettings Normalized section settings. */
+        $sectionSettings = [];
+
+        foreach ($storedOptions[$sectionKey] as $settingKey => $settingValue) {
+            if (!is_string($settingKey)) {
+                continue;
+            }
+
+            $sectionSettings[$settingKey] = $settingValue;
+        }
+
+        return $sectionSettings;
+    }
+
+    /**
+     * Return one saved Carbon Fields value from the previous settings storage.
+     *
+     * @param string $key Setting key without the page prefix.
+     * @return mixed
+     */
+    protected function carbonSettingValue(string $key): mixed
+    {
+        if (function_exists('carbon_get_theme_option')) {
+            /** @var mixed $carbonValue Saved Carbon Fields theme option value. */
+            $carbonValue = carbon_get_theme_option($this->fieldName($key));
+
+            if ($carbonValue !== null) {
+                return $carbonValue;
+            }
+        }
+
+        return get_option($this->fieldName($key), null);
     }
 
     /**

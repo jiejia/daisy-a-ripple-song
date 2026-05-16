@@ -37,22 +37,22 @@ class ThemeOptions implements Menu
     }
 
     /**
-     * Keep menu registration delegated to the Carbon Fields container.
+     * Keep menu registration delegated to the settings service provider.
      *
      * @return void
      */
     public function topMenu(): void
     {
-        // The page is registered under Appearance by the settings container.
+        // The page is registered under Appearance by the settings service provider.
     }
 
     /**
-     * Keep submenu registration delegated to Carbon Fields containers.
+     * Keep submenu registration delegated to the settings service provider.
      *
      * @return void
      */
     public function subMenu(): void
     {
-        // Theme settings pages are registered from Carbon Fields containers.
+        // Theme settings pages are registered from the settings service provider.
     }
 }

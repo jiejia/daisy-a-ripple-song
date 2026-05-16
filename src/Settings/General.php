@@ -2,17 +2,22 @@
 
 namespace Jiejia\DaisyARippleSong\Settings;
 
-use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractSetting;
 use Jiejia\DaisyARippleSong\Constants\ThemeConstant;
 use Jiejia\DaisyARippleSong\Menus\ThemeOptions;
 use Jiejia\DaisyARippleSong\Theme;
 
 /**
- * Theme general options powered by Carbon Fields.
+ * Theme general options stored in the native theme options array.
  */
 class General extends AbstractSetting
 {
+    /** @var string THEME_OPTIONS_NAME Native single option name for all theme settings. */
+    public const THEME_OPTIONS_NAME = Theme::PREFIX . '_theme_options';
+
+    /** @var string OPTION_SECTION Native option section key for general settings. */
+    public const OPTION_SECTION = 'general';
+
     /** @var string $generalOptionName Legacy native option name kept for backward compatibility. */
     public const GENERAL_OPTION_NAME = Theme::PREFIX . '_general_options';
 
@@ -20,7 +25,7 @@ class General extends AbstractSetting
     public const SOCIAL_OPTION_NAME = Theme::PREFIX . '_social_links';
 
     /**
-     * Return the Carbon Fields page slug.
+     * Return the native settings page slug.
      *
      * @return string
      */
@@ -40,42 +45,6 @@ class General extends AbstractSetting
     }
 
     /**
-     * Return all Carbon Fields fields for this settings page.
-     *
-     * @return array<int,\Carbon_Fields\Field\Field>
-     */
-    public function fields(): array
-    {
-        return [
-            Field::make('html', $this->fieldName('light_theme_picker'), __('Light Theme', 'daisy-a-ripple-song'))
-                ->set_html($this->renderThemePickerHtml('light', __('Light Theme', 'daisy-a-ripple-song'), static::getLightThemeOptions(), static::getLightTheme())),
-
-            Field::make('select', $this->fieldName('light_theme'), __('Light Theme', 'daisy-a-ripple-song'))
-                ->set_options(static::getLightThemeOptions())
-                ->set_default_value((string) $this->defaultSettings()['light_theme'])
-                ->set_attribute('data-theme-target', 'light')
-                ->set_classes('ars-theme-select')
-                ->set_help_text(__('This is the default theme used when the site is in light mode.', 'daisy-a-ripple-song'))
-                ->set_required(true),
-
-            Field::make('html', $this->fieldName('dark_theme_picker'), __('Dark Theme', 'daisy-a-ripple-song'))
-                ->set_html($this->renderThemePickerHtml('dark', __('Dark Theme', 'daisy-a-ripple-song'), static::getDarkThemeOptions(), static::getDarkTheme())),
-
-            Field::make('select', $this->fieldName('dark_theme'), __('Dark Theme', 'daisy-a-ripple-song'))
-                ->set_options(static::getDarkThemeOptions())
-                ->set_default_value((string) $this->defaultSettings()['dark_theme'])
-                ->set_attribute('data-theme-target', 'dark')
-                ->set_classes('ars-theme-select')
-                ->set_help_text(__('This is the default theme used when the site is in dark mode.', 'daisy-a-ripple-song'))
-                ->set_required(true),
-
-            Field::make('textarea', $this->fieldName('footer_copyright'), __('Footer Copyright', 'daisy-a-ripple-song'))
-                ->set_attribute('placeholder', __('Overrides the footer copyright line. Leave empty to use the default.', 'daisy-a-ripple-song'))
-                ->set_help_text(__('Overrides the footer copyright line. Leave empty to use the default.', 'daisy-a-ripple-song')),
-        ];
-    }
-
-    /**
      * Return default settings for this page.
      *
      * @return array<string,mixed>
@@ -90,7 +59,7 @@ class General extends AbstractSetting
     }
 
     /**
-     * Return the Carbon Fields key prefix for this settings page.
+     * Return the legacy Carbon Fields key prefix for this settings page.
      *
      * @return string
      */
@@ -124,6 +93,16 @@ class General extends AbstractSetting
     }
 
     /**
+     * Return the section key inside the native theme options array.
+     *
+     * @return string
+     */
+    protected function optionSection(): string
+    {
+        return self::OPTION_SECTION;
+    }
+
+    /**
      * Return all saved general settings merged with defaults.
      *
      * @return array<string,mixed>
@@ -131,6 +110,32 @@ class General extends AbstractSetting
     public static function getGeneralOptions(): array
     {
         return (new self())->getSettings();
+    }
+
+    /**
+     * Return all saved theme settings grouped by option section.
+     *
+     * @return array<string,array<string,mixed>>
+     */
+    public static function getThemeOptions(): array
+    {
+        return [
+            self::OPTION_SECTION => static::getGeneralOptions(),
+            SocialLinks::OPTION_SECTION => static::getSocialLinksOptions(),
+        ];
+    }
+
+    /**
+     * Return all default theme settings grouped by option section.
+     *
+     * @return array<string,array<string,mixed>>
+     */
+    public static function getDefaultThemeOptions(): array
+    {
+        return [
+            self::OPTION_SECTION => (new self())->defaultSettings(),
+            SocialLinks::OPTION_SECTION => (new SocialLinks())->defaultSettings(),
+        ];
     }
 
     /**
@@ -306,7 +311,7 @@ class General extends AbstractSetting
     }
 
     /**
-     * Render DaisyUI theme picker cards for a Carbon Fields HTML field.
+     * Render DaisyUI theme picker cards for the native settings page.
      *
      * @param string $mode Theme mode identifier.
      * @param string $title Theme picker title.
@@ -314,7 +319,7 @@ class General extends AbstractSetting
      * @param string $value Current selected theme slug.
      * @return string
      */
-    protected function renderThemePickerHtml(string $mode, string $title, array $options, string $value): string
+    public function renderThemePickerHtml(string $mode, string $title, array $options, string $value): string
     {
         /** @var array<string,array<string,string>> $themePalette Full theme palette map. */
         $themePalette = static::getThemePalette();

@@ -298,25 +298,6 @@ msgstr ""
 msgid "Overrides the footer copyright line. Leave empty to use the default."
 msgstr ""
 
-#: src/ThemeOptions/General.php:134
-msgid "Header Scripts"
-msgstr ""
-
-#: src/ThemeOptions/General.php:135
-msgid ""
-"Scripts to be added in the <head> section. You can include complete <script> "
-"tags for services like Google Analytics."
-msgstr ""
-
-#: src/ThemeOptions/General.php:136
-msgid "Footer Scripts"
-msgstr ""
-
-#: src/ThemeOptions/General.php:137
-msgid ""
-"Scripts to be added before </body>. You can include complete <script> tags."
-msgstr ""
-
 #: src/ThemeOptions/General.php:142 src/ThemeOptions/General.php:1012
 msgid "Social Links"
 msgstr ""

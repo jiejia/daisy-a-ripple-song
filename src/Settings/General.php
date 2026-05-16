@@ -72,14 +72,6 @@ class General extends AbstractSetting
             Field::make('textarea', $this->fieldName('footer_copyright'), __('Footer Copyright', 'daisy-a-ripple-song'))
                 ->set_attribute('placeholder', __('Overrides the footer copyright line. Leave empty to use the default.', 'daisy-a-ripple-song'))
                 ->set_help_text(__('Overrides the footer copyright line. Leave empty to use the default.', 'daisy-a-ripple-song')),
-
-            Field::make('textarea', $this->fieldName('header_scripts'), __('Header Scripts', 'daisy-a-ripple-song'))
-                ->set_attribute('placeholder', '<script>...</script>')
-                ->set_help_text(__('Scripts to be added in the <head> section. You can include complete <script> tags for services like Google Analytics.', 'daisy-a-ripple-song')),
-
-            Field::make('textarea', $this->fieldName('footer_scripts'), __('Footer Scripts', 'daisy-a-ripple-song'))
-                ->set_attribute('placeholder', '<script>...</script>')
-                ->set_help_text(__('Scripts to be added before </body>. You can include complete <script> tags.', 'daisy-a-ripple-song')),
         ];
     }
 
@@ -94,8 +86,6 @@ class General extends AbstractSetting
             'light_theme' => 'retro',
             'dark_theme' => 'dim',
             'footer_copyright' => '',
-            'header_scripts' => '',
-            'footer_scripts' => '',
         ];
     }
 
@@ -283,48 +273,6 @@ class General extends AbstractSetting
     public static function getFooterCopyright(): string
     {
         return trim(static::getThemeOption('footer_copyright'));
-    }
-
-    /**
-     * Output saved custom header scripts on the front end.
-     *
-     * @return void
-     */
-    public static function outputHeaderScripts(): void
-    {
-        if (is_admin()) {
-            return;
-        }
-
-        /** @var string $headerScripts Saved header scripts. */
-        $headerScripts = static::getThemeOption('header_scripts');
-
-        if ($headerScripts === '') {
-            return;
-        }
-
-        echo $headerScripts; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    }
-
-    /**
-     * Output saved custom footer scripts on the front end.
-     *
-     * @return void
-     */
-    public static function outputFooterScripts(): void
-    {
-        if (is_admin()) {
-            return;
-        }
-
-        /** @var string $footerScripts Saved footer scripts. */
-        $footerScripts = static::getThemeOption('footer_scripts');
-
-        if ($footerScripts === '') {
-            return;
-        }
-
-        echo $footerScripts; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**

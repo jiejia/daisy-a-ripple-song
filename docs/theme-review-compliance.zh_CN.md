@@ -75,32 +75,26 @@
 - 对发布包做人工检索：`register_block_type`、`register_post_type`、`add_shortcode`、多 text domain、plugin header、外部下载/安装插件逻辑。
 - 如果官方审核员质疑 Carbon Fields，优先改为原生 WordPress API，不建议和审核员争论这个点。
 
-### 3. 主题设置允许任意 header/footer 脚本，不符合安全和插件领域要求
+### 3. 主题设置曾允许任意 header/footer 脚本，已移除
 
 相关文件：
 
 - `src/Settings/General.php`
 - `src/Providers/SettingServiceProvider.php`
 
-当前发现：
+历史问题：
 
 - `General::fields()` 中有 `header_scripts` 和 `footer_scripts` textarea。
 - 帮助文本明确说明可填入完整 `<script>`，例如 Google Analytics。
 - `outputHeaderScripts()` 和 `outputFooterScripts()` 直接 `echo` 保存的脚本内容。
 - `SettingServiceProvider::register()` 把这两个输出挂到 `wp_head` 和 `wp_footer`。
 
-影响：
+已完成修复：
 
-- 官方把 analytics/tracking support 列为 plugin territory。
-- 任意脚本注入属于安全高风险，人工审核通常会要求从主题移除。
-- 即使只有有权限用户能保存，也不适合 WordPress.org 主题目录。
-
-修复建议：
-
-- 删除 `header_scripts`、`footer_scripts` 设置字段。
-- 删除 `outputHeaderScripts()`、`outputFooterScripts()` 和对应 hooks。
+- 已删除 `header_scripts`、`footer_scripts` 设置字段。
+- 已删除 `outputHeaderScripts()`、`outputFooterScripts()` 和对应 hooks。
+- 已清理对应语言包字符串。
 - 如果用户需要 analytics、广告、站点验证、像素或自定义脚本，放到配套插件或推荐 WordPress.org 上的现有插件。
-- 如只需要展示样式类配置，改成受限白名单字段，并在输出时严格 escape。
 
 ### 4. 前端访问/播放统计属于隐私和插件领域风险
 
@@ -344,7 +338,7 @@
 ## 建议修复顺序
 
 1. 先决定是否继续使用 Carbon Fields。如果目标是通过 WordPress.org 官方主题目录，建议优先迁移到原生 WordPress API。
-2. 移除 header/footer scripts 设置和前端 metrics 记录逻辑。
+2. 移除前端 metrics 记录逻辑。
 3. 把主题设置页迁移到 Appearance 或 Customizer，并把设置存储合并到一个 option 或 theme mods。
 4. 清理 readme：补全 Resources、隐私说明、插件推荐来源和功能限制。
 5. 固化发布流程，确保最终 zip 不包含开发文件、隐藏文件、zip、node_modules、build、未审计 vendor。
@@ -361,4 +355,3 @@
 - 所有外部资源都已本地打包，且没有未经用户同意的 HTTP 请求。
 - 所有用户可控输出都有 escape，所有入库数据都有 sanitize。
 - Admin notice 可 dismiss，并使用 `edit_theme_options`。
-

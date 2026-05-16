@@ -464,27 +464,6 @@ msgstr "由 A Ripple Song 主题驱动"
 msgid "Overrides the footer copyright line. Leave empty to use the default."
 msgstr "覆盖页脚版权文案。留空则使用默认内容。"
 
-#: src/ThemeOptions/General.php:134
-msgid "Header Scripts"
-msgstr "头部脚本"
-
-#: src/ThemeOptions/General.php:135
-msgid ""
-"Scripts to be added in the <head> section. You can include complete <script> "
-"tags for services like Google Analytics."
-msgstr ""
-"将在 <head> 区域插入的脚本。你可以为 Google Analytics 等服务填写完整的 "
-"<script> 标签。"
-
-#: src/ThemeOptions/General.php:136
-msgid "Footer Scripts"
-msgstr "页脚脚本"
-
-#: src/ThemeOptions/General.php:137
-msgid ""
-"Scripts to be added before </body>. You can include complete <script> tags."
-msgstr "将在 </body> 前插入的脚本。你可以包含完整的 <script> 标签。"
-
 #: src/ThemeOptions/General.php:142 src/ThemeOptions/General.php:1012
 msgid "Social Links"
 msgstr "社交链接"

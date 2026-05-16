@@ -54,8 +54,6 @@ class SettingServiceProvider extends AbstractServiceProvider
 
         // Output frontend settings managed by the general settings page.
         add_action('wp_head', [General::class, 'outputThemePaletteStyles'], 1);
-        add_action('wp_head', [General::class, 'outputHeaderScripts'], 99);
-        add_action('wp_footer', [General::class, 'outputFooterScripts'], 99);
     }
 
     /**

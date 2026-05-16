@@ -132,7 +132,7 @@ if ($totalPages <= 7) {
                 <?php if ($pageNumber === 0): ?>
                     <span class="join-item btn btn-square btn-disabled">...</span>
                 <?php elseif ($pageNumber === $currentPage): ?>
-                    <span class="join-item btn btn-square btn-active"
+                    <span class="join-item btn btn-square btn-primary btn-active"
                           aria-current="page"><?php echo esc_html(number_format_i18n($pageNumber)); ?></span>
                 <?php else: ?>
                     <a class="join-item btn btn-square"

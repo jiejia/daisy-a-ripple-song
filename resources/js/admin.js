@@ -1,5 +1,5 @@
 /**
- * Theme options admin runtime for the General settings page.
+ * Theme options admin runtime.
  */
 (() => {
     /**

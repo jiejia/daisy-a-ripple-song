@@ -6,21 +6,18 @@ use Jiejia\DaisyARippleSong\Contracts\Menu;
 use Jiejia\DaisyARippleSong\Theme;
 
 /**
- * Registers the theme options parent admin menu.
+ * Describes the theme options admin menu location.
  */
 class ThemeOptions implements Menu
 {
-    /** @var string OPTIONS_PAGE_FILE Theme options top-level menu slug. */
+    /** @var string OPTIONS_PAGE_FILE Theme options page slug under Appearance. */
     public const OPTIONS_PAGE_FILE = Theme::PREFIX . '_theme_options';
 
-    /** @var string GENERAL_PAGE_FILE Theme general settings page slug. */
-    public const GENERAL_PAGE_FILE = Theme::PREFIX . '_theme_general';
-
-    /** @var string SOCIAL_PAGE_FILE Social links settings page slug. */
-    public const SOCIAL_PAGE_FILE = Theme::PREFIX . '_theme_social_links';
+    /** @var string PARENT_PAGE_FILE WordPress Appearance menu slug. */
+    public const PARENT_PAGE_FILE = 'themes.php';
 
     /**
-     * Return the theme options top-level menu title.
+     * Return the theme options menu title.
      *
      * @return string
      */
@@ -30,7 +27,7 @@ class ThemeOptions implements Menu
     }
 
     /**
-     * Return the theme options top-level menu slug.
+     * Return the theme options page slug.
      *
      * @return string
      */
@@ -40,23 +37,13 @@ class ThemeOptions implements Menu
     }
 
     /**
-     * Register the theme options top-level admin menu.
+     * Keep menu registration delegated to the Carbon Fields container.
      *
      * @return void
      */
     public function topMenu(): void
     {
-        add_menu_page(
-            $this->topMenuTitle(),
-            $this->topMenuTitle(),
-            $this->capability(),
-            $this->topMenuSlug(),
-            [self::class, 'renderLandingPage'],
-            'dashicons-admin-settings',
-            61
-        );
-
-        add_action('admin_menu', [self::class, 'removeDuplicateLandingPage'], 999);
+        // The page is registered under Appearance by the settings container.
     }
 
     /**
@@ -67,37 +54,5 @@ class ThemeOptions implements Menu
     public function subMenu(): void
     {
         // Theme settings pages are registered from Carbon Fields containers.
-    }
-
-    /**
-     * Redirect direct parent menu visits to the general settings page.
-     *
-     * @return void
-     */
-    public static function renderLandingPage(): void
-    {
-        wp_safe_redirect(admin_url('admin.php?page=' . self::GENERAL_PAGE_FILE));
-        exit;
-    }
-
-    /**
-     * Remove the duplicate submenu WordPress creates for top-level pages.
-     *
-     * @return void
-     */
-    public static function removeDuplicateLandingPage(): void
-    {
-        // Keep the theme options menu concise.
-        remove_submenu_page(self::OPTIONS_PAGE_FILE, self::OPTIONS_PAGE_FILE);
-    }
-
-    /**
-     * Return the capability required to manage theme options.
-     *
-     * @return string
-     */
-    private function capability(): string
-    {
-        return 'edit_theme_options';
     }
 }

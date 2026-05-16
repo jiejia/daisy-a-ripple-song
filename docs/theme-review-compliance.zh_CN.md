@@ -149,27 +149,23 @@
 - 文案必须写成 “recommended/optional”，不能写成主题运行必需。
 - 主题在未安装插件时必须保持完整可用，只是少一些增强功能。
 
-### 6. 主题选项页不应放在后台顶级菜单
+### 6. 主题选项页曾放在后台顶级菜单，已移到 Appearance
 
 相关文件：
 
 - `src/Menus/ThemeOptions.php`
 - `src/Providers/SettingServiceProvider.php`
 
-当前发现：
+历史问题：
 
 - `ThemeOptions::topMenu()` 使用 `add_menu_page()` 创建顶级 `Theme Options` 菜单。
 - Carbon Fields 子设置页挂在这个顶级菜单下。
 
-影响：
+已完成修复：
 
-- 官方对主题设置页和 onboarding 有限制，主题设置通常应在 Appearance 下，或使用 Customizer / Site Editor 能力。
-- 主题创建顶级后台菜单容易被认为打扰后台信息架构。
-
-修复建议：
-
-- 删除顶级 `add_menu_page()`。
-- 把设置页改到 `Appearance > Daisy A Ripple Song`，使用 `add_theme_page()`。
+- 已删除顶级 `add_menu_page()`。
+- 已把设置页改到 `Appearance > Theme Options`。
+- 已把 `General` 和 `Social Links` 合并到同一个 Carbon Fields 页面，并用分组字段分隔。
 - 或者迁移到 Customizer，并使用 `edit_theme_options` capability。
 - 保留当前已使用的 `edit_theme_options` 权限，这是正确方向。
 

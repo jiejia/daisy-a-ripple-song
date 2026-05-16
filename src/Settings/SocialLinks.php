@@ -19,7 +19,7 @@ class SocialLinks extends AbstractSetting
      */
     public function pageSlug(): string
     {
-        return ThemeOptions::SOCIAL_PAGE_FILE;
+        return ThemeOptions::OPTIONS_PAGE_FILE;
     }
 
     /**
@@ -86,7 +86,7 @@ class SocialLinks extends AbstractSetting
      */
     public function parentPageSlug(): string
     {
-        return ThemeOptions::OPTIONS_PAGE_FILE;
+        return ThemeOptions::PARENT_PAGE_FILE;
     }
 
     /**

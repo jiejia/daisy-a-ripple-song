@@ -3,6 +3,7 @@
 namespace Jiejia\DaisyARippleSong\Providers;
 
 use Carbon_Fields\Container;
+use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractServiceProvider;
 use Jiejia\DaisyARippleSong\Contracts\Setting;
 use Jiejia\DaisyARippleSong\Menus\ThemeOptions;
@@ -28,11 +29,11 @@ class SettingServiceProvider extends AbstractServiceProvider
     private bool $settingsRegistered = false;
 
     /**
-     * Setting page classes registered by this provider.
+     * Setting section classes registered on the theme options page.
      *
      * @var array<int,class-string<Setting>>
      */
-    private array $settings = [
+    private array $settingSections = [
         General::class,
         SocialLinks::class,
     ];
@@ -69,16 +70,38 @@ class SettingServiceProvider extends AbstractServiceProvider
 
         $this->settingsRegistered = true;
 
-        foreach ($this->settings as $settingClass) {
-            // Create one Carbon Fields settings container per configured setting page.
+        /** @var ThemeOptions $themeOptions Theme options menu descriptor. */
+        $themeOptions = new ThemeOptions();
+        /** @var Setting $primarySetting Primary setting section used for menu placement. */
+        $primarySetting = new General();
+
+        // Create one Appearance submenu page that contains all theme option sections.
+        Container::make_theme_options($themeOptions->topMenuTitle())
+            ->set_page_parent($primarySetting->parentPageSlug())
+            ->set_page_file($primarySetting->pageSlug())
+            ->set_page_menu_title($themeOptions->topMenuTitle())
+            ->add_fields($this->getSectionedFields());
+    }
+
+    /**
+     * Return all settings fields grouped by visual separators.
+     *
+     * @return array<int,\Carbon_Fields\Field\Field>
+     */
+    private function getSectionedFields(): array
+    {
+        /** @var array<int,\Carbon_Fields\Field\Field> $fields Grouped settings fields. */
+        $fields = [];
+
+        foreach ($this->settingSections as $settingClass) {
+            /** @var Setting $setting Setting section instance. */
             $setting = new $settingClass();
 
-            Container::make_theme_options($setting->pageTitle())
-                ->set_page_parent($setting->parentPageSlug())
-                ->set_page_file($setting->pageSlug())
-                ->set_page_menu_title($setting->pageTitle())
-                ->add_fields($setting->fields());
+            $fields[] = Field::make('separator', $setting->fieldName('section'), $setting->pageTitle());
+            $fields = array_merge($fields, $setting->fields());
         }
+
+        return $fields;
     }
 
     /**
@@ -137,7 +160,7 @@ class SettingServiceProvider extends AbstractServiceProvider
         /** @var string $page Current admin page slug. */
         $page = isset($_GET['page']) ? sanitize_text_field(wp_unslash((string) $_GET['page'])) : '';
 
-        return in_array($page, [ThemeOptions::OPTIONS_PAGE_FILE, ThemeOptions::GENERAL_PAGE_FILE, ThemeOptions::SOCIAL_PAGE_FILE], true);
+        return $page === ThemeOptions::OPTIONS_PAGE_FILE;
     }
 
     /**

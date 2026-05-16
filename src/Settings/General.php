@@ -26,7 +26,7 @@ class General extends AbstractSetting
      */
     public function pageSlug(): string
     {
-        return ThemeOptions::GENERAL_PAGE_FILE;
+        return ThemeOptions::OPTIONS_PAGE_FILE;
     }
 
     /**
@@ -106,7 +106,7 @@ class General extends AbstractSetting
      */
     public function parentPageSlug(): string
     {
-        return ThemeOptions::OPTIONS_PAGE_FILE;
+        return ThemeOptions::PARENT_PAGE_FILE;
     }
 
     /**

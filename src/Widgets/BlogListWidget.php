@@ -2,7 +2,6 @@
 
 namespace Jiejia\DaisyARippleSong\Widgets;
 
-use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
@@ -41,32 +40,46 @@ class BlogListWidget extends AbstractWidget
     }
 
     /**
-     * Return all Carbon Fields fields for the widget form.
+     * Return all native field definitions for the widget form.
      *
-     * @return array<int,\Carbon_Fields\Field\Field>
+     * @return array<int,array<string,mixed>>
      */
     public function fields(): array
     {
         return [
-            Field::make('text', $this->fieldName('title'), __('Title', 'daisy-a-ripple-song'))
-                ->set_attribute('placeholder', __('BLOG', 'daisy-a-ripple-song'))
-                ->set_default_value((string) $this->defaultSettings()['title']),
-            Field::make('text', $this->fieldName('posts_per_page'), __('Number of posts', 'daisy-a-ripple-song'))
-                ->set_attribute('type', 'number')
-                ->set_attribute('min', '1')
-                ->set_attribute('step', '1')
-                ->set_attribute('placeholder', '6')
-                ->set_default_value((string) $this->defaultSettings()['posts_per_page']),
-            Field::make('select', $this->fieldName('columns'), __('Number of columns', 'daisy-a-ripple-song'))
-                ->set_options([
+            [
+                'type' => 'text',
+                'key' => 'title',
+                'label' => __('Title', 'daisy-a-ripple-song'),
+                'placeholder' => __('BLOG', 'daisy-a-ripple-song'),
+                'default' => (string) $this->defaultSettings()['title'],
+            ],
+            [
+                'type' => 'number',
+                'key' => 'posts_per_page',
+                'label' => __('Number of posts', 'daisy-a-ripple-song'),
+                'min' => 1,
+                'step' => 1,
+                'placeholder' => '6',
+                'default' => (int) $this->defaultSettings()['posts_per_page'],
+            ],
+            [
+                'type' => 'select',
+                'key' => 'columns',
+                'label' => __('Number of columns', 'daisy-a-ripple-song'),
+                'options' => [
                     '1' => '1',
                     '2' => '2',
                     '3' => '3',
-                ])
-                ->set_default_value((string) $this->defaultSettings()['columns']),
-            Field::make('checkbox', $this->fieldName('show_see_all'), __('Show "See all" link', 'daisy-a-ripple-song'))
-                ->set_option_value('1')
-                ->set_default_value((bool) $this->defaultSettings()['show_see_all']),
+                ],
+                'default' => (string) $this->defaultSettings()['columns'],
+            ],
+            [
+                'type' => 'checkbox',
+                'key' => 'show_see_all',
+                'label' => __('Show "See all" link', 'daisy-a-ripple-song'),
+                'default' => (bool) $this->defaultSettings()['show_see_all'],
+            ],
         ];
     }
 
@@ -92,7 +105,7 @@ class BlogListWidget extends AbstractWidget
      * @param array $instance Saved widget option values.
      * @return void
      */
-    public function front_end($args, $instance): void
+    public function frontEnd($args, $instance): void
     {
         /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
         $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);

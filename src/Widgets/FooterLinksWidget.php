@@ -2,7 +2,6 @@
 
 namespace Jiejia\DaisyARippleSong\Widgets;
 
-use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
@@ -41,28 +40,45 @@ class FooterLinksWidget extends AbstractWidget
     }
 
     /**
-     * Return all Carbon Fields fields for the widget form.
+     * Return all native field definitions for the widget form.
      *
-     * @return array<int,\Carbon_Fields\Field\Field>
+     * @return array<int,array<string,mixed>>
      */
     public function fields(): array
     {
         return [
-            Field::make('text', $this->fieldName('title'), __('Title', 'daisy-a-ripple-song'))
-                ->set_attribute('placeholder', __('e.g., Contact, Navigate, Support', 'daisy-a-ripple-song'))
-                ->set_help_text(__('For example: Contact, Navigate, Support.', 'daisy-a-ripple-song')),
-            Field::make('complex', $this->fieldName('items'), __('Items', 'daisy-a-ripple-song'))
-                ->set_help_text(__('Add text-only rows or links. Empty text rows will not be rendered.', 'daisy-a-ripple-song'))
-                ->add_fields([
-                    Field::make('text', 'text', __('Text', 'daisy-a-ripple-song'))
-                        ->set_attribute('placeholder', __('Display text', 'daisy-a-ripple-song'))
-                        ->set_required(true),
-                    Field::make('text', 'url', __('URL', 'daisy-a-ripple-song'))
-                        ->set_attribute('type', 'url')
-                        ->set_attribute('placeholder', 'https://example.com'),
-                    Field::make('checkbox', 'new_tab', __('Open in new tab', 'daisy-a-ripple-song'))
-                        ->set_option_value('1'),
-                ]),
+            [
+                'type' => 'text',
+                'key' => 'title',
+                'label' => __('Title', 'daisy-a-ripple-song'),
+                'placeholder' => __('e.g., Contact, Navigate, Support', 'daisy-a-ripple-song'),
+                'description' => __('For example: Contact, Navigate, Support.', 'daisy-a-ripple-song'),
+            ],
+            [
+                'type' => 'repeater',
+                'key' => 'items',
+                'label' => __('Items', 'daisy-a-ripple-song'),
+                'description' => __('Add text-only rows or links. Empty text rows will not be rendered.', 'daisy-a-ripple-song'),
+                'fields' => [
+                    [
+                        'type' => 'text',
+                        'key' => 'text',
+                        'label' => __('Text', 'daisy-a-ripple-song'),
+                        'placeholder' => __('Display text', 'daisy-a-ripple-song'),
+                    ],
+                    [
+                        'type' => 'url',
+                        'key' => 'url',
+                        'label' => __('URL', 'daisy-a-ripple-song'),
+                        'placeholder' => 'https://example.com',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'key' => 'new_tab',
+                        'label' => __('Open in new tab', 'daisy-a-ripple-song'),
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -86,7 +102,7 @@ class FooterLinksWidget extends AbstractWidget
      * @param array $instance Saved widget option values.
      * @return void
      */
-    public function front_end($args, $instance): void
+    public function frontEnd($args, $instance): void
     {
         /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
         $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);

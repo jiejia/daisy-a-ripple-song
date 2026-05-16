@@ -26,7 +26,6 @@ Daisy A Ripple Song 是一个经典 WordPress 主题，安装[播客插件](http
 - [Swup](https://github.com/swup/swup) - 无刷新页面切换库
 - [Howler.js](https://github.com/goldfire/howler.js) - 音频播放库
 - [audioMotion-analyzer](https://github.com/hvianna/audioMotion-analyzer) - 音频频谱可视化库
-- [Carbon Fields](https://github.com/htmlburger/carbon-fields) - WordPress 自定义字段框架
 - [PHP-Scoper](https://github.com/humbug/php-scoper) - PHP 命名空间隔离工具
 
 ## 链接

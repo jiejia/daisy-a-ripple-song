@@ -2,7 +2,6 @@
 
 namespace Jiejia\DaisyARippleSong\Widgets;
 
-use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
@@ -41,37 +40,52 @@ class TagsCloudWidget extends AbstractWidget
     }
 
     /**
-     * Return all Carbon Fields fields for the widget form.
+     * Return all native field definitions for the widget form.
      *
-     * @return array<int,\Carbon_Fields\Field\Field>
+     * @return array<int,array<string,mixed>>
      */
     public function fields(): array
     {
         return [
-            Field::make('text', $this->fieldName('title'), __('Title', 'daisy-a-ripple-song'))
-                ->set_attribute('placeholder', __('TAGS', 'daisy-a-ripple-song'))
-                ->set_default_value((string) $this->defaultSettings()['title']),
-            Field::make('text', $this->fieldName('number'), __('Number of tags', 'daisy-a-ripple-song'))
-                ->set_attribute('type', 'number')
-                ->set_attribute('min', '1')
-                ->set_attribute('step', '1')
-                ->set_attribute('placeholder', '20')
-                ->set_default_value((string) $this->defaultSettings()['number'])
-                ->set_help_text(__('Maximum number of tags to display.', 'daisy-a-ripple-song')),
-            Field::make('select', $this->fieldName('orderby'), __('Order by', 'daisy-a-ripple-song'))
-                ->set_options([
+            [
+                'type' => 'text',
+                'key' => 'title',
+                'label' => __('Title', 'daisy-a-ripple-song'),
+                'placeholder' => __('TAGS', 'daisy-a-ripple-song'),
+                'default' => (string) $this->defaultSettings()['title'],
+            ],
+            [
+                'type' => 'number',
+                'key' => 'number',
+                'label' => __('Number of tags', 'daisy-a-ripple-song'),
+                'min' => 1,
+                'step' => 1,
+                'placeholder' => '20',
+                'default' => (int) $this->defaultSettings()['number'],
+                'description' => __('Maximum number of tags to display.', 'daisy-a-ripple-song'),
+            ],
+            [
+                'type' => 'select',
+                'key' => 'orderby',
+                'label' => __('Order by', 'daisy-a-ripple-song'),
+                'options' => [
                     'count' => __('Post Count', 'daisy-a-ripple-song'),
                     'name' => __('Tag Name', 'daisy-a-ripple-song'),
                     'term_id' => __('Tag ID', 'daisy-a-ripple-song'),
                     'rand' => __('Random', 'daisy-a-ripple-song'),
-                ])
-                ->set_default_value((string) $this->defaultSettings()['orderby']),
-            Field::make('select', $this->fieldName('order'), __('Sort order', 'daisy-a-ripple-song'))
-                ->set_options([
+                ],
+                'default' => (string) $this->defaultSettings()['orderby'],
+            ],
+            [
+                'type' => 'select',
+                'key' => 'order',
+                'label' => __('Sort order', 'daisy-a-ripple-song'),
+                'options' => [
                     'DESC' => __('Descending (High to Low/Z to A)', 'daisy-a-ripple-song'),
                     'ASC' => __('Ascending (Low to High/A to Z)', 'daisy-a-ripple-song'),
-                ])
-                ->set_default_value((string) $this->defaultSettings()['order']),
+                ],
+                'default' => (string) $this->defaultSettings()['order'],
+            ],
         ];
     }
 
@@ -97,7 +111,7 @@ class TagsCloudWidget extends AbstractWidget
      * @param array $instance Saved widget option values.
      * @return void
      */
-    public function front_end($args, $instance): void
+    public function frontEnd($args, $instance): void
     {
         /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
         $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);

@@ -2,7 +2,6 @@
 
 namespace Jiejia\DaisyARippleSong\Widgets;
 
-use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
@@ -41,28 +40,41 @@ class SubscribeLinksWidget extends AbstractWidget
     }
 
     /**
-     * Return all Carbon Fields fields for the widget form.
+     * Return all native field definitions for the widget form.
      *
-     * @return array<int,\Carbon_Fields\Field\Field>
+     * @return array<int,array<string,mixed>>
      */
     public function fields(): array
     {
         return [
-            Field::make('text', $this->fieldName('title'), __('Title', 'daisy-a-ripple-song'))
-                ->set_attribute('placeholder', __('SUBSCRIBE', 'daisy-a-ripple-song'))
-                ->set_default_value((string) $this->defaultSettings()['title']),
-            Field::make('text', $this->fieldName('apple_podcast_url'), __('Apple Podcast Link', 'daisy-a-ripple-song'))
-                ->set_attribute('type', 'url')
-                ->set_attribute('placeholder', 'https://podcasts.apple.com/...')
-                ->set_help_text(__('Leave blank to hide this button.', 'daisy-a-ripple-song')),
-            Field::make('text', $this->fieldName('spotify_url'), __('Spotify Link', 'daisy-a-ripple-song'))
-                ->set_attribute('type', 'url')
-                ->set_attribute('placeholder', 'https://open.spotify.com/...')
-                ->set_help_text(__('Leave blank to hide this button.', 'daisy-a-ripple-song')),
-            Field::make('text', $this->fieldName('youtube_music_url'), __('YouTube Music Link', 'daisy-a-ripple-song'))
-                ->set_attribute('type', 'url')
-                ->set_attribute('placeholder', 'https://music.youtube.com/...')
-                ->set_help_text(__('Leave blank to hide this button.', 'daisy-a-ripple-song')),
+            [
+                'type' => 'text',
+                'key' => 'title',
+                'label' => __('Title', 'daisy-a-ripple-song'),
+                'placeholder' => __('SUBSCRIBE', 'daisy-a-ripple-song'),
+                'default' => (string) $this->defaultSettings()['title'],
+            ],
+            [
+                'type' => 'url',
+                'key' => 'apple_podcast_url',
+                'label' => __('Apple Podcast Link', 'daisy-a-ripple-song'),
+                'placeholder' => 'https://podcasts.apple.com/...',
+                'description' => __('Leave blank to hide this button.', 'daisy-a-ripple-song'),
+            ],
+            [
+                'type' => 'url',
+                'key' => 'spotify_url',
+                'label' => __('Spotify Link', 'daisy-a-ripple-song'),
+                'placeholder' => 'https://open.spotify.com/...',
+                'description' => __('Leave blank to hide this button.', 'daisy-a-ripple-song'),
+            ],
+            [
+                'type' => 'url',
+                'key' => 'youtube_music_url',
+                'label' => __('YouTube Music Link', 'daisy-a-ripple-song'),
+                'placeholder' => 'https://music.youtube.com/...',
+                'description' => __('Leave blank to hide this button.', 'daisy-a-ripple-song'),
+            ],
         ];
     }
 
@@ -88,7 +100,7 @@ class SubscribeLinksWidget extends AbstractWidget
      * @param array $instance Saved widget option values.
      * @return void
      */
-    public function front_end($args, $instance): void
+    public function frontEnd($args, $instance): void
     {
         /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
         $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);

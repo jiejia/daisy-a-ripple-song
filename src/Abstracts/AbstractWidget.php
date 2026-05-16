@@ -2,40 +2,33 @@
 
 namespace Jiejia\DaisyARippleSong\Abstracts;
 
-use Carbon_Fields\Widget as CarbonWidget;
 use Jiejia\DaisyARippleSong\Contracts\ThemeWidget;
 use Jiejia\DaisyARippleSong\Supports\WidgetRenderer;
 use Jiejia\DaisyARippleSong\Theme;
 use WP_Widget;
 
 /**
- * Base class for Carbon Fields powered theme widgets.
+ * Base class for native WordPress theme widgets.
  */
-abstract class AbstractWidget extends CarbonWidget implements ThemeWidget
+abstract class AbstractWidget extends WP_Widget implements ThemeWidget
 {
     /**
-     * Preserve the legacy widget id base for existing widget placements.
-     *
-     * @var string
-     */
-    protected $widget_id_prefix = '';
-
-    /**
-     * Register the widget with Carbon Fields.
+     * Register the widget with WordPress.
      */
     public function __construct()
     {
-        $this->setup(
+        parent::__construct(
             $this->widgetId(),
             $this->widgetTitle(),
-            $this->widgetDescription(),
-            $this->fields(),
-            $this->widgetClassName()
+            [
+                'classname' => $this->widgetClassName(),
+                'description' => $this->widgetDescription(),
+            ]
         );
     }
 
     /**
-     * Return the Carbon Fields prefix used by this widget.
+     * Return the legacy prefixed storage key used by this widget.
      *
      * @return string
      */
@@ -45,7 +38,7 @@ abstract class AbstractWidget extends CarbonWidget implements ThemeWidget
     }
 
     /**
-     * Return the Carbon Fields field name for one widget value.
+     * Return the legacy prefixed field name for one widget value.
      *
      * @param string $key Widget field key without the widget prefix.
      * @return string
@@ -78,27 +71,65 @@ abstract class AbstractWidget extends CarbonWidget implements ThemeWidget
     }
 
     /**
-     * Save a widget instance after normalizing REST-encoded Carbon Fields storage keys.
+     * Render the WordPress widget output.
      *
-     * @param array<string,mixed> $new_instance New widget instance data.
-     * @param array<string,mixed> $old_instance Previous widget instance data.
-     * @return array<string,mixed>|false Saved widget instance data or false to cancel saving.
+     * @param array<string,mixed> $args Sidebar display arguments.
+     * @param array<string,mixed> $instance Saved widget instance.
+     * @return void
      */
-    public function update($new_instance, $old_instance)
+    public function widget($args, $instance): void
     {
-        if (is_array($new_instance)) {
-            if ($this->isEncodedComplexStorageInstance($new_instance)) {
-                return $new_instance;
-            }
-
-            $new_instance = $this->normalizeProtectedStorageInput($new_instance);
-        }
-
-        return parent::update($new_instance, $old_instance);
+        $this->frontEnd($args, $instance);
     }
 
     /**
-     * Return instance values merged with widget defaults.
+     * Render the native widget admin form.
+     *
+     * @param array<string,mixed> $instance Saved widget instance.
+     * @return string
+     */
+    public function form($instance): string
+    {
+        /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
+        $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);
+
+        foreach ($this->fields() as $field) {
+            $this->renderField($field, $widgetInstance);
+        }
+
+        return '';
+    }
+
+    /**
+     * Sanitize a native widget form submission.
+     *
+     * @param array<string,mixed> $new_instance New widget instance data.
+     * @param array<string,mixed> $old_instance Previous widget instance data.
+     * @return array<string,mixed> Sanitized widget instance data.
+     */
+    public function update($new_instance, $old_instance): array
+    {
+        /** @var array<string,mixed> $submittedInstance Submitted instance values. */
+        $submittedInstance = is_array($new_instance) ? $new_instance : [];
+        /** @var array<string,mixed> $sanitizedInstance Sanitized instance values. */
+        $sanitizedInstance = [];
+
+        foreach ($this->fields() as $field) {
+            /** @var string $fieldKey Field key. */
+            $fieldKey = (string) ($field['key'] ?? '');
+
+            if ($fieldKey === '') {
+                continue;
+            }
+
+            $sanitizedInstance[$fieldKey] = $this->sanitizeFieldValue($field, $submittedInstance[$fieldKey] ?? null);
+        }
+
+        return $sanitizedInstance;
+    }
+
+    /**
+     * Return instance values merged with widget defaults and legacy keys.
      *
      * @param array<string,mixed> $instance Widget instance data.
      * @return array<string,mixed>
@@ -109,126 +140,427 @@ abstract class AbstractWidget extends CarbonWidget implements ThemeWidget
         $normalizedInstance = $this->defaultSettings();
 
         foreach ($normalizedInstance as $key => $defaultValue) {
-            /** @var string $fieldName Carbon Fields storage key for the current widget field. */
-            $fieldName = $this->fieldName((string) $key);
-
-            /** @var string $protectedFieldName Carbon Fields protected storage key for the current widget field. */
+            /** @var string $rawKey Raw widget field key. */
+            $rawKey = (string) $key;
+            /** @var string $fieldName Legacy prefixed storage key for the current widget field. */
+            $fieldName = $this->fieldName($rawKey);
+            /** @var string $protectedFieldName Legacy protected storage key. */
             $protectedFieldName = '_' . $fieldName;
 
+            if (array_key_exists($rawKey, $instance)) {
+                $normalizedInstance[$rawKey] = $instance[$rawKey];
+                continue;
+            }
+
             if (array_key_exists($fieldName, $instance)) {
-                $normalizedInstance[(string) $key] = $instance[$fieldName];
+                $normalizedInstance[$rawKey] = $instance[$fieldName];
                 continue;
             }
 
             if (array_key_exists($protectedFieldName, $instance)) {
-                $normalizedInstance[(string) $key] = $instance[$protectedFieldName];
+                $normalizedInstance[$rawKey] = $instance[$protectedFieldName];
                 continue;
             }
 
-            if (array_key_exists((string) $key, $instance)) {
-                $normalizedInstance[(string) $key] = $instance[(string) $key];
-                continue;
-            }
-
-            $normalizedInstance[(string) $key] = $defaultValue;
+            $normalizedInstance[$rawKey] = $defaultValue;
         }
 
         return $normalizedInstance;
     }
 
     /**
-     * Register Carbon Fields containers for all active instances of this widget during REST API initialisation.
+     * Render one widget form field from a field definition.
      *
-     * Carbon Fields Loader only initialises containers for widgets whose ID begins with the
-     * "carbon_fields_" prefix. Because AbstractWidget deliberately clears that prefix (to preserve
-     * existing option keys), containers are never registered during REST requests, which prevents
-     * Carbon Fields from reading/writing complex fields via the Block Editor widget panel.
-     *
-     * Call this method from a "rest_api_init" hook so the containers are available before any
-     * REST request attempts to update a widget instance.
-     *
+     * @param array<string,mixed> $field Field definition.
+     * @param array<string,mixed> $instance Current widget instance.
      * @return void
      */
-    public function initializeRestContainer(): void
+    protected function renderField(array $field, array $instance): void
     {
-        /** @var array<string,mixed> $sidebarWidgets All sidebar widget placements. */
-        $sidebarWidgets = wp_get_sidebars_widgets();
+        /** @var string $type Field type. */
+        $type = (string) ($field['type'] ?? 'text');
 
-        /** @var array<int,string> $allWidgetIds Flat list of every placed widget ID. */
-        $allWidgetIds = array_merge(...array_values(array_filter($sidebarWidgets, 'is_array')));
-
-        /** @var string $idBase The base ID for this widget class (e.g. "banner_carousel_widget"). */
-        $idBase = $this->id_base;
-
-        foreach ($allWidgetIds as $widgetId) {
-            if (!is_string($widgetId)) {
-                continue;
-            }
-
-            // Match instances that belong to this widget class (e.g. "banner_carousel_widget-2").
-            if (!str_starts_with($widgetId, $idBase . '-')) {
-                continue;
-            }
-
-            /** @var int $instanceNumber The numeric suffix of the placed widget instance. */
-            $instanceNumber = (int) substr($widgetId, strlen($idBase) + 1);
-
-            // _set() is a WP_Widget method that sets the current instance number used by
-            // register_container() to load field values from the correct widget option slot.
-            $this->_set($instanceNumber);
-            $this->register_container();
+        if ($type === 'repeater') {
+            $this->renderRepeaterField($field, $instance);
+            return;
         }
+
+        /** @var string $key Field key. */
+        $key = (string) ($field['key'] ?? '');
+        /** @var string $label Field label. */
+        $label = (string) ($field['label'] ?? '');
+
+        if ($key === '') {
+            return;
+        }
+
+        /** @var string $fieldId Form control ID. */
+        $fieldId = $this->get_field_id($key);
+        /** @var string $fieldName Form control name. */
+        $fieldName = $this->get_field_name($key);
+        /** @var mixed $fieldValue Current form control value. */
+        $fieldValue = $instance[$key] ?? ($field['default'] ?? '');
+
+        echo '<p>';
+
+        if ($type !== 'checkbox') {
+            echo '<label for="' . esc_attr($fieldId) . '">' . esc_html($label) . '</label>';
+        }
+
+        if ($type === 'select') {
+            $this->renderSelectControl($field, $fieldId, $fieldName, $fieldValue);
+        } elseif ($type === 'checkbox') {
+            $this->renderCheckboxControl($field, $fieldId, $fieldName, $fieldValue);
+        } else {
+            $this->renderInputControl($field, $fieldId, $fieldName, $fieldValue);
+        }
+
+        if (!empty($field['description'])) {
+            echo '<span class="description">' . esc_html((string) $field['description']) . '</span>';
+        }
+
+        echo '</p>';
     }
 
     /**
-     * Mirror protected Carbon Fields storage keys to their public input names for REST widget saves.
+     * Render a text-like widget form control.
      *
-     * @param array<string,mixed> $instance Widget instance data.
-     * @return array<string,mixed>
+     * @param array<string,mixed> $field Field definition.
+     * @param string $fieldId Form control ID.
+     * @param string $fieldName Form control name.
+     * @param mixed $fieldValue Form control value.
+     * @return void
      */
-    protected function normalizeProtectedStorageInput(array $instance): array
+    protected function renderInputControl(array $field, string $fieldId, string $fieldName, mixed $fieldValue): void
     {
-        /** @var string $protectedPrefix Protected Carbon Fields storage prefix for this widget. */
-        $protectedPrefix = '_' . $this->fieldPrefix();
+        /** @var string $inputType HTML input type. */
+        $inputType = (string) ($field['input_type'] ?? ($field['type'] ?? 'text'));
 
-        foreach ($instance as $fieldName => $fieldValue) {
-            if (!is_string($fieldName) || !str_starts_with($fieldName, $protectedPrefix)) {
-                continue;
-            }
+        if (($field['type'] ?? '') === 'textarea') {
+            echo '<textarea class="widefat" rows="' . esc_attr((string) ($field['rows'] ?? 4)) . '" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" placeholder="' . esc_attr((string) ($field['placeholder'] ?? '')) . '">' . esc_textarea((string) $fieldValue) . '</textarea>';
+            return;
+        }
 
-            /** @var string $publicFieldName Public Carbon Fields input name for this widget value. */
-            $publicFieldName = substr($fieldName, 1);
+        echo '<input class="widefat" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" type="' . esc_attr($inputType) . '" value="' . esc_attr((string) $fieldValue) . '" placeholder="' . esc_attr((string) ($field['placeholder'] ?? '')) . '"';
 
-            if (!array_key_exists($publicFieldName, $instance)) {
-                $instance[$publicFieldName] = $fieldValue;
+        foreach (['min', 'max', 'step'] as $attributeName) {
+            if (array_key_exists($attributeName, $field)) {
+                echo ' ' . esc_attr($attributeName) . '="' . esc_attr((string) $field[$attributeName]) . '"';
             }
         }
 
-        return $instance;
+        echo '>';
     }
 
     /**
-     * Return whether the instance is already encoded Carbon Fields complex storage.
+     * Render a select widget form control.
      *
-     * @param array<string,mixed> $instance Widget instance data.
+     * @param array<string,mixed> $field Field definition.
+     * @param string $fieldId Form control ID.
+     * @param string $fieldName Form control name.
+     * @param mixed $fieldValue Form control value.
+     * @return void
+     */
+    protected function renderSelectControl(array $field, string $fieldId, string $fieldName, mixed $fieldValue): void
+    {
+        /** @var array<string,string> $options Select options. */
+        $options = is_array($field['options'] ?? null) ? $field['options'] : [];
+
+        echo '<select class="widefat" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '">';
+
+        foreach ($options as $optionValue => $optionLabel) {
+            echo '<option value="' . esc_attr((string) $optionValue) . '" ' . selected((string) $fieldValue, (string) $optionValue, false) . '>' . esc_html((string) $optionLabel) . '</option>';
+        }
+
+        echo '</select>';
+    }
+
+    /**
+     * Render a checkbox widget form control.
+     *
+     * @param array<string,mixed> $field Field definition.
+     * @param string $fieldId Form control ID.
+     * @param string $fieldName Form control name.
+     * @param mixed $fieldValue Form control value.
+     * @return void
+     */
+    protected function renderCheckboxControl(array $field, string $fieldId, string $fieldName, mixed $fieldValue): void
+    {
+        echo '<label for="' . esc_attr($fieldId) . '">';
+        echo '<input id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" type="checkbox" value="1" ' . checked((bool) $fieldValue, true, false) . '> ';
+        echo esc_html((string) ($field['label'] ?? ''));
+        echo '</label>';
+    }
+
+    /**
+     * Render a repeatable widget form section.
+     *
+     * @param array<string,mixed> $field Field definition.
+     * @param array<string,mixed> $instance Current widget instance.
+     * @return void
+     */
+    protected function renderRepeaterField(array $field, array $instance): void
+    {
+        /** @var string $key Repeater field key. */
+        $key = (string) ($field['key'] ?? '');
+
+        if ($key === '') {
+            return;
+        }
+
+        /** @var array<int,array<string,mixed>> $rows Repeater rows. */
+        $rows = isset($instance[$key]) && is_array($instance[$key]) ? array_values($instance[$key]) : [];
+        /** @var array<int,array<string,mixed>> $childFields Repeater child field definitions. */
+        $childFields = is_array($field['fields'] ?? null) ? $field['fields'] : [];
+
+        echo '<div class="ars-widget-repeater" data-ars-widget-repeater>';
+        echo '<p><strong>' . esc_html((string) ($field['label'] ?? '')) . '</strong></p>';
+
+        if (!empty($field['description'])) {
+            echo '<p class="description">' . esc_html((string) $field['description']) . '</p>';
+        }
+
+        echo '<div data-ars-widget-repeater-rows>';
+
+        foreach ($rows as $rowIndex => $row) {
+            $this->renderRepeaterRow($key, $childFields, is_array($row) ? $row : [], (string) $rowIndex);
+        }
+
+        if ($rows === []) {
+            $this->renderRepeaterRow($key, $childFields, [], '0');
+        }
+
+        echo '</div>';
+        echo '<template data-ars-widget-repeater-template>';
+        $this->renderRepeaterRow($key, $childFields, [], '__INDEX__');
+        echo '</template>';
+        echo '<p><button type="button" class="button" data-ars-widget-repeater-add>' . esc_html__('Add Item', 'daisy-a-ripple-song') . '</button></p>';
+        echo '</div>';
+    }
+
+    /**
+     * Render one repeatable widget form row.
+     *
+     * @param string $parentKey Parent repeater field key.
+     * @param array<int,array<string,mixed>> $childFields Repeater child field definitions.
+     * @param array<string,mixed> $row Current row values.
+     * @param string $rowIndex Current row index or template token.
+     * @return void
+     */
+    protected function renderRepeaterRow(string $parentKey, array $childFields, array $row, string $rowIndex): void
+    {
+        echo '<div class="ars-widget-repeater__row" data-ars-widget-repeater-row>';
+
+        foreach ($childFields as $childField) {
+            /** @var string $childKey Child field key. */
+            $childKey = (string) ($childField['key'] ?? '');
+
+            if ($childKey === '') {
+                continue;
+            }
+
+            /** @var string $fieldName Child form control name. */
+            $fieldName = $this->get_field_name($parentKey) . '[' . $rowIndex . '][' . $childKey . ']';
+            /** @var string $fieldId Child form control ID. */
+            $fieldId = $this->get_field_id($parentKey . '_' . $rowIndex . '_' . $childKey);
+            /** @var mixed $fieldValue Child field value. */
+            $fieldValue = $row[$childKey] ?? ($childField['default'] ?? '');
+
+            echo '<p>';
+
+            if (($childField['type'] ?? '') === 'checkbox') {
+                $this->renderCheckboxControl($childField, $fieldId, $fieldName, $fieldValue);
+            } elseif (($childField['type'] ?? '') === 'select') {
+                echo '<label for="' . esc_attr($fieldId) . '">' . esc_html((string) ($childField['label'] ?? '')) . '</label>';
+                $this->renderSelectControl($childField, $fieldId, $fieldName, $fieldValue);
+            } else {
+                echo '<label for="' . esc_attr($fieldId) . '">' . esc_html((string) ($childField['label'] ?? '')) . '</label>';
+                $this->renderInputControl($childField, $fieldId, $fieldName, $fieldValue);
+            }
+
+            echo '</p>';
+        }
+
+        echo '<p><button type="button" class="button-link-delete" data-ars-widget-repeater-remove>' . esc_html__('Remove', 'daisy-a-ripple-song') . '</button></p>';
+        echo '</div>';
+    }
+
+    /**
+     * Sanitize one submitted field value.
+     *
+     * @param array<string,mixed> $field Field definition.
+     * @param mixed $value Submitted value.
+     * @return mixed
+     */
+    protected function sanitizeFieldValue(array $field, mixed $value): mixed
+    {
+        /** @var string $type Field type. */
+        $type = (string) ($field['type'] ?? 'text');
+
+        if ($type === 'checkbox') {
+            return !empty($value);
+        }
+
+        if ($type === 'number') {
+            return $this->sanitizeNumberValue($field, $value);
+        }
+
+        if ($type === 'select') {
+            return $this->sanitizeSelectValue($field, $value);
+        }
+
+        if ($type === 'url' || ($field['input_type'] ?? '') === 'url') {
+            return is_scalar($value) ? esc_url_raw((string) $value) : '';
+        }
+
+        if ($type === 'repeater') {
+            return $this->sanitizeRepeaterValue($field, $value);
+        }
+
+        if ($type === 'textarea') {
+            return is_scalar($value) ? sanitize_textarea_field((string) $value) : '';
+        }
+
+        return is_scalar($value) ? sanitize_text_field((string) $value) : '';
+    }
+
+    /**
+     * Sanitize a numeric widget field.
+     *
+     * @param array<string,mixed> $field Field definition.
+     * @param mixed $value Submitted value.
+     * @return int
+     */
+    protected function sanitizeNumberValue(array $field, mixed $value): int
+    {
+        /** @var int $defaultValue Default integer value. */
+        $defaultValue = isset($field['default']) ? (int) $field['default'] : 0;
+        /** @var int $minimum Minimum integer value. */
+        $minimum = isset($field['min']) ? (int) $field['min'] : 0;
+        /** @var int|null $maximum Maximum integer value. */
+        $maximum = isset($field['max']) ? (int) $field['max'] : null;
+        /** @var int $numberValue Sanitized integer value. */
+        $numberValue = is_scalar($value) && (string) $value !== '' ? absint($value) : $defaultValue;
+
+        $numberValue = max($minimum, $numberValue);
+
+        if ($maximum !== null) {
+            $numberValue = min($maximum, $numberValue);
+        }
+
+        return $numberValue;
+    }
+
+    /**
+     * Sanitize a select widget field.
+     *
+     * @param array<string,mixed> $field Field definition.
+     * @param mixed $value Submitted value.
+     * @return string
+     */
+    protected function sanitizeSelectValue(array $field, mixed $value): string
+    {
+        /** @var array<string,string> $options Select options. */
+        $options = is_array($field['options'] ?? null) ? $field['options'] : [];
+        /** @var string $choiceValue Submitted choice value. */
+        $choiceValue = is_scalar($value) ? (string) $value : '';
+
+        if (array_key_exists($choiceValue, $options)) {
+            return $choiceValue;
+        }
+
+        return (string) ($field['default'] ?? array_key_first($options) ?? '');
+    }
+
+    /**
+     * Sanitize a repeatable widget field.
+     *
+     * @param array<string,mixed> $field Field definition.
+     * @param mixed $value Submitted value.
+     * @return array<int,array<string,mixed>>
+     */
+    protected function sanitizeRepeaterValue(array $field, mixed $value): array
+    {
+        if (!is_array($value)) {
+            return [];
+        }
+
+        /** @var array<int,array<string,mixed>> $sanitizedRows Sanitized repeatable rows. */
+        $sanitizedRows = [];
+        /** @var array<int,array<string,mixed>> $childFields Repeater child field definitions. */
+        $childFields = is_array($field['fields'] ?? null) ? $field['fields'] : [];
+
+        foreach ($value as $row) {
+            if (!is_array($row)) {
+                continue;
+            }
+
+            /** @var array<string,mixed> $sanitizedRow Sanitized row values. */
+            $sanitizedRow = [];
+
+            foreach ($childFields as $childField) {
+                /** @var string $childKey Child field key. */
+                $childKey = (string) ($childField['key'] ?? '');
+
+                if ($childKey === '') {
+                    continue;
+                }
+
+                $sanitizedRow[$childKey] = $this->sanitizeFieldValue($childField, $row[$childKey] ?? null);
+            }
+
+            if ($this->isRepeaterRowEmpty($sanitizedRow, $childFields)) {
+                continue;
+            }
+
+            $sanitizedRows[] = $sanitizedRow;
+        }
+
+        return $sanitizedRows;
+    }
+
+    /**
+     * Return whether a sanitized repeater row has no meaningful content.
+     *
+     * @param array<string,mixed> $row Sanitized repeater row.
+     * @param array<int,array<string,mixed>> $childFields Repeater child field definitions.
      * @return bool
      */
-    protected function isEncodedComplexStorageInstance(array $instance): bool
+    protected function isRepeaterRowEmpty(array $row, array $childFields): bool
     {
-        /** @var string $protectedPrefix Protected Carbon Fields storage prefix for this widget. */
-        $protectedPrefix = '_' . $this->fieldPrefix();
+        /** @var array<string,mixed> $defaults Default values keyed by child field key. */
+        $defaults = [];
 
-        foreach ($instance as $fieldName => $fieldValue) {
-            if (
-                is_string($fieldName)
-                && str_starts_with($fieldName, $protectedPrefix)
-                && str_contains($fieldName, '|')
-            ) {
-                return true;
+        foreach ($childFields as $childField) {
+            /** @var string $childKey Child field key. */
+            $childKey = (string) ($childField['key'] ?? '');
+
+            if ($childKey === '') {
+                continue;
+            }
+
+            $defaults[$childKey] = $childField['default'] ?? '';
+        }
+
+        foreach ($row as $rowKey => $value) {
+            if (is_bool($value)) {
+                continue;
+            }
+
+            if (is_array($value) && $value !== []) {
+                return false;
+            }
+
+            if (is_scalar($value) && trim((string) $value) !== '') {
+                if (is_string($rowKey) && array_key_exists($rowKey, $defaults) && (string) $defaults[$rowKey] === (string) $value) {
+                    continue;
+                }
+
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 
     /**

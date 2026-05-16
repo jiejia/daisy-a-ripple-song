@@ -296,9 +296,9 @@ class Helper
     }
 
     /**
-     * Extract user IDs from a Carbon Fields multiselect value.
+     * Extract user IDs from a legacy multiselect value.
      *
-     * Carbon Fields multiselect values are usually numeric arrays, while legacy
+     * Legacy multiselect values are usually numeric arrays, while older
      * installs may still contain associative "id" => "on" values.
      *
      * @param mixed $value

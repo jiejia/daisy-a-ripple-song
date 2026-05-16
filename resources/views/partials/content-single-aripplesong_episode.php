@@ -17,7 +17,7 @@
 $postId = (int) ($args['post_id'] ?? get_the_ID());
 
 /**
- * Resolve the episode audio file from the plugin Carbon Fields meta key.
+ * Resolve the episode audio file from the plugin meta key.
  *
  * @var string $audioFile
  */

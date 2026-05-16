@@ -2,7 +2,6 @@
 
 namespace Jiejia\DaisyARippleSong\Widgets;
 
-use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
@@ -41,25 +40,39 @@ class AuthorsWidget extends AbstractWidget
     }
 
     /**
-     * Return all Carbon Fields fields for the widget form.
+     * Return all native field definitions for the widget form.
      *
-     * @return array<int,\Carbon_Fields\Field\Field>
+     * @return array<int,array<string,mixed>>
      */
     public function fields(): array
     {
         return [
-            Field::make('text', $this->fieldName('members_title'), __('Members Title', 'daisy-a-ripple-song'))
-                ->set_attribute('placeholder', __('Members', 'daisy-a-ripple-song'))
-                ->set_default_value((string) $this->defaultSettings()['members_title']),
-            Field::make('checkbox', $this->fieldName('show_members'), __('Show Members (Administrators, Editors, Authors)', 'daisy-a-ripple-song'))
-                ->set_option_value('1')
-                ->set_default_value((bool) $this->defaultSettings()['show_members']),
-            Field::make('text', $this->fieldName('guests_title'), __('Guests Title', 'daisy-a-ripple-song'))
-                ->set_attribute('placeholder', __('Guests', 'daisy-a-ripple-song'))
-                ->set_default_value((string) $this->defaultSettings()['guests_title']),
-            Field::make('checkbox', $this->fieldName('show_guests'), __('Show Guests (Contributors)', 'daisy-a-ripple-song'))
-                ->set_option_value('1')
-                ->set_default_value((bool) $this->defaultSettings()['show_guests']),
+            [
+                'type' => 'text',
+                'key' => 'members_title',
+                'label' => __('Members Title', 'daisy-a-ripple-song'),
+                'placeholder' => __('Members', 'daisy-a-ripple-song'),
+                'default' => (string) $this->defaultSettings()['members_title'],
+            ],
+            [
+                'type' => 'checkbox',
+                'key' => 'show_members',
+                'label' => __('Show Members (Administrators, Editors, Authors)', 'daisy-a-ripple-song'),
+                'default' => (bool) $this->defaultSettings()['show_members'],
+            ],
+            [
+                'type' => 'text',
+                'key' => 'guests_title',
+                'label' => __('Guests Title', 'daisy-a-ripple-song'),
+                'placeholder' => __('Guests', 'daisy-a-ripple-song'),
+                'default' => (string) $this->defaultSettings()['guests_title'],
+            ],
+            [
+                'type' => 'checkbox',
+                'key' => 'show_guests',
+                'label' => __('Show Guests (Contributors)', 'daisy-a-ripple-song'),
+                'default' => (bool) $this->defaultSettings()['show_guests'],
+            ],
         ];
     }
 
@@ -85,7 +98,7 @@ class AuthorsWidget extends AbstractWidget
      * @param array $instance Saved widget option values.
      * @return void
      */
-    public function front_end($args, $instance): void
+    public function frontEnd($args, $instance): void
     {
         /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
         $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);

@@ -760,6 +760,9 @@ msgstr "条目："
 msgid "+ Add Item"
 msgstr "+ 添加条目"
 
+msgid "Add Item"
+msgstr "添加条目"
+
 #: src/Widgets/PodcastListWidget.php:23
 msgid "aripplesong - Podcast List"
 msgstr "aripplesong - 播客列表"

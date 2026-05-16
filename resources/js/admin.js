@@ -42,7 +42,7 @@
             cards.forEach((card) => {
                 card.addEventListener('click', (event) => {
                     event.preventDefault();
-                    updateCarbonSelectValue(select, card.dataset.themeValue || '');
+                    updateSelectValue(select, card.dataset.themeValue || '');
                     select.dispatchEvent(new Event('change', { bubbles: true }));
                     syncCards();
                 });
@@ -54,7 +54,7 @@
     }
 
     /**
-     * Find the Carbon Fields select controlled by a theme picker.
+     * Find the native select controlled by a theme picker.
      *
      * @param {string} target Theme mode target, such as light or dark.
      * @returns {HTMLSelectElement | null}
@@ -67,10 +67,10 @@
             return select;
         }
 
-        /** @type {string} fieldSuffix Carbon Fields field name suffix used as a fallback. */
+        /** @type {string} fieldSuffix Native field name suffix used as a fallback. */
         const fieldSuffix = target === 'dark' ? '_dark_theme' : '_light_theme';
 
-        /** @type {HTMLSelectElement | null} compactSelect Carbon Fields compact-input select. */
+        /** @type {HTMLSelectElement | null} compactSelect Legacy compact-input select. */
         const compactSelect = document.querySelector(`select[name$="${fieldSuffix}]"]`);
 
         if (compactSelect instanceof HTMLSelectElement) {
@@ -81,29 +81,14 @@
     }
 
     /**
-     * Update a Carbon Fields select through the React store and DOM fallback.
+     * Update a native select value.
      *
-     * @param {HTMLSelectElement} select Carbon Fields select element.
+     * @param {HTMLSelectElement} select Select element.
      * @param {string} value New selected theme value.
      * @returns {void}
      */
-    function updateCarbonSelectValue(select, value) {
+    function updateSelectValue(select, value) {
         select.value = value;
-
-        if (!window.wp || !window.wp.data || typeof window.wp.data.dispatch !== 'function') {
-            return;
-        }
-
-        try {
-            /** @type {{ updateFieldValue?: Function }} store Carbon Fields metabox data store. */
-            const store = window.wp.data.dispatch('carbon-fields/metaboxes');
-
-            if (store && typeof store.updateFieldValue === 'function' && select.id) {
-                store.updateFieldValue(select.id, value);
-            }
-        } catch (error) {
-            // Carbon Fields may not have registered its store yet during early DOM mutations.
-        }
     }
 
     /**

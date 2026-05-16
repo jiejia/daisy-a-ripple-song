@@ -35,7 +35,6 @@ Technical stack:
 * Swup
 * Howler.js
 * audioMotion-analyzer
-* Carbon Fields
 * PHP-Scoper
 
 == Changelog ==

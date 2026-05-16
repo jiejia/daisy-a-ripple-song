@@ -2,7 +2,6 @@
 
 namespace Jiejia\DaisyARippleSong\Widgets;
 
-use Carbon_Fields\Field;
 use Jiejia\DaisyARippleSong\Abstracts\AbstractWidget;
 
 /**
@@ -41,31 +40,49 @@ class BannerCarouselWidget extends AbstractWidget
     }
 
     /**
-     * Return all Carbon Fields fields for the widget form.
+     * Return all native field definitions for the widget form.
      *
-     * @return array<int,\Carbon_Fields\Field\Field>
+     * @return array<int,array<string,mixed>>
      */
     public function fields(): array
     {
         return [
-            Field::make('complex', $this->fieldName('slides'), __('Banner Slides', 'daisy-a-ripple-song'))
-                ->set_help_text(__('Add one or more banner slides. Empty image rows will not be rendered.', 'daisy-a-ripple-song'))
-                ->add_fields([
-                    Field::make('image', 'image', __('Image', 'daisy-a-ripple-song'))
-                        ->set_value_type('url')
-                        ->set_required(true),
-                    Field::make('text', 'link', __('Link URL', 'daisy-a-ripple-song'))
-                        ->set_attribute('type', 'url')
-                        ->set_attribute('placeholder', 'https://example.com'),
-                    Field::make('select', 'link_target', __('Link Target', 'daisy-a-ripple-song'))
-                        ->set_options([
+            [
+                'type' => 'repeater',
+                'key' => 'slides',
+                'label' => __('Banner Slides', 'daisy-a-ripple-song'),
+                'description' => __('Add one or more banner slides. Empty image rows will not be rendered.', 'daisy-a-ripple-song'),
+                'fields' => [
+                    [
+                        'type' => 'url',
+                        'key' => 'image',
+                        'label' => __('Image URL', 'daisy-a-ripple-song'),
+                        'placeholder' => 'https://example.com/image.jpg',
+                    ],
+                    [
+                        'type' => 'url',
+                        'key' => 'link',
+                        'label' => __('Link URL', 'daisy-a-ripple-song'),
+                        'placeholder' => 'https://example.com',
+                    ],
+                    [
+                        'type' => 'select',
+                        'key' => 'link_target',
+                        'label' => __('Link Target', 'daisy-a-ripple-song'),
+                        'options' => [
                             '_self' => __('Current Page', 'daisy-a-ripple-song'),
                             '_blank' => __('New Tab', 'daisy-a-ripple-song'),
-                        ])
-                        ->set_default_value('_self'),
-                    Field::make('text', 'description', __('Description', 'daisy-a-ripple-song'))
-                        ->set_attribute('placeholder', __('Image description', 'daisy-a-ripple-song')),
-                ]),
+                        ],
+                        'default' => '_self',
+                    ],
+                    [
+                        'type' => 'text',
+                        'key' => 'description',
+                        'label' => __('Description', 'daisy-a-ripple-song'),
+                        'placeholder' => __('Image description', 'daisy-a-ripple-song'),
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -88,7 +105,7 @@ class BannerCarouselWidget extends AbstractWidget
      * @param array $instance Saved widget option values.
      * @return void
      */
-    public function front_end($args, $instance): void
+    public function frontEnd($args, $instance): void
     {
         /** @var array<string,mixed> $widgetInstance Widget instance merged with defaults. */
         $widgetInstance = $this->mergeInstanceDefaults(is_array($instance) ? $instance : []);
@@ -147,7 +164,7 @@ class BannerCarouselWidget extends AbstractWidget
     }
 
     /**
-     * Return a normalized image URL from a Carbon Fields image value.
+     * Return a normalized image URL from a widget image value.
      *
      * @param mixed $image Raw image value from the widget instance.
      * @return string

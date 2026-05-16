@@ -3,7 +3,7 @@
 namespace Jiejia\DaisyARippleSong\Contracts;
 
 /**
- * Defines shared metadata and fields for theme widgets.
+ * Defines shared metadata and native form fields for theme widgets.
  */
 interface ThemeWidget
 {
@@ -29,9 +29,9 @@ interface ThemeWidget
     public function widgetDescription(): string;
 
     /**
-     * Return all Carbon Fields fields for the widget form.
+     * Return all native field definitions for the widget form.
      *
-     * @return array<int,\Carbon_Fields\Field\Field>
+     * @return array<int,array<string,mixed>>
      */
     public function fields(): array;
 
@@ -43,7 +43,7 @@ interface ThemeWidget
     public function defaultSettings(): array;
 
     /**
-     * Return the field prefix used by this widget.
+     * Return the legacy field prefix used by this widget.
      *
      * @return string
      */

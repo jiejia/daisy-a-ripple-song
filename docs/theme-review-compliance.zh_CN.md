@@ -15,7 +15,7 @@
 
 当前主题如果把源码目录直接打包提交，明显不符合 WordPress.org 主题目录要求，主要原因是包含 `.git`、`.github`、`.idea`、`node_modules`、`vendor`、`build`、zip 包、`.DS_Store`、`.phpunit.cache` 等开发文件或隐藏文件。
 
-即使只提交 `bin/build-dist.sh` 生成的发布包，仍有高风险不合规点：主题内包含/依赖 Carbon Fields 这类会引入插件性质能力的框架、存在可保存任意 header/footer script 的设置、主题前端含访问/播放统计调用、设置页放在顶级后台菜单、readme 资源授权清单不足，并且 README/readme 中推荐的配套插件不是 WordPress.org 插件目录来源。
+即使只提交 `bin/build-dist.sh` 生成的发布包，仍需重点处理：主题前端含访问/播放统计调用、readme 资源授权清单不足，并且 README/readme 中推荐的配套插件不是 WordPress.org 插件目录来源。此前的 Carbon Fields 依赖、任意 header/footer script 设置、顶级后台菜单和主题设置多 option 存储问题已迁移或移除。
 
 建议先修复“必须修复”部分，再提交给官方人工审核。
 
@@ -44,36 +44,30 @@
 - 如果发布包仍需要 `vendor/`，只保留运行时必须文件，并确认其中所有文件、文本域、授权和功能都符合主题要求。
 - 在发布前增加一个自动检查脚本，例如列出发布包内的隐藏文件、zip、shell、node_modules、测试目录和开发配置，发现即失败。
 
-### 2. Carbon Fields 依赖和打包方式存在人工审核高风险
+### 2. Carbon Fields 依赖和打包方式曾存在人工审核高风险，已移除
 
 相关文件：
 
 - `composer.json`
 - `functions.php`
-- `src/Providers/CarbonFieldsServiceProvider.php`
 - `src/Providers/SettingServiceProvider.php`
 - `src/Widgets/*`
 
-当前发现：
+历史问题：
 
 - 主题通过 Composer 引入 `htmlburger/carbon-fields`。
 - `functions.php` 从 `vendor/autoload.php` 或 `vendor/scoper-autoload.php` 加载依赖。
-- widgets 仍依赖 Carbon Fields；后台主题设置页已迁移为原生 Settings API。
+- widgets 曾依赖 Carbon Fields；后台主题设置页已迁移为原生 Settings API。
 - Carbon Fields 自身包含大量后台 UI、字段、容器等框架能力；如果完整进入主题包，审核员会按“主题内库也必须满足主题要求”审查它。
 - 这类框架可能带来额外文本域、后台功能、区块注册能力或插件性质功能，容易触发“插件功能不能放主题里”的人工审核问题。
 
-影响：
+已完成修复：
 
-- 官方允许主题使用部分框架，但框架也必须符合主题要求。
-- 如果框架中出现独立文本域、插件性质功能、区块注册或与主题展示无关的后台功能，主题可能被要求移除或迁移。
-- 主题不能要求插件才能工作，也不能把插件复制进主题目录。
-
-修复建议：
-
-- 最稳妥方案：把 Carbon Fields 相关设置、字段、widget 表单迁移到 WordPress 原生 Customizer、Settings API、Widgets API 或 block editor 支持的主题展示设置。
-- 如果继续使用 Carbon Fields：发布包只保留真正需要的运行时代码；移除不会被主题使用的模块；确认唯一或允许范围内的 text domain；确认没有自定义 block、CPT、shortcode、非展示相关 meta box 等插件领域功能。
-- 对发布包做人工检索：`register_block_type`、`register_post_type`、`add_shortcode`、多 text domain、plugin header、外部下载/安装插件逻辑。
-- 如果官方审核员质疑 Carbon Fields，优先改为原生 WordPress API，不建议和审核员争论这个点。
+- 已移除 `htmlburger/carbon-fields` Composer 依赖。
+- 已删除 `CarbonFieldsServiceProvider`。
+- 已把主题设置页迁移到原生 Settings API。
+- 已把主题 widgets 迁移到原生 `WP_Widget` 表单和保存流程。
+- 发布包仍需确认没有旧 vendor/scoped vendor 残留进入最终 zip。
 
 ### 3. 主题设置曾允许任意 header/footer 脚本，已移除
 
@@ -187,7 +181,7 @@
 
 - 已改用一个原生 option：`daisyaripplesong_theme_options`。
 - option 内部用 `general` 和 `social_links` 数组索引区分设置。
-- 已保留旧 Carbon Fields/options 读取 fallback，避免已有配置立即丢失。
+- 已保留旧 per-field options 读取 fallback，避免已有配置立即丢失。
 - 后续可以在稳定版本后提供旧字段清理逻辑，但不要在主题激活时破坏用户数据。
 
 ### 8. readme 的 Resources 授权清单不足
@@ -203,7 +197,7 @@
 
 当前发现：
 
-- `readme.txt` 的技术栈只列了 Vite、Tailwind CSS、daisyUI、Alpine.js、Lucide、Simple Icons、Swup、Howler.js、audioMotion、Carbon Fields、PHP-Scoper。
+- `readme.txt` 的技术栈只列了 Vite、Tailwind CSS、daisyUI、Alpine.js、Lucide、Simple Icons、Swup、Howler.js、audioMotion、PHP-Scoper。
 - 没有逐项列出每个第三方资源的版权、许可证和来源 URL。
 - 没有看到 screenshot、字体、图标、图片、JS/CSS 库的完整资源授权清单。
 
@@ -255,7 +249,7 @@
 
 当前发现：
 
-- Widget 使用 Carbon Fields `complex` 字段保存多个 slide。
+- Widget 曾使用 Carbon Fields `complex` 字段保存多个 slide；现在已改为原生 widget instance 数组保存。
 - 每个 slide 保存 image、link、target、description。
 
 影响：
@@ -328,12 +322,10 @@
 
 ## 建议修复顺序
 
-1. 先决定是否继续使用 Carbon Fields。如果目标是通过 WordPress.org 官方主题目录，建议优先迁移到原生 WordPress API。
-2. 移除前端 metrics 记录逻辑。
-3. 把主题设置页迁移到 Appearance 或 Customizer，并把设置存储合并到一个 option 或 theme mods。
-4. 清理 readme：补全 Resources、隐私说明、插件推荐来源和功能限制。
-5. 固化发布流程，确保最终 zip 不包含开发文件、隐藏文件、zip、node_modules、build、未审计 vendor。
-6. 修复 escaping、dismissible notice、inline script 等较小问题。
+1. 移除前端 metrics 记录逻辑。
+2. 清理 readme：补全 Resources、隐私说明、插件推荐来源和功能限制。
+3. 固化发布流程，确保最终 zip 不包含开发文件、隐藏文件、zip、node_modules、build、未审计 vendor。
+4. 修复 escaping、dismissible notice、inline script 等较小问题。
 
 ## 提交前人工检查清单
 

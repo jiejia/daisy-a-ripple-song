@@ -52,7 +52,7 @@ class SocialLinks extends AbstractSetting
     }
 
     /**
-     * Return the legacy Carbon Fields key prefix for this settings page.
+     * Return the legacy per-field option key prefix for this settings page.
      *
      * @return string
      */
@@ -72,7 +72,7 @@ class SocialLinks extends AbstractSetting
     }
 
     /**
-     * Return one legacy native option value when Carbon Fields has not been saved yet.
+     * Return one legacy native option value when the single option has not been saved yet.
      *
      * @param string $key Setting key without the page prefix.
      * @return mixed

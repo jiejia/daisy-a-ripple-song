@@ -4,7 +4,6 @@ namespace Jiejia\DaisyARippleSong;
 use Jiejia\DaisyARippleSong\Contracts\ServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\AssetServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\BlockServiceProvider;
-use Jiejia\DaisyARippleSong\Providers\CarbonFieldsServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\CommentServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\CustomAreaServiceProvider;
 use Jiejia\DaisyARippleSong\Providers\MenuServiceProvider;
@@ -42,7 +41,6 @@ class Theme
     private array $providers = [
         TranslationServiceProvider::class,
         ThemeSupportServiceProvider::class,
-        CarbonFieldsServiceProvider::class,
         NavigationServiceProvider::class,
         MenuServiceProvider::class,
         BlockServiceProvider::class,
@@ -88,34 +86,6 @@ class Theme
     public static function isPodcastPluginActivated(): bool
     {
         return class_exists(\Jiejia\ARippleSong\Plugin::class, false);
-    }
-
-    /**
-     * Return Carbon Fields registration hooks supported by the current theme runtime.
-     *
-     * PHP-Scoper prefixes Carbon Fields' internal registration action in scoped
-     * packages, so theme providers must listen to the theme-owned hook names.
-     *
-     * @return array<int,string>
-     */
-    public static function carbonFieldsRegisterHooks(): array
-    {
-        /** @var array<int,string> $hooks Carbon Fields registration action names. */
-        $hooks = [];
-
-        if (class_exists('Jiejia\\DaisyARippleSong\\Vendor\\Carbon_Fields\\Carbon_Fields', false)) {
-            // Scoped release builds isolate Carbon Fields hooks with the theme prefix.
-            $hooks[] = self::PREFIX . '_carbon_fields_register_fields';
-        } elseif (class_exists('Carbon_Fields\\Carbon_Fields', false)) {
-            // Unscoped development installs use Carbon Fields' original hook names.
-            $hooks[] = 'carbon_fields_register_fields';
-        } else {
-            // Keep both hooks available while Composer autoloading is still settling.
-            $hooks[] = self::PREFIX . '_carbon_fields_register_fields';
-            $hooks[] = 'carbon_fields_register_fields';
-        }
-
-        return array_values(array_unique(array_filter($hooks)));
     }
 
     /**

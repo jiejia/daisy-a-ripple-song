@@ -597,6 +597,9 @@ msgstr "Items:"
 msgid "+ Add Item"
 msgstr "+ Add Item"
 
+msgid "Add Item"
+msgstr "Add Item"
+
 #: src/Widgets/PodcastListWidget.php:23
 msgid "aripplesong - Podcast List"
 msgstr "aripplesong - Podcast List"

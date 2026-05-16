@@ -61,10 +61,6 @@ class AssetServiceProvider extends AbstractServiceProvider
         // Load theme styles in widget editors and block previews.
         add_action('admin_enqueue_scripts', [$this, 'enqueueWidgetEditorAssets']);
         add_action('enqueue_block_assets', [$this, 'enqueueWidgetEditorAssets']);
-        add_action('admin_print_footer_scripts', [$this, 'filterCarbonFieldsWidgetPreload'], 10);
-        add_action('admin_print_footer_scripts', [$this, 'printCarbonFieldsWidgetEditorScript'], 10000);
-        add_action('customize_controls_print_footer_scripts', [$this, 'filterCarbonFieldsWidgetPreload'], 10);
-        add_action('customize_controls_print_footer_scripts', [$this, 'printCarbonFieldsWidgetEditorScript'], 10000);
     }
 
     /**
@@ -142,38 +138,7 @@ class AssetServiceProvider extends AbstractServiceProvider
         }
 
         $this->enqueueWidgetEditorThemeScript();
-    }
-
-    /**
-     * Remove widget containers from Carbon Fields preload data before its initial renderer runs.
-     *
-     * @return void
-     */
-    public function filterCarbonFieldsWidgetPreload(): void
-    {
-        if (!$this->shouldLoadWidgetEditorStyles()) {
-            return;
-        }
-
-        if (!wp_script_is('carbon-fields-vendor', 'enqueued')) {
-            return;
-        }
-
-        wp_add_inline_script('carbon-fields-vendor', $this->getCarbonFieldsWidgetPreloadFilterScript(), 'after');
-    }
-
-    /**
-     * Print the compatibility runtime that mounts Carbon Fields widget forms in the block widget editor.
-     *
-     * @return void
-     */
-    public function printCarbonFieldsWidgetEditorScript(): void
-    {
-        if (!$this->shouldLoadWidgetEditorStyles()) {
-            return;
-        }
-
-        wp_print_inline_script_tag($this->getCarbonFieldsWidgetEditorScript());
+        $this->enqueueNativeWidgetFormScript();
     }
 
     /**
@@ -500,430 +465,88 @@ class AssetServiceProvider extends AbstractServiceProvider
     }
 
     /**
-     * Build the Carbon Fields widget editor compatibility script.
+     * Enqueue the native widget form helper runtime.
+     *
+     * @return void
+     */
+    private function enqueueNativeWidgetFormScript(): void
+    {
+        wp_enqueue_script('jquery');
+        wp_add_inline_script('jquery', $this->getNativeWidgetFormScript());
+    }
+
+    /**
+     * Build the native repeatable widget form helper script.
      *
      * @return string
      */
-    private function getCarbonFieldsWidgetEditorScript(): string
+    private function getNativeWidgetFormScript(): string
     {
         return <<<'JS'
 (() => {
     'use strict';
 
-    /** @type {number} Pending widget form mount timeout ID. */
-    let mountTimer = 0;
-
-    /** @type {string} Carbon Fields compact input name prefix. */
-    const compactInputPrefix = 'carbon_fields_compact_input[';
-
-    /** @type {string} Attribute used to identify generated WordPress widget input mirrors. */
-    const mirrorInputAttribute = 'data-ars-carbon-input-mirror';
-
     /**
-     * Return whether the Carbon Fields JavaScript APIs required for widget rendering are available.
-     *
-     * @return {boolean}
-     */
-    function hasCarbonFieldsRuntime() {
-        return Boolean(
-            window.cf
-            && window.cf.core
-            && window.cf.metaboxes
-            && window.wp
-            && window.wp.data
-            && window.wp.hooks
-        );
-    }
-
-    /**
-     * Decode a Carbon Fields container JSON string stored in a fieldset data attribute.
-     *
-     * @param {string} encodedJson Encoded JSON container payload.
-     * @return {?Object}
-     */
-    function decodeContainerJson(encodedJson) {
-        try {
-            return JSON.parse(decodeURIComponent(String(encodedJson || '').replace(/\+/g, '%20')));
-        } catch (error) {
-            return null;
-        }
-    }
-
-    /**
-     * Return a deep copy of a plain JSON-safe value.
-     *
-     * @param {*} value Value to clone.
-     * @return {*}
-     */
-    function cloneValue(value) {
-        return JSON.parse(JSON.stringify(value));
-    }
-
-    /**
-     * Return a Carbon Fields compatible unique ID.
+     * Return a unique string suitable for a repeatable row index.
      *
      * @return {string}
      */
-    function uniqueFieldId() {
-        if (window.cf && window.cf.core && typeof window.cf.core.uniqueId === 'function') {
-            return window.cf.core.uniqueId();
-        }
-
-        return 'cf-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+    function getRowIndex() {
+        return String(Date.now()) + String(Math.floor(Math.random() * 100000));
     }
 
     /**
-     * Return a compact field reference used by complex field groups.
+     * Add a new row to a native repeatable widget field.
      *
-     * @param {Object} field Flattened field object.
-     * @return {Object}
-     */
-    function pickFieldReference(field) {
-        return {
-            id: field.id,
-            type: field.type,
-            name: field.name,
-            base_name: field.base_name,
-        };
-    }
-
-    /**
-     * Flatten a Carbon Fields field and append it to the accumulator.
-     *
-     * @param {Object} field Raw field object from a widget container payload.
-     * @param {string} containerId Current Carbon Fields container ID.
-     * @param {Object[]} accumulator Flat field list.
-     * @return {Object}
-     */
-    function flattenField(field, containerId, accumulator) {
-        const clonedField = cloneValue(field);
-
-        clonedField.id = uniqueFieldId();
-        clonedField.container_id = containerId;
-
-        if (clonedField.type === 'complex' && Array.isArray(clonedField.value)) {
-            clonedField.value.forEach((group) => {
-                group.id = uniqueFieldId();
-                group.container_id = containerId;
-
-                if (Array.isArray(group.fields)) {
-                    group.fields = group.fields.map((groupField) => flattenField(groupField, containerId, accumulator));
-                }
-            });
-        }
-
-        accumulator.push(clonedField);
-
-        return pickFieldReference(clonedField);
-    }
-
-    /**
-     * Convert a Carbon Fields container payload into store-ready container and field objects.
-     *
-     * @param {Object} container Raw container object.
-     * @return {?Object}
-     */
-    function normalizeContainer(container) {
-        if (!container || container.type !== 'widget' || !Array.isArray(container.fields)) {
-            return null;
-        }
-
-        const normalizedContainer = cloneValue(container);
-        const normalizedFields = [];
-
-        normalizedContainer.fields = normalizedContainer.fields.map((field) => (
-            flattenField(field, normalizedContainer.id, normalizedFields)
-        ));
-
-        return {
-            container: normalizedContainer,
-            fields: normalizedFields,
-        };
-    }
-
-    /**
-     * Return the original WordPress field name wrapped by a Carbon Fields compact input name.
-     *
-     * Complex fields append group indexes after the compact wrapper, so the wrapper closing
-     * bracket must be found by balancing nested WordPress field-name brackets.
-     *
-     * @param {string} inputName Form control name attribute.
-     * @return {string}
-     */
-    function unwrapCompactInputName(inputName) {
-        const normalizedName = String(inputName || '');
-
-        if (!normalizedName.startsWith(compactInputPrefix)) {
-            return '';
-        }
-
-        const compactPayload = normalizedName.slice(compactInputPrefix.length);
-        let bracketDepth = 0;
-
-        for (let index = 0; index < compactPayload.length; index += 1) {
-            const character = compactPayload.charAt(index);
-
-            if (character === '[') {
-                bracketDepth += 1;
-                continue;
-            }
-
-            if (character !== ']') {
-                continue;
-            }
-
-            if (bracketDepth === 0) {
-                return compactPayload.slice(0, index) + compactPayload.slice(index + 1);
-            }
-
-            bracketDepth -= 1;
-        }
-
-        return '';
-    }
-
-    /**
-     * Return whether a form control should contribute to submitted FormData.
-     *
-     * @param {HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement} control Candidate form control.
-     * @return {boolean}
-     */
-    function isSuccessfulFormControl(control) {
-        if (!control || control.disabled || !control.name) {
-            return false;
-        }
-
-        if (control instanceof HTMLInputElement) {
-            const ignoredTypes = ['button', 'file', 'image', 'reset', 'submit'];
-
-            if (ignoredTypes.includes(control.type)) {
-                return false;
-            }
-
-            if ((control.type === 'checkbox' || control.type === 'radio') && !control.checked) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Return submitted values for a form control, including multi-select values.
-     *
-     * @param {HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement} control Source form control.
-     * @return {string[]}
-     */
-    function getFormControlValues(control) {
-        if (control instanceof HTMLSelectElement && control.multiple) {
-            return Array.from(control.selectedOptions).map((option) => option.value);
-        }
-
-        return [control.value];
-    }
-
-    /**
-     * Create a hidden WordPress-native widget input mirror.
-     *
-     * @param {HTMLFormElement} form Widget form.
-     * @param {string} inputName Original WordPress input name.
-     * @param {string} inputValue Current input value.
+     * @param {HTMLElement} repeater Repeatable field wrapper.
      * @return {void}
      */
-    function appendMirroredInput(form, inputName, inputValue) {
-        const input = document.createElement('input');
+    function addRepeaterRow(repeater) {
+        const rows = repeater.querySelector('[data-ars-widget-repeater-rows]');
+        const template = repeater.querySelector('template[data-ars-widget-repeater-template]');
 
-        input.type = 'hidden';
-        input.name = inputName;
-        input.value = inputValue;
-        input.setAttribute(mirrorInputAttribute, '1');
-
-        form.appendChild(input);
-    }
-
-    /**
-     * Mirror Carbon compact inputs to WordPress widget input names before the editor serializes the form.
-     *
-     * @param {HTMLFormElement} form Widget form.
-     * @return {number}
-     */
-    function syncFormCompactedInputMirrors(form) {
-        if (!(form instanceof HTMLFormElement)) {
-            return 0;
+        if (!(rows instanceof HTMLElement) || !(template instanceof HTMLTemplateElement)) {
+            return;
         }
 
-        form.querySelectorAll('[' + mirrorInputAttribute + '="1"]').forEach((input) => input.remove());
+        const wrapper = document.createElement('div');
 
-        let mirroredInputCount = 0;
-        const controls = Array.from(form.querySelectorAll('input, textarea, select'));
+        wrapper.innerHTML = template.innerHTML.replaceAll('__INDEX__', getRowIndex());
 
-        controls.forEach((control) => {
-            if (!isSuccessfulFormControl(control)) {
-                return;
-            }
-
-            const originalName = unwrapCompactInputName(control.name);
-
-            if (!originalName.startsWith('widget-')) {
-                return;
-            }
-
-            getFormControlValues(control).forEach((value) => {
-                appendMirroredInput(form, originalName, value);
-                mirroredInputCount += 1;
-            });
-        });
-
-        return mirroredInputCount;
+        Array.from(wrapper.children).forEach((child) => rows.appendChild(child));
     }
 
-    /**
-     * Mirror compact inputs for every currently rendered widget form.
-     *
-     * @return {void}
-     */
-    function syncCompactedInputMirrors() {
-        document.querySelectorAll('form').forEach((form) => {
-            syncFormCompactedInputMirrors(form);
-        });
-    }
-
-    /**
-     * Keep mirrored inputs current before WordPress handles widget form events.
-     *
-     * @param {Event} event Native input or change event.
-     * @return {void}
-     */
-    function handleCompactedInputChange(event) {
+    document.addEventListener('click', (event) => {
         const target = event.target;
 
-        if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement)) {
+        if (!(target instanceof HTMLElement)) {
             return;
         }
 
-        if (!unwrapCompactInputName(target.name)) {
-            return;
-        }
+        const addButton = target.closest('[data-ars-widget-repeater-add]');
 
-        const form = target.form;
+        if (addButton instanceof HTMLElement) {
+            const repeater = addButton.closest('[data-ars-widget-repeater]');
 
-        if (form instanceof HTMLFormElement) {
-            syncFormCompactedInputMirrors(form);
-        }
-    }
-
-    /**
-     * Mount every unmounted Carbon Fields widget form currently present in the editor.
-     *
-     * @return {void}
-     */
-    function mountWidgetContainers() {
-        if (!hasCarbonFieldsRuntime()) {
-            return;
-        }
-
-        const carbonStore = window.wp.data.dispatch('carbon-fields/metaboxes');
-
-        if (!carbonStore || typeof carbonStore.addContainer !== 'function' || typeof carbonStore.addFields !== 'function') {
-            return;
-        }
-
-        const pendingFieldsets = Array.from(document.querySelectorAll('.carbon-container [data-json]')).filter((fieldset) => (
-            fieldset instanceof HTMLElement && fieldset.dataset.arsCarbonMounted !== '1'
-        ));
-
-        if (pendingFieldsets.length === 0) {
-            return;
-        }
-
-        pendingFieldsets.forEach((fieldset) => {
-            const parsedContainer = decodeContainerJson(fieldset.getAttribute('data-json'));
-            const normalized = normalizeContainer(parsedContainer);
-
-            if (!normalized) {
-                return;
+            if (repeater instanceof HTMLElement) {
+                event.preventDefault();
+                addRepeaterRow(repeater);
             }
 
-            carbonStore.addFields(normalized.fields);
-            carbonStore.addContainer(normalized.container);
-            fieldset.dataset.arsCarbonMounted = '1';
-        });
-
-        window.wp.hooks.doAction('carbon-fields.init');
-        window.setTimeout(syncCompactedInputMirrors, 0);
-    }
-
-    /**
-     * Schedule a near-future mount pass after WordPress injects or replaces legacy widget forms.
-     *
-     * @return {void}
-     */
-    function scheduleMountWidgetContainers() {
-        if (mountTimer) {
-            window.clearTimeout(mountTimer);
+            return;
         }
 
-        mountTimer = window.setTimeout(() => {
-            mountTimer = 0;
-            mountWidgetContainers();
-            window.setTimeout(mountWidgetContainers, 100);
-            window.setTimeout(syncCompactedInputMirrors, 150);
-        }, 0);
-    }
+        const removeButton = target.closest('[data-ars-widget-repeater-remove]');
 
-    /**
-     * Bind editor events and DOM observation used by block-based widget screens.
-     *
-     * @return {void}
-     */
-    function bindWidgetFormMounting() {
-        scheduleMountWidgetContainers();
-        document.addEventListener('input', handleCompactedInputChange, true);
-        document.addEventListener('change', handleCompactedInputChange, true);
-        document.addEventListener('submit', syncCompactedInputMirrors, true);
-        document.addEventListener('click', syncCompactedInputMirrors, true);
+        if (removeButton instanceof HTMLElement) {
+            const row = removeButton.closest('[data-ars-widget-repeater-row]');
 
-        if (window.jQuery) {
-            window.jQuery(document).on('widget-added widget-updated', scheduleMountWidgetContainers);
+            if (row instanceof HTMLElement) {
+                event.preventDefault();
+                row.remove();
+            }
         }
-
-        if (typeof MutationObserver !== 'undefined' && document.body) {
-            const observer = new MutationObserver(scheduleMountWidgetContainers);
-
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true,
-            });
-        }
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bindWidgetFormMounting, { once: true });
-    } else {
-        bindWidgetFormMounting();
-    }
-})();
-JS;
-    }
-
-    /**
-     * Build the script that prevents Carbon Fields from rendering widget forms before WordPress inserts them.
-     *
-     * @return string
-     */
-    private function getCarbonFieldsWidgetPreloadFilterScript(): string
-    {
-        return <<<'JS'
-(() => {
-    'use strict';
-
-    if (!window.cf || !window.cf.preloaded || !Array.isArray(window.cf.preloaded.containers)) {
-        return;
-    }
-
-    window.cf.preloaded.containers = window.cf.preloaded.containers.filter((container) => (
-        !container || container.type !== 'widget'
-    ));
+    });
 })();
 JS;
     }

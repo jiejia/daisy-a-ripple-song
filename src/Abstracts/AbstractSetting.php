@@ -34,11 +34,11 @@ abstract class AbstractSetting implements Setting
                 continue;
             }
 
-            /** @var mixed $carbonValue Legacy Carbon Fields value for the current setting. */
-            $carbonValue = $this->carbonSettingValue((string) $settingKey);
+            /** @var mixed $legacyFieldValue Legacy per-field option value for the current setting. */
+            $legacyFieldValue = $this->legacyFieldOptionValue((string) $settingKey);
 
-            if ($this->hasStoredValue($carbonValue)) {
-                $settings[$settingKey] = $carbonValue;
+            if ($this->hasStoredValue($legacyFieldValue)) {
+                $settings[$settingKey] = $legacyFieldValue;
                 continue;
             }
 
@@ -69,7 +69,7 @@ abstract class AbstractSetting implements Setting
     }
 
     /**
-     * Return the Carbon Fields option key for a setting.
+     * Return the legacy per-field option key for a setting.
      *
      * @param string $key Setting key without the page prefix.
      * @return string
@@ -146,29 +146,20 @@ abstract class AbstractSetting implements Setting
     }
 
     /**
-     * Return one saved Carbon Fields value from the previous settings storage.
+     * Return one saved value from the previous per-field settings storage.
      *
      * @param string $key Setting key without the page prefix.
      * @return mixed
      */
-    protected function carbonSettingValue(string $key): mixed
+    protected function legacyFieldOptionValue(string $key): mixed
     {
-        if (function_exists('carbon_get_theme_option')) {
-            /** @var mixed $carbonValue Saved Carbon Fields theme option value. */
-            $carbonValue = carbon_get_theme_option($this->fieldName($key));
-
-            if ($carbonValue !== null) {
-                return $carbonValue;
-            }
-        }
-
         return get_option($this->fieldName($key), null);
     }
 
     /**
      * Return whether the stored value should override the runtime default.
      *
-     * @param mixed $value Stored value from Carbon Fields or legacy storage.
+     * @param mixed $value Stored value from native or legacy storage.
      * @return bool
      */
     protected function hasStoredValue(mixed $value): bool

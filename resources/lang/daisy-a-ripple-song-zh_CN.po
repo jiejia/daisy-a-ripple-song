@@ -154,6 +154,10 @@ msgstr "图片 URL："
 msgid "Image URL"
 msgstr "图片 URL"
 
+#: src/Widgets/BannerCarouselWidget.php:59
+msgid "Image"
+msgstr "图片"
+
 #: src/Core/Widget.php:64 src/Widgets/BannerCarouselWidget.php:93
 msgid "Select Image"
 msgstr "选择图片"

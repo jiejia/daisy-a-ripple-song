@@ -471,6 +471,7 @@ class AssetServiceProvider extends AbstractServiceProvider
      */
     private function enqueueNativeWidgetFormScript(): void
     {
+        wp_enqueue_media();
         wp_enqueue_script('jquery');
         wp_add_inline_script('jquery', $this->getNativeWidgetFormScript());
     }
@@ -516,10 +517,134 @@ class AssetServiceProvider extends AbstractServiceProvider
         Array.from(wrapper.children).forEach((child) => rows.appendChild(child));
     }
 
+    /**
+     * Return the image field wrapper for a clicked media button.
+     *
+     * @param {HTMLElement} button Clicked image field button.
+     * @return {?HTMLElement}
+     */
+    function getImageField(button) {
+        const field = button.closest('[data-ars-widget-image-field]');
+
+        return field instanceof HTMLElement ? field : null;
+    }
+
+    /**
+     * Update one native image field from a selected media attachment.
+     *
+     * @param {HTMLElement} field Image field wrapper.
+     * @param {Object} attachment Selected media attachment.
+     * @return {void}
+     */
+    function setImageFieldValue(field, attachment) {
+        const input = field.querySelector('[data-ars-widget-image-input]');
+        const preview = field.querySelector('[data-ars-widget-image-preview]');
+        const removeButton = field.querySelector('[data-ars-widget-image-remove]');
+        const attachmentUrl = attachment && attachment.sizes && attachment.sizes.medium
+            ? attachment.sizes.medium.url
+            : (attachment && attachment.url ? attachment.url : '');
+
+        if (input instanceof HTMLInputElement) {
+            input.value = attachment && attachment.id ? String(attachment.id) : '';
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+
+        if (preview instanceof HTMLElement) {
+            preview.innerHTML = attachmentUrl
+                ? '<img src="' + attachmentUrl.replaceAll('"', '&quot;') + '" alt="" style="display:block;max-width:100%;height:auto;margin:0 0 8px;">'
+                : '';
+        }
+
+        if (removeButton instanceof HTMLElement) {
+            removeButton.style.display = attachmentUrl ? '' : 'none';
+        }
+    }
+
+    /**
+     * Open the WordPress media library for one native image field.
+     *
+     * @param {HTMLElement} button Clicked select button.
+     * @return {void}
+     */
+    function openImageFrame(button) {
+        const field = getImageField(button);
+
+        if (!field || !window.wp || !window.wp.media) {
+            return;
+        }
+
+        const frame = window.wp.media({
+            title: button.getAttribute('data-frame-title') || 'Select Image',
+            button: {
+                text: button.getAttribute('data-button-label') || 'Use This Image',
+            },
+            library: {
+                type: 'image',
+            },
+            multiple: false,
+        });
+
+        frame.on('select', () => {
+            const selectedAttachment = frame.state().get('selection').first();
+
+            if (selectedAttachment) {
+                setImageFieldValue(field, selectedAttachment.toJSON());
+            }
+        });
+
+        frame.open();
+    }
+
+    /**
+     * Remove the selected image from one native image field.
+     *
+     * @param {HTMLElement} button Clicked remove button.
+     * @return {void}
+     */
+    function removeImageFieldValue(button) {
+        const field = getImageField(button);
+
+        if (!field) {
+            return;
+        }
+
+        const input = field.querySelector('[data-ars-widget-image-input]');
+        const preview = field.querySelector('[data-ars-widget-image-preview]');
+
+        if (input instanceof HTMLInputElement) {
+            input.value = '';
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+
+        if (preview instanceof HTMLElement) {
+            preview.innerHTML = '';
+        }
+
+        button.style.display = 'none';
+    }
+
     document.addEventListener('click', (event) => {
         const target = event.target;
 
         if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        const imageSelectButton = target.closest('[data-ars-widget-image-select]');
+
+        if (imageSelectButton instanceof HTMLElement) {
+            event.preventDefault();
+            openImageFrame(imageSelectButton);
+            return;
+        }
+
+        const imageRemoveButton = target.closest('[data-ars-widget-image-remove]');
+
+        if (imageRemoveButton instanceof HTMLElement) {
+            event.preventDefault();
+            removeImageFieldValue(imageRemoveButton);
             return;
         }
 

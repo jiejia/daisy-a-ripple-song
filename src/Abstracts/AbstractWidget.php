@@ -341,7 +341,9 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
             echo '<label for="' . esc_attr($fieldId) . '">' . esc_html($label) . '</label>';
         }
 
-        if ($type === 'select') {
+        if ($type === 'image') {
+            $this->renderImageControl($field, $fieldId, $fieldName, $fieldValue);
+        } elseif ($type === 'select') {
             $this->renderSelectControl($field, $fieldId, $fieldName, $fieldValue);
         } elseif ($type === 'checkbox') {
             $this->renderCheckboxControl($field, $fieldId, $fieldName, $fieldValue);
@@ -384,6 +386,36 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
         }
 
         echo '>';
+    }
+
+    /**
+     * Render a media-library image picker control.
+     *
+     * @param array<string,mixed> $field Field definition.
+     * @param string $fieldId Form control ID.
+     * @param string $fieldName Form control name.
+     * @param mixed $fieldValue Form control value.
+     * @return void
+     */
+    protected function renderImageControl(array $field, string $fieldId, string $fieldName, mixed $fieldValue): void
+    {
+        /** @var string $imageValue Stored attachment ID or legacy URL. */
+        $imageValue = is_scalar($fieldValue) ? (string) $fieldValue : '';
+        /** @var string $previewUrl Preview image URL resolved from the stored value. */
+        $previewUrl = $this->imagePreviewUrl($imageValue);
+
+        echo '<div class="ars-widget-image-field" data-ars-widget-image-field>';
+        echo '<input type="hidden" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" value="' . esc_attr($imageValue) . '" data-ars-widget-image-input>';
+        echo '<div class="ars-widget-image-field__preview" data-ars-widget-image-preview>';
+
+        if ($previewUrl !== '') {
+            echo '<img src="' . esc_url($previewUrl) . '" alt="" style="display:block;max-width:100%;height:auto;margin:0 0 8px;">';
+        }
+
+        echo '</div>';
+        echo '<button type="button" class="button" data-ars-widget-image-select data-frame-title="' . esc_attr((string) ($field['frame_title'] ?? __('Select Image', 'daisy-a-ripple-song'))) . '" data-button-label="' . esc_attr((string) ($field['button_label'] ?? __('Use This Image', 'daisy-a-ripple-song'))) . '">' . esc_html__('Select Image', 'daisy-a-ripple-song') . '</button> ';
+        echo '<button type="button" class="button-link-delete" data-ars-widget-image-remove ' . ($imageValue === '' ? 'style="display:none;"' : '') . '>' . esc_html__('Remove', 'daisy-a-ripple-song') . '</button>';
+        echo '</div>';
     }
 
     /**
@@ -504,6 +536,9 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
 
             if (($childField['type'] ?? '') === 'checkbox') {
                 $this->renderCheckboxControl($childField, $fieldId, $fieldName, $fieldValue);
+            } elseif (($childField['type'] ?? '') === 'image') {
+                echo '<label for="' . esc_attr($fieldId) . '">' . esc_html((string) ($childField['label'] ?? '')) . '</label>';
+                $this->renderImageControl($childField, $fieldId, $fieldName, $fieldValue);
             } elseif (($childField['type'] ?? '') === 'select') {
                 echo '<label for="' . esc_attr($fieldId) . '">' . esc_html((string) ($childField['label'] ?? '')) . '</label>';
                 $this->renderSelectControl($childField, $fieldId, $fieldName, $fieldValue);
@@ -541,6 +576,10 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
 
         if ($type === 'select') {
             return $this->sanitizeSelectValue($field, $value);
+        }
+
+        if ($type === 'image') {
+            return $this->sanitizeImageValue($value);
         }
 
         if ($type === 'url' || ($field['input_type'] ?? '') === 'url') {
@@ -604,6 +643,54 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
         }
 
         return (string) ($field['default'] ?? array_key_first($options) ?? '');
+    }
+
+    /**
+     * Sanitize a media image field value.
+     *
+     * @param mixed $value Submitted attachment ID or legacy URL.
+     * @return int|string
+     */
+    protected function sanitizeImageValue(mixed $value): int|string
+    {
+        if (!is_scalar($value)) {
+            return '';
+        }
+
+        /** @var string $imageValue Submitted image value. */
+        $imageValue = trim((string) $value);
+
+        if ($imageValue === '') {
+            return '';
+        }
+
+        if (ctype_digit($imageValue)) {
+            return absint($imageValue);
+        }
+
+        return esc_url_raw($imageValue);
+    }
+
+    /**
+     * Return a preview URL for an attachment ID or legacy URL value.
+     *
+     * @param string $imageValue Stored image field value.
+     * @return string
+     */
+    protected function imagePreviewUrl(string $imageValue): string
+    {
+        if ($imageValue === '') {
+            return '';
+        }
+
+        if (ctype_digit($imageValue)) {
+            /** @var string|false $attachmentUrl Attachment URL resolved from the image ID. */
+            $attachmentUrl = wp_get_attachment_image_url(absint($imageValue), 'medium');
+
+            return $attachmentUrl !== false ? esc_url_raw($attachmentUrl) : '';
+        }
+
+        return esc_url_raw($imageValue);
     }
 
     /**

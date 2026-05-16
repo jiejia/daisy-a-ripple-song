@@ -54,10 +54,11 @@ class BannerCarouselWidget extends AbstractWidget
                 'description' => __('Add one or more banner slides. Empty image rows will not be rendered.', 'daisy-a-ripple-song'),
                 'fields' => [
                     [
-                        'type' => 'url',
+                        'type' => 'image',
                         'key' => 'image',
-                        'label' => __('Image URL', 'daisy-a-ripple-song'),
-                        'placeholder' => 'https://example.com/image.jpg',
+                        'label' => __('Image', 'daisy-a-ripple-song'),
+                        'frame_title' => __('Select Banner Image', 'daisy-a-ripple-song'),
+                        'button_label' => __('Use This Image', 'daisy-a-ripple-song'),
                     ],
                     [
                         'type' => 'url',

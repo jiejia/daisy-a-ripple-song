@@ -81,7 +81,6 @@ class BannerCarouselWidget extends AbstractWidget
         
         $fieldId = $this->get_field_id('gallery_ids');
         $fieldName = $this->get_field_name('gallery_ids');
-        $buttonId = $fieldId . '_button';
 
         ?>
         <div class="ars-gallery-widget-wrapper" style="padding: 10px; background: #f9f9f9; border: 1px solid #e2e4e7; border-radius: 4px; margin-bottom: 15px;">
@@ -106,55 +105,82 @@ class BannerCarouselWidget extends AbstractWidget
                 ?>
             </div>
             
-            <button type="button" id="<?php echo esc_attr($buttonId); ?>" class="button button-primary" style="width: 100%; text-align: center;">
+            <button type="button" class="button button-primary ars-manage-gallery-btn" style="width: 100%; text-align: center;">
                 <span class="dashicons dashicons-images-alt2" style="line-height: 1.3; margin-right: 5px;"></span>
                 <?php _e('Manage Gallery', 'daisy-a-ripple-song'); ?>
             </button>
         </div>
 
         <script>
-            (function($) {
-                $(document).ready(function() {
-                    // Use delegation to support widget updates
-                    $(document).on('click', '#<?php echo esc_js($buttonId); ?>', function(e) {
-                        e.preventDefault();
-                        
-                        var btn = $(this);
-                        var wrapper = btn.closest('.ars-gallery-widget-wrapper');
-                        var input = wrapper.find('.ars-gallery-ids-input');
-                        var preview = wrapper.find('.ars-gallery-preview');
-                        var ids = input.val();
-                        
-                        // Ensure wp.media is available
-                        if (typeof wp === 'undefined' || !wp.media || !wp.media.gallery) {
-                            return;
-                        }
+            if (typeof window.arsGalleryWidgetInit === 'undefined') {
+                window.arsGalleryWidgetInit = true;
+                
+                jQuery(document).on('click', '.ars-manage-gallery-btn', function(e) {
+                    e.preventDefault();
+                    
+                    var btn = jQuery(this);
+                    var wrapper = btn.closest('.ars-gallery-widget-wrapper');
+                    var input = wrapper.find('.ars-gallery-ids-input');
+                    var preview = wrapper.find('.ars-gallery-preview');
+                    var ids = input.val();
+                    
+                    if (typeof wp === 'undefined' || !wp.media) {
+                        alert('WordPress media library is not available.');
+                        return;
+                    }
 
-                        // Open WP native gallery editor
-                        var frame = wp.media.gallery.edit('[gallery ids="' + ids + '"]');
-                        
+                    var frame;
+                    if (wp.media.gallery) {
+                        frame = wp.media.gallery.edit('[gallery ids="' + ids + '"]');
                         frame.state('gallery-edit').on('update', function(selection) {
-                            var selectedIds = [];
-                            var html = '';
-                            
-                            if (selection.models.length > 0) {
-                                selection.models.forEach(function(attachment) {
-                                    selectedIds.push(attachment.id);
-                                    var url = attachment.get('sizes') && attachment.get('sizes').thumbnail 
-                                        ? attachment.get('sizes').thumbnail.url 
-                                        : attachment.get('url');
-                                    html += '<img src="' + url + '" style="width: 60px; height: 60px; object-fit: cover; border: 1px solid #c3c4c7; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" />';
-                                });
-                            } else {
-                                html = '<span style="color: #646970; font-style: italic;"><?php echo esc_js(__("No images selected.", "daisy-a-ripple-song")); ?></span>';
-                            }
-                            
-                            input.val(selectedIds.join(',')).trigger('change');
-                            preview.html(html);
+                            updatePreview(selection.models, input, preview, true);
                         });
-                    });
+                    } else {
+                        frame = wp.media({
+                            title: '<?php echo esc_js(__("Select Banner Images", "daisy-a-ripple-song")); ?>',
+                            button: { text: '<?php echo esc_js(__("Use these images", "daisy-a-ripple-song")); ?>' },
+                            multiple: true,
+                            library: { type: 'image' }
+                        });
+                        frame.on('open', function() {
+                            var selection = frame.state().get('selection');
+                            if (ids) {
+                                ids.split(',').forEach(function(id) {
+                                    var attachment = wp.media.attachment(id);
+                                    attachment.fetch();
+                                    selection.add(attachment ? [attachment] : []);
+                                });
+                            }
+                        });
+                        frame.on('select', function() {
+                            var selection = frame.state().get('selection');
+                            updatePreview(selection.models, input, preview, false);
+                        });
+                        frame.open();
+                    }
+
+                    function updatePreview(models, inputElement, previewElement, isGallery) {
+                        var selectedIds = [];
+                        var html = '';
+                        
+                        if (models.length > 0) {
+                            models.forEach(function(attachment) {
+                                var id = isGallery ? attachment.id : attachment.get('id');
+                                selectedIds.push(id);
+                                var url = attachment.get('sizes') && attachment.get('sizes').thumbnail 
+                                    ? attachment.get('sizes').thumbnail.url 
+                                    : attachment.get('url');
+                                html += '<img src="' + url + '" style="width: 60px; height: 60px; object-fit: cover; border: 1px solid #c3c4c7; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" />';
+                            });
+                        } else {
+                            html = '<span style="color: #646970; font-style: italic;"><?php echo esc_js(__("No images selected.", "daisy-a-ripple-song")); ?></span>';
+                        }
+                        
+                        inputElement.val(selectedIds.join(',')).trigger('change');
+                        previewElement.html(html);
+                    }
                 });
-            })(jQuery);
+            }
         </script>
         <?php
         

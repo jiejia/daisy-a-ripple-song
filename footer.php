@@ -14,43 +14,43 @@
         <div class="grid md:grid-cols-2 grid-flow-row gap-2 md:justify-between bg-base-100/60 rounded-lg p-4 items-center">
             <div class="md:justify-self-start self-center">
                 <?php
-                echo wp_kses_post(
-                    (
-                        \Jiejia\DaisyARippleSong\Settings\General::getFooterCopyright() !== ''
-                            ? \Jiejia\DaisyARippleSong\Settings\General::getFooterCopyright()
-                            : sprintf(
-                                __('© %1$s Powered by %2$s Theme', 'daisy-a-ripple-song'),
-                                wp_date('Y'),
-                                '<a href="' . esc_url((string) wp_get_theme()->get('ThemeURI')) . '" target="_blank" rel="noopener noreferrer" class="text-primary">' . esc_html((string) wp_get_theme()->get('Name')) . '</a>'
-                            )
-                    )
-                );
+                // echo wp_kses_post(
+                //     (
+                //         \Jiejia\DaisyARippleSong\Settings\General::getFooterCopyright() !== ''
+                //             ? \Jiejia\DaisyARippleSong\Settings\General::getFooterCopyright()
+                //             : sprintf(
+                //                 __('© %1$s Powered by %2$s Theme', 'daisy-a-ripple-song'),
+                //                 wp_date('Y'),
+                //                 '<a href="' . esc_url((string) wp_get_theme()->get('ThemeURI')) . '" target="_blank" rel="noopener noreferrer" class="text-primary">' . esc_html((string) wp_get_theme()->get('Name')) . '</a>'
+                //             )
+                //     )
+                // );
                 ?>
             </div>
 
-            <?php if (\Jiejia\DaisyARippleSong\Settings\SocialLinks::hasLinks()): ?>
+            <?php //if (\Jiejia\DaisyARippleSong\Settings\SocialLinks::hasLinks()): ?>
                 <div class="md:justify-self-end self-center">
                     <ul class="flex justify-center gap-2">
-                        <?php foreach (\Jiejia\DaisyARippleSong\Settings\SocialLinks::getConfiguredLinks() as $platformKey => $social): ?>
+                        <?php //foreach (\Jiejia\DaisyARippleSong\Settings\SocialLinks::getConfiguredLinks() as $platformKey => $social): ?>
                             <li>
                                 <a
-                                    href="<?php echo esc_url($social['url']); ?>"
+                                    href="<?php //echo esc_url($social['url']); ?>"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    title="<?php echo esc_attr($social['label']); ?>"
-                                    aria-label="<?php echo esc_attr($social['label']); ?>"
+                                    title="<?php //echo esc_attr($social['label']); ?>"
+                                    aria-label="<?php //echo esc_attr($social['label']); ?>"
                                 >
                                     <span
-                                        data-simple-icon="<?php echo esc_attr($platformKey); ?>"
-                                        data-simple-icon-label="<?php echo esc_attr($social['label']); ?>"
+                                        data-simple-icon="<?php //echo esc_attr($platformKey); ?>"
+                                        data-simple-icon-label="<?php //echo esc_attr($social['label']); ?>"
                                         class="inline-flex h-4 w-4 items-center justify-center"
                                     ></span>
                                 </a>
                             </li>
-                        <?php endforeach; ?>
+                        <?php //endforeach; ?>
                     </ul>
                 </div>
-            <?php endif; ?>
+            <?php //endif; ?>
         </div>
     </div>
 </footer>

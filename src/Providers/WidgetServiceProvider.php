@@ -23,11 +23,7 @@ class WidgetServiceProvider extends AbstractServiceProvider
      * @var array<int,class-string<ThemeWidget>>
      */
     private array $widgets = [
-        BannerCarouselWidget::class,
-        BlogListWidget::class,
-        AuthorsWidget::class,
-        FooterLinksWidget::class,
-        TagsCloudWidget::class,
+
     ];
 
     /**
@@ -36,8 +32,7 @@ class WidgetServiceProvider extends AbstractServiceProvider
      * @var array<int,class-string<ThemeWidget>>
      */
     private array $podcastWidgets = [
-        PodcastListWidget::class,
-        SubscribeLinksWidget::class,
+
     ];
 
     /**

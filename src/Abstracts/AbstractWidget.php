@@ -335,10 +335,10 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
         /** @var mixed $fieldValue Current form control value. */
         $fieldValue = $instance[$key] ?? ($field['default'] ?? '');
 
-        echo '<p>';
+        echo '<fieldset class="fieldset ars-widget-field">';
 
         if ($type !== 'checkbox') {
-            echo '<label for="' . esc_attr($fieldId) . '">' . esc_html($label) . '</label>';
+            echo '<legend class="fieldset-legend"><label for="' . esc_attr($fieldId) . '">' . esc_html($label) . '</label></legend>';
         }
 
         if ($type === 'image') {
@@ -352,10 +352,10 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
         }
 
         if (!empty($field['description'])) {
-            echo '<span class="description">' . esc_html((string) $field['description']) . '</span>';
+            echo '<p class="label ars-widget-field__description">' . esc_html((string) $field['description']) . '</p>';
         }
 
-        echo '</p>';
+        echo '</fieldset>';
     }
 
     /**
@@ -373,11 +373,11 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
         $inputType = (string) ($field['input_type'] ?? ($field['type'] ?? 'text'));
 
         if (($field['type'] ?? '') === 'textarea') {
-            echo '<textarea class="widefat" rows="' . esc_attr((string) ($field['rows'] ?? 4)) . '" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" placeholder="' . esc_attr((string) ($field['placeholder'] ?? '')) . '">' . esc_textarea((string) $fieldValue) . '</textarea>';
+            echo '<textarea class="widefat textarea textarea-sm ars-widget-control" rows="' . esc_attr((string) ($field['rows'] ?? 4)) . '" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" placeholder="' . esc_attr((string) ($field['placeholder'] ?? '')) . '">' . esc_textarea((string) $fieldValue) . '</textarea>';
             return;
         }
 
-        echo '<input class="widefat" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" type="' . esc_attr($inputType) . '" value="' . esc_attr((string) $fieldValue) . '" placeholder="' . esc_attr((string) ($field['placeholder'] ?? '')) . '"';
+        echo '<input class="widefat input input-sm ars-widget-control" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" type="' . esc_attr($inputType) . '" value="' . esc_attr((string) $fieldValue) . '" placeholder="' . esc_attr((string) ($field['placeholder'] ?? '')) . '"';
 
         foreach (['min', 'max', 'step'] as $attributeName) {
             if (array_key_exists($attributeName, $field)) {
@@ -408,12 +408,12 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
         echo '<input type="hidden" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" value="' . esc_attr($imageValue) . '" data-ars-widget-image-input>';
         echo '<div class="media-widget-preview media_image ' . ($previewUrl !== '' ? 'populated' : '') . '" data-ars-widget-image-preview data-preview-url="' . esc_url($previewUrl) . '" data-select-label="' . esc_attr__('Select Image', 'daisy-a-ripple-song') . '" data-frame-title="' . esc_attr((string) ($field['frame_title'] ?? __('Select Image', 'daisy-a-ripple-song'))) . '" data-button-label="' . esc_attr((string) ($field['button_label'] ?? __('Use This Image', 'daisy-a-ripple-song'))) . '">';
         echo '<div class="attachment-media-view">';
-        echo '<button type="button" class="select-media button-add-media not-selected" data-ars-widget-image-select data-frame-title="' . esc_attr((string) ($field['frame_title'] ?? __('Select Image', 'daisy-a-ripple-song'))) . '" data-button-label="' . esc_attr((string) ($field['button_label'] ?? __('Use This Image', 'daisy-a-ripple-song'))) . '">' . esc_html__('Select Image', 'daisy-a-ripple-song') . '</button>';
+        echo '<button type="button" class="select-media button-add-media not-selected btn btn-sm btn-outline" data-ars-widget-image-select data-frame-title="' . esc_attr((string) ($field['frame_title'] ?? __('Select Image', 'daisy-a-ripple-song'))) . '" data-button-label="' . esc_attr((string) ($field['button_label'] ?? __('Use This Image', 'daisy-a-ripple-song'))) . '">' . esc_html__('Select Image', 'daisy-a-ripple-song') . '</button>';
         echo '</div>';
         echo '</div>';
-        echo '<p class="media-widget-buttons">';
-        echo '<button type="button" class="button select-media ' . ($imageValue === '' ? '' : 'selected') . '" data-ars-widget-image-select data-frame-title="' . esc_attr((string) ($field['frame_title'] ?? __('Select Image', 'daisy-a-ripple-song'))) . '" data-button-label="' . esc_attr((string) ($field['button_label'] ?? __('Use This Image', 'daisy-a-ripple-song'))) . '">' . esc_html($imageValue === '' ? __('Select Image', 'daisy-a-ripple-song') : __('Replace Image')) . '</button> ';
-        echo '<button type="button" class="button-link-delete" data-ars-widget-image-remove ' . ($imageValue === '' ? 'style="display:none;"' : '') . '>' . esc_html__('Remove', 'daisy-a-ripple-song') . '</button>';
+        echo '<p class="media-widget-buttons ars-widget-image-field__actions">';
+        echo '<button type="button" class="button select-media btn btn-sm btn-primary ' . ($imageValue === '' ? '' : 'selected') . '" data-ars-widget-image-select data-frame-title="' . esc_attr((string) ($field['frame_title'] ?? __('Select Image', 'daisy-a-ripple-song'))) . '" data-button-label="' . esc_attr((string) ($field['button_label'] ?? __('Use This Image', 'daisy-a-ripple-song'))) . '">' . esc_html($imageValue === '' ? __('Select Image', 'daisy-a-ripple-song') : __('Replace Image')) . '</button> ';
+        echo '<button type="button" class="button-link-delete btn btn-sm btn-ghost" data-ars-widget-image-remove ' . ($imageValue === '' ? 'style="display:none;"' : '') . '>' . esc_html__('Remove', 'daisy-a-ripple-song') . '</button>';
         echo '</p>';
         echo '</div>';
     }
@@ -432,7 +432,7 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
         /** @var array<string,string> $options Select options. */
         $options = is_array($field['options'] ?? null) ? $field['options'] : [];
 
-        echo '<select class="widefat" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '">';
+        echo '<select class="widefat select select-sm ars-widget-control" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '">';
 
         foreach ($options as $optionValue => $optionLabel) {
             echo '<option value="' . esc_attr((string) $optionValue) . '" ' . selected((string) $fieldValue, (string) $optionValue, false) . '>' . esc_html((string) $optionLabel) . '</option>';
@@ -452,8 +452,8 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
      */
     protected function renderCheckboxControl(array $field, string $fieldId, string $fieldName, mixed $fieldValue): void
     {
-        echo '<label for="' . esc_attr($fieldId) . '">';
-        echo '<input id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" type="checkbox" value="1" ' . checked((bool) $fieldValue, true, false) . '> ';
+        echo '<label class="label ars-widget-checkbox-label" for="' . esc_attr($fieldId) . '">';
+        echo '<input class="checkbox checkbox-sm" id="' . esc_attr($fieldId) . '" name="' . esc_attr($fieldName) . '" type="checkbox" value="1" ' . checked((bool) $fieldValue, true, false) . '> ';
         echo esc_html((string) ($field['label'] ?? ''));
         echo '</label>';
     }
@@ -479,11 +479,11 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
         /** @var array<int,array<string,mixed>> $childFields Repeater child field definitions. */
         $childFields = is_array($field['fields'] ?? null) ? $field['fields'] : [];
 
-        echo '<div class="ars-widget-repeater" data-ars-widget-repeater>';
-        echo '<p><strong>' . esc_html((string) ($field['label'] ?? '')) . '</strong></p>';
+        echo '<fieldset class="fieldset ars-widget-repeater" data-ars-widget-repeater>';
+        echo '<legend class="fieldset-legend">' . esc_html((string) ($field['label'] ?? '')) . '</legend>';
 
         if (!empty($field['description'])) {
-            echo '<p class="description">' . esc_html((string) $field['description']) . '</p>';
+            echo '<p class="label ars-widget-field__description">' . esc_html((string) $field['description']) . '</p>';
         }
 
         echo '<div data-ars-widget-repeater-rows>';
@@ -500,8 +500,8 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
         echo '<template data-ars-widget-repeater-template>';
         $this->renderRepeaterRow($key, $childFields, [], '__INDEX__');
         echo '</template>';
-        echo '<p><button type="button" class="button" data-ars-widget-repeater-add>' . esc_html__('Add Item', 'daisy-a-ripple-song') . '</button></p>';
-        echo '</div>';
+        echo '<p><button type="button" class="button btn btn-sm btn-outline" data-ars-widget-repeater-add>' . esc_html__('Add Item', 'daisy-a-ripple-song') . '</button></p>';
+        echo '</fieldset>';
     }
 
     /**
@@ -532,25 +532,29 @@ abstract class AbstractWidget extends WP_Widget implements ThemeWidget
             /** @var mixed $fieldValue Child field value. */
             $fieldValue = $row[$childKey] ?? ($childField['default'] ?? '');
 
-            echo '<p>';
+            echo '<fieldset class="fieldset ars-widget-field ars-widget-repeater__field">';
 
             if (($childField['type'] ?? '') === 'checkbox') {
                 $this->renderCheckboxControl($childField, $fieldId, $fieldName, $fieldValue);
             } elseif (($childField['type'] ?? '') === 'image') {
-                echo '<label for="' . esc_attr($fieldId) . '">' . esc_html((string) ($childField['label'] ?? '')) . '</label>';
+                echo '<legend class="fieldset-legend"><label for="' . esc_attr($fieldId) . '">' . esc_html((string) ($childField['label'] ?? '')) . '</label></legend>';
                 $this->renderImageControl($childField, $fieldId, $fieldName, $fieldValue);
             } elseif (($childField['type'] ?? '') === 'select') {
-                echo '<label for="' . esc_attr($fieldId) . '">' . esc_html((string) ($childField['label'] ?? '')) . '</label>';
+                echo '<legend class="fieldset-legend"><label for="' . esc_attr($fieldId) . '">' . esc_html((string) ($childField['label'] ?? '')) . '</label></legend>';
                 $this->renderSelectControl($childField, $fieldId, $fieldName, $fieldValue);
             } else {
-                echo '<label for="' . esc_attr($fieldId) . '">' . esc_html((string) ($childField['label'] ?? '')) . '</label>';
+                echo '<legend class="fieldset-legend"><label for="' . esc_attr($fieldId) . '">' . esc_html((string) ($childField['label'] ?? '')) . '</label></legend>';
                 $this->renderInputControl($childField, $fieldId, $fieldName, $fieldValue);
             }
 
-            echo '</p>';
+            if (!empty($childField['description'])) {
+                echo '<p class="label ars-widget-field__description">' . esc_html((string) $childField['description']) . '</p>';
+            }
+
+            echo '</fieldset>';
         }
 
-        echo '<p><button type="button" class="button-link-delete" data-ars-widget-repeater-remove>' . esc_html__('Remove', 'daisy-a-ripple-song') . '</button></p>';
+        echo '<p><button type="button" class="button-link-delete btn btn-sm btn-ghost" data-ars-widget-repeater-remove>' . esc_html__('Remove', 'daisy-a-ripple-song') . '</button></p>';
         echo '</div>';
     }
 

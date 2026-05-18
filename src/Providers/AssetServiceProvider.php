@@ -610,7 +610,7 @@ class AssetServiceProvider extends AbstractServiceProvider
                 : preview.getAttribute('data-select-label') || '';
 
             preview.classList.remove('populated');
-            preview.innerHTML = '<div class="attachment-media-view"><button type="button" class="select-media button-add-media not-selected" data-ars-widget-image-select></button></div>';
+            preview.innerHTML = '<div class="attachment-media-view"><button type="button" class="select-media button-add-media not-selected btn btn-sm btn-outline" data-ars-widget-image-select></button></div>';
 
             const placeholderButton = preview.querySelector('[data-ars-widget-image-select]');
 

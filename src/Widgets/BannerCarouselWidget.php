@@ -83,33 +83,33 @@ class BannerCarouselWidget extends AbstractWidget
         $fieldName = $this->get_field_name('gallery_ids');
 
         ?>
-        <div class="ars-gallery-widget-wrapper" style="padding: 10px; background: #f9f9f9; border: 1px solid #e2e4e7; border-radius: 4px; margin-bottom: 15px;">
-            <p><strong><?php _e('Banner Images', 'daisy-a-ripple-song'); ?></strong></p>
-            <p class="description"><?php _e('Manage banner images using WordPress built-in gallery manager.', 'daisy-a-ripple-song'); ?></p>
+        <fieldset class="fieldset ars-gallery-widget-wrapper">
+            <legend class="fieldset-legend"><?php echo esc_html__('Banner Images', 'daisy-a-ripple-song'); ?></legend>
+            <p class="label ars-widget-field__description"><?php echo esc_html__('Manage banner images using WordPress built-in gallery manager.', 'daisy-a-ripple-song'); ?></p>
             
             <input type="hidden" id="<?php echo esc_attr($fieldId); ?>" name="<?php echo esc_attr($fieldName); ?>" value="<?php echo esc_attr($galleryIds); ?>" class="ars-gallery-ids-input" />
             
-            <div class="ars-gallery-preview" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; min-height: 60px; align-items: center;">
+            <div class="ars-gallery-preview">
                 <?php
                 if (!empty($galleryIds)) {
                     $ids = explode(',', $galleryIds);
                     foreach ($ids as $id) {
                         $url = wp_get_attachment_image_url(absint($id), 'thumbnail');
                         if ($url) {
-                            echo '<img src="' . esc_url($url) . '" style="width: 60px; height: 60px; object-fit: cover; border: 1px solid #c3c4c7; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" />';
+                            echo '<img class="ars-gallery-thumb" src="' . esc_url($url) . '" alt="" />';
                         }
                     }
                 } else {
-                    echo '<span style="color: #646970; font-style: italic;">' . __('No images selected.', 'daisy-a-ripple-song') . '</span>';
+                    echo '<span class="label ars-gallery-empty">' . esc_html__('No images selected.', 'daisy-a-ripple-song') . '</span>';
                 }
                 ?>
             </div>
             
-            <button type="button" class="button button-primary ars-manage-gallery-btn" style="width: 100%; text-align: center;">
+            <button type="button" class="button button-primary btn btn-primary btn-sm ars-manage-gallery-btn">
                 <span class="dashicons dashicons-images-alt2" style="line-height: 1.3; margin-right: 5px;"></span>
-                <?php _e('Manage Gallery', 'daisy-a-ripple-song'); ?>
+                <?php echo esc_html__('Manage Gallery', 'daisy-a-ripple-song'); ?>
             </button>
-        </div>
+        </fieldset>
 
         <script>
             if (typeof window.arsGalleryWidgetInit === 'undefined') {
@@ -170,10 +170,10 @@ class BannerCarouselWidget extends AbstractWidget
                                 var url = attachment.get('sizes') && attachment.get('sizes').thumbnail 
                                     ? attachment.get('sizes').thumbnail.url 
                                     : attachment.get('url');
-                                html += '<img src="' + url + '" style="width: 60px; height: 60px; object-fit: cover; border: 1px solid #c3c4c7; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" />';
+                                html += '<img class="ars-gallery-thumb" src="' + url + '" alt="" />';
                             });
                         } else {
-                            html = '<span style="color: #646970; font-style: italic;"><?php echo esc_js(__("No images selected.", "daisy-a-ripple-song")); ?></span>';
+                            html = '<span class="label ars-gallery-empty"><?php echo esc_js(__("No images selected.", "daisy-a-ripple-song")); ?></span>';
                         }
                         
                         inputElement.val(selectedIds.join(',')).trigger('change');

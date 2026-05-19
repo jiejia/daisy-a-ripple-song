@@ -95,9 +95,7 @@ class AssetServiceProvider extends AbstractServiceProvider
                 true
             );
 
-            wp_script_add_data(self::MAIN_HANDLE . '-vite', 'type', 'module');
-
-            wp_script_add_data(self::MAIN_HANDLE, 'type', 'module');
+            add_filter('script_loader_tag', [$this, 'filterScriptLoaderTag'], 10, 3);
 
             return;
         }
@@ -136,8 +134,28 @@ class AssetServiceProvider extends AbstractServiceProvider
             true
         );
 
-        // Add the module type to the script.
-        wp_script_add_data(self::MAIN_HANDLE, 'type', 'module');
+        add_filter('script_loader_tag', [$this, 'filterScriptLoaderTag'], 10, 3);
+    }
+
+    /**
+     * Filter the script loader tag.
+     *
+     * @param string $tag The script loader tag.
+     * @param string $handle The script handle.
+     * @param string $src The script src.
+     * @return string
+     */
+    public function filterScriptLoaderTag(string $tag, string $handle, string $src): string
+    {
+        if (! in_array($handle, [self::MAIN_HANDLE . '-vite', self::MAIN_HANDLE], true)) {
+            return $tag;
+        }
+  
+        return sprintf(
+            '<script type="module" crossorigin src="%s" id="%s-js"></script>' . "\n",
+            esc_url($src),
+            esc_attr($handle)
+        );
     }
 
     /**

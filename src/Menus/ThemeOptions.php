@@ -10,12 +10,6 @@ use Jiejia\DaisyARippleSong\Theme;
  */
 class ThemeOptions implements Menu
 {
-    /** @var string OPTIONS_PAGE_FILE Theme options page slug under Appearance. */
-    public const OPTIONS_PAGE_FILE = Theme::PREFIX . '_theme_options';
-
-    /** @var string PARENT_PAGE_FILE WordPress Appearance menu slug. */
-    public const PARENT_PAGE_FILE = 'themes.php';
-
     /**
      * Return the theme options menu title.
      *
@@ -33,26 +27,45 @@ class ThemeOptions implements Menu
      */
     public function topMenuSlug(): string
     {
-        return self::OPTIONS_PAGE_FILE;
+        return Theme::PREFIX . '_theme_options';
     }
 
     /**
-     * Keep menu registration delegated to the settings service provider.
+     * Register the theme options page under Appearance.
      *
      * @return void
      */
     public function topMenu(): void
     {
-        // The page is registered under Appearance by the settings service provider.
+        add_submenu_page(
+            'themes.php',
+            $this->topMenuTitle(),
+            $this->topMenuTitle(),
+            'edit_theme_options',
+            $this->topMenuSlug(),
+            [$this, 'renderPage']
+        );
     }
 
     /**
-     * Keep submenu registration delegated to the settings service provider.
+     * Register child menu entries.
      *
      * @return void
      */
     public function subMenu(): void
     {
-        // Theme settings pages are registered from the settings service provider.
+        // This menu has no child pages.
+    }
+
+    /**
+     * Render the theme options admin page.
+     *
+     * @return void
+     */
+    public function renderPage(): void
+    {
+        echo '<div class="wrap">';
+        echo '<h1>' . esc_html($this->topMenuTitle()) . '</h1>';
+        echo '</div>';
     }
 }
